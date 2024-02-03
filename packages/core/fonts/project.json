@@ -1,0 +1,36 @@
+{
+  "name": "@myra-ui/fonts",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/core/fonts/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/core/fonts",
+        "rootDir": "packages/core/fonts/src",
+        "main": "packages/core/fonts/src/index.ts",
+        "tsConfig": "packages/core/fonts/tsconfig.lib.json",
+        "assets": [
+          {
+            "input": "packages/core/fonts/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "jest.config.ts"
+      }
+    }
+  }
+}
