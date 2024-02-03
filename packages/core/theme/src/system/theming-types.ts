@@ -1,27 +1,25 @@
 import chroma from 'chroma-js';
-import { Color, Colors, ColorShades } from '@myra-ui/colors';
-
-export type ColorMode = 'light' | 'dark';
+import { BaseColors, ColorMode, ColorName, ColorScale } from '@myra-ui/colors';
 
 export type ColorModeValue<T> = Record<ColorMode, T>;
 
 export interface ColorPalette {
-  primary: Color;
-  neutral: Color;
-  text: Color;
+  primary: ColorName;
+  neutral: ColorName;
+  text: ColorName;
 }
 
 export type ResolvedColorPalette<P extends Partial<ColorPalette> = ColorPalette> = {
-  [key in keyof P]: ColorShades<ColorModeValue<chroma.Color>>;
+  [key in keyof P]: ColorScale<ColorModeValue<chroma.Color>>;
 };
 
 export type ColorPaletteProps = {
-  primaryColor?: Color;
-  textColor?: Color;
-  neutralColor?: Color;
+  primaryColor?: ColorName;
+  textColor?: ColorName;
+  neutralColor?: ColorName;
   colorPalette?: Partial<ColorPalette>;
 };
 
 export interface MyraThemeContextValue {
-  colors: Colors;
+  colors: BaseColors;
 }

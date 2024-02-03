@@ -1,3 +1,21 @@
 {
-  "singleQuote": true
+  "printWidth": 150,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
+  "newline-before-return": true,
+  "no-duplicate-variable": [true, "check-parameters"],
+  "no-var-keyword": true,
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ],
+  "bracketSpacing": true,
+  "jsxSingleQuote": false,
+  "proseWrap": "always"
 }

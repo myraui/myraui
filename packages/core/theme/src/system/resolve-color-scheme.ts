@@ -1,17 +1,17 @@
 import get from 'lodash.get';
 import chroma from 'chroma-js';
-import { Color, colors, Colors, ColorShade, ColorShades, shades } from '@myra-ui/colors';
+import { ColorName, baseColors, BaseColors, ColorShade, ColorScale, shades } from '@myra-ui/colors';
 
 import { ColorMode, ColorModeValue } from './theming-types';
 
-function getColors(themeColors: Colors, color: Color): Record<ColorMode, ColorShades> {
+function getColors(themeColors: BaseColors, color: ColorName): Record<ColorMode, ColorScale> {
   return {
     dark: get(themeColors, color + 'Dark', themeColors.white),
     light: get(themeColors, color, themeColors.black),
   };
 }
 
-function validatePalette(palette: Record<ColorMode, ColorShades>) {
+function validatePalette(palette: Record<ColorMode, ColorScale>) {
   return Object.fromEntries(
     Object.entries(palette).map(([key, value]) => {
       const isValid = shades.every((shade) => {
@@ -20,12 +20,12 @@ function validatePalette(palette: Record<ColorMode, ColorShades>) {
         return chroma.valid(color);
       });
 
-      return [key, isValid ? value : colors.red];
+      return [key, isValid ? value : baseColors.red];
     })
   );
 }
 
-export function resolveColorScheme(colors: Colors, colorScheme: Color): ColorShades<ColorModeValue<chroma.Color>> {
+export function resolveColorScheme(colors: BaseColors, colorScheme: ColorName): ColorScale<ColorModeValue<chroma.Color>> {
   const palette = validatePalette(getColors(colors, colorScheme));
 
   return shades.reduce((acc, key) => {

@@ -8,12 +8,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-      <html lang="en" className={eudoxusSans.className}>
-        <head>
-        </head>
-        <body>
-          <div className="bg-blue-500">{children}</div>
-        </body>
-      </html>
+    <html lang="en" className={eudoxusSans.className + ' light'}>
+      <head></head>
+      <body>
+        <div className="bg-blue-5">{children}</div>
+      </body>
+    </html>
   );
 }
