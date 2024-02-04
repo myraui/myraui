@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nx serve docs",
     "build": "nx build",
-    "create:pkg": "plop package"
+    "create:pkg": "plop package",
+    "create:hook": "plop hook"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -26,6 +27,7 @@
     "@swc/helpers": "~0.5.2",
     "@swc/jest": "0.2.20",
     "@testing-library/react": "14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.4.0",
     "@types/node": "18.16.9",
     "@types/react": "18.2.33",

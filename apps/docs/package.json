@@ -9,6 +9,9 @@
     "@myra-ui/plugin": "workspace:^",
     "@myra-ui/react": "workspace:^",
     "@next/mdx": "^14.1.0",
+    "next-themes": "^0.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "remark-slug": "^7.0.1"
   },
   "devDependencies": {

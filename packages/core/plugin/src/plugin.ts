@@ -1,14 +1,15 @@
 import plugin from 'tailwindcss/plugin.js';
 import { ConfigTheme, ConfigThemes, MyraUIPluginConfig, ThemeColors } from './types';
 import get from 'lodash.get';
-import { ColorMode, getBaseColors } from '@myra-ui/colors';
-import { flattenThemeObject } from './object';
+import { ColorMode } from '@myra-ui/colors';
+import { flattenColors, flattenThemeObject } from './object';
 import forEach from 'lodash.foreach';
-import chroma from 'chroma-js';
+import Color from 'color';
 import { baseStyles } from './classes';
 import omit from 'lodash.omit';
-import { isBaseTheme } from './utils/theme';
+import { isBaseTheme, resolveThemeColors } from './utils/theme';
 import deepMerge from 'deepmerge';
+import { semanticColors } from './colors/semantic';
 
 const DEFAULT_PREFIX = 'myra-ui';
 
@@ -35,7 +36,11 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
 
     resolved.utilities[cssSelector] = scheme ? { 'color-scheme': scheme } : {};
 
-    const flatColors = flattenThemeObject(colors) as Record<string, string>;
+    const resolvedColors = resolveThemeColors(colors || {});
+
+    const flatColors = flattenColors(resolvedColors);
+
+    console.log(flatColors);
 
     resolved.variants.push({
       name: themeName,
@@ -46,11 +51,7 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
       if (!colorValue) return;
 
       try {
-        const parsedColor =
-          parsedColorsCache[colorValue] ||
-          chroma(colorValue)
-            .hsl()
-            .map((value) => Math.round(value));
+        const parsedColor = parsedColorsCache[colorValue] || Color(colorValue).hsl().round().array();
 
         parsedColorsCache[colorValue] = parsedColor;
 
@@ -60,25 +61,22 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
 
         // set the css variable in "@layer utilities"
         resolved.utilities[cssSelector]![myraUIColorVariable] = `${h} ${s}% ${l}%`;
-        // if an alpha value was provided in the color definition, store it as a css variable
-
+        // if an alpha value was provided in the color definition, store it in a css variable
         if (typeof defaultAlphaValue === 'number') {
           resolved.utilities[cssSelector]![myraUIOpacityVariable] = defaultAlphaValue.toFixed(2);
         }
-
         // set the dynamic color in tailwind config theme.colors
         resolved.colors[colorName] = ({ opacityVariable, opacityValue }) => {
-          // if the opacity is set with a slash (e.g. bg-primary/90), use the provided value
+          // if the opacity is set  with a slash (e.g. bg-primary/90), use the provided value
           if (!isNaN(+opacityValue)) {
-            return `hsl(var(${myraUIColorVariable}), ${opacityValue})`;
+            return `hsl(var(${myraUIColorVariable}) / ${opacityValue})`;
           }
-
           // if no opacityValue was provided (=it is not parsable to a number)
-          // the myraUIOpacityVariable (opacity defined in the color definition rgb(0,0,0,0.5)) should have the priority
-          // over the tailwind class based opacity (e.g. bg-opacity-90)
+          // the nextuiOpacityVariable (opacity defined in the color definition rgb(0, 0, 0, 0.5)) should have the priority
+          // over the tw class based opacity(e.g. "bg-opacity-90")
           // This is how tailwind behaves as for v3.2.4
           if (opacityVariable) {
-            return `hsl(var(${myraUIColorVariable}) / var(${myraUIOpacityVariable}, ${opacityVariable}))`;
+            return `hsl(var(${myraUIColorVariable}) / var(${myraUIOpacityVariable}, var(${opacityVariable})))`;
           }
 
           return `hsl(var(${myraUIColorVariable}) / var(${myraUIOpacityVariable}, 1))`;
@@ -88,8 +86,6 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
       }
     }
   }
-
-  console.log(resolved.colors);
 
   return resolved;
 };
@@ -115,7 +111,10 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
     {
       theme: {
         extend: {
-          ...resolved?.colors,
+          // @ts-ignore
+          colors: {
+            ...resolved?.colors,
+          },
         },
       },
     }
@@ -125,8 +124,8 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
 export const myraUI = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin> => {
   const { themes: themeObject = {}, defaultTheme = 'light', defaultColorMode = 'light', prefix: defaultPrefix = DEFAULT_PREFIX } = config;
 
-  const userLightColors = get(themeObject, 'light.colors', {}) as ThemeColors;
-  const userDarkColors = get(themeObject, 'dark.colors', {}) as ThemeColors;
+  const userLightColors = get(themeObject, 'light.colors', {}) as any;
+  const userDarkColors = get(themeObject, 'dark.colors', {}) as any;
 
   // get other themes from the config different from light and dark
   let otherThemes = omit(themeObject, ['light', 'dark']) || {};
@@ -135,16 +134,16 @@ export const myraUI = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugi
     const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(getBaseColors(baseTheme), colors);
+      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme] as any, colors as any) as ThemeColors;
     }
   });
 
   const light: ConfigTheme = {
-    colors: deepMerge(getBaseColors('light'), userLightColors),
+    colors: deepMerge(semanticColors.light as any, userLightColors) as ThemeColors,
   };
 
   const dark = {
-    colors: deepMerge(getBaseColors('dark'), userDarkColors),
+    colors: deepMerge(semanticColors.dark as any, userDarkColors) as ThemeColors,
   };
 
   const themes = {

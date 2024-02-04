@@ -8,5 +8,15 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [myraUIPlugin()],
+  plugins: [
+    myraUIPlugin({
+      themes: {
+        dark: {
+          colors: {
+            blue: 'red',
+          },
+        },
+      },
+    }),
+  ],
 };

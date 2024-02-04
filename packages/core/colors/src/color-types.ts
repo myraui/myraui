@@ -7,7 +7,7 @@ export type ColorName = (typeof colorNames)[number];
 
 export type ColorShade = (typeof shades)[number];
 
-export type ColorScale<T = string> = Record<ColorShade, T>;
+export type ColorScale = Record<ColorShade, string>;
 
 export type ColorValue = Record<ColorMode, ColorScale>;
 

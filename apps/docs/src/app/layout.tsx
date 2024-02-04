@@ -8,11 +8,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={eudoxusSans.className + ' light'}>
+    <html lang="en" className={eudoxusSans.className} suppressHydrationWarning>
       <head></head>
-      <body>
-        <div className="bg-blue-5">{children}</div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

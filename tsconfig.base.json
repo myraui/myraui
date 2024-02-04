@@ -14,7 +14,15 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@myra-ui/*": [
+        "packages/core/*/src/index.ts",
+        "packages/utilities/*/src/index.ts",
+        "packages/components/*/src/index.ts",
+        "packages/hooks/*/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,38 @@
+{
+  "name": "@myra-ui/{{hookName}}",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "{{description}}",
+  "keywords": [
+    "{{hookName}}"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myra-ui.git",
+    "directory": "{{destination}}"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myra-ui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0",
+    "react": "^18.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

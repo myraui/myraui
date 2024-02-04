@@ -1,6 +1,11 @@
+/**
+ * Colors based on the Radix UI palette.
+ * https://www.radix-ui.com/colors
+ */
+
 import { BaseColors } from '../color-types';
 import { amber } from './amber';
-import { black } from './black';
+import { blackAlpha } from './blackAlpha';
 import { blue } from './blue';
 import { yellow } from './yellow';
 import { bronze } from './bronze';
@@ -31,11 +36,11 @@ import { slate } from './slate';
 import { teal } from './teal';
 import { tomato } from './tomato';
 import { violet } from './violet';
-import { white } from './white';
+import { whiteAlpha } from './whiteAlpha';
 
 export const baseColors: BaseColors = {
   amber,
-  black,
+  blackAlpha,
   blue,
   bronze,
   brown,
@@ -65,6 +70,6 @@ export const baseColors: BaseColors = {
   teal,
   tomato,
   violet,
-  white,
+  whiteAlpha,
   yellow,
 };
