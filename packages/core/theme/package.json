@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@myra-ui/colors": "workspace:^",
+    "@myra-ui/system": "workspace:^",
     "chroma-js": "^2.4.2",
     "lodash.get": "^4.4.2"
   },

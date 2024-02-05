@@ -1,10 +1,10 @@
 {
-  "name": "@myra-ui/react",
+  "name": "@myra-ui/shared-utils",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "A modern React UI library to elevate your UI experience",
+  "description": "A set of common MyraUI utilities ",
   "keywords": [
-    "react"
+    "shared-utils"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myra-ui.git",
-    "directory": "packages/core/react"
+    "directory": "packages/utilities/shared-utils"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myra-ui/issues"
@@ -31,12 +31,7 @@
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myra-ui/colors": "workspace:^",
-    "@myra-ui/plugin": "workspace:^",
-    "@myra-ui/react-utils": "workspace:^",
-    "@myra-ui/shared-utils": "workspace:^",
-    "@myra-ui/system": "workspace:^",
-    "@myra-ui/theme": "workspace:^"
+    "flat": "^6.0.1"
   },
   "clean-package": "../../../clean-package.config.json"
 }

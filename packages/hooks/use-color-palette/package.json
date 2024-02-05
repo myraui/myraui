@@ -34,8 +34,5 @@
   "peerDependencies": {
     "react": ">=18"
   },
-  "clean-package": "../../../clean-package.config.json",
-  "dependencies": {
-    "@myra-ui/plugin": "workspace:^"
-  }
+  "clean-package": "../../../clean-package.config.json"
 }

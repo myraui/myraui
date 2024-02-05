@@ -1,4 +1,4 @@
-import { ColorPalette, ThemeColors } from '../types';
+import { ColorPalette, Theme, ThemeColors, ThemedProperty } from '../system.types';
 import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
 
 export const isBaseTheme = (theme: string) => theme === 'light' || theme === 'dark';
@@ -43,4 +43,24 @@ export function getComputedColorScale(colorName: string, element: HTMLElement, p
   }
 
   return colorScale as ColorScale;
+}
+
+export function buildColorPalette(palette: Partial<ColorPalette>, prefix: string): Record<string, string> {
+  const properties: Record<string, string> = {};
+  for (const [key, value] of Object.entries(palette)) {
+    if (value) {
+      for (const shade of shades) {
+        properties[`--${prefix}-${key}-${shade}`] = `var(--${prefix}-${value}-${shade})`;
+        properties[`--${prefix}-${key}-${shade}-opacity`] = `var(--${prefix}-${value}-${shade}-opacity)`;
+      }
+    }
+  }
+  return properties;
+}
+
+export function resolveThemedProperty<K extends string | number, T extends Theme>(
+  property: ThemedProperty<K, T>,
+  themes: Array<T> = ['dark', 'light']
+): Record<T, K> {
+  return typeof property === 'object' ? property : themes.reduce((acc, theme) => ({ ...acc, [theme]: property }), {} as Record<T, K>);
 }

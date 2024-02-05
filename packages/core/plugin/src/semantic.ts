@@ -1,17 +1,16 @@
 import { ColorMode, getBaseColors } from '@myra-ui/colors';
-import { colorPalette } from './color-palette';
-import { ThemeColors } from '../types';
+import { defaultColorPalette, ThemeColors } from '@myra-ui/system';
 
 type SemanticColors = Record<ColorMode, ThemeColors>;
 
 const dark = {
   ...getBaseColors('dark'),
-  ...colorPalette.dark,
+  ...defaultColorPalette.dark,
 };
 
 const light = {
   ...getBaseColors('light'),
-  ...colorPalette.light,
+  ...defaultColorPalette.light,
 };
 
 export const semanticColors: SemanticColors = {

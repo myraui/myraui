@@ -1,33 +1,27 @@
-import { cn } from '@myra-ui/react';
-import React, { useRef } from 'react';
+import { cn, myra } from '@myra-ui/react';
+import React from 'react';
 import { useTheme } from 'next-themes';
-import { useColorPalette } from '@myra-ui/use-color-palette';
 
 const backgrounds = [
-  'bg-blue-1',
-  'bg-blue-2',
-  'bg-blue-3',
-  'bg-blue-4',
-  'bg-blue-5',
-  'bg-blue-6',
-  'bg-blue-7',
-  'bg-blue-8',
-  'bg-blue-9',
-  'bg-blue-10',
-  'bg-blue-11',
-  'bg-blue-12',
+  'bg-action-1',
+  'bg-action-2',
+  'bg-action-3',
+  'bg-action-4',
+  'bg-action-5',
+  'bg-action-6',
+  'bg-action-7',
+  'bg-action-8',
+  'bg-action-9',
+  'bg-action-10',
+  'bg-action-11',
+  'bg-action-12',
 ];
 
 export const Testing: React.FC<TestingProps> = (props) => {
-  const ref = useRef(null);
   const { theme, setTheme } = useTheme();
 
-  const palette = useColorPalette(ref.current);
-
-  console.log(palette);
-
   return (
-    <div className="h-screen flex flex-col" ref={ref}>
+    <myra.div className="h-screen flex flex-col" actionColor="blue">
       {theme && (
         <div className="h-12 text-white bg-black items-center justify-center flex">
           <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme[0].toUpperCase() + theme.slice(1)}</button>
@@ -49,7 +43,7 @@ export const Testing: React.FC<TestingProps> = (props) => {
         <div className="items-center justify-center flex bg-action-8">Action</div>
         <div className="items-center justify-center flex bg-foreground-8">Foreground</div>
       </div>
-    </div>
+    </myra.div>
   );
 };
 

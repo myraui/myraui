@@ -11,11 +11,7 @@ module.exports = {
   plugins: [
     myraUIPlugin({
       themes: {
-        dark: {
-          colors: {
-            blue: 'red',
-          },
-        },
+        dark: {},
       },
     }),
   ],

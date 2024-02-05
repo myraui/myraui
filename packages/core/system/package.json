@@ -1,10 +1,10 @@
 {
-  "name": "@myra-ui/react",
+  "name": "@myra-ui/system",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "A modern React UI library to elevate your UI experience",
+  "description": "Myra UI system primitives",
   "keywords": [
-    "react"
+    "system"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myra-ui.git",
-    "directory": "packages/core/react"
+    "directory": "packages/core/system"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myra-ui/issues"
@@ -30,13 +30,9 @@
   "devDependencies": {
     "clean-package": "2.2.0"
   },
+  "clean-package": "../../../clean-package.config.json",
   "dependencies": {
-    "@myra-ui/colors": "workspace:^",
-    "@myra-ui/plugin": "workspace:^",
-    "@myra-ui/react-utils": "workspace:^",
-    "@myra-ui/shared-utils": "workspace:^",
-    "@myra-ui/system": "workspace:^",
-    "@myra-ui/theme": "workspace:^"
-  },
-  "clean-package": "../../../clean-package.config.json"
+    "@emotion/styled": "^11.11.0",
+    "@myra-ui/colors": "workspace:^"
+  }
 }
