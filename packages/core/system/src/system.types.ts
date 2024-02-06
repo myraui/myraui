@@ -3,15 +3,19 @@ import React from 'react';
 
 type Assign<T, U> = Omit<T, keyof U> & U;
 
-export type Theme = ColorMode | string;
+export type Theme = string | ColorMode;
 
-export type ThemedProperty<K, T extends string = Theme> = K | Record<T, K>;
+export type ThemedProperty<K, T extends Theme = Theme> = K | Record<T, K>;
 
 export type ColorPaletteKeys = 'neutral' | 'action' | 'foreground';
 
-export type ColorPalette = Record<ColorPaletteKeys, ThemedProperty<ThemeColorKey>>;
-
 export type ThemeColorKey = ColorName | ColorPaletteKeys;
+
+export type ThemedColor = ThemedProperty<ThemeColorKey> | ThemedProperty<string>;
+
+export type ColorPalette = Record<ColorPaletteKeys, ThemedColor>;
+
+export type ResolvedColorPalette = Record<ColorPaletteKeys, ColorScale>;
 
 export type ThemeColorValue = ColorScale | ThemeColorKey | string;
 
@@ -61,9 +65,10 @@ export type ComponentWithAs<Component extends As, Props extends object = {}> = {
 };
 
 export interface MyraProps {
-  neutralColor?: ThemeColorKey | string;
-  actionColor?: ThemeColorKey | string;
-  foregroundColor?: ThemeColorKey | string;
+  neutralColor?: ThemedColor;
+  actionColor?: ThemedColor;
+  foregroundColor?: ThemedColor;
+  resolvedColorPalette?: (theme: Theme) => (palette: ResolvedColorPalette) => void;
 }
 
 export interface MyraComponent<T extends As, P extends object = {}> extends ComponentWithAs<T, Assign<MyraProps, P>> {}

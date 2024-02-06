@@ -294,6 +294,9 @@ importers:
       '@myra-ui/colors':
         specifier: workspace:^
         version: link:../colors
+      '@myra-ui/react-utils':
+        specifier: workspace:^
+        version: link:../../utilities/react-utils
     devDependencies:
       clean-package:
         specifier: 2.2.0
@@ -325,6 +328,10 @@ importers:
         version: 2.2.0
 
   packages/hooks/use-color-palette:
+    dependencies:
+      '@myra-ui/system':
+        specifier: workspace:^
+        version: link:../../core/system
     devDependencies:
       clean-package:
         specifier: 2.2.0

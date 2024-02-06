@@ -33,6 +33,7 @@
   "clean-package": "../../../clean-package.config.json",
   "dependencies": {
     "@emotion/styled": "^11.11.0",
-    "@myra-ui/colors": "workspace:^"
+    "@myra-ui/colors": "workspace:^",
+    "@myra-ui/react-utils": "workspace:^"
   }
 }

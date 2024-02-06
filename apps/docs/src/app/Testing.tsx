@@ -1,6 +1,7 @@
-import { cn, myra } from '@myra-ui/react';
+import { myra } from '@myra-ui/react';
 import React from 'react';
 import { useTheme } from 'next-themes';
+import { useColorPalette } from '@myra-ui/use-color-palette';
 
 const backgrounds = [
   'bg-action-1',
@@ -19,29 +20,23 @@ const backgrounds = [
 
 export const Testing: React.FC<TestingProps> = (props) => {
   const { theme, setTheme } = useTheme();
+  const [palette, elementRef] = useColorPalette(theme || 'light');
 
   return (
-    <myra.div className="h-screen flex flex-col" actionColor="blue">
+    <myra.div className="h-screen flex flex-col" actionColor="pink" ref={elementRef}>
       {theme && (
         <div className="h-12 text-white bg-black items-center justify-center flex">
           <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme[0].toUpperCase() + theme.slice(1)}</button>
         </div>
       )}
-      <div className="grid grid-cols-12 flex-1">
-        {Array(12)
-          .fill(0)
-          .map((_, index) => {
-            return (
-              <div key={index} className={cn('flex items-center justify-center text-foreground-12', backgrounds[index])}>
-                {index + 1}
-              </div>
-            );
-          })}
-      </div>
-      <div className="h-24 grid grid-cols-3">
+      <myra.div className="h-24 grid grid-cols-3" actionColor="red">
         <div className="items-center justify-center flex bg-neutral-8">Neutral</div>
         <div className="items-center justify-center flex bg-action-8">Action</div>
         <div className="items-center justify-center flex bg-foreground-8">Foreground</div>
+      </myra.div>
+      <p>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox</p>
+      <div className="h-24 w-24 m-4" style={{ background: palette.action['8'] }}>
+        Some box
       </div>
     </myra.div>
   );

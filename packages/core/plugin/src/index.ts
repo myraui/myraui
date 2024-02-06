@@ -5,12 +5,11 @@ import forEach from 'lodash.foreach';
 import Color from 'color';
 import omit from 'lodash.omit';
 import deepMerge from 'deepmerge';
-import { ConfigTheme, ConfigThemes, isBaseTheme, resolveThemeColors, ThemeColors } from '@myra-ui/system';
+import { ConfigTheme, ConfigThemes, isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors, ThemeColors } from '@myra-ui/system';
 import { flattenObject } from '@myra-ui/shared-utils';
 import { semanticColors } from './semantic';
 import { MyraUIPluginConfig } from './plugin.types';
-
-const DEFAULT_PREFIX = 'myra-ui';
+import { baseStyles } from './utils/classes';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
@@ -94,7 +93,9 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
     ({ addBase, addUtilities, addVariant }) => {
       // add base classNames
       addBase({
-        [':root, [data-theme]']: {},
+        [':root, [data-theme]']: {
+          ...baseStyles(prefix),
+        },
       });
 
       addUtilities({ ...resolved?.utilities });
@@ -117,7 +118,7 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
 };
 
 const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin> => {
-  const { themes: themeObject = {}, defaultTheme = 'light', defaultColorMode = 'light', prefix: defaultPrefix = DEFAULT_PREFIX } = config;
+  const { themes: themeObject = {}, defaultTheme = 'light', defaultColorMode = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX } = config;
 
   const userLightColors = get(themeObject, 'light.colors', {}) as any;
   const userDarkColors = get(themeObject, 'dark.colors', {}) as any;
