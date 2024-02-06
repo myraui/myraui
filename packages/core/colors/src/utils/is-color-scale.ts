@@ -1,5 +1,5 @@
 import { shades } from '../color-shades';
-import { ColorScale, ColorShade } from '@myra-ui/colors';
+import { ColorScale, ColorShade } from '../color-types';
 
 export function isColorScale(value: any): value is ColorScale {
   if (!value) return false;

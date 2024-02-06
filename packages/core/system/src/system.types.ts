@@ -1,3 +1,7 @@
+/**
+ * Part of this code is taken from @chakra-ui/system ❤️
+ */
+
 import { ColorMode, ColorName, ColorScale } from '@myra-ui/colors';
 import React from 'react';
 

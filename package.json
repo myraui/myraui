@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nx serve docs",
     "build": "nx build",
+    "lint": "nx lint && nx format:check",
     "create:pkg": "plop package",
     "create:hook": "plop hook"
   },

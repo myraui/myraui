@@ -23,6 +23,13 @@ const defaultOutDirs = {
   package: 'utilities',
 };
 
+const defaultTags = {
+  components: 'component',
+  core: 'client',
+  hook: 'hooks',
+  utilities: 'util',
+};
+
 /**
  * @param {import("plop").NodePlopAPI} plop
  */
@@ -99,6 +106,7 @@ module.exports = function main(plop) {
           description,
           outDir,
           destination: `packages/${outDir}/${dashCase(generatorName)}`,
+          tags: defaultTags[outDir],
         };
 
         actions.push({

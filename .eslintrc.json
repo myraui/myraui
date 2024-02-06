@@ -1,7 +1,7 @@
 {
   "root": true,
   "plugins": ["@nx"],
-  "extends": ["plugin:@nx/react"] ,
+  "extends": ["plugin:@nx/react"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -12,10 +12,13 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
+              { "sourceTag": "common", "onlyDependOnLibsWithTags": [] },
+              { "sourceTag": "server", "onlyDependOnLibsWithTags": ["common"] },
+              { "sourceTag": "utils", "onlyDependOnLibsWithTags": ["common","utils"] },
+              { "sourceTag": "hooks", "onlyDependOnLibsWithTags": ["common" ,"utils", "hooks"] },
+              { "sourceTag": "client", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client"] },
+              { "sourceTag": "component", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] },
+              { "sourceTag": "client:root", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] }
             ]
           }
         ]
