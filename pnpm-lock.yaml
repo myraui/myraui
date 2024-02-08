@@ -281,6 +281,9 @@ importers:
       '@myra-ui/theme':
         specifier: workspace:^
         version: link:../theme
+      '@myra-ui/use-color-palette':
+        specifier: workspace:^
+        version: link:../../hooks/use-color-palette
     devDependencies:
       clean-package:
         specifier: 2.2.0

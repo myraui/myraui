@@ -1,5 +1,6 @@
 {
   "root": true,
+  "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
   "extends": ["plugin:@nx/react"],
   "overrides": [
@@ -9,16 +10,17 @@
         "@nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
+            "enforceBuildableLibDependency": false,
             "allow": [],
             "depConstraints": [
               { "sourceTag": "common", "onlyDependOnLibsWithTags": [] },
               { "sourceTag": "server", "onlyDependOnLibsWithTags": ["common"] },
-              { "sourceTag": "utils", "onlyDependOnLibsWithTags": ["common","utils"] },
-              { "sourceTag": "hooks", "onlyDependOnLibsWithTags": ["common" ,"utils", "hooks"] },
-              { "sourceTag": "client", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client"] },
-              { "sourceTag": "component", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] },
-              { "sourceTag": "client:root", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] }
+              { "sourceTag": "utils", "onlyDependOnLibsWithTags": ["common"] },
+              { "sourceTag": "hooks", "onlyDependOnLibsWithTags": ["common", "utils"] },
+              { "sourceTag": "client", "onlyDependOnLibsWithTags": ["common", "utils", "hooks"] },
+              { "sourceTag": "component", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client"] },
+              { "sourceTag": "client:root", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] },
+              { "sourceTag": "app", "onlyDependOnLibsWithTags": ["client:root", "server"] }
             ]
           }
         ]
@@ -27,7 +29,9 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-empty-interface": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

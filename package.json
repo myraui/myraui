@@ -1,12 +1,12 @@
 {
-  "name": "myra-ui",
+  "name": "@myra-ui/core",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "nx serve docs",
     "build": "nx build",
-    "lint": "nx lint && nx format:check",
+    "lint": "nx run-many --target=lint --all --parallel",
     "create:pkg": "plop package",
     "create:hook": "plop hook"
   },

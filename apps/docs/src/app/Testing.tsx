@@ -1,7 +1,6 @@
-import { myra } from '@myra-ui/react';
+import { myra, useColorPalette } from '@myra-ui/react';
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { useColorPalette } from '@myra-ui/use-color-palette';
 
 const backgrounds = [
   'bg-action-1',

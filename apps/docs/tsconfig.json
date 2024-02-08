@@ -19,7 +19,13 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "paths": {
+      "@/*": ["apps/docs/src/*"],
+      "@/layout": ["apps/docs/src/components/mdx-layout/index.ts"],
+      "@myra-ui/react": ["packages/core/react/src/index.ts"],
+      "@myra-ui/fonts": ["packages/core/fonts/src/index.ts"]
+    }
   },
   "include": [
     "**/*.ts",

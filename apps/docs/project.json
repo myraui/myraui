@@ -53,5 +53,5 @@
       "executor": "@nx/eslint:lint"
     }
   },
-  "tags": []
+  "tags": ["app"]
 }
