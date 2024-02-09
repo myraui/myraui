@@ -93,7 +93,7 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
     ({ addBase, addUtilities, addVariant }) => {
       // add base classNames
       addBase({
-        [':root, [data-theme]']: {
+        ':root, [data-theme]': {
           ...baseStyles(prefix),
         },
       });
@@ -107,7 +107,8 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
     {
       theme: {
         extend: {
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           colors: {
             ...resolved?.colors,
           },
@@ -124,7 +125,7 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
   const userDarkColors = get(themeObject, 'dark.colors', {}) as any;
 
   // get other themes from the config different from light and dark
-  let otherThemes = omit(themeObject, ['light', 'dark']) || {};
+  const otherThemes = omit(themeObject, ['light', 'dark']) || {};
 
   forEach(otherThemes, ({ colorMode, colors }, themeName) => {
     const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;

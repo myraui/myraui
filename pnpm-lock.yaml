@@ -138,6 +138,9 @@ importers:
       prettier:
         specifier: ^2.6.2
         version: 2.8.8
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       sass:
         specifier: 1.62.1
         version: 1.62.1
@@ -11939,6 +11942,14 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf@5.0.5:
+    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.10
     dev: true
 
   /rollup-plugin-copy@3.5.0:

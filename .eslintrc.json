@@ -1,8 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
-  "extends": ["plugin:@nx/react"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -13,14 +11,14 @@
             "enforceBuildableLibDependency": false,
             "allow": [],
             "depConstraints": [
-              { "sourceTag": "common", "onlyDependOnLibsWithTags": [] },
-              { "sourceTag": "server", "onlyDependOnLibsWithTags": ["common"] },
-              { "sourceTag": "utils", "onlyDependOnLibsWithTags": ["common"] },
-              { "sourceTag": "hooks", "onlyDependOnLibsWithTags": ["common", "utils"] },
-              { "sourceTag": "client", "onlyDependOnLibsWithTags": ["common", "utils", "hooks"] },
-              { "sourceTag": "component", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client"] },
-              { "sourceTag": "client:root", "onlyDependOnLibsWithTags": ["common", "utils", "hooks", "client", "component"] },
-              { "sourceTag": "app", "onlyDependOnLibsWithTags": ["client:root", "server"] }
+              { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": [] },
+              { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:common"] },
+              { "sourceTag": "scope:utils", "onlyDependOnLibsWithTags": ["scope:common"] },
+              { "sourceTag": "scope:hooks", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils"] },
+              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils", "scope:hooks"] },
+              { "sourceTag": "scope:component", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils", "scope:hooks", "scope:client"] },
+              { "sourceTag": "scope:root", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils", "scope:hooks", "scope:client", "scope:component"] },
+              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:root", "scope:server"] }
             ]
           }
         ]
