@@ -101,11 +101,13 @@ module.exports = function main(plop) {
         const { description, outDir } = answers;
         const generatorName = answers[`${gen}Name`] ?? '';
 
+        const destination = `packages/${outDir}/${dashCase(generatorName)}`;
+
         const data = {
           [`${gen}Name`]: generatorName,
           description,
           outDir,
-          destination: `packages/${outDir}/${dashCase(generatorName)}`,
+          destination,
           tags: defaultTags[outDir],
         };
 
@@ -116,6 +118,13 @@ module.exports = function main(plop) {
           base: `plop/${gen}`,
           data,
           abortOnFail: true,
+        });
+
+        actions.push({
+          type: 'modify',
+          template: `$1\n\t  "@myra-ui/${generatorName}": ["${destination}/src/index.ts"],`,
+          path: './tsconfig.base.json',
+          pattern: /("paths": {)/,
         });
 
         return actions;
