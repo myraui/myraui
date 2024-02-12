@@ -1,36 +1,47 @@
-name: CI
+name: Tests
 
 on:
   push:
     branches:
-      - main
+      - develop
   pull_request:
-
-permissions:
-  actions: read
-  contents: read
+    branches:
+      - develop
 
 jobs:
-  main:
-    runs-on: ubuntu-latest
+  run-tests:
+    runs-on:
+      labels: ubuntu_large
+    environment: test
+    permissions:
+      checks: write
+      contents: read
+    strategy:
+      matrix:
+        node-version: [20.11.0]
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      # Cache node_modules
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
+      - uses: actions/checkout@v2
 
-      # Uncomment to enable task distribution. --stop-agents-after is optional, but allows idle agents to shut down once the "build" targets have been requested
-      # - run: pnpm exec nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="build"
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
 
-      - run: pnpm exec nx-cloud record -- nx format:check
-      - run: pnpm exec nx affected -t=lint,test,build
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check code
+        run: pnpm lint
+
+      - name: Running tests and publish report
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+        with:
+          coverageCommand: pnpm test:ci
+          coverageLocation: |
+            ${{ github.workspace }}/coverage/lcov.info
+
+      - name: Run Build
+        run: pnpm build
