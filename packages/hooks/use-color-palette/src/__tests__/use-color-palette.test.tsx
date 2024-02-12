@@ -1,9 +1,11 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useColorPalette } from '../src';
+import { useColorPalette } from '../index';
 
 describe('useColorPalette', () => {
   it('should work correctly', () => {
-    // Add your test here
+    const result = renderHook(() => useColorPalette('dark'));
+
+    console.log(result);
   });
 });
