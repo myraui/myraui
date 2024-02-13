@@ -46,7 +46,7 @@ jobs:
         with:
           coverageCommand: pnpm test:ci
           coverageLocation: |
-            ${{ github.workspace }}/coverage/lcov.info
+            ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
         run: pnpm build
