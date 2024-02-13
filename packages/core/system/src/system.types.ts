@@ -44,19 +44,24 @@ export type HTMLMyraComponents = {
 
 export type As = React.ElementType;
 
-export type OmitCommonProps<Target, OmitAdditionalProps extends keyof any = never> = Omit<Target, 'as' | OmitAdditionalProps> & {};
+export type OmitCommonProps<Target, OmitAdditionalProps extends keyof any = never> = Omit<Target, 'as' | OmitAdditionalProps> & object;
 
-export type RightJoinProps<SourceProps extends object = {}, OverrideProps extends object = {}> = OmitCommonProps<SourceProps, keyof OverrideProps> &
+export type RightJoinProps<SourceProps extends object = object, OverrideProps extends object = object> = OmitCommonProps<
+  SourceProps,
+  keyof OverrideProps
+> &
   OverrideProps;
 
-export type MergeWithAs<ComponentProps extends object, AsProps extends object, AdditionalProps extends object = {}, AsComponent extends As = As> = (
-  | RightJoinProps<ComponentProps, AdditionalProps>
-  | RightJoinProps<AsProps, AdditionalProps>
-) & {
+export type MergeWithAs<
+  ComponentProps extends object,
+  AsProps extends object,
+  AdditionalProps extends object = object,
+  AsComponent extends As = As
+> = (RightJoinProps<ComponentProps, AdditionalProps> | RightJoinProps<AsProps, AdditionalProps>) & {
   as?: AsComponent;
 };
 
-export type ComponentWithAs<Component extends As, Props extends object = {}> = {
+export type ComponentWithAs<Component extends As, Props extends object = object> = {
   <AsComponent extends As = Component>(
     props: MergeWithAs<React.ComponentProps<Component>, React.ComponentProps<AsComponent>, Props, AsComponent>
   ): JSX.Element;
@@ -75,4 +80,4 @@ export interface MyraProps {
   resolvedColorPalette?: (theme: Theme) => (palette: ResolvedColorPalette) => void;
 }
 
-export interface MyraComponent<T extends As, P extends object = {}> extends ComponentWithAs<T, Assign<MyraProps, P>> {}
+export interface MyraComponent<T extends As, P extends object = object> extends ComponentWithAs<T, Assign<MyraProps, P>> {}

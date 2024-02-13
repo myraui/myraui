@@ -14,7 +14,7 @@ function applyColorPalette(props: MyraProps & { cssVariablePrefix: string }) {
   return buildColorPalette({ action: props.actionColor, neutral: props.neutralColor, foreground: props.foregroundColor }, props.cssVariablePrefix);
 }
 
-export function styled<T extends As, P extends object = {}>(component: T, options?: MyraUIStyledOptions) {
+export function styled<T extends As, P extends object = object>(component: T, options?: MyraUIStyledOptions) {
   const Component = emotion_styled(component as React.ComponentType<any>)(applyColorPalette);
 
   const myraComponent = React.forwardRef(function MyraComponent(props: any, ref: any) {
