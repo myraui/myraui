@@ -42,6 +42,9 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
+      - if: github.ref != 'refs/heads/develop'
+        run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
+
       - name: Check code
         run: pnpm nx affected -t=lint --base=develop --head=HEAD --parallel
 
