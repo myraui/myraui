@@ -15,19 +15,20 @@ const camelCase = (str) => {
 };
 
 const workspaces = ['components', 'core', 'hooks', 'utilities'];
-const generators = ['component', 'package', 'hook'];
+const generators = ['component', 'react-package', 'package', 'hook'];
 
 const defaultOutDirs = {
   component: 'components',
   hook: 'hooks',
   package: 'utilities',
+  'react-package': 'utilities',
 };
 
 const defaultTags = {
-  components: 'component',
-  core: 'client',
-  hook: 'hooks',
-  utilities: 'util',
+  component: 'scope:client',
+  hook: 'scope:client',
+  package: 'scope:common',
+  'react-package': 'scope:client',
 };
 
 /**
@@ -104,11 +105,11 @@ module.exports = function main(plop) {
         const destination = `packages/${outDir}/${dashCase(generatorName)}`;
 
         const data = {
-          [`${gen}Name`]: generatorName,
+          packageName: generatorName,
           description,
           outDir,
           destination,
-          tags: defaultTags[outDir],
+          tags: defaultTags[gen],
         };
 
         actions.push({

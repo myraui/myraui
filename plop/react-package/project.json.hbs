@@ -9,14 +9,19 @@
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/{{destination}}",
-        "rootDir": "{{destination}}/src",
-        "main": "{{destination}}/src/index.ts",
-        "tsConfig": "{{destination}}/tsconfig.lib.json",
-        "assets": []
+        "outputPath": "dist/{{destination}}"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
       }
     },
     "test": {

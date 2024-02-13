@@ -1,5 +1,5 @@
 {
-  "name": "@myra-ui/{{hookName}}",
+  "name": "@myra-ui/{{packageName}}",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "{{destination}}/src",
   "projectType": "library",
@@ -28,7 +28,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "jest.config.ts"
+        "jestConfig": "{{destination}}/jest.config.ts"
       }
     }
   }
