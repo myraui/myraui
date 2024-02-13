@@ -1,5 +1,5 @@
-import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../system.types';
 import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
+import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../theme.types';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 

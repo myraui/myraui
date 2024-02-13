@@ -186,12 +186,12 @@ importers:
       '@myra-ui/fonts':
         specifier: workspace:^
         version: link:../../packages/core/fonts
-      '@myra-ui/plugin':
-        specifier: workspace:^
-        version: link:../../packages/core/plugin
       '@myra-ui/react':
         specifier: workspace:^
         version: link:../../packages/core/react
+      '@myra-ui/theme':
+        specifier: workspace:^
+        version: link:../../packages/core/theme
       '@next/mdx':
         specifier: ^14.1.0
         version: 14.1.0(@mdx-js/loader@3.0.0)(@mdx-js/react@3.0.0)
@@ -281,9 +281,6 @@ importers:
       '@myra-ui/colors':
         specifier: workspace:^
         version: link:../colors
-      '@myra-ui/plugin':
-        specifier: workspace:^
-        version: link:../plugin
       '@myra-ui/react-utils':
         specifier: workspace:^
         version: link:../../utilities/react-utils
@@ -315,6 +312,9 @@ importers:
       '@myra-ui/react-utils':
         specifier: workspace:^
         version: link:../../utilities/react-utils
+      '@myra-ui/theme':
+        specifier: workspace:^
+        version: link:../theme
     devDependencies:
       clean-package:
         specifier: 2.2.0
@@ -325,31 +325,61 @@ importers:
       '@myra-ui/colors':
         specifier: workspace:^
         version: link:../colors
+      '@myra-ui/shared-utils':
+        specifier: workspace:^
+        version: link:../../utilities/shared-utils
       '@myra-ui/system':
         specifier: workspace:^
         version: link:../system
       chroma-js:
         specifier: ^2.4.2
         version: 2.4.2
+      color:
+        specifier: ^4.2.3
+        version: 4.2.3
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      lodash.foreach:
+        specifier: ^4.5.0
+        version: 4.5.0
       lodash.get:
         specifier: ^4.4.2
         version: 4.4.2
+      lodash.omit:
+        specifier: ^4.5.0
+        version: 4.5.0
     devDependencies:
       '@types/chroma-js':
         specifier: ^2.4.3
         version: 2.4.3
+      '@types/color':
+        specifier: ^3.0.6
+        version: 3.0.6
+      '@types/lodash.foreach':
+        specifier: ^4.5.9
+        version: 4.5.9
       '@types/lodash.get':
         specifier: ^4.4.9
         version: 4.4.9
+      '@types/lodash.omit':
+        specifier: ^4.5.9
+        version: 4.5.9
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.1(ts-node@10.9.1)
 
   packages/hooks/use-color-palette:
     dependencies:
       '@myra-ui/system':
         specifier: workspace:^
         version: link:../../core/system
+      '@myra-ui/theme':
+        specifier: workspace:^
+        version: link:../../core/theme
     devDependencies:
       clean-package:
         specifier: 2.2.0

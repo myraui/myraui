@@ -1,15 +1,16 @@
+import { ConfigTheme, ConfigThemes, ThemeColors } from './theme.types';
+import { ColorMode } from '@myra-ui/colors';
+import { isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
+import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
 import get from 'lodash.get';
-import { ColorMode } from '@myra-ui/colors';
 import forEach from 'lodash.foreach';
 import Color from 'color';
 import omit from 'lodash.omit';
 import deepMerge from 'deepmerge';
-import { ConfigTheme, ConfigThemes, isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors, ThemeColors } from '@myra-ui/system';
-import { flattenObject } from '@myra-ui/shared-utils';
-import { semanticColors } from './semantic';
-import { MyraUIPluginConfig } from './plugin.types';
 import { baseStyles } from './utils/classes';
+import { MyraUIPluginConfig } from './plugin.types';
+import { semanticColors } from './semantic/colors';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
@@ -121,8 +122,8 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
 const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin> => {
   const { themes: themeObject = {}, defaultTheme = 'light', defaultColorMode = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX } = config;
 
-  const userLightColors = get(themeObject, 'light.colors', {}) as any;
-  const userDarkColors = get(themeObject, 'dark.colors', {}) as any;
+  const userLightColors = get(themeObject, 'light.colors', {});
+  const userDarkColors = get(themeObject, 'dark.colors', {});
 
   // get other themes from the config different from light and dark
   const otherThemes = omit(themeObject, ['light', 'dark']) || {};
@@ -131,16 +132,16 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme] as any, colors as any) as ThemeColors;
+      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme as ColorMode], colors as any) as ThemeColors;
     }
   });
 
   const light: ConfigTheme = {
-    colors: deepMerge(semanticColors.light as any, userLightColors) as ThemeColors,
+    colors: deepMerge(semanticColors.light, userLightColors) as ThemeColors,
   };
 
   const dark = {
-    colors: deepMerge(semanticColors.dark as any, userDarkColors) as ThemeColors,
+    colors: deepMerge(semanticColors.dark, userDarkColors) as ThemeColors,
   };
 
   const themes = {

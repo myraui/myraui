@@ -1,6 +1,7 @@
 import { ColorScale } from '@myra-ui/colors';
-import { ColorPalette, ColorPaletteKeys, resolveColorPalette, Theme, useMyraUIContext } from '@myra-ui/system';
 import React, { useRef } from 'react';
+import { ColorPalette, ColorPaletteKeys, resolveColorPalette, Theme } from '@myra-ui/theme';
+import { useMyraUIContext } from '@myra-ui/system';
 
 export function useColorPalette(theme: Theme, palette: Partial<ColorPalette> = {}): UseColorPaletteReturn {
   const { prefix } = useMyraUIContext();

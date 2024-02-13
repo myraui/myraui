@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@myra-ui/colors": "workspace:^",
-    "@myra-ui/plugin": "workspace:^",
     "@myra-ui/react-utils": "workspace:^",
     "@myra-ui/shared-utils": "workspace:^",
     "@myra-ui/system": "workspace:^",

@@ -1,8 +1,8 @@
-import { As, ColorPalette, MyraComponent, MyraProps } from './system.types';
+import { As, MyraComponent, MyraProps } from './system.types';
 import React from 'react';
-import { buildColorPalette } from './utils/theme';
 import createStyled from '@emotion/styled';
 import { useMyraUIContext } from './context';
+import { buildColorPalette, ColorPalette } from '@myra-ui/theme';
 
 const emotion_styled = ((createStyled as any).default ?? createStyled) as typeof createStyled;
 

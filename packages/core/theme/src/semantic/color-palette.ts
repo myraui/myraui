@@ -1,4 +1,4 @@
-import { ColorPalette } from '../system.types';
+import { ColorPalette } from '../theme.types';
 
 export const defaultColorPalette: ColorPalette = {
   neutral: 'gray',
