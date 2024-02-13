@@ -328,9 +328,6 @@ importers:
       '@myra-ui/shared-utils':
         specifier: workspace:^
         version: link:../../utilities/shared-utils
-      '@myra-ui/system':
-        specifier: workspace:^
-        version: link:../system
       chroma-js:
         specifier: ^2.4.2
         version: 2.4.2
