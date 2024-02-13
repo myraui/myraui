@@ -37,10 +37,10 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       - name: Check code
-        run: pnpm run nx affected -t=lint --base=develop --head=HEAD --parallel
+        run: pnpm nx affected -t=lint --base=develop --head=HEAD --parallel
 
       - name: Run tests
-        run: pnpm run nx affected -t=test --base=develop --head=HEAD --parallel
+        run: pnpm nx affected -t=test --base=develop --head=HEAD --parallel
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -52,4 +52,4 @@ jobs:
             ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
-        run: pnpm run nx affected -t=build --base=develop --head=HEAD --parallel
+        run: pnpm nx affected -t=build --base=develop --head=HEAD --parallel
