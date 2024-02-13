@@ -10,8 +10,6 @@ on:
 
 jobs:
   run-tests:
-    runs-on:
-      labels: ubuntu_large
     environment: test
     permissions:
       checks: write
