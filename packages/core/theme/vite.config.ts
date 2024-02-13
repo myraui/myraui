@@ -1,4 +1,3 @@
-/// <reference types='vitest' />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
@@ -14,8 +13,7 @@ export default defineConfig({
     nxViteTsPaths(),
     dts({
       entryRoot: 'src',
-      tsConfigFilePath: path.join(__dirname, './tsconfig.lib.json'),
-      skipDiagnostics: true,
+      tsconfigPath: path.join(__dirname, './tsconfig.lib.json'),
     }),
   ],
   build: {
@@ -25,7 +23,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: ['src/index.ts', 'src/plugin.ts'],
+      entry: ['src/index.ts'],
       name: '@myra-ui/theme',
       fileName: (format, entryName) => `${entryName}.${format}`,
       formats: ['es', 'cjs'],

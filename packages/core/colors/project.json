@@ -9,26 +9,20 @@
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/vite:build",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "executor": "@nx/js:tsc",
       "options": {
-        "outputPath": "dist/packages/core/colors"
-      },
-      "configurations": {
-        "development": {
-          "mode": "development"
-        },
-        "production": {
-          "mode": "production"
-        }
+        "outputPath": "dist/packages/colors/fonts",
+        "rootDir": "packages/core/colors/src",
+        "main": "packages/core/colors/src/index.ts",
+        "tsConfig": "packages/core/colors/tsconfig.lib.json",
+        "assets": [ ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "jest.config.ts"
+        "jestConfig": "packages/core/colors/jest.config.ts"
       }
     }
   }

@@ -5,8 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "nx serve docs",
-    "build": "nx build",
+    "build": "nx run-many --target=build --all --parallel",
     "lint": "nx run-many --target=lint --all --parallel",
+    "test": "nx run-many --target=test --all --parallel",
+    "test:cov": "pnpm run test --coverage --coverageReporters=lcov",
+    "test:ci": "pnpm test:cov --ci && pnpm coverage-merge",
+    "coverage-merge": "node tools/scripts/coverageMerger.js",
     "create:pkg": "plop package",
     "create:hook": "plop hook",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rm -rf ./node_modules"
@@ -21,6 +25,7 @@
     "@nx/next": "18.0.4",
     "@nx/react": "18.0.4",
     "@nx/rollup": "18.0.4",
+    "@nx/vite": "^18.0.4",
     "@rollup/plugin-url": "^7.0.0",
     "@svgr/rollup": "^8.0.1",
     "@swc-node/register": "1.8.0",
@@ -36,6 +41,7 @@
     "@types/react-dom": "18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-react": "^4.2.1",
     "babel-jest": "^29.4.1",
     "clean-package": "2.2.0",
     "eslint": "~8.48.0",
@@ -45,6 +51,7 @@
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "glob": "^10.3.10",
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
@@ -58,7 +65,8 @@
     "ts-node": "10.9.1",
     "typescript": "~5.3.2",
     "verdaccio": "^5.0.4",
-    "vite": "^5.0.12"
+    "vite": "^5.0.12",
+    "vite-plugin-dts": "^3.7.2"
   },
   "dependencies": {
     "next": "14.0.4",
@@ -70,4 +78,3 @@
     "includedScripts": []
   }
 }
-
