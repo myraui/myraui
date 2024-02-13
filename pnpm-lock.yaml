@@ -371,6 +371,9 @@ importers:
 
   packages/hooks/use-color-palette:
     dependencies:
+      '@myra-ui/colors':
+        specifier: workspace:^
+        version: link:../../core/colors
       '@myra-ui/system':
         specifier: workspace:^
         version: link:../../core/system

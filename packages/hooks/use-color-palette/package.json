@@ -36,6 +36,7 @@
   },
   "clean-package": "../../../clean-package.config.json",
   "dependencies": {
+    "@myra-ui/colors": "workspace:^",
     "@myra-ui/system": "workspace:^",
     "@myra-ui/theme": "workspace:^"
   }

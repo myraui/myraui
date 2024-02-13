@@ -37,16 +37,19 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       - name: Check code
-        run: pnpm lint
+        run: pnpm run nx affected -t=lint --base=develop --head=HEAD --parallel
 
-      - name: Running tests and publish report
+      - name: Run tests
+        run: pnpm run nx affected -t=test --base=develop --head=HEAD --parallel
+
+      - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
         with:
-          coverageCommand: pnpm test:ci
+          coverageCommand: pnpm coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
-        run: pnpm build
+        run: pnpm run nx affected -t=build --base=develop --head=HEAD --parallel
