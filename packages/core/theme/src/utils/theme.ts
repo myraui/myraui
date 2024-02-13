@@ -1,5 +1,5 @@
 import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
-import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../theme.types';
+import { ColorPalette, ThemeColors } from '../theme.types';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 
@@ -72,30 +72,4 @@ export function buildColorPalette(palette: Partial<ColorPalette>, prefix: string
     }
   }
   return properties;
-}
-
-export function getThemedProperty<K extends string, T extends Theme>(property: ThemedProperty<K, T>, theme: T): K {
-  if (typeof property === 'object') {
-    return property[theme];
-  }
-
-  return property;
-}
-
-export function extractColorPalette<P extends Partial<ColorPalette>, T extends Theme>(palette: P, theme: T): Record<keyof P, ThemeColorKey> {
-  const colorPalette: any = {};
-
-  for (const [key, value] of Object.entries(palette)) {
-    colorPalette[key] = getThemedProperty(value, theme);
-  }
-
-  return colorPalette as Record<keyof P, ThemeColorKey>;
-}
-
-export function resolveColorPalette(palette: Partial<ColorPalette>, theme: Theme, element: HTMLElement, prefix: string) {
-  return {
-    action: getComputedColorScale(getThemedProperty(palette.action || 'action', theme), element, prefix),
-    neutral: getComputedColorScale(getThemedProperty(palette.neutral || 'neutral', theme), element, prefix),
-    foreground: getComputedColorScale(getThemedProperty(palette.foreground || 'foreground', theme), element, prefix),
-  };
 }

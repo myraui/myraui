@@ -322,6 +322,9 @@ importers:
 
   packages/core/theme:
     dependencies:
+      '@myra-ui/breakpoint-utils':
+        specifier: workspace:^
+        version: link:../../utilities/breakpoint-utils
       '@myra-ui/colors':
         specifier: workspace:^
         version: link:../colors
@@ -387,6 +390,19 @@ importers:
       react:
         specifier: ^18.0.0
         version: 18.2.0
+
+  packages/utilities/breakpoint-utils:
+    dependencies:
+      '@myra-ui/colors':
+        specifier: workspace:^
+        version: link:../../core/colors
+      '@myra-ui/shared-utils':
+        specifier: workspace:^
+        version: link:../shared-utils
+    devDependencies:
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
 
   packages/utilities/react-utils:
     dependencies:

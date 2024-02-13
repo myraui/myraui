@@ -1,10 +1,10 @@
 'use client';
 import { ColorScale } from '@myra-ui/colors';
 import React, { useRef } from 'react';
-import { ColorPalette, ColorPaletteKeys, resolveColorPalette, Theme } from '@myra-ui/theme';
+import { ColorPalette, ColorPaletteKeys, resolveColorPalette, DefaultThemes } from '@myra-ui/theme';
 import { useMyraUIContext } from '@myra-ui/system';
 
-export function useColorPalette(theme: Theme, palette: Partial<ColorPalette> = {}): UseColorPaletteReturn {
+export function useColorPalette(theme: DefaultThemes, palette: Partial<ColorPalette> = {}): UseColorPaletteReturn {
   const { prefix } = useMyraUIContext();
   const [colorPalette, setColorPalette] = React.useState<Record<ColorPaletteKeys, ColorScale>>(
     global.document ? resolveColorPalette(palette, theme, global.document.documentElement, prefix) : ({} as any)

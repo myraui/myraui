@@ -1,21 +1,31 @@
-import { ColorMode, getBaseColors } from '@myra-ui/colors';
-import { ThemeColors } from '../theme.types';
-import { extractColorPalette } from '../utils/theme';
-import { defaultColorPalette } from './color-palette';
+import { SemanticRecord } from '@myra-ui/breakpoint-utils';
+import { Color } from '@myra-ui/colors';
 
-type SemanticColors = Record<ColorMode, ThemeColors>;
+export type SemanticColors =
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'text'
+  | 'neutral'
+  | 'danger'
+  | 'warning'
+  | 'info'
+  | 'success'
+  | 'divider'
+  | 'overlay'
+  | 'focus';
 
-const dark = {
-  ...getBaseColors('dark'),
-  ...extractColorPalette(defaultColorPalette, 'dark'),
-};
-
-const light = {
-  ...getBaseColors('light'),
-  ...extractColorPalette(defaultColorPalette, 'light'),
-};
-
-export const semanticColors: SemanticColors = {
-  dark,
-  light,
+export const semanticColors: SemanticRecord<SemanticColors, Color> = {
+  primary: 'teal',
+  secondary: 'red',
+  accent: 'yellow',
+  text: 'gray',
+  neutral: 'gray',
+  danger: 'red',
+  warning: 'orange',
+  info: 'blue',
+  success: 'green',
+  overlay: 'gray',
+  focus: 'blue',
+  divider: 'gray',
 };

@@ -1,25 +1,16 @@
-import { ColorMode, ColorName, ColorScale } from '@myra-ui/colors';
+import { BaseTheme, Color, ColorScale } from '@myra-ui/colors';
+import { SemanticRecord, Theme } from '@myra-ui/breakpoint-utils';
 
-export type Theme = string | ColorMode;
-
-export type ThemedProperty<K, T extends Theme = Theme> = K | Record<T, K>;
+export { Theme };
 
 export type ColorPaletteKeys = 'neutral' | 'action' | 'foreground';
 
-export type ThemeColorKey = ColorName | ColorPaletteKeys;
+export type ColorValue = ColorScale | Color;
 
-export type ThemedColor = ThemedProperty<ThemeColorKey> | ThemedProperty<string>;
-
-export type ColorPalette = Record<ColorPaletteKeys, ThemedColor>;
-
-export type ResolvedColorPalette = Record<ColorPaletteKeys, ColorScale>;
-
-export type ThemeColorValue = ColorScale | ThemeColorKey | string;
-
-export type ThemeColors = Record<ThemeColorKey, ThemeColorValue> | Record<string, ThemeColorValue>;
+export type ThemeColors = SemanticRecord<Color, ColorValue>;
 
 export type ConfigTheme = {
-  colorMode?: ColorMode;
+  colorMode?: BaseTheme;
   colors?: ThemeColors;
 };
 

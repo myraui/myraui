@@ -1,5 +1,5 @@
 import { ConfigTheme, ConfigThemes, ThemeColors } from './theme.types';
-import { ColorMode } from '@myra-ui/colors';
+import { BaseTheme } from '@myra-ui/colors';
 import { isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
 import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
@@ -14,7 +14,7 @@ import { semanticColors } from './semantic/colors';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
-const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
+const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: BaseTheme, prefix: string) => {
   const resolved: {
     variants: { name: string; definition: string[] }[];
     utilities: Record<string, Record<string, any>>;
@@ -87,7 +87,7 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
   return resolved;
 };
 
-const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
+const corePlugin = (themes: ConfigThemes = {}, defaultTheme: BaseTheme, prefix: string) => {
   const resolved = resolveConfig(themes, defaultTheme, prefix);
 
   return plugin(
@@ -132,7 +132,7 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme as ColorMode], colors as any) as ThemeColors;
+      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme as BaseTheme], colors as any) as ThemeColors;
     }
   });
 

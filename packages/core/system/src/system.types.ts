@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { ResolvedColorPalette, Theme, ThemedColor } from '@myra-ui/theme';
+import { ResolvedColorPalette, DefaultThemes, ThemedColor } from '@myra-ui/theme';
 
 type Assign<T, U> = Omit<T, keyof U> & U;
 
@@ -52,7 +52,7 @@ export interface MyraProps {
   neutralColor?: ThemedColor;
   actionColor?: ThemedColor;
   foregroundColor?: ThemedColor;
-  resolvedColorPalette?: (theme: Theme) => (palette: ResolvedColorPalette) => void;
+  resolvedColorPalette?: (theme: DefaultThemes) => (palette: ResolvedColorPalette) => void;
 }
 
 export interface MyraComponent<T extends As, P extends object = object> extends ComponentWithAs<T, Assign<MyraProps, P>> {}

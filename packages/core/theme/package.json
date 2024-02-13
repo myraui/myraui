@@ -38,6 +38,7 @@
   },
   "clean-package": "../../../clean-package.config.json",
   "dependencies": {
+    "@myra-ui/breakpoint-utils": "workspace:^",
     "@myra-ui/colors": "workspace:^",
     "@myra-ui/shared-utils": "workspace:^",
     "chroma-js": "^2.4.2",
