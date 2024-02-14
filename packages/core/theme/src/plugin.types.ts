@@ -1,5 +1,5 @@
 import { ColorMode } from '@myra-ui/colors';
-import { ConfigThemes } from '@myra-ui/system';
+import { ConfigThemes } from './theme.types';
 
 export type MyraUIPluginConfig = {
   prefix?: string;

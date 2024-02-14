@@ -3,9 +3,9 @@ export default {
   displayName: '@myra-ui/fonts',
   preset: '../../../jest.preset.js',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+    '^.+\\.[tj]s?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  transformIgnorePatterns: ['!(src/.+)'],
+  moduleFileExtensions: ['ts', 'js'],
   coverageDirectory: '../../../coverage/packages/core/fonts',
 };

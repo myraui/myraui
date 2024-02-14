@@ -1,5 +1,7 @@
 import { ColorMode, getBaseColors } from '@myra-ui/colors';
-import { defaultColorPalette, extractColorPalette, ThemeColors } from '@myra-ui/system';
+import { ThemeColors } from '../theme.types';
+import { extractColorPalette } from '../utils/theme';
+import { defaultColorPalette } from './color-palette';
 
 type SemanticColors = Record<ColorMode, ThemeColors>;
 

@@ -8,17 +8,15 @@
         "@nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": false,
+            "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": [] },
-              { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:common"] },
-              { "sourceTag": "scope:utils", "onlyDependOnLibsWithTags": ["scope:common"] },
-              { "sourceTag": "scope:hooks", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils"] },
-              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client","scope:common", "scope:utils", "scope:hooks"] },
-              { "sourceTag": "scope:component", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils", "scope:hooks", "scope:client"] },
-              { "sourceTag": "scope:root", "onlyDependOnLibsWithTags": ["scope:common", "scope:utils", "scope:hooks", "scope:client", "scope:component"] },
-              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:root", "scope:server"] }
+              { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": ["scope:common"] },
+              { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:server", "scope:common"] },
+              { "sourceTag": "scope:client-common", "onlyDependOnLibsWithTags": ["scope:client-common", "scope:common"] },
+              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client","scope:common", "scope:client-common"] },
+              { "sourceTag": "scope:client-root", "onlyDependOnLibsWithTags": ["scope:common", "scope:client-common", "scope:client"] },
+              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:client-root", "scope:server"] }
             ]
           }
         ]

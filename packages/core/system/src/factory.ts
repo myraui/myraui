@@ -2,7 +2,7 @@ import { MyraUIStyledOptions, styled } from './system';
 import { As, DOMElements, HTMLMyraComponents, MyraComponent } from './system.types';
 
 type MyraFactory = {
-  <T extends As, P extends object = {}>(component: T, options?: MyraUIStyledOptions): MyraComponent<T, P>;
+  <T extends As, P extends object = object>(component: T, options?: MyraUIStyledOptions): MyraComponent<T, P>;
 };
 
 function factory() {

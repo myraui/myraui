@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "allowJs": true,
+    "declaration": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -16,15 +17,13 @@
         "name": "next"
       }
     ],
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"],
     "paths": {
       "@/*": ["apps/docs/src/*"],
       "@/layout": ["apps/docs/src/components/mdx-layout/index.ts"],
       "@myra-ui/react": ["packages/core/react/src/index.ts"],
-      "@myra-ui/fonts": ["packages/core/fonts/src/index.ts"]
+      "@myra-ui/fonts": ["packages/core/fonts/src/index.ts"],
+      "@myra-ui/theme/plugin": ["packages/core/theme/src/plugin.ts"]
     }
   },
   "include": [
@@ -38,10 +37,5 @@
     ".next/types/**/*.ts",
     "tailwind.config.js"
   ],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

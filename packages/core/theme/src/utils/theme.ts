@@ -1,5 +1,5 @@
-import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../system.types';
 import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
+import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../theme.types';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 
@@ -9,13 +9,12 @@ export function isColorPaletteColor(colorName: string): colorName is keyof Color
   return colorName === 'neutral' || colorName === 'action' || colorName === 'foreground';
 }
 
-function resolveColorValue(colors: ThemeColors, colorValue: any): ColorScale {
+function resolveColorValue(colors: ThemeColors, colorValue: unknown): ColorScale {
   if (isColorScale(colorValue)) {
     return colorValue;
   }
 
-  // @ts-ignore
-  const colorFromValue = colors[colorValue];
+  const colorFromValue = colors[colorValue as keyof ThemeColors];
 
   if (!colorFromValue || colorFromValue === colorValue) {
     return baseColors.gray.light;
