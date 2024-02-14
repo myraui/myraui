@@ -49,7 +49,7 @@ jobs:
         run: pnpm affected:lint --configuration=ci
 
       - name: Run tests
-        run: pnpm test --configuration=ci
+        run: pnpm run test --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
