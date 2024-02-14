@@ -1,7 +1,7 @@
-name: Develop CI Pipeline
+name: Pull Request Checks
 
 on:
-  push:
+  pull_request:
     branches:
       - develop
 
@@ -39,8 +39,11 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
+      - if: github.ref != 'refs/heads/develop'
+        run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
+
       - name: Check code
-        run: pnpm run lint --configuration=ci
+        run: pnpm affected:lint --configuration=ci
 
       - name: Run tests
         run: pnpm run test --configuration=ci
@@ -55,4 +58,4 @@ jobs:
             ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
-        run: pnpm run build --configuration=ci
+        run: pnpm affected:build --configuration=ci
