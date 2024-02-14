@@ -1,13 +1,9 @@
 import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
-import { ColorPalette, ThemeColors } from '../theme.types';
+import { ThemeColors } from '../theme.types';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 
 export const isBaseTheme = (theme: string) => theme === 'light' || theme === 'dark';
-
-export function isColorPaletteColor(colorName: string): colorName is keyof ColorPalette {
-  return colorName === 'neutral' || colorName === 'action' || colorName === 'foreground';
-}
 
 function resolveColorValue(colors: ThemeColors, colorValue: unknown): ColorScale {
   if (isColorScale(colorValue)) {

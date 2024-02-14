@@ -42,3 +42,5 @@ exclude_patterns:
   - 'nx.json'
   - 'jest.preset.js'
   - '.circleci/'
+  - 'plopfile.js'
+  - 'plop/'

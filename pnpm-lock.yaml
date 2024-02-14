@@ -230,52 +230,6 @@ importers:
         specifier: 14.0.4
         version: 14.0.4(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
 
-  packages/core/plugin:
-    dependencies:
-      '@myra-ui/colors':
-        specifier: workspace:^
-        version: link:../colors
-      '@myra-ui/shared-utils':
-        specifier: workspace:^
-        version: link:../../utilities/shared-utils
-      '@myra-ui/system':
-        specifier: workspace:^
-        version: link:../system
-      color:
-        specifier: ^4.2.3
-        version: 4.2.3
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      lodash.foreach:
-        specifier: ^4.5.0
-        version: 4.5.0
-      lodash.get:
-        specifier: ^4.4.2
-        version: 4.4.2
-      lodash.omit:
-        specifier: ^4.5.0
-        version: 4.5.0
-    devDependencies:
-      '@types/color':
-        specifier: ^3.0.6
-        version: 3.0.6
-      '@types/lodash.foreach':
-        specifier: ^4.5.9
-        version: 4.5.9
-      '@types/lodash.get':
-        specifier: ^4.4.9
-        version: 4.4.9
-      '@types/lodash.omit':
-        specifier: ^4.5.9
-        version: 4.5.9
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
-      tailwindcss:
-        specifier: ^3.4.1
-        version: 3.4.1(ts-node@10.9.1)
-
   packages/core/react:
     dependencies:
       '@myra-ui/colors':
@@ -293,9 +247,6 @@ importers:
       '@myra-ui/theme':
         specifier: workspace:^
         version: link:../theme
-      '@myra-ui/use-color-palette':
-        specifier: workspace:^
-        version: link:../../hooks/use-color-palette
     devDependencies:
       clean-package:
         specifier: 2.2.0
@@ -322,9 +273,6 @@ importers:
 
   packages/core/theme:
     dependencies:
-      '@myra-ui/breakpoint-utils':
-        specifier: workspace:^
-        version: link:../../utilities/breakpoint-utils
       '@myra-ui/colors':
         specifier: workspace:^
         version: link:../colors
@@ -390,19 +338,6 @@ importers:
       react:
         specifier: ^18.0.0
         version: 18.2.0
-
-  packages/utilities/breakpoint-utils:
-    dependencies:
-      '@myra-ui/colors':
-        specifier: workspace:^
-        version: link:../../core/colors
-      '@myra-ui/shared-utils':
-        specifier: workspace:^
-        version: link:../shared-utils
-    devDependencies:
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
 
   packages/utilities/react-utils:
     dependencies:

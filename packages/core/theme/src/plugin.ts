@@ -1,5 +1,5 @@
 import { ConfigTheme, ConfigThemes, ThemeColors } from './theme.types';
-import { BaseTheme } from '@myra-ui/colors';
+import { ColorMode } from '@myra-ui/colors';
 import { isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
 import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
@@ -11,10 +11,11 @@ import deepMerge from 'deepmerge';
 import { baseStyles } from './utils/classes';
 import { MyraUIPluginConfig } from './plugin.types';
 import { semanticColors } from './semantic/colors';
+import { getThemeValues } from './utils/variants';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
-const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: BaseTheme, prefix: string) => {
+const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
   const resolved: {
     variants: { name: string; definition: string[] }[];
     utilities: Record<string, Record<string, any>>;
@@ -87,7 +88,7 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: BaseTheme, prefi
   return resolved;
 };
 
-const corePlugin = (themes: ConfigThemes = {}, defaultTheme: BaseTheme, prefix: string) => {
+const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
   const resolved = resolveConfig(themes, defaultTheme, prefix);
 
   return plugin(
@@ -132,16 +133,16 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme as BaseTheme], colors as any) as ThemeColors;
+      otherThemes[themeName].colors = deepMerge(getThemeValues(semanticColors, baseTheme), colors as any) as ThemeColors;
     }
   });
 
   const light: ConfigTheme = {
-    colors: deepMerge(semanticColors.light, userLightColors) as ThemeColors,
+    colors: deepMerge(getThemeValues(semanticColors, 'light'), userLightColors) as ThemeColors,
   };
 
   const dark = {
-    colors: deepMerge(semanticColors.dark, userDarkColors) as ThemeColors,
+    colors: deepMerge(getThemeValues(semanticColors, 'dark'), userDarkColors) as ThemeColors,
   };
 
   const themes = {

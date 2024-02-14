@@ -1,5 +1,5 @@
-import { SemanticRecord } from '@myra-ui/breakpoint-utils';
-import { Color } from '@myra-ui/colors';
+import { ColorValue, SemanticRecord } from '../theme.types';
+import { Color, getBaseColors } from '@myra-ui/colors';
 
 export type SemanticColors =
   | 'primary'
@@ -15,17 +15,21 @@ export type SemanticColors =
   | 'overlay'
   | 'focus';
 
-export const semanticColors: SemanticRecord<SemanticColors, Color> = {
-  primary: 'teal',
-  secondary: 'red',
-  accent: 'yellow',
-  text: 'gray',
-  neutral: 'gray',
-  danger: 'red',
-  warning: 'orange',
-  info: 'blue',
-  success: 'green',
-  overlay: 'gray',
-  focus: 'blue',
-  divider: 'gray',
+export const semanticColors: SemanticRecord<SemanticColors | Color, ColorValue> = {
+  DEFAULT: {
+    primary: 'teal',
+    secondary: 'red',
+    accent: 'yellow',
+    text: 'gray',
+    neutral: 'gray',
+    danger: 'red',
+    warning: 'orange',
+    info: 'blue',
+    success: 'green',
+    overlay: 'gray',
+    focus: 'blue',
+    divider: 'gray',
+  },
+  dark: getBaseColors('dark'),
+  light: getBaseColors('light'),
 };

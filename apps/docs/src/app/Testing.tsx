@@ -6,16 +6,41 @@ export const Testing: React.FC<TestingProps> = (props) => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <myra.div className="h-screen flex flex-col" actionColor="pink">
+    <myra.div className="h-screen flex flex-col p-2" actionColor="pink">
       {theme && (
         <div className="h-12 text-white bg-black items-center justify-center flex">
           <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme[0].toUpperCase() + theme.slice(1)}</button>
         </div>
       )}
-      <myra.div className="h-24 grid grid-cols-3" actionColor="red">
+      <div>Global</div>
+      <myra.div className="h-24 grid grid-cols-12" actionColor="red">
+        <div className="items-center justify-center flex bg-primary-8">Primary</div>
+        <div className="items-center justify-center flex bg-secondary-8">Secondary</div>
+        <div className="items-center justify-center flex bg-accent-8">Accent</div>
+        <div className="items-center justify-center flex bg-text-8">Text</div>
         <div className="items-center justify-center flex bg-neutral-8">Neutral</div>
-        <div className="items-center justify-center flex bg-action-8">Action</div>
-        <div className="items-center justify-center flex bg-foreground-8">Foreground</div>
+        <div className="items-center justify-center flex bg-danger-8">Danger</div>
+        <div className="items-center justify-center flex bg-warning-8">Warning</div>
+        <div className="items-center justify-center flex bg-info-8">Info</div>
+        <div className="items-center justify-center flex bg-success-8">Success</div>
+        <div className="items-center justify-center flex bg-overlay-8">Overlay</div>
+        <div className="items-center justify-center flex bg-focus-8">Focus</div>
+        <div className="items-center justify-center flex bg-divider-8">Divider</div>
+      </myra.div>
+      <div>Local</div>
+      <myra.div className="h-24 grid grid-cols-12" actionColor="red">
+        <div className="items-center justify-center flex bg-primary-8">Primary</div>
+        <div className="items-center justify-center flex bg-secondary-8">Secondary</div>
+        <div className="items-center justify-center flex bg-accent-8">Accent</div>
+        <div className="items-center justify-center flex bg-text-8">Text</div>
+        <div className="items-center justify-center flex bg-neutral-8">Neutral</div>
+        <div className="items-center justify-center flex bg-danger-8">Danger</div>
+        <div className="items-center justify-center flex bg-warning-8">Warning</div>
+        <div className="items-center justify-center flex bg-info-8">Info</div>
+        <div className="items-center justify-center flex bg-success-8">Success</div>
+        <div className="items-center justify-center flex bg-overlay-8">Overlay</div>
+        <div className="items-center justify-center flex bg-focus-8">Focus</div>
+        <div className="items-center justify-center flex bg-divider-8">Divider</div>
       </myra.div>
       <p>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox</p>
       <div className="h-24 w-24 m-4" style={{ background: 'red' }}>
