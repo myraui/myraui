@@ -46,10 +46,10 @@ jobs:
         run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
 
       - name: Check code
-        run: pnpm nx affected -t=lint --base=develop --head=HEAD --parallel
+        run: pnpm affected:lint --configuration=ci
 
       - name: Run tests
-        run: pnpm nx affected -t=test --base=develop --head=HEAD --parallel
+        run: pnpm affected:test --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -61,4 +61,4 @@ jobs:
             ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
-        run: pnpm nx affected -t=build --base=develop --head=HEAD --parallel
+        run: pnpm affected:build --configuration=ci
