@@ -1,31 +1,34 @@
-import { ColorMode, ColorScale, ColorShade, FlatMyraColor, MyraColor } from '@myra-ui/colors';
-import { RecordKey } from '@myra-ui/shared-utils';
+import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from '@myra-ui/colors';
 
 export type Theme = ColorMode & string;
 
 export type BaseTheme = 'light';
 
-export type VariantRecord<Variant extends RecordKey, Value> = Partial<Record<Variant | BaseTheme, Value>>;
+export type ThemeRecord<Value> = Partial<Record<`_${Theme}`, Value>> & Record<`_${BaseTheme}`, Value>;
 
-export type VariantValue<Variant extends RecordKey, Value> = Value extends string | number
-  ? Value | VariantRecord<Variant, Value>
-  : VariantRecord<Variant, Value>;
-
-export type ThemedValue<Value> = VariantValue<Theme, Value>;
-
-export type ThemedRecord<K extends RecordKey, Value = string> = ThemedValue<Partial<Record<K, Value>>>;
+export type ThemedValue<Value> = Value extends string | number ? Value | ThemeRecord<Value> : ThemeRecord<Value>;
 
 export type ColorValue = (ColorScale | MyraColor) | string;
 
-export type SemanticValue<Value extends string | number> = Value | (Partial<Record<Theme, Value>> & Record<BaseTheme, Value>);
-
-export type SemanticRecord<Value extends string | number> = Record<string, SemanticValue<Value>>;
+/**
+ * Nested record of semantic tokens
+ *
+ * Depth: 5
+ */
+export type SemanticRecord<Value> = Record<
+  string,
+  Value | Record<string, Value | Record<string, Value | Record<string, Value | Record<string, Value>>>>
+>;
 
 export type SemanticTokens = {
   colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string>;
 };
 
-export type ResolvedSemanticTokens = Partial<Record<Theme, Partial<Record<keyof SemanticTokens, Record<string, string>>>>>;
+export type ComponentTheme = {
+  [K in keyof SemanticTokens]?: SemanticRecord<SemanticTokens[K] extends SemanticRecord<infer Value> ? ThemedValue<Value> : never>;
+};
+
+export type ResolvedSemanticTokens = Partial<Record<keyof SemanticTokens, Record<string, string>>>;
 
 export type ConfigTheme = {
   extend?: ColorMode;

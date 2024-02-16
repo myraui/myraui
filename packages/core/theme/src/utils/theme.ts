@@ -1,5 +1,5 @@
 import { ColorScale, isColorScale, myraColors } from '@myra-ui/colors';
-import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme } from '../theme.types';
+import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue } from '../theme.types';
 import deepMerge from 'deepmerge';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
@@ -90,4 +90,8 @@ export function buildCSSVariables(cssVariables: CSSVariables): Record<string, st
   }
 
   return result;
+}
+
+export function isThemedValue(record: object): record is ThemedValue<any> {
+  return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
 }

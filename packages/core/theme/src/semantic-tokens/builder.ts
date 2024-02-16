@@ -1,6 +1,6 @@
 import { ColorShade, shades } from '@myra-ui/colors';
-import { BASE_THEME, CSSVariables, DEFAULT_SHADE, flattenSemanticTokens, ThemedCSSVariables } from '../utils/theme';
-import { ResolvedSemanticTokens, SemanticRecord, SemanticTokens, SemanticValue, Theme } from '../theme.types';
+import { BASE_THEME, CSSVariables, DEFAULT_SHADE, flattenSemanticTokens, isThemedValue } from '../utils/theme';
+import { ComponentTheme, ResolvedSemanticTokens, SemanticRecord, SemanticTokens, Theme, ThemedValue } from '../theme.types';
 
 type Builder = (prefix: string, key: string, value: string) => CSSVariables;
 
@@ -34,50 +34,30 @@ const builders: Builders = {
   colors: buildColor,
 };
 
-export function normalizeSemanticValue<Value extends string | number>(value: SemanticValue<Value>) {
-  if (typeof value === 'object') {
-    return value;
-  }
-
-  return { [BASE_THEME]: value };
-}
-
 export function buildSemanticRecord<Value extends string | number>(
   record: SemanticRecord<Value>,
   prefix: string,
   tokensKey: keyof SemanticTokens
-): ThemedCSSVariables {
-  const resolved: ThemedCSSVariables = {};
+): CSSVariables {
+  const resolved: CSSVariables = {};
 
   const resolver = builders[tokensKey];
 
   for (const [key, value] of Object.entries(record)) {
-    const normalizedValue = normalizeSemanticValue(value);
-
-    Object.entries(normalizedValue).forEach(([variant, value]) => {
-      (resolved as any)[variant] = {
-        ...((resolved as any)[variant] || {}),
-        ...resolver(prefix, key, value as string),
-      };
-    }, {});
+    if (typeof value === 'object') {
+      Object.assign(resolved, buildSemanticRecord(value as SemanticRecord<string>, prefix, tokensKey));
+    } else {
+      Object.assign(resolved, resolver(prefix, key, value as string));
+    }
   }
 
   return resolved;
 }
 
 export function resolveSemanticTokens(prefix: string, semanticTokens: SemanticTokens): ResolvedSemanticTokens {
-  const resolved: ResolvedSemanticTokens = {};
-
-  Object.entries(semanticTokens).forEach(([key, value]) => {
-    const builtRecord = value ? buildSemanticRecord(value, prefix, key as keyof SemanticTokens) : {};
-
-    Object.entries(builtRecord).forEach(([themeKey, value]) => {
-      const theme = themeKey as Theme;
-      resolved[theme] = { ...(resolved[theme] || {}), [key]: value };
-    });
-  }, {} as ThemedCSSVariables);
-
-  return resolved;
+  return Object.entries(semanticTokens).reduce((acc, [key, value]) => {
+    return { ...acc, key: value ? buildSemanticRecord(value, prefix, key as keyof SemanticTokens) : {} };
+  }, {});
 }
 
 export function buildSemanticTokens(prefix: string, semanticTokens: SemanticTokens | Array<SemanticTokens>): CSSVariables {
@@ -88,4 +68,41 @@ export function buildSemanticTokens(prefix: string, semanticTokens: SemanticToke
       ...flattenSemanticTokens(prefix, properties),
     };
   }, {} as CSSVariables);
+}
+
+export function walkComponentThemeRecord<Value extends string | number>(
+  semanticRecord: SemanticRecord<ThemedValue<Value>>
+): Partial<Record<Theme, SemanticRecord<Value>>> {
+  const result: Partial<Record<Theme, SemanticRecord<Value>>> = {};
+
+  if (isThemedValue(semanticRecord)) {
+    for (const [key, value] of Object.entries(semanticRecord)) {
+      const theme = key.replace('_', '') as Theme;
+      result[theme] = value as SemanticRecord<Value>;
+    }
+  } else {
+    for (const [tokenKey, tokenValue] of Object.entries(semanticRecord)) {
+      if (typeof tokenValue === 'object') {
+        const valueResult = walkComponentThemeRecord(tokenValue as SemanticRecord<ThemedValue<Value>>);
+
+        for (const [theme, value] of Object.entries(valueResult)) {
+          result[theme as Theme] = { ...(result[theme as Theme] || {}), [tokenKey]: value } as SemanticRecord<Value>;
+        }
+      } else {
+        result[BASE_THEME] = { ...(result[BASE_THEME] || {}), [tokenKey]: tokenValue } as SemanticRecord<Value>;
+      }
+    }
+  }
+
+  return result;
+}
+
+export function createSemanticTokens(componentTheme: ComponentTheme): Record<Theme, SemanticTokens> {
+  const semanticTokens: Partial<Record<Theme, SemanticTokens>> = {};
+
+  for (const [theme, tokens] of Object.entries(componentTheme)) {
+    semanticTokens[theme as Theme] = tokens;
+  }
+
+  return semanticTokens as Record<Theme, SemanticTokens>;
 }

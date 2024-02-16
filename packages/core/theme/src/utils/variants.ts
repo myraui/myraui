@@ -1,14 +1,14 @@
 import { RecordKey } from '@myra-ui/shared-utils';
-import { Theme, ThemedRecord, VariantRecord, VariantValue } from '../theme.types';
+import { Theme, ThemedRecord, ThemeRecord, VariantValue } from '../theme.types';
 import deepMerge from 'deepmerge';
 
-export function normalizeVariants<Variant extends RecordKey, Value>(variantValue: VariantValue<Variant, Value>): VariantRecord<Variant, Value> {
+export function normalizeVariants<Variant extends RecordKey, Value>(variantValue: VariantValue<Variant, Value>): ThemeRecord<Variant, Value> {
   if (typeof variantValue === 'object') {
-    return variantValue as VariantRecord<Variant, Value>;
+    return variantValue as ThemeRecord<Variant, Value>;
   }
   return {
     base: variantValue as Value,
-  } as VariantRecord<Variant, Value>;
+  } as ThemeRecord<Variant, Value>;
 }
 
 export function getThemeValues<K extends RecordKey, Value>(record: ThemedRecord<K, Value>, theme: Theme): Partial<Record<K, Value>> {
