@@ -1,4 +1,4 @@
 export const baseStyles = (prefix: string) => ({
-  color: `hsl(var(--${prefix}-text-12))`,
-  backgroundColor: `hsl(var(--${prefix}-neutral-1))`,
+  color: `hsl(var(--${prefix}-colors-foreground))`,
+  backgroundColor: `hsl(var(--${prefix}-colors-background))`,
 });

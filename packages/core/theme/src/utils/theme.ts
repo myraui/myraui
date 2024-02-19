@@ -6,7 +6,7 @@ export const MYRA_UI_PREFIX = 'myra-ui';
 
 export const BASE_THEME: BaseTheme = 'light';
 
-export const DEFAULT_SHADE = 7;
+export const DEFAULT_SHADE = 9; // Solid Color Shade
 
 export type CSSVariables = Record<string, string>;
 

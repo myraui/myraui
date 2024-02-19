@@ -1,4 +1,5 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from '@myra-ui/colors';
+import { DefaultSemanticColors } from './semantic-tokens/colors';
 
 export type Theme = ColorMode | string;
 
@@ -15,17 +16,30 @@ export type ColorValue = (ColorScale | MyraColor) | string;
  *
  * Depth: 5
  */
-export type SemanticRecord<Value> = Record<
-  string,
-  Value | Record<string, Value | Record<string, Value | Record<string, Value | Record<string, Value>>>>
->;
+export type SemanticRecord<
+  Value,
+  K1 extends string = string,
+  K2 extends string = string,
+  K3 extends string = string,
+  K4 extends string = string,
+  K5 extends string = string
+> = Record<K1 | string, Value | Record<K2 | string, Value | Record<K3 | string, Value | Record<K4 | string, Value | Record<K5 | string, Value>>>>>;
 
 export type SemanticTokens = {
-  colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string>;
+  colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
 };
 
 export type ComponentTheme = Partial<{
-  [K in keyof Required<SemanticTokens>]: SemanticRecord<Required<SemanticTokens>[K] extends SemanticRecord<infer Value> ? ThemedValue<Value> : never>;
+  [K in keyof Required<SemanticTokens>]: Required<SemanticTokens>[K] extends SemanticRecord<
+    infer Value,
+    infer K1,
+    infer K2,
+    infer K3,
+    infer K4,
+    infer K5
+  >
+    ? SemanticRecord<ThemedValue<Value>, K1, K2, K3, K4, K5>
+    : never;
 }>;
 
 export type ResolvedSemanticTokens = Partial<Record<keyof SemanticTokens, Record<string, string>>>;

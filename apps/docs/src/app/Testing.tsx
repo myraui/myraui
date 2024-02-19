@@ -13,24 +13,26 @@ export const Testing: React.FC<TestingProps> = (props) => {
         </div>
       )}
       <div>Global</div>
-      <myra.div className="h-24 grid grid-cols-12">
-        <div className="items-center justify-center flex bg-primary-8">Primary</div>
-        <div className="items-center justify-center flex bg-secondary-8">Secondary</div>
-        <div className="items-center justify-center flex bg-accent-8">Accent</div>
-        <div className="items-center justify-center flex bg-text-8">Text</div>
-        <div className="items-center justify-center flex bg-neutral-8">Neutral</div>
-        <div className="items-center justify-center flex bg-danger-8">Danger</div>
-        <div className="items-center justify-center flex bg-warning-8">Warning</div>
-        <div className="items-center justify-center flex bg-info-8">Info</div>
-        <div className="items-center justify-center flex bg-success-8">Success</div>
-        <div className="items-center justify-center flex bg-overlay-8">Overlay</div>
-        <div className="items-center justify-center flex bg-focus-8">Focus</div>
-        <div className="items-center justify-center flex bg-divider-8">Divider</div>
+      <myra.div className="h-48 grid grid-cols-8">
+        <div className="items-center justify-center flex bg-default">Default</div>
+        <div className="items-center justify-center flex bg-primary">Primary</div>
+        <div className="items-center justify-center flex bg-secondary">Secondary</div>
+        <div className="items-center justify-center flex bg-success">Success</div>
+        <div className="items-center justify-center flex bg-warning">Warning</div>
+        <div className="items-center justify-center flex bg-danger">Danger</div>
+        <div className="items-center justify-center flex bg-focus">Focus</div>
+        <div className="items-center justify-center flex bg-divider">Divider</div>
       </myra.div>
       <div>Local</div>
-      <myra.div className="h-24 grid grid-cols-2" themeColors={{ primary: 'blue', accent: { _dark: 'pink.12', _light: 'red.9' } }}>
+      <myra.div className="h-48 grid grid-cols-8" themeColors={{ primary: 'blue', secondary: { _dark: 'pink.12', _light: 'red.9' } }}>
+        <div className="items-center justify-center flex bg-default">Default</div>
         <div className="items-center justify-center flex bg-primary">Primary</div>
-        <div className="items-center justify-center flex bg-accent">Accent</div>
+        <div className="items-center justify-center flex bg-secondary">Secondary</div>
+        <div className="items-center justify-center flex bg-success">Success</div>
+        <div className="items-center justify-center flex bg-warning">Warning</div>
+        <div className="items-center justify-center flex bg-danger">Danger</div>
+        <div className="items-center justify-center flex bg-focus">Focus</div>
+        <div className="items-center justify-center flex bg-divider">Divider</div>
       </myra.div>
       <p>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox</p>
       <div className="h-24 w-24 m-4" style={{ background: 'red' }}>

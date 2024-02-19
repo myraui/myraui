@@ -11,6 +11,7 @@ import { baseStyles } from './utils/classes';
 import { MyraUIPluginConfig } from './plugin.types';
 import { resolveSemanticTokens } from './utils/semantic-tokens';
 import { getByColorMode } from '@myra-ui/colors';
+import { defaultSemanticTokens } from './semantic-tokens';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
@@ -45,26 +46,6 @@ const resolveConfig = (themes: ConfigThemes = {}, prefix: string) => {
       name: themeName,
       definition: [`&.${themeName}`, `&[data-theme='${themeName}']`],
     });
-
-    for (const [tokenKey, tokenValue] of Object.entries(tokens.colors || {})) {
-      const colorVar = `--${prefix}-colors-${tokenKey}`;
-      resolved.utilities[cssSelector]![colorVar] = tokenValue;
-
-      if (!tokenKey.endsWith('-opacity')) {
-        const colorOpacityVariable = colorVar + '-opacity';
-        resolved.colors[tokenKey] = ({ opacityVariable, opacityValue }) => {
-          // if the opacity is set  with a slash (e.g. bg-primary/90), use the provided value
-          if (!isNaN(+opacityValue)) {
-            return `hsl(var(${colorVar}) / ${opacityValue})`;
-          }
-          if (opacityVariable) {
-            return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, var(${opacityVariable})))`;
-          }
-
-          return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, 1))`;
-        };
-      }
-    }
 
     for (const [colorName, colorValue] of Object.entries(flatColors)) {
       if (!colorValue) return;
@@ -102,6 +83,29 @@ const resolveConfig = (themes: ConfigThemes = {}, prefix: string) => {
         };
       } catch (e: any) {
         console.error('error', e?.message);
+      }
+    }
+
+    /**
+     * Resolve semantic token colors
+     */
+    for (const [tokenKey, tokenValue] of Object.entries(tokens.colors || {})) {
+      const colorVar = `--${prefix}-colors-${tokenKey}`;
+      resolved.utilities[cssSelector]![colorVar] = `var(${tokenValue})`;
+
+      if (!tokenKey.endsWith('-opacity')) {
+        const colorOpacityVariable = colorVar + '-opacity';
+        resolved.colors[tokenKey] = ({ opacityVariable, opacityValue }) => {
+          // if the opacity is set  with a slash (e.g. bg-primary/90), use the provided value
+          if (!isNaN(+opacityValue)) {
+            return `hsl(var(${colorVar}) / ${opacityValue})`;
+          }
+          if (opacityVariable) {
+            return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, var(${opacityVariable})))`;
+          }
+
+          return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, 1))`;
+        };
       }
     }
   }
@@ -160,12 +164,12 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
 
   const light: ConfigTheme = {
     colors: deepMerge(getByColorMode('light'), userLightColors),
-    semanticTokens: deepMerge(get(themeObject, 'light.semanticTokens'), {}),
+    semanticTokens: deepMerge(defaultSemanticTokens.light, get(themeObject, 'light.semanticTokens', {})),
   };
 
   const dark = {
     colors: deepMerge(getByColorMode('dark'), userDarkColors),
-    semanticTokens: deepMerge(get(themeObject, 'dark.semanticTokens'), {}),
+    semanticTokens: deepMerge(defaultSemanticTokens.dark, get(themeObject, 'dark.semanticTokens', {})),
   };
 
   const themes = {
