@@ -28,7 +28,7 @@ export const Testing: React.FC<TestingProps> = (props) => {
         <div className="items-center justify-center flex bg-divider-8">Divider</div>
       </myra.div>
       <div>Local</div>
-      <myra.div className="h-24 grid grid-cols-2" themeColors={{ primary: 'blue', accent: { dark: 'pink.12', light: 'red' } }}>
+      <myra.div className="h-24 grid grid-cols-2" themeColors={{ primary: 'blue', accent: { _dark: 'pink.12', _light: 'red.9' } }}>
         <div className="items-center justify-center flex bg-primary">Primary</div>
         <div className="items-center justify-center flex bg-accent">Accent</div>
       </myra.div>

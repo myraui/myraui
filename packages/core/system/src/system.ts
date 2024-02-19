@@ -2,14 +2,15 @@ import { As, MyraComponent, MyraProps } from './system.types';
 import React from 'react';
 import createStyled from '@emotion/styled';
 import { useMyraUIContext } from './context';
-import { buildCSSVariables, buildSemanticTokens } from '@myra-ui/theme';
+import { buildComponentTheme, buildCSSVariables } from '@myra-ui/theme';
 
 const emotion_styled = ((createStyled as any).default ?? createStyled) as typeof createStyled;
 
 export interface MyraUIStyledOptions {}
 
 function applyComponentTheme(props: MyraProps & { cssVariablePrefix: string }) {
-  const vars = buildSemanticTokens(props.cssVariablePrefix, {
+  const vars = buildComponentTheme(props.cssVariablePrefix, {
+    ...(props.componentTheme || {}),
     colors: props.themeColors,
   });
 

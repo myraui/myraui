@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { SemanticTokens } from '@myra-ui/theme';
+import { ComponentTheme } from '@myra-ui/theme';
 
 type Assign<T, U> = Omit<T, keyof U> & U;
 
@@ -49,7 +49,8 @@ export type ComponentWithAs<Component extends As, Props extends object = object>
 };
 
 export interface MyraProps {
-  themeColors?: SemanticTokens['colors'];
+  themeColors?: ComponentTheme['colors'];
+  componentTheme?: ComponentTheme;
 }
 
 export interface MyraComponent<T extends As, P extends object = object> extends ComponentWithAs<T, Assign<MyraProps, P>> {}

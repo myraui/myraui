@@ -3,4 +3,4 @@ export * from './theme.types';
 export * from './plugin';
 export * from './utils/theme';
 export * from './utils/classes';
-export * from './semantic-tokens/builder';
+export * from './utils/semantic-tokens';

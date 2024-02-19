@@ -1,4 +1,4 @@
-import { ConfigTheme, ConfigThemes, SemanticTokens } from './theme.types';
+import { ConfigTheme, ConfigThemes } from './theme.types';
 import { BASE_THEME, isColorMode, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
 import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
@@ -9,14 +9,12 @@ import omit from 'lodash.omit';
 import deepMerge from 'deepmerge';
 import { baseStyles } from './utils/classes';
 import { MyraUIPluginConfig } from './plugin.types';
-import { getThemeValues } from './utils/variants';
-import { defaultColors } from './default-theme/colors';
-import { resolveSemanticTokens } from './semantic-tokens/builder';
+import { resolveSemanticTokens } from './utils/semantic-tokens';
+import { getByColorMode } from '@myra-ui/colors';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
-const resolveConfig = (themes: ConfigThemes = {}, prefix: string, semanticTokens: SemanticTokens = {}) => {
-  const resolvedTokens = resolveSemanticTokens(prefix, semanticTokens);
+const resolveConfig = (themes: ConfigThemes = {}, prefix: string) => {
   const resolved: {
     variants: { name: string; definition: string[] }[];
     utilities: Record<string, Record<string, any>>;
@@ -27,8 +25,8 @@ const resolveConfig = (themes: ConfigThemes = {}, prefix: string, semanticTokens
     colors: {},
   };
 
-  for (const [themeName, { colors, extend }] of Object.entries(themes)) {
-    const tokens = resolvedTokens[themeName as keyof typeof resolvedTokens] || {};
+  for (const [themeName, { colors, extend, semanticTokens }] of Object.entries(themes)) {
+    const tokens = resolveSemanticTokens(prefix, semanticTokens || {});
 
     let cssSelector = `.${themeName},[data-theme="${themeName}"]`;
     const scheme = themeName === 'light' || themeName === 'dark' ? themeName : extend;
@@ -111,8 +109,8 @@ const resolveConfig = (themes: ConfigThemes = {}, prefix: string, semanticTokens
   return resolved;
 };
 
-const corePlugin = (themes: ConfigThemes = {}, prefix: string, semanticTokens: SemanticTokens = {}) => {
-  const resolved = resolveConfig(themes, prefix, semanticTokens);
+const corePlugin = (themes: ConfigThemes = {}, prefix: string) => {
+  const resolved = resolveConfig(themes, prefix);
 
   return plugin(
     ({ addBase, addUtilities, addVariant }) => {
@@ -144,7 +142,7 @@ const corePlugin = (themes: ConfigThemes = {}, prefix: string, semanticTokens: S
 };
 
 const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin> => {
-  const { themes: themeObject = {}, defaultExtendTheme = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX, semanticTokens } = config;
+  const { themes: themeObject = {}, defaultExtendTheme = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX } = config;
 
   const userLightColors = get(themeObject, 'light.colors', {});
   const userDarkColors = get(themeObject, 'dark.colors', {});
@@ -156,16 +154,18 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     const baseTheme = extend && isColorMode(extend) ? extend : defaultExtendTheme;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(getThemeValues(defaultColors, baseTheme), colors);
+      otherThemes[themeName].colors = deepMerge(getByColorMode(baseTheme), colors);
     }
   });
 
   const light: ConfigTheme = {
-    colors: deepMerge(getThemeValues(defaultColors, 'light'), userLightColors),
+    colors: deepMerge(getByColorMode('light'), userLightColors),
+    semanticTokens: deepMerge(get(themeObject, 'light.semanticTokens'), {}),
   };
 
   const dark = {
-    colors: deepMerge(getThemeValues(defaultColors, 'dark'), userDarkColors),
+    colors: deepMerge(getByColorMode('dark'), userDarkColors),
+    semanticTokens: deepMerge(get(themeObject, 'dark.semanticTokens'), {}),
   };
 
   const themes = {
@@ -174,7 +174,7 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     ...otherThemes,
   };
 
-  return corePlugin(themes, defaultPrefix, semanticTokens);
+  return corePlugin(themes, defaultPrefix);
 };
 
 export default myrauiPlugin;

@@ -11,12 +11,13 @@ module.exports = {
   plugins: [
     myraUIPlugin({
       themes: {
-        light: {},
-      },
-      semanticTokens: {
-        colors: {
-          primary: 'blue.8',
-          accent: 'slate',
+        light: {
+          semanticTokens: {
+            colors: {
+              primary: 'blue.8',
+              accent: 'slate',
+            },
+          },
         },
       },
     }),

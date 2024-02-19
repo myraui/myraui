@@ -8,9 +8,11 @@ export const BASE_THEME: BaseTheme = 'light';
 
 export const DEFAULT_SHADE = 7;
 
-export type CSSVariables = Record<string, string | Record<string, string>>;
+export type CSSVariables = Record<string, string>;
 
-export type ThemedCSSVariables = Partial<Record<Theme, Record<string, string>>>;
+export type GroupedCSSVariables = Record<string, string | CSSVariables>;
+
+export type ThemedCSSVariables = Partial<Record<Theme, CSSVariables>>;
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -38,10 +40,13 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): Record<s
   return resolvedColors;
 }
 
-export function flattenThemedCSSVariables(variables: ThemedCSSVariables): CSSVariables {
-  const result: CSSVariables = {};
+export function flattenThemedCSSVariables(variables: ThemedCSSVariables): GroupedCSSVariables {
+  const result: GroupedCSSVariables = {};
 
   for (const [theme, themeVariables] of Object.entries(variables)) {
+    if (!themeVariables) {
+      continue;
+    }
     if (theme === BASE_THEME) {
       Object.assign(result, themeVariables);
     } else {
@@ -55,19 +60,9 @@ export function flattenThemedCSSVariables(variables: ThemedCSSVariables): CSSVar
 export function flattenSemanticTokens(prefix: string, semanticTokens: ResolvedSemanticTokens): CSSVariables {
   const result: CSSVariables = {};
 
-  for (const [theme, themeTokens] of Object.entries(semanticTokens)) {
-    const properties: Record<string, string> = {};
-
-    for (const [key, value] of Object.entries(themeTokens)) {
-      for (const [tokenKey, tokenValue] of Object.entries(value)) {
-        properties[`--${prefix}-${key}-${tokenKey}`] = tokenValue;
-      }
-    }
-
-    if (theme === BASE_THEME) {
-      Object.assign(result, properties);
-    } else {
-      result[`.${theme} &,[data-theme="${theme}"] &`] = properties;
+  for (const [key, value] of Object.entries(semanticTokens)) {
+    for (const [tokenKey, tokenValue] of Object.entries(value)) {
+      result[`--${prefix}-${key}-${tokenKey}`] = tokenValue;
     }
   }
 
@@ -78,7 +73,7 @@ export function mergeThemedCSSVariables(variables: ThemedCSSVariables, otherVari
   return deepMerge({ ...variables }, { ...otherVariables });
 }
 
-export function buildCSSVariables(cssVariables: CSSVariables): Record<string, string | Record<string, string>> {
+export function buildCSSVariables(cssVariables: GroupedCSSVariables): Record<string, string | Record<string, string>> {
   const result: Record<string, string | Record<string, string>> = {};
 
   for (const [key, value] of Object.entries(cssVariables)) {
@@ -92,6 +87,6 @@ export function buildCSSVariables(cssVariables: CSSVariables): Record<string, st
   return result;
 }
 
-export function isThemedValue(record: object): record is ThemedValue<any> {
+export function isThemedValue(record: object = {}): record is ThemedValue<any> {
   return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
 }
