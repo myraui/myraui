@@ -1,29 +1,36 @@
-import { baseColors, ColorScale, isColorScale, shades } from '@myra-ui/colors';
-import { ColorPalette, Theme, ThemeColorKey, ThemeColors, ThemedProperty } from '../theme.types';
+import { ColorScale, isColorScale, myraColors } from '@myra-ui/colors';
+import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue, ThemeRecord } from '../theme.types';
+import deepMerge from 'deepmerge';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 
-export const isBaseTheme = (theme: string) => theme === 'light' || theme === 'dark';
+export const BASE_THEME: BaseTheme = 'light';
 
-export function isColorPaletteColor(colorName: string): colorName is keyof ColorPalette {
-  return colorName === 'neutral' || colorName === 'action' || colorName === 'foreground';
-}
+export const DEFAULT_SHADE = 9; // Solid Color Shade
 
-function resolveColorValue(colors: ThemeColors, colorValue: unknown): ColorScale {
+export type CSSVariables = Record<string, string>;
+
+export type GroupedCSSVariables = Record<string, string | CSSVariables>;
+
+export type ThemedCSSVariables = Partial<Record<Theme, CSSVariables>>;
+
+export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
+
+function resolveColorValue(colors: Record<string, ColorValue>, colorValue: unknown): ColorScale {
   if (isColorScale(colorValue)) {
     return colorValue;
   }
 
-  const colorFromValue = colors[colorValue as keyof ThemeColors];
+  const colorFromValue = colors[colorValue as never];
 
   if (!colorFromValue || colorFromValue === colorValue) {
-    return baseColors.gray.light;
+    return myraColors.blackAlpha.light;
   }
 
   return resolveColorValue(colors, colorFromValue);
 }
 
-export function resolveThemeColors(colors: ThemeColors): Record<string, ColorScale> {
+export function resolveThemeColors(colors: Record<string, ColorValue>): Record<string, ColorScale> {
   const resolvedColors: Record<string, ColorScale> = {};
 
   for (const [key, value] of Object.entries(colors)) {
@@ -33,69 +40,64 @@ export function resolveThemeColors(colors: ThemeColors): Record<string, ColorSca
   return resolvedColors;
 }
 
-export function getComputedColorScale(colorName: string, element: HTMLElement, prefix: string): ColorScale {
-  const colorScale: Partial<ColorScale> = {};
+export function flattenThemedCSSVariables(variables: ThemedCSSVariables): GroupedCSSVariables {
+  const result: GroupedCSSVariables = {};
 
-  for (const shade of shades) {
-    const color = getComputedStyle(element).getPropertyValue(`--${prefix}-${colorName}-${shade}`);
-    const alphaValue = getComputedStyle(element).getPropertyValue(`--${prefix}-${colorName}-${shade}-opacity`);
-
-    colorScale[shade] = `hsl(${color} / ${alphaValue || 1})`;
+  for (const [theme, themeVariables] of Object.entries(variables)) {
+    if (!themeVariables) {
+      continue;
+    }
+    if (theme === BASE_THEME) {
+      Object.assign(result, themeVariables);
+    } else {
+      result[`.${theme} &,[data-theme="${theme}"] &`] = themeVariables;
+    }
   }
 
-  return colorScale as ColorScale;
+  return result;
 }
 
-function createPaletteProperties(prefix: string, key: string, colorName: string) {
-  return shades.reduce((acc, shade) => {
-    return {
-      ...acc,
-      [`--${prefix}-${key}-${shade}`]: `var(--${prefix}-${colorName}-${shade})`,
-      [`--${prefix}-${key}-${shade}-opacity`]: `var(--${prefix}-${colorName}-${shade}-opacity)`,
-    };
+export function flattenSemanticTokens(prefix: string, semanticTokens: ResolvedSemanticTokens): CSSVariables {
+  const result: CSSVariables = {};
+
+  for (const [key, value] of Object.entries(semanticTokens)) {
+    for (const [tokenKey, tokenValue] of Object.entries(value)) {
+      result[`--${prefix}-${key}-${tokenKey}`] = tokenValue;
+    }
+  }
+
+  return result;
+}
+
+export function mergeThemedCSSVariables(variables: ThemedCSSVariables, otherVariables: ThemedCSSVariables): ThemedCSSVariables {
+  return deepMerge({ ...variables }, { ...otherVariables });
+}
+
+export function buildCSSVariables(cssVariables: GroupedCSSVariables): Record<string, string | Record<string, string>> {
+  const result: Record<string, string | Record<string, string>> = {};
+
+  for (const [key, value] of Object.entries(cssVariables)) {
+    if (typeof value === 'string') {
+      result[key] = `var(${value})`;
+    } else {
+      result[key] = buildCSSVariables(value as Record<string, string>) as Record<string, string>;
+    }
+  }
+
+  return result;
+}
+
+export function resolveThemeRecord<Value>(themedValue: ThemeRecord<Value>): Record<Theme, Value> {
+  return Object.entries(themedValue).reduce((acc, [key, value]) => {
+    const theme = key.replace('_', '') as Theme;
+    return { ...acc, [theme]: value };
   }, {});
 }
 
-export function buildColorPalette(palette: Partial<ColorPalette>, prefix: string): Record<string, string | Record<string, string>> {
-  const properties: Record<string, string | Record<string, string>> = {};
-  for (const [key, value] of Object.entries(palette)) {
-    if (!value) {
-      continue;
-    }
-    if (typeof value === 'object') {
-      for (const [theme, themeValue] of Object.entries(value)) {
-        const selector = `.${theme} &,[data-theme="${theme}"] &`;
-        properties[selector] = createPaletteProperties(prefix, key, themeValue);
-      }
-    } else {
-      Object.assign(properties, createPaletteProperties(prefix, key, value));
-    }
-  }
-  return properties;
+export function isThemeRecord(record: object = {}): record is ThemeRecord<any> {
+  return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
 }
 
-export function getThemedProperty<K extends string, T extends Theme>(property: ThemedProperty<K, T>, theme: T): K {
-  if (typeof property === 'object') {
-    return property[theme];
-  }
-
-  return property;
-}
-
-export function extractColorPalette<P extends Partial<ColorPalette>, T extends Theme>(palette: P, theme: T): Record<keyof P, ThemeColorKey> {
-  const colorPalette: any = {};
-
-  for (const [key, value] of Object.entries(palette)) {
-    colorPalette[key] = getThemedProperty(value, theme);
-  }
-
-  return colorPalette as Record<keyof P, ThemeColorKey>;
-}
-
-export function resolveColorPalette(palette: Partial<ColorPalette>, theme: Theme, element: HTMLElement, prefix: string) {
-  return {
-    action: getComputedColorScale(getThemedProperty(palette.action || 'action', theme), element, prefix),
-    neutral: getComputedColorScale(getThemedProperty(palette.neutral || 'neutral', theme), element, prefix),
-    foreground: getComputedColorScale(getThemedProperty(palette.foreground || 'foreground', theme), element, prefix),
-  };
+export function normalizeThemedValue<Value extends string | number>(themedValue: ThemedValue<Value>): ThemeRecord<Value> {
+  return typeof themedValue === 'object' ? themedValue : ({ [`_${BASE_THEME}`]: themedValue } as ThemeRecord<Value>);
 }

@@ -1,26 +1,53 @@
-import { ColorMode, ColorName, ColorScale } from '@myra-ui/colors';
+import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from '@myra-ui/colors';
+import { DefaultSemanticColors } from './semantic-tokens/colors';
 
-export type Theme = string | ColorMode;
+export type Theme = ColorMode | string;
 
-export type ThemedProperty<K, T extends Theme = Theme> = K | Record<T, K>;
+export type BaseTheme = 'light';
 
-export type ColorPaletteKeys = 'neutral' | 'action' | 'foreground';
+export type ThemeRecord<Value> = Partial<Record<`_${Theme}`, Value>> & Record<`_${BaseTheme}`, Value>;
 
-export type ThemeColorKey = ColorName | ColorPaletteKeys;
+export type ThemedValue<Value> = Value | ThemeRecord<Value>;
 
-export type ThemedColor = ThemedProperty<ThemeColorKey> | ThemedProperty<string>;
+export type ColorValue = (ColorScale | MyraColor) | string;
 
-export type ColorPalette = Record<ColorPaletteKeys, ThemedColor>;
+/**
+ * Nested record of semantic tokens
+ *
+ * Depth: 5
+ */
+export type SemanticRecord<
+  Value,
+  K1 extends string = string,
+  K2 extends string = string,
+  K3 extends string = string,
+  K4 extends string = string,
+  K5 extends string = string
+> = Record<K1 | string, Value | Record<K2 | string, Value | Record<K3 | string, Value | Record<K4 | string, Value | Record<K5 | string, Value>>>>>;
 
-export type ResolvedColorPalette = Record<ColorPaletteKeys, ColorScale>;
+export type SemanticTokens = {
+  colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
+};
 
-export type ThemeColorValue = ColorScale | ThemeColorKey | string;
+export type ComponentTheme = Partial<{
+  [K in keyof Required<SemanticTokens>]: Required<SemanticTokens>[K] extends SemanticRecord<
+    infer Value,
+    infer K1,
+    infer K2,
+    infer K3,
+    infer K4,
+    infer K5
+  >
+    ? SemanticRecord<ThemedValue<Value>, K1, K2, K3, K4, K5>
+    : never;
+}>;
 
-export type ThemeColors = Record<ThemeColorKey, ThemeColorValue> | Record<string, ThemeColorValue>;
+export type ResolvedSemanticTokens = Partial<Record<keyof SemanticTokens, Record<string, string>>>;
 
 export type ConfigTheme = {
-  colorMode?: ColorMode;
-  colors?: ThemeColors;
+  extend?: ColorMode;
+  colors?: Partial<Record<MyraColor & string, ColorValue>>;
+  semanticTokens?: SemanticTokens;
 };
 
 export type ConfigThemes = Record<string, ConfigTheme>;

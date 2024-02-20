@@ -1,6 +1,5 @@
-import { ConfigTheme, ConfigThemes, ThemeColors } from './theme.types';
-import { ColorMode } from '@myra-ui/colors';
-import { isBaseTheme, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
+import { ConfigTheme, ConfigThemes } from './theme.types';
+import { BASE_THEME, isColorMode, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
 import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
 import get from 'lodash.get';
@@ -10,11 +9,13 @@ import omit from 'lodash.omit';
 import deepMerge from 'deepmerge';
 import { baseStyles } from './utils/classes';
 import { MyraUIPluginConfig } from './plugin.types';
-import { semanticColors } from './semantic/colors';
+import { resolveSemanticTokens } from './utils/semantic-tokens';
+import { getByColorMode } from '@myra-ui/colors';
+import { defaultSemanticTokens } from './semantic-tokens';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
-const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
+const resolveConfig = (themes: ConfigThemes = {}, prefix: string) => {
   const resolved: {
     variants: { name: string; definition: string[] }[];
     utilities: Record<string, Record<string, any>>;
@@ -25,11 +26,13 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
     colors: {},
   };
 
-  for (const [themeName, { colors, colorMode }] of Object.entries(themes)) {
-    let cssSelector = `.${themeName},[data-theme="${themeName}"]`;
-    const scheme = themeName === 'light' || themeName === 'dark' ? themeName : colorMode;
+  for (const [themeName, { colors, extend, semanticTokens }] of Object.entries(themes)) {
+    const tokens = resolveSemanticTokens(prefix, semanticTokens || {});
 
-    if (themeName === defaultTheme) {
+    let cssSelector = `.${themeName},[data-theme="${themeName}"]`;
+    const scheme = themeName === 'light' || themeName === 'dark' ? themeName : extend;
+
+    if (themeName === BASE_THEME) {
       cssSelector = `:root,${cssSelector}`;
     }
 
@@ -53,8 +56,8 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
         parsedColorsCache[colorValue] = parsedColor;
 
         const [h, s, l, defaultAlphaValue] = parsedColor;
-        const myraUIColorVariable = `--${prefix}-${colorName}`;
-        const myraUIOpacityVariable = `--${prefix}-${colorName}-opacity`;
+        const myraUIColorVariable = `--${prefix}-colors-${colorName}`;
+        const myraUIOpacityVariable = `--${prefix}-colors-${colorName}-opacity`;
 
         // set the css variable in "@layer utilities"
         resolved.utilities[cssSelector]![myraUIColorVariable] = `${h} ${s}% ${l}%`;
@@ -82,13 +85,36 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefi
         console.error('error', e?.message);
       }
     }
+
+    /**
+     * Resolve semantic token colors
+     */
+    for (const [tokenKey, tokenValue] of Object.entries(tokens.colors || {})) {
+      const colorVar = `--${prefix}-colors-${tokenKey}`;
+      resolved.utilities[cssSelector]![colorVar] = `var(${tokenValue})`;
+
+      if (!tokenKey.endsWith('-opacity')) {
+        const colorOpacityVariable = colorVar + '-opacity';
+        resolved.colors[tokenKey] = ({ opacityVariable, opacityValue }) => {
+          // if the opacity is set  with a slash (e.g. bg-primary/90), use the provided value
+          if (!isNaN(+opacityValue)) {
+            return `hsl(var(${colorVar}) / ${opacityValue})`;
+          }
+          if (opacityVariable) {
+            return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, var(${opacityVariable})))`;
+          }
+
+          return `hsl(var(${colorVar}) / var(${colorOpacityVariable}, 1))`;
+        };
+      }
+    }
   }
 
   return resolved;
 };
 
-const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: string) => {
-  const resolved = resolveConfig(themes, defaultTheme, prefix);
+const corePlugin = (themes: ConfigThemes = {}, prefix: string) => {
+  const resolved = resolveConfig(themes, prefix);
 
   return plugin(
     ({ addBase, addUtilities, addVariant }) => {
@@ -120,7 +146,7 @@ const corePlugin = (themes: ConfigThemes = {}, defaultTheme: ColorMode, prefix: 
 };
 
 const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin> => {
-  const { themes: themeObject = {}, defaultTheme = 'light', defaultColorMode = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX } = config;
+  const { themes: themeObject = {}, defaultExtendTheme = 'light', prefix: defaultPrefix = MYRA_UI_PREFIX } = config;
 
   const userLightColors = get(themeObject, 'light.colors', {});
   const userDarkColors = get(themeObject, 'dark.colors', {});
@@ -128,20 +154,22 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
   // get other themes from the config different from light and dark
   const otherThemes = omit(themeObject, ['light', 'dark']) || {};
 
-  forEach(otherThemes, ({ colorMode, colors }, themeName) => {
-    const baseTheme = colorMode && isBaseTheme(colorMode) ? colorMode : defaultColorMode;
+  forEach(otherThemes, ({ extend, colors }, themeName) => {
+    const baseTheme = extend && isColorMode(extend) ? extend : defaultExtendTheme;
 
     if (colors && typeof colors === 'object') {
-      otherThemes[themeName].colors = deepMerge(semanticColors[baseTheme as ColorMode], colors as any) as ThemeColors;
+      otherThemes[themeName].colors = deepMerge(getByColorMode(baseTheme), colors);
     }
   });
 
   const light: ConfigTheme = {
-    colors: deepMerge(semanticColors.light, userLightColors) as ThemeColors,
+    colors: deepMerge(getByColorMode('light'), userLightColors),
+    semanticTokens: deepMerge(defaultSemanticTokens.light, get(themeObject, 'light.semanticTokens', {})),
   };
 
   const dark = {
-    colors: deepMerge(semanticColors.dark, userDarkColors) as ThemeColors,
+    colors: deepMerge(getByColorMode('dark'), userDarkColors),
+    semanticTokens: deepMerge(defaultSemanticTokens.dark, get(themeObject, 'dark.semanticTokens', {})),
   };
 
   const themes = {
@@ -150,7 +178,7 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     ...otherThemes,
   };
 
-  return corePlugin(themes, defaultTheme, defaultPrefix);
+  return corePlugin(themes, defaultPrefix);
 };
 
 export default myrauiPlugin;

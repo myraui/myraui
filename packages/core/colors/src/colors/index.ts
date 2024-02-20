@@ -3,7 +3,7 @@
  * https://www.radix-ui.com/colors
  */
 
-import { BaseColors } from '../color-types';
+import { MyraColors } from '../color-types';
 import { amber } from './amber';
 import { blackAlpha } from './blackAlpha';
 import { blue } from './blue';
@@ -38,7 +38,7 @@ import { tomato } from './tomato';
 import { violet } from './violet';
 import { whiteAlpha } from './whiteAlpha';
 
-export const baseColors: BaseColors = {
+export const myraColors: MyraColors = {
   amber,
   blackAlpha,
   blue,

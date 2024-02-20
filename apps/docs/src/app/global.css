@@ -9,8 +9,3 @@
 .dark {
   color-scheme: dark;
 }
-
-body {
-  background: hsl(var(--neutral-3));
-  color: hsl(var(--text-12));
-}

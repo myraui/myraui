@@ -35,8 +35,7 @@
     "@myra-ui/react-utils": "workspace:^",
     "@myra-ui/shared-utils": "workspace:^",
     "@myra-ui/system": "workspace:^",
-    "@myra-ui/theme": "workspace:^",
-    "@myra-ui/use-color-palette": "workspace:^"
+    "@myra-ui/theme": "workspace:^"
   },
   "clean-package": "../../../clean-package.config.json"
 }

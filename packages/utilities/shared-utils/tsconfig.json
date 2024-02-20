@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "allowJs": true,
-    "esModuleInterop": false,
+    "esMOduleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true
   },

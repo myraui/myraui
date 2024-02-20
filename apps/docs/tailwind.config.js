@@ -11,7 +11,38 @@ module.exports = {
   plugins: [
     myraUIPlugin({
       themes: {
-        dark: {},
+        dark: {
+          semanticTokens: {
+            colors: {
+              background: 'gray.6',
+              foreground: 'gray.12',
+              focus: 'blue.8',
+              divider: 'blackAlpha.2',
+              default: 'slate',
+              primary: 'blue',
+              secondary: 'purple',
+              success: 'green',
+              warning: 'yellow',
+              danger: 'red',
+            },
+          },
+        },
+        light: {
+          semanticTokens: {
+            colors: {
+              background: 'gray.1',
+              foreground: 'gray.12',
+              focus: 'blue.8',
+              divider: 'blackAlpha.2',
+              default: 'slate',
+              primary: 'blue',
+              secondary: 'purple',
+              success: 'green',
+              warning: 'yellow',
+              danger: 'red',
+            },
+          },
+        },
       },
     }),
   ],
