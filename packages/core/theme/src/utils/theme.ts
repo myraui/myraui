@@ -1,5 +1,5 @@
 import { ColorScale, isColorScale, myraColors } from '@myra-ui/colors';
-import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue } from '../theme.types';
+import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import deepMerge from 'deepmerge';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
@@ -87,6 +87,17 @@ export function buildCSSVariables(cssVariables: GroupedCSSVariables): Record<str
   return result;
 }
 
-export function isThemedValue(record: object = {}): record is ThemedValue<any> {
+export function resolveThemeRecord<Value>(themedValue: ThemeRecord<Value>): Record<Theme, Value> {
+  return Object.entries(themedValue).reduce((acc, [key, value]) => {
+    const theme = key.replace('_', '') as Theme;
+    return { ...acc, [theme]: value };
+  }, {});
+}
+
+export function isThemeRecord(record: object = {}): record is ThemeRecord<any> {
   return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
+}
+
+export function normalizeThemedValue<Value extends string | number>(themedValue: ThemedValue<Value>): ThemeRecord<Value> {
+  return typeof themedValue === 'object' ? themedValue : ({ [`_${BASE_THEME}`]: themedValue } as ThemeRecord<Value>);
 }

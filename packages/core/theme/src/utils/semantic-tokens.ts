@@ -1,12 +1,13 @@
 import { ColorShade, shades } from '@myra-ui/colors';
 import {
-  BASE_THEME,
   CSSVariables,
   DEFAULT_SHADE,
   flattenSemanticTokens,
   flattenThemedCSSVariables,
   GroupedCSSVariables,
-  isThemedValue,
+  isThemeRecord,
+  normalizeThemedValue,
+  resolveThemeRecord,
   ThemedCSSVariables,
 } from './theme';
 import { ComponentTheme, ResolvedSemanticTokens, SemanticRecord, SemanticTokens, Theme, ThemedValue } from '../theme.types';
@@ -86,26 +87,14 @@ export function walkComponentThemeRecord<Value extends string | number>(
 ): Partial<Record<Theme, SemanticRecord<Value>>> {
   const result: Partial<Record<Theme, SemanticRecord<Value>>> = {};
 
-  if (!semanticRecord) {
-    return result;
-  }
+  if (!semanticRecord) return result;
+  if (isThemeRecord(semanticRecord)) return resolveThemeRecord(semanticRecord);
 
-  if (isThemedValue(semanticRecord)) {
-    for (const [key, value] of Object.entries(semanticRecord)) {
-      const theme = key.replace('_', '') as Theme;
-      result[theme] = value as SemanticRecord<Value>;
-    }
-  } else {
-    for (const [tokenKey, tokenValue] of Object.entries(semanticRecord)) {
-      if (typeof tokenValue === 'object') {
-        const valueResult = walkComponentThemeRecord(tokenValue as SemanticRecord<ThemedValue<Value>>);
+  for (const [tokenKey, tokenValue] of Object.entries(semanticRecord)) {
+    const valueResult = walkComponentThemeRecord(normalizeThemedValue(tokenValue as any));
 
-        for (const [theme, value] of Object.entries(valueResult)) {
-          result[theme as Theme] = { ...(result[theme as Theme] || {}), [tokenKey]: value } as SemanticRecord<Value>;
-        }
-      } else {
-        result[BASE_THEME] = { ...(result[BASE_THEME] || {}), [tokenKey]: tokenValue } as SemanticRecord<Value>;
-      }
+    for (const [theme, value] of Object.entries(valueResult)) {
+      result[theme as Theme] = { ...(result[theme as Theme] || {}), [tokenKey]: value } as SemanticRecord<Value>;
     }
   }
 

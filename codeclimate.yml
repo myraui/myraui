@@ -22,13 +22,16 @@ checks:
   method-complexity:
     config:
       threshold: 10
+  function-complexity:
+    config:
+      threshold: 10
 exclude_patterns:
   - '**/build'
   - '**/node_modules/'
   - '**/generated/'
   - 'dist/'
   - '**/*.d.ts'
-  - '**/__tests__/'
+  - '**/__tests__/**'
   - 'coverage/'
   - '**/*.spec.ts'
   - '**/tsconfig*.json'
