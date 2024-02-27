@@ -109,7 +109,7 @@ module.exports = function main(plop) {
           description,
           outDir,
           destination,
-          tags: `["${defaultTags[gen]}"]`,
+          tags: defaultTags[gen],
         };
 
         actions.push({
