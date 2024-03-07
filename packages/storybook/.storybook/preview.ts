@@ -1,8 +1,15 @@
 import theme from './theme';
 import { Preview } from '@storybook/react';
 import formatCode from './utils/formatCode';
+import { themes } from '@storybook/theming';
 
-import './style.css';
+import './style.scss';
+
+const commonTheme = {
+  brandTitle: 'MyraUI',
+  brandUrl: 'https://github.com/gitaumoses4/myra-ui',
+  brandTarget: '_self',
+};
 
 const preview: Preview = {
   parameters: {
@@ -21,6 +28,18 @@ const preview: Preview = {
       darkClass: 'dark',
       lightClass: 'light',
       classTarget: 'html',
+      dark: {
+        ...themes.dark,
+        ...commonTheme,
+        appBorderRadius: 14,
+        brandImage: '/dark-logo.svg',
+      },
+      light: {
+        ...themes.light,
+        ...commonTheme,
+        appBorderRadius: 14,
+        brandImage: '/light-logo.svg',
+      },
     },
     options: {
       storySort: {},
