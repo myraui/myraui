@@ -32,13 +32,13 @@ const preview: Preview = {
         ...themes.dark,
         ...commonTheme,
         appBorderRadius: 14,
-        brandImage: '/dark-logo.svg',
+        brandImage: '/images/logo/dark-logo.svg',
       },
       light: {
         ...themes.light,
         ...commonTheme,
         appBorderRadius: 14,
-        brandImage: '/light-logo.svg',
+        brandImage: '/images/logo/light-logo.svg',
       },
     },
     options: {
