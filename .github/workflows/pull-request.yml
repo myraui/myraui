@@ -42,8 +42,6 @@ jobs:
       - if: github.ref != 'refs/heads/develop'
         run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
 
-      - run: pnpm exec nx-cloud record -- nx format:check
-
       - name: Test & Build
         run: pnpm exec nx affected -t=lint,test,build,build-storybook --base=develop --head=HEAD --parallel --configuration=ci
 
