@@ -1,0 +1,34 @@
+{
+  "name": "@myra-ui/storybook",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "The MyraUI react components storybook",
+  "keywords": [
+    "storybook"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myra-ui.git",
+    "directory": "packages/core/storybook"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myra-ui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

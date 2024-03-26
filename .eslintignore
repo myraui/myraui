@@ -13,8 +13,6 @@ node_modules
 coverage
 .next
 build
-!.storybook
-/**/.storybook/**
 !.commitlintrc.cjs
 !.lintstagedrc.cjs
 !jest.config.js
