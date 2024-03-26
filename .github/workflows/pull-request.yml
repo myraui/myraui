@@ -43,7 +43,7 @@ jobs:
         run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
 
       - name: Check code
-        run: pnpm affected:lint --configuration=ci
+        run: pnpm run lint --configuration=ci
 
       - name: Run tests
         run: pnpm run test --configuration=ci
