@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "packages/**/stories/**/*.tsx",
+    "packages/**/stories/**/*.jsx",
+    "packages/**/stories/**/*.mdx",
+    "packages/**/stories/**/*.ts",
+    "packages/**/stories/**/*.js"
+  ]
+}

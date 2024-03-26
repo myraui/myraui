@@ -1,6 +1,6 @@
 import React from 'react';
-import { shades } from '../src/color-shades';
-import { myraColors } from '../src/colors/index';
+import { shades } from '../src';
+import { myraColors } from '../src';
 
 function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
