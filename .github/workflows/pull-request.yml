@@ -42,11 +42,10 @@ jobs:
       - if: github.ref != 'refs/heads/develop'
         run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
 
-      - name: Check code
-        run: pnpm run lint --configuration=ci
+      - run: pnpm exec nx-cloud record -- nx format:check
 
-      - name: Run tests
-        run: pnpm run test --configuration=ci
+      - name: Test & Build
+        run: pnpm exec nx affected -t=lint,test,build,build-storybook --base=develop --head=HEAD --parallel --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -56,9 +55,3 @@ jobs:
           coverageCommand: pnpm run coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
-
-      - name: Run Build
-        run: pnpm run affected:build --configuration=ci
-
-      - name: Build Storybook
-        run: pnpm run build-storybook --configuration=ci

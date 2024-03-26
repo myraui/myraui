@@ -39,11 +39,10 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-      - name: Check code
-        run: pnpm run lint --configuration=ci
+      - run: pnpm exec nx-cloud record -- nx format:check
 
-      - name: Run tests
-        run: pnpm run test --configuration=ci
+      - name: Test & Build
+        run: pnpm exec nx -t=lint,test,build,build-storybook --parallel --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -53,9 +52,3 @@ jobs:
           coverageCommand: pnpm run coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
-
-      - name: Run Build
-        run: pnpm run build --configuration=ci
-
-      - name: Build Storybook
-        run: pnpm run build-storybook --configuration=ci
