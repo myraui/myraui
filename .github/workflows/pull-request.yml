@@ -53,9 +53,12 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
         with:
-          coverageCommand: pnpm coverage-merge
+          coverageCommand: pnpm run coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
 
       - name: Run Build
-        run: pnpm affected:build --configuration=ci
+        run: pnpm run affected:build --configuration=ci
+
+      - name: Build Storybook
+        run: pnpm run build-storybook --configuration=ci
