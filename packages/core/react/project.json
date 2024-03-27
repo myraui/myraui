@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/core/react"
+        "outputPath": "packages/core/react/dist"
       },
       "configurations": {
         "development": {

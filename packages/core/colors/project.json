@@ -11,7 +11,7 @@
     "build": {
       "executor": "@nx/js:tsc",
       "options": {
-        "outputPath": "dist/packages/core/colors",
+        "outputPath": "packages/core/colors/dist",
         "rootDir": "packages/core/colors/src",
         "main": "packages/core/colors/src/index.ts",
         "tsConfig": "packages/core/colors/tsconfig.lib.json",

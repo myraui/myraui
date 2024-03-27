@@ -17,7 +17,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/packages/utilities/react-utils',
+    outDir: '../../../packages/utilities/react-utils/dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,

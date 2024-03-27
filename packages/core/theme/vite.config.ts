@@ -17,7 +17,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/packages/core/theme',
+    outDir: '../../../packages/core/theme/dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
@@ -25,7 +25,6 @@ export default defineConfig({
     lib: {
       entry: ['src/index.ts'],
       name: '@myra-ui/theme',
-      fileName: (format, entryName) => `${entryName}.${format}`,
       formats: ['es', 'cjs'],
     },
     rollupOptions: {

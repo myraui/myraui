@@ -12,12 +12,12 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/utilities/shared-utils",
+        "outputPath": "packages/utilities/shared-utils/dist",
         "rootDir": "packages/utilities/shared-utils/src",
         "main": "packages/utilities/shared-utils/src/index.ts",
         "tsConfig": "packages/utilities/shared-utils/tsconfig.lib.json",
         "assets": [ ]
-      },
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",
