@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
@@ -9,7 +9,7 @@
     "types": ["vite/client"]
   },
   "files": [],
-  "include": [],
+  "include": ["src", "stories"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

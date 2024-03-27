@@ -9,11 +9,6 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "stories/**/*.tsx",
-    "stories/**/*.jsx",
-    "stories/**/*.mdx",
-    "stories/**/*.ts",
-    "stories/**/*.js"
+    "src/**/*.tsx"
   ]
 }
