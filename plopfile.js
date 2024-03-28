@@ -14,23 +14,6 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
-const workspaces = ['components', 'core', 'hooks', 'utilities'];
-const generators = ['component', 'react-package', 'package', 'hook'];
-
-const defaultOutDirs = {
-  component: 'components',
-  hook: 'hooks',
-  package: 'utilities',
-  'react-package': 'utilities',
-};
-
-const defaultTags = {
-  component: 'scope:client',
-  hook: 'scope:client',
-  package: 'scope:common',
-  'react-package': 'scope:client',
-};
-
 /**
  * @param {import("plop").NodePlopAPI} plop
  */
@@ -42,94 +25,78 @@ module.exports = function main(plop) {
     return camelCase(text);
   });
 
-  generators.forEach((gen) => {
-    plop.setGenerator(gen, {
-      description: `Generates a ${gen}`,
-      prompts: [
-        {
-          type: 'input',
-          name: `${gen}Name`,
-          message: `Enter ${gen} name:`,
+  plop.setGenerator('package', {
+    description: `Generates a package`,
+    prompts: [
+      {
+        type: 'input',
+        name: `packageName`,
+        message: `Enter package name:`,
 
-          validate: (value) => {
-            if (!value) {
-              return `${gen} name is required`;
-            }
+        validate: (value) => {
+          if (!value) {
+            return `Package name is required`;
+          }
 
-            // check is has a valid hook name "use-something"
-            if (gen === 'hook' && !value.startsWith('use-')) {
-              return "Hook name must start with 'use-'";
-            }
+          // check is case is correct
+          if (value !== value.toLowerCase()) {
+            return `Package name must be in lowercase`;
+          }
 
-            // check is case is correct
-            if (value !== value.toLowerCase()) {
-              return `${gen} name must be in lowercase`;
-            }
+          // cannot have spaces
+          if (value.includes(' ')) {
+            return `Package name cannot have spaces`;
+          }
 
-            // cannot have spaces
-            if (value.includes(' ')) {
-              return `${gen} name cannot have spaces`;
-            }
-
-            return true;
-          },
+          return true;
         },
-        {
-          type: 'input',
-          name: 'description',
-          message: `The description of this ${gen}:`,
-        },
-        {
-          type: 'list',
-          name: 'outDir',
-          message: `where should this ${gen} live?`,
-          default: defaultOutDirs[gen],
-          choices: workspaces,
-          validate: (value) => {
-            if (!value) {
-              return `outDir is required`;
-            }
-
-            return true;
-          },
-        },
-      ],
-      actions(answers) {
-        const actions = [];
-
-        if (!answers) return actions;
-
-        const { description, outDir } = answers;
-        const generatorName = answers[`${gen}Name`] ?? '';
-
-        const destination = `packages/${outDir}/${dashCase(generatorName)}`;
-
-        const data = {
-          packageName: generatorName,
-          description,
-          outDir,
-          destination,
-          tags: defaultTags[gen],
-        };
-
-        actions.push({
-          type: 'addMany',
-          templateFiles: `plop/${gen}/**`,
-          destination: `{{destination}}`,
-          base: `plop/${gen}`,
-          data,
-          abortOnFail: true,
-        });
-
-        actions.push({
-          type: 'modify',
-          template: `$1\n\t  "@myra-ui/${generatorName}": ["${destination}/src/index.ts"],`,
-          path: './tsconfig.json',
-          pattern: /("paths": {)/,
-        });
-
-        return actions;
       },
-    });
+      {
+        type: 'input',
+        name: 'description',
+        message: `The description of this package:`,
+      },
+      {
+        type: 'confirm',
+        name: 'isReact',
+        message: `Is this a React package?`,
+        default: true,
+      },
+    ],
+    actions(answers) {
+      const actions = [];
+
+      if (!answers) return actions;
+
+      const { description, outDir, packageName, isReact } = answers;
+
+      const destination = `packages/${dashCase(packageName)}`;
+
+      const data = {
+        packageName,
+        description,
+        outDir,
+        destination,
+        tags: isReact ? 'scope:client' : 'scope:common',
+      };
+
+      actions.push({
+        type: 'addMany',
+        templateFiles: `plop/${isReact ? 'react-package' : 'package'}/**`,
+        destination: `{{destination}}`,
+        base: `plop/${isReact ? 'react-package' : 'package'}`,
+        data,
+        abortOnFail: true,
+      });
+
+      actions.push({
+        type: 'modify',
+        template: `$1\n\t  "@myra-ui/${packageName}": ["${destination}/src/index.ts"],`,
+        path: './tsconfig.json',
+        pattern: /("paths": {)/,
+      });
+
+      return actions;
+    },
   });
 };

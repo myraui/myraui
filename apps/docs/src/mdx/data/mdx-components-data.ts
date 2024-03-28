@@ -8,7 +8,7 @@ export const MDX_COMPONENTS_DATA: Record<string, FrontMatter> = {
     description: 'Buttons allow users to take actions, and make choices, with a single tap.',
     componentPrefix: 'Button',
     import: "import { Button } from '@myra/components';",
-    source: '@myra/components/src/button/button.tsx',
+    source: '@myra/components/react/button/button.tsx',
     docs: 'components/button/page.mdx',
   },
 };

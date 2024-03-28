@@ -4,7 +4,7 @@ const myraUIPlugin = require('@myra-ui/theme/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [join(__dirname, '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'), ...createGlobPatternsForDependencies(__dirname)],
+  content: [join(__dirname, '{react,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}'), ...createGlobPatternsForDependencies(__dirname)],
   theme: {
     extend: {},
   },
