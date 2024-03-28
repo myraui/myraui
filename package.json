@@ -6,14 +6,18 @@
   "scripts": {
     "docs": "nx serve docs",
     "dev": "nx storybook @myra-ui/storybook",
-    "lint": "nx run-many --target=lint --all --parallel",
-    "test": "nx run-many --target=test --all --parallel",
-    "build": "nx run-many --target=build --all --parallel",
+    "lint": "nx lint",
+    "test": "nx test",
+    "build": "nx build",
+    "lint:all": "nx run-many --target=lint --all --parallel",
+    "test:all": "nx run-many --target=test --all --parallel",
+    "build:all": "nx run-many --target=build --all --parallel",
     "build-storybook": "nx build-storybook @myra-ui/storybook",
     "coverage-merge": "node tools/scripts/coverageMerger.js",
     "create:pkg": "plop package",
     "create:hook": "plop hook",
-    "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rm -rf ./node_modules"
+    "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./packages/**/node_modules && npx rimraf ./node_modules",
+    "clean": "rimraf ./packages/**/**/dist && rimraf ./packages/**/dist && rimraf ./dist && rimraf ./apps/**/dist"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

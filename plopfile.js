@@ -124,7 +124,7 @@ module.exports = function main(plop) {
         actions.push({
           type: 'modify',
           template: `$1\n\t  "@myra-ui/${generatorName}": ["${destination}/src/index.ts"],`,
-          path: './tsconfig.base.json',
+          path: './tsconfig.json',
           pattern: /("paths": {)/,
         });
 

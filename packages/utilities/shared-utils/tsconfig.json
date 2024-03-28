@@ -1,13 +1,13 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "esMOduleInterop": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true
   },
   "files": [],
-  "include": [],
+  "include": ["src", "stories"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

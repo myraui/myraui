@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/core/system"
+        "outputPath": "packages/core/system/dist"
       },
       "configurations": {
         "development": {

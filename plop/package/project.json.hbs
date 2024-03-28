@@ -12,7 +12,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/{{destination}}",
+        "outputPath": "{{destination}}/dist",
         "rootDir": "{{destination}}/src",
         "main": "{{destination}}/src/index.ts",
         "tsConfig": "{{destination}}/tsconfig.lib.json",
