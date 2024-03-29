@@ -23,8 +23,8 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: 'react/index.ts',
-      name: '@myra-ui/react-utils',
+      entry: 'src/index.ts',
+      name: '@myra-ui/utilities',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },

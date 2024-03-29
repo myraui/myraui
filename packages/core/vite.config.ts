@@ -23,7 +23,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: ['react/index.ts'],
+      entry: ['src/index.ts'],
       name: '@myra-ui/core',
       formats: ['es', 'cjs'],
     },

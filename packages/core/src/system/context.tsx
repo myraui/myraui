@@ -1,4 +1,4 @@
-import { createContext } from '@myra-ui/react-utils';
+import { createContext } from '@myra-ui/utilities';
 import { MyraUIContextValue } from './provider';
 
 export const [Provider, useMyraUIContext] = createContext<MyraUIContextValue>({

@@ -1,4 +1,4 @@
-import { ColorShade, shades } from '@myra-ui/colors';
+import { ColorShade, shades } from '../../colors';
 import {
   CSSVariables,
   DEFAULT_SHADE,

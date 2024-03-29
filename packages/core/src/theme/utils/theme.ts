@@ -1,4 +1,4 @@
-import { ColorScale, isColorScale, myraColors } from '@myra-ui/colors';
+import { ColorScale, isColorScale, myraColors } from '../../colors';
 import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import deepMerge from 'deepmerge';
 

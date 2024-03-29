@@ -1,5 +1,5 @@
+import { FlatMyraColor, MyraColor } from '../../colors';
 import { Theme } from '../theme.types';
-import { FlatMyraColor, MyraColor } from '@myra-ui/colors';
 
 export type DefaultSemanticColors =
   | 'background'

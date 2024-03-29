@@ -274,6 +274,9 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
+      flat:
+        specifier: ^6.0.1
+        version: 6.0.1
       lodash.foreach:
         specifier: ^4.5.0
         version: 4.5.0
@@ -333,9 +336,6 @@ importers:
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
-      flat:
-        specifier: ^6.0.1
-        version: 6.0.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -10716,7 +10716,7 @@ packages:
     resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
     engines: {node: '>=18'}
     hasBin: true
-    dev: true
+    dev: false
 
   /flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}

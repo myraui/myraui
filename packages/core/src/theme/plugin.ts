@@ -1,6 +1,7 @@
+import { getByColorMode } from '../colors';
 import { ConfigTheme, ConfigThemes } from './theme.types';
+import { flattenObject } from './utils/flatten-object';
 import { BASE_THEME, isColorMode, MYRA_UI_PREFIX, resolveThemeColors } from './utils/theme';
-import { flattenObject } from '@myra-ui/shared-utils';
 import plugin from 'tailwindcss/plugin.js';
 import get from 'lodash.get';
 import forEach from 'lodash.foreach';
@@ -10,7 +11,6 @@ import deepMerge from 'deepmerge';
 import { baseStyles } from './utils/classes';
 import { MyraUIPluginConfig } from './plugin.types';
 import { resolveSemanticTokens } from './utils/semantic-tokens';
-import { getByColorMode } from '@myra-ui/colors';
 import { defaultSemanticTokens } from './semantic-tokens';
 
 const parsedColorsCache: Record<string, number[]> = {};

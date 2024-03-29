@@ -28,7 +28,6 @@
     "url": "https://github.com/gitaumoses4/myra-ui/issues"
   },
   "devDependencies": {
-    "flat": "^6.0.1",
     "clean-package": "2.2.0",
     "react": "18.2.0"
   },

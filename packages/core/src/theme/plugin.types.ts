@@ -1,4 +1,4 @@
-import { ColorMode } from '@myra-ui/colors';
+import { ColorMode } from '../colors';
 import { ConfigThemes, SemanticTokens } from './theme.types';
 
 export type MyraUIPluginConfig = {

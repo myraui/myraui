@@ -1,4 +1,4 @@
-import { myra } from '@myra-ui/react';
+import { myra } from '@myra-ui/core';
 import React from 'react';
 import { useTheme } from 'next-themes';
 

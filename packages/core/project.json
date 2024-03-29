@@ -1,7 +1,7 @@
 {
-  "name": "@myra-ui/theme",
+  "name": "@myra-ui/core",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "../src/src",
+  "sourceRoot": "packages/core/src",
   "projectType": "library",
   "tags": ["scope:client"],
   "targets": {
@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "packages/core/theme/dist"
+        "outputPath": "packages/core/dist"
       },
       "configurations": {
         "development": {
@@ -28,7 +28,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/core/theme/jest.config.ts"
+        "jestConfig": "packages/core/jest.config.ts"
       }
     }
   }

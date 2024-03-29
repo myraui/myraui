@@ -1,8 +1,8 @@
+import { buildComponentTheme, buildCSSVariables } from '../theme';
 import { As, MyraComponent, MyraProps } from './system.types';
 import React from 'react';
 import createStyled from '@emotion/styled';
 import { useMyraUIContext } from './context';
-import { buildComponentTheme, buildCSSVariables } from '@myra-ui/theme';
 
 const emotion_styled = ((createStyled as any).default ?? createStyled) as typeof createStyled;
 

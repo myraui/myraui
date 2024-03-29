@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { ComponentTheme } from '@myra-ui/theme';
+import { ComponentTheme } from '../theme';
 
 type Assign<T, U> = Omit<T, keyof U> & U;
 
