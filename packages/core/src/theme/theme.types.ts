@@ -29,17 +29,19 @@ export type SemanticTokens = {
   colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
 };
 
+export type ExtractSemanticRecord<K extends keyof Required<SemanticTokens>> = Required<SemanticTokens>[K] extends SemanticRecord<
+  infer Value,
+  infer K1,
+  infer K2,
+  infer K3,
+  infer K4,
+  infer K5
+>
+  ? SemanticRecord<Value, K1, K2, K3, K4, K5>
+  : never;
+
 export type ComponentTheme = Partial<{
-  [K in keyof Required<SemanticTokens>]: Required<SemanticTokens>[K] extends SemanticRecord<
-    infer Value,
-    infer K1,
-    infer K2,
-    infer K3,
-    infer K4,
-    infer K5
-  >
-    ? SemanticRecord<ThemedValue<Value>, K1, K2, K3, K4, K5>
-    : never;
+  [K in keyof Required<SemanticTokens>]: ExtractSemanticRecord<K>;
 }>;
 
 export type ResolvedSemanticTokens = Partial<Record<keyof SemanticTokens, Record<string, string>>>;
