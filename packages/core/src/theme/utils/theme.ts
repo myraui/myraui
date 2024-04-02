@@ -1,6 +1,12 @@
-import { ColorScale, isColorScale, myraColors } from '../../colors';
-import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue, ThemeRecord } from '../theme.types';
+import { Exception } from '@myra-ui/utilities';
 import deepMerge from 'deepmerge';
+import * as A from 'fp-ts/Array';
+import { pipe } from 'fp-ts/function';
+import * as RE from 'fp-ts/ReaderEither';
+import { ColorPalette, ColorScale, isColorScale, myraColors } from '../../colors';
+import { BaseTheme, ColorValue, ResolvedSemanticTokens, Theme, ThemedValue, ThemeRecord } from '../theme.types';
+import { flattenObject } from './flatten-object';
+import { ThemeEnv } from './semantic-tokens';
 
 export const MYRA_UI_PREFIX = 'myra-ui';
 
@@ -10,9 +16,9 @@ export const DEFAULT_SHADE = 9; // Solid Color Shade
 
 export type CSSVariables = Record<string, string>;
 
-export type GroupedCSSVariables = Record<string, string | CSSVariables>;
+export type GroupedCSSVariables<K extends string = string> = Record<K, string | CSSVariables>;
 
-export type ThemedCSSVariables = Partial<Record<Theme, CSSVariables>>;
+export type ThemedCSSVariables = Partial<GroupedCSSVariables<Theme>>;
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -30,7 +36,7 @@ function resolveColorValue(colors: Record<string, ColorValue>, colorValue: unkno
   return resolveColorValue(colors, colorFromValue);
 }
 
-export function resolveThemeColors(colors: Record<string, ColorValue>): Record<string, ColorScale> {
+export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPalette {
   const resolvedColors: Record<string, ColorScale> = {};
 
   for (const [key, value] of Object.entries(colors)) {
@@ -38,6 +44,20 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): Record<s
   }
 
   return resolvedColors;
+}
+
+/**
+ * Flattens the color palette to a simple array of key-value pairs
+ * @param palette the color palette e.g. { primary: { 1: '#fff', 2: '#000' } }
+ *
+ * @returns an array of key-value pairs e.g. [['primary.1', '#fff'], ['primary.2', '#000']]
+ */
+export function flattenColorPalette(palette: ColorPalette): Array<[string, string]> {
+  return pipe(
+    flattenObject(palette),
+    Object.entries,
+    A.filter(([, value]) => !!value)
+  );
 }
 
 export function flattenThemedCSSVariables(variables: ThemedCSSVariables): GroupedCSSVariables {
@@ -57,16 +77,8 @@ export function flattenThemedCSSVariables(variables: ThemedCSSVariables): Groupe
   return result;
 }
 
-export function flattenSemanticTokens(prefix: string, semanticTokens: ResolvedSemanticTokens): CSSVariables {
-  const result: CSSVariables = {};
-
-  for (const [key, value] of Object.entries(semanticTokens)) {
-    for (const [tokenKey, tokenValue] of Object.entries(value)) {
-      result[`--${prefix}-${key}-${tokenKey}`] = tokenValue;
-    }
-  }
-
-  return result;
+export function flattenSemanticTokens(semanticTokens: ResolvedSemanticTokens): RE.ReaderEither<ThemeEnv, Exception, CSSVariables> {
+  return pipe(RE.asks(({ prefix }) => flattenObject(semanticTokens, { prefix: `--${prefix}` })));
 }
 
 export function mergeThemedCSSVariables(variables: ThemedCSSVariables, otherVariables: ThemedCSSVariables): ThemedCSSVariables {

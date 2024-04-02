@@ -1,3 +1,3 @@
-import myrauiPlugin from './src/theme/plugin';
+import myrauiPlugin from './src/plugin';
 
 export default myrauiPlugin;

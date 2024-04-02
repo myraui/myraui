@@ -16,13 +16,7 @@
     "jsx": "react",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@myra-ui/core": ["packages/core/src/index.ts"],
-      "@myra-ui/fonts": ["packages/core/fonts/src/index.ts"],
-      "@myra-ui/utilities": ["packages/utilities/src/index.ts"],
-      "@myra-ui/storybook": ["packages/storybook/src/index.ts"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules", "tmp"],
   "include": ["packages"]

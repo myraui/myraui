@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myra-ui/react-utils
+yarn add @myra-ui/react-theme
 # or
-npm i @myra-ui/react-utils
+npm i @myra-ui/react-theme
 ```
 
 ## Licence

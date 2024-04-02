@@ -1,6 +1,7 @@
 /**
  * Part of this code is taken from @chakra-ui/react package ❤️
  */
+import fs from 'fs';
 
 const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -94,6 +95,17 @@ module.exports = function main(plop) {
         template: `$1\n\t  "@myra-ui/${packageName}": ["${destination}/src/index.ts"],`,
         path: './tsconfig.json',
         pattern: /("paths": {)/,
+      });
+
+      fs.readdirSync('./packages').forEach((file) => {
+        if (!fs.existsSync(`./packages/${file}/tsconfig.json`)) return;
+
+        actions.push({
+          type: 'modify',
+          template: `$1\n\t  "@myra-ui/${packageName}": ["${destination}/src/index.ts"],`,
+          path: `./packages/${file}/tsconfig.json`,
+          pattern: /("paths": {)/,
+        });
       });
 
       return actions;

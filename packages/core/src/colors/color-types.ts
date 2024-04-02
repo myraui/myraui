@@ -11,6 +11,8 @@ export type ColorScale = Record<ColorShade, string>;
 
 export type FlatMyraColor = `${MyraColor}.${ColorShade}`;
 
+export type ColorPalette<T extends string = string> = Record<T, ColorScale>;
+
 export type ThemedColorScale = Record<ColorMode, ColorScale>;
 
 export type MyraColors = Record<MyraColor, ThemedColorScale>;

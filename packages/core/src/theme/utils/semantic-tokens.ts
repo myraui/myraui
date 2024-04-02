@@ -1,4 +1,8 @@
+import { Exception, mergeObjects } from '@myra-ui/utilities';
+import { pipe } from 'fp-ts/lib/function';
+import * as RE from 'fp-ts/ReaderEither';
 import { ColorShade, shades } from '../../colors';
+import { ComponentTheme, ResolvedSemanticTokens, SemanticRecord, SemanticTokens, Theme, ThemedValue } from '../theme.types';
 import {
   CSSVariables,
   DEFAULT_SHADE,
@@ -8,9 +12,11 @@ import {
   isThemeRecord,
   normalizeThemedValue,
   resolveThemeRecord,
-  ThemedCSSVariables,
 } from './theme';
-import { ComponentTheme, ResolvedSemanticTokens, SemanticRecord, SemanticTokens, Theme, ThemedValue } from '../theme.types';
+
+export type ThemeEnv = {
+  prefix: string;
+};
 
 type Resolver = (prefix: string, keyPrefix: string, key: string, value: string) => CSSVariables;
 
@@ -66,20 +72,22 @@ export function buildSemanticRecord<Value extends string | number>(
   return resolved;
 }
 
-export function resolveSemanticTokens(prefix: string, semanticTokens: SemanticTokens): ResolvedSemanticTokens {
-  return Object.entries(semanticTokens).reduce((acc, [key, value]) => {
-    return { ...acc, [key]: value ? buildSemanticRecord(value, prefix, key as keyof SemanticTokens) : {} };
-  }, {});
+export function resolveSemanticTokens(semanticTokens: SemanticTokens): RE.ReaderEither<ThemeEnv, Exception, ResolvedSemanticTokens> {
+  return pipe(
+    RE.asks(({ prefix }) => {
+      return Object.entries(semanticTokens).reduce((acc, [key, value]) => {
+        return { ...acc, [key]: value ? buildSemanticRecord(value, prefix, key as keyof SemanticTokens) : {} };
+      }, {});
+    })
+  );
 }
 
-export function buildSemanticTokens(prefix: string, semanticTokens: SemanticTokens | Array<SemanticTokens>): CSSVariables {
-  return (Array.isArray(semanticTokens) ? semanticTokens : [semanticTokens]).reduce((acc, semanticTokens) => {
-    const properties = resolveSemanticTokens(prefix, semanticTokens);
-    return {
-      ...acc,
-      ...flattenSemanticTokens(prefix, properties),
-    };
-  }, {} as CSSVariables);
+export function buildSemanticTokens(semanticTokens: SemanticTokens | Array<SemanticTokens>): RE.ReaderEither<ThemeEnv, Exception, CSSVariables> {
+  return pipe(
+    Array.isArray(semanticTokens) ? semanticTokens : [semanticTokens],
+    RE.traverseArray((semanticTokens) => pipe(resolveSemanticTokens(semanticTokens), RE.chain(flattenSemanticTokens))),
+    RE.map(mergeObjects)
+  );
 }
 
 export function walkComponentThemeRecord<Value extends string | number>(
@@ -115,14 +123,17 @@ export function createSemanticTokens(componentTheme: ComponentTheme): Record<The
   return semanticTokens as Record<Theme, SemanticTokens>;
 }
 
-export function buildComponentTheme(prefix: string, componentTheme: ComponentTheme): GroupedCSSVariables {
-  const semanticTokens = createSemanticTokens(componentTheme);
-
-  const variables: ThemedCSSVariables = {};
-
-  for (const [theme, tokens] of Object.entries(semanticTokens)) {
-    variables[theme as Theme] = buildSemanticTokens(prefix, tokens);
-  }
-
-  return flattenThemedCSSVariables(variables);
+export function buildComponentTheme(prefix: string, componentTheme: ComponentTheme): RE.ReaderEither<ThemeEnv, Exception, GroupedCSSVariables> {
+  return pipe(
+    createSemanticTokens(componentTheme),
+    Object.entries,
+    RE.traverseArray(([theme, tokens]) => {
+      return pipe(
+        buildSemanticTokens(tokens),
+        RE.map((variables) => ({ [theme]: variables } as GroupedCSSVariables))
+      );
+    }),
+    RE.map(mergeObjects),
+    RE.map(flattenThemedCSSVariables)
+  );
 }

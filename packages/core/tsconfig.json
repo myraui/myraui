@@ -6,7 +6,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "@myra-ui/utilities": ["packages/utilities/src/index.ts"],
+    }
   },
   "files": [],
   "include": [ "src", "stories"],

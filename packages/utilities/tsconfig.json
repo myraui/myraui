@@ -6,7 +6,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+    }
   },
   "files": [],
   "include": ["src", "stories"],
