@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install
-        uses: ./.github/templates/install
+        uses: ./.github/workflows/templates/install
 
       - name: Lint check
         run: pnpm exec nx affected -t=lint --base=develop --head=HEAD --parallel --configuration=ci
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install
-        uses: ./.github/templates/install
+        uses: ./.github/workflows/templates/install
 
       - name: Test
         run: pnpm exec nx run-many --target=test --all --parallel --configuration=ci
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install
-        uses: ./.github/templates/install
+        uses: ./.github/workflows/templates/install
 
       - name: Build
         run: pnpm exec nx run-many --target=build --all --parallel --configuration=ci
@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install
-        uses: ./.github/templates/install
+        uses: ./.github/workflows/templates/install
 
       - name: Build
         run: pnpm build-storybook --configuration=ci
