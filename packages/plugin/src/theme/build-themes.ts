@@ -1,5 +1,5 @@
 import { ColorMode, ConfigTheme, ConfigThemes, getByColorMode, isColorMode, semanticTokens } from '@myraui/theme';
-import { Exception } from '@myraui/utilities';
+import { Exception } from '@myraui/utils';
 import deepMerge from 'deepmerge';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/lib/function';

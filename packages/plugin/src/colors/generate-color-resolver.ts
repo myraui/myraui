@@ -1,4 +1,4 @@
-import { Exception } from '@myraui/utilities';
+import { Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/function';
 import { ColorResolver, PluginEnv } from '../plugin.types';
 import { myrauiOpacityVariable, myrauiVariable } from '../theme/variables';

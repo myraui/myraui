@@ -1,5 +1,5 @@
 import { ColorMode, ConfigTheme, ConfigThemes, getBaseStyles, isColorMode, resolveSemanticTokens } from '@myraui/theme';
-import { Exception } from '@myraui/utilities';
+import { Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { generateSemanticTokenColors, generateThemeColors } from '../colors/generate-theme-colors';

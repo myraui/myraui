@@ -1,4 +1,4 @@
-# @myraui/utilities
+# @myraui/utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myraui/utilities
+yarn add @myraui/utils
 # or
-npm i @myraui/utilities
+npm i @myraui/utils
 ```
 
 ## Licence

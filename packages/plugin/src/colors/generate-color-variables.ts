@@ -1,5 +1,5 @@
 import { CSSVariables } from '@myraui/theme';
-import { Exception } from '@myraui/utilities';
+import { Exception } from '@myraui/utils';
 import Color from 'color';
 import * as RE from 'fp-ts/ReaderEither';
 import { PluginEnv } from '../plugin.types';

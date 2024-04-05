@@ -3,7 +3,7 @@
  */
 
 import { ComponentTheme } from '@myraui/theme';
-import { Assign, Dict } from '@myraui/utilities';
+import { Assign, Dict } from '@myraui/utils';
 import { ComponentPropsWithoutRef, ElementType, FunctionComponent } from 'react';
 
 export interface MyraUIStyledOptions {}

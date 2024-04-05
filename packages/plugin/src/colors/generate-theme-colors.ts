@@ -1,5 +1,5 @@
 import { ConfigTheme, CSSVariables, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
-import { Dict, Exception } from '@myraui/utilities';
+import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
 import * as RE from 'fp-ts/ReaderEither';
