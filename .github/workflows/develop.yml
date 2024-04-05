@@ -10,11 +10,9 @@ permissions:
   contents: read
 
 jobs:
-  run-tests:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,10 +20,20 @@ jobs:
       - name: Install
         uses: ./.github/workflows/templates/install
 
-      - uses: nrwl/nx-set-shas@v4
+      - name: Lint check
+        run: pnpm exec nx affected -t=lint --base=develop --head=HEAD --parallel --configuration=ci
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Test & Build
-        run: pnpm exec nx affected -t=lint,test,build,build-storybook --parallel --configuration=ci
+      - name: Install
+        uses: ./.github/workflows/templates/install
+
+      - name: Test
+        run: pnpm exec nx run-many --target=test --all --parallel --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -35,3 +43,27 @@ jobs:
           coverageCommand: pnpm run coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install
+        uses: ./.github/workflows/templates/install
+
+      - name: Build
+        run: pnpm exec nx run-many --target=build --all --parallel --configuration=ci
+  build_storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install
+        uses: ./.github/workflows/templates/install
+
+      - name: Build
+        run: pnpm build-storybook --configuration=ci
