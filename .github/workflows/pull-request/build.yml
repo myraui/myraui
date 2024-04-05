@@ -1,4 +1,4 @@
-name: Pull Request Checks
+name: PR - Build
 
 on:
   pull_request:
@@ -39,17 +39,5 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-      - if: github.ref != 'refs/heads/develop'
-        run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
-
-      - name: Test & Build
-        run: pnpm exec nx affected -t=lint,test,build,build-storybook --base=develop --head=HEAD --parallel --configuration=ci
-
-      - name: Publish test report
-        uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
-        with:
-          coverageCommand: pnpm run coverage-merge
-          coverageLocation: |
-            ${{ github.workspace }}/coverage/lcov.info:lcov
+      - name: Build
+        run: pnpm exec nx run-many --target=build --all --parallel --configuration=ci

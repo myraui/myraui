@@ -1,0 +1,52 @@
+name: PR - Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    environment: test
+    permissions:
+      checks: write
+      contents: read
+    strategy:
+      matrix:
+        node-version: [20.11.0]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - uses: nrwl/nx-set-shas@v4
+
+      - name: Test & Build
+        run: pnpm exec nx run-many --target=test --all --parallel --configuration=ci
+
+      - name: Publish test report
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
+        with:
+          coverageCommand: pnpm run coverage-merge
+          coverageLocation: |
+            ${{ github.workspace }}/coverage/lcov.info:lcov
