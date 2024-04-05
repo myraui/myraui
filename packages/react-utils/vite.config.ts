@@ -6,7 +6,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/react-utilities',
+  cacheDir: '../../node_modules/.vite/packages/react-utils',
 
   plugins: [
     react(),
@@ -17,14 +17,14 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../packages/react-utilities/dist',
+    outDir: '../../packages/react-utils/dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myraui/react-utilities',
+      name: '@myraui/react-utils',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },

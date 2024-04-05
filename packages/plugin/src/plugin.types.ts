@@ -1,5 +1,5 @@
 import { ColorMode, ConfigThemes, CSSVariables, ThemeEnv } from '@myraui/theme';
-import { Dict } from '@myraui/utilities';
+import { Dict } from '@myraui/utils';
 
 export type MyraUIPluginConfig = {
   prefix?: string;

@@ -1,4 +1,4 @@
-import { Dict, Exception, flattenObject } from '@myraui/utilities';
+import { Dict, Exception, flattenObject } from '@myraui/utils';
 import deepMerge from 'deepmerge';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';

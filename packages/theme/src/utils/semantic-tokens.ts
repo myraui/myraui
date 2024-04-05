@@ -1,4 +1,4 @@
-import { Exception, mergeObjects } from '@myraui/utilities';
+import { Exception, mergeObjects } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ColorShade, shades } from '../colors';

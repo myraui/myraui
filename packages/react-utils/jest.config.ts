@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: '@myraui/react-utilities',
+  displayName: '@myraui/react-utils',
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
@@ -9,6 +9,6 @@ export default {
   setupFilesAfterEnv: ['@testing-library/jest-dom', '../../tools/scripts/setup-tests.ts'],
   transformIgnorePatterns: ['!(src/.+)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/react-utilities',
+  coverageDirectory: '../../coverage/packages/react-utils',
   collectCoverage: false,
 };

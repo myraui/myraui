@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "@myraui/utilities": "workspace:^",
-    "@myraui/react-utilities": "workspace:^",
+    "@myraui/utils": "workspace:^",
+    "@myraui/react-utils": "workspace:^",
     "@myraui/theme": "workspace:^"
   },
   "clean-package": "../../clean-package.config.json"

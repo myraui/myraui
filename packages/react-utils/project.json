@@ -1,7 +1,7 @@
 {
-  "name": "@myraui/react-utilities",
+  "name": "@myraui/react-utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/react-utilities/src",
+  "sourceRoot": "packages/react-utils/src",
   "projectType": "library",
   "tags": ["scope:client"],
   "targets": {
@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "packages/react-utilities/dist"
+        "outputPath": "packages/react-utils/dist"
       },
       "configurations": {
         "development": {
@@ -28,7 +28,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/react-utilities/jest.config.ts"
+        "jestConfig": "packages/react-utils/jest.config.ts"
       }
     }
   }

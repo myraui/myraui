@@ -1,4 +1,4 @@
-# @myraui/react-utilities
+# @myraui/react-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myraui/react-utilities
+yarn add @myraui/react-utils
 # or
-npm i @myraui/react-utilities
+npm i @myraui/react-utils
 ```
 
 ## Licence

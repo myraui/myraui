@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@myraui/theme": "workspace:^",
-    "@myraui/utilities": "workspace:^",
-    "@myraui/react-utilities": "workspace:^",
+    "@myraui/utils": "workspace:^",
+    "@myraui/react-utils": "workspace:^",
     "@myraui/system": "workspace:^",
     "@myraui/plugin": "workspace:^"
   },

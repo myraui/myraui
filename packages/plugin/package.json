@@ -34,7 +34,7 @@
   "dependencies": {
     "color": "^4.2.3",
     "deepmerge": "^4.3.1",
-    "@myraui/utilities": "workspace:^",
+    "@myraui/utils": "workspace:^",
     "@myraui/theme": "workspace:^"
   },
   "clean-package": "../../clean-package.config.json"

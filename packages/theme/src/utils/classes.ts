@@ -1,4 +1,4 @@
-import { Dict } from '@myraui/utilities';
+import { Dict } from '@myraui/utils';
 
 export function getBaseStyles(prefix: string): Dict {
   return {
