@@ -40,7 +40,7 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       - name: Test & Build
-        run: pnpm exec nx -t=lint,test,build,build-storybook --parallel --configuration=ci
+        run: pnpm exec nx affected -t=lint,test,build,build-storybook --parallel --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0

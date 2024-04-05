@@ -18,17 +18,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@myra-ui/breakpoint-utils": ["packages/utilities/breakpoint-utils/src/index.ts"],
-      "@myra-ui/colors": ["packages/core/colors/src/index.ts"],
-      "@myra-ui/fonts": ["packages/core/fonts/src/index.ts"],
-      "@myra-ui/react": ["packages/core/react/src/index.ts"],
-      "@myra-ui/react-utils": ["packages/utilities/react-utils/src/index.ts"],
-      "@myra-ui/shared-utils": ["packages/utilities/shared-utils/src/index.ts"],
-      "@myra-ui/storybook": ["packages/storybook/src/index.ts"],
-      "@myra-ui/system": ["packages/core/system/src/index.ts"],
-      "@myra-ui/theme": ["packages/core/theme/src/index.ts"],
-      "@myra-ui/theme/plugin": ["packages/core/theme/src/plugin.ts"],
-      "@myra-ui/use-color-palette": ["packages/hooks/use-color-palette/src/index.ts"]
+      "@myraui/fonts": ["packages/fonts/src/index.ts"],
+      "@myraui/plugin": ["packages/plugin/src/index.ts"],
+      "@myraui/react": ["packages/react/src/index.ts"],
+      "@myraui/react-utilities": ["packages/react-utilities/src/index.ts"],
+      "@myraui/storybook": ["packages/storybook/src/index.ts"],
+      "@myraui/system": ["packages/system/src/index.ts"],
+      "@myraui/theme": ["packages/theme/src/index.ts"],
+      "@myraui/utilities": ["packages/utilities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

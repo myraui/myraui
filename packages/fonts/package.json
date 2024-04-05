@@ -1,0 +1,38 @@
+{
+  "name": "@myraui/fonts",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "A set of default fonts for Myra UI themed applications",
+  "keywords": [
+    "fonts"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/fonts"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0",
+    "next": "14.0.4"
+  },
+  "clean-package": "../../clean-package.config.json",
+  "peerDependencies": {
+    "next": "14.0.4"
+  }
+}

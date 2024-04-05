@@ -13,10 +13,8 @@
             "depConstraints": [
               { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": ["scope:common"] },
               { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:server", "scope:common"] },
-              { "sourceTag": "scope:client-common", "onlyDependOnLibsWithTags": ["scope:client-common", "scope:common"] },
-              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client","scope:common", "scope:client-common"] },
-              { "sourceTag": "scope:client-root", "onlyDependOnLibsWithTags": ["scope:common", "scope:client-common", "scope:client"] },
-              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:client-root", "scope:server"] }
+              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client","scope:common"] },
+              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:common", "scope:server", "scope:client"] }
             ]
           }
         ]

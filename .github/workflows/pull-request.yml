@@ -1,4 +1,4 @@
-name: Pull Request Checks
+name: Pull Request
 
 on:
   pull_request:
@@ -10,40 +10,30 @@ permissions:
   contents: read
 
 jobs:
-  run-tests:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    environment: test
-    permissions:
-      checks: write
-      contents: read
-    strategy:
-      matrix:
-        node-version: [20.11.0]
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - name: Install
+        uses: ./.github/workflows/templates/install
 
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+      - name: Lint check
+        run: pnpm exec nx affected -t=lint --base=develop --head=HEAD --parallel --configuration=ci
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install
+        uses: ./.github/workflows/templates/install
 
-      - uses: nrwl/nx-set-shas@v4
-
-      - if: github.ref != 'refs/heads/develop'
-        run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
-
-      - name: Test & Build
-        run: pnpm exec nx affected -t=lint,test,build,build-storybook --base=develop --head=HEAD --parallel --configuration=ci
+      - name: Test
+        run: pnpm exec nx run-many --target=test --all --parallel --configuration=ci
 
       - name: Publish test report
         uses: paambaati/codeclimate-action@v5.0.0
@@ -53,3 +43,27 @@ jobs:
           coverageCommand: pnpm run coverage-merge
           coverageLocation: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install
+        uses: ./.github/workflows/templates/install
+
+      - name: Build
+        run: pnpm exec nx run-many --target=build --all --parallel --configuration=ci
+  build_storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install
+        uses: ./.github/workflows/templates/install
+
+      - name: Build
+        run: pnpm build-storybook --configuration=ci

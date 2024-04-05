@@ -1,4 +1,4 @@
-# @myra-ui/storybook
+# @myraui/storybook
 
 A Quick description of the component
 
@@ -7,12 +7,12 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myra-ui/storybook
+yarn add @myraui/storybook
 # or
-npm i @myra-ui/storybook
+npm i @myraui/storybook
 ```
 
 ## Licence
 
 This project is licensed under the terms of the
-[MIT license](https://github.com/gitaumoses4@gmail.com/myra-ui/blob/master/LICENSE).
+[MIT license](https://github.com/gitaumoses4@gmail.com/myraui/blob/master/LICENSE).
