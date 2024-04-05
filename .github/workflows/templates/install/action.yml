@@ -16,9 +16,11 @@ runs:
         cache: 'pnpm'
 
     - name: Install dependencies
+      shell: bash
       run: pnpm install --frozen-lockfile
 
     - uses: nrwl/nx-set-shas@v4
 
     - if: github.ref != 'refs/heads/develop'
+      shell: bash
       run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
