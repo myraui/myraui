@@ -6,6 +6,6 @@ export type FlattenObjectOptions = {
   prefix?: string;
 };
 
-export function flattenObject<R = Dict, T = object>(obj: T, options: FlattenObjectOptions = { delimiter: '-' }): R {
-  return flatten(options.prefix ? { [options.prefix]: obj } : obj, { safe: true, delimiter: options.delimiter }) as R;
+export function flattenObject<R = Dict, T = object>(obj: T, options: FlattenObjectOptions = {}): R {
+  return flatten(options.prefix ? { [options.prefix]: obj } : obj, { safe: true, delimiter: options.delimiter || '-' }) as R;
 }

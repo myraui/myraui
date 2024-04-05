@@ -20,7 +20,11 @@ export function resolveTheme(themeName: string, theme: ConfigTheme): RE.ReaderEi
         RE.chain((semanticTokens) =>
           pipe(
             generateThemeColors(theme.colors),
-            RE.map((colors) => ({ ...themeConfig, semanticTokens, ...colors }))
+            RE.map((colors) => ({
+              ...themeConfig,
+              colors: { ...colors.colors, ...semanticTokens.colors },
+              variables: { ...colors.variables, ...semanticTokens.variables },
+            }))
           )
         )
       );

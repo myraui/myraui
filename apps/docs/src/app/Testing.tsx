@@ -16,6 +16,8 @@ export const Testing: React.FC<TestingProps> = (props) => {
       )}
       <div className="p-4">
         <myra.button>Hello World</myra.button>
+
+        <p className="text-foreground">What is going on?</p>
       </div>
     </myra.div>
   );

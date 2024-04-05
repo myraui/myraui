@@ -14,10 +14,15 @@ function compose(themeName: string, theme: ConfigTheme, defaultExtendTheme: stri
   };
 }
 
+function createBaseThemes(themes: ConfigThemes) {
+  return { dark: {}, light: {}, ...themes };
+}
+
 export function buildThemes(themes: ConfigThemes): RE.ReaderEither<PluginEnv, Exception, ConfigThemes> {
   return RE.asks(({ defaultExtendTheme }) => {
     return pipe(
-      Object.entries(themes),
+      createBaseThemes(themes),
+      Object.entries,
       A.reduce({}, (acc, [themeName, theme]) => ({
         ...acc,
         [themeName]: compose(themeName, theme, defaultExtendTheme),
