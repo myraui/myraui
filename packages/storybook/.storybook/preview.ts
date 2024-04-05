@@ -7,7 +7,7 @@ import './style.scss';
 
 const commonTheme = {
   brandTitle: 'MyraUI',
-  brandUrl: 'https://github.com/gitaumoses4/myra-ui',
+  brandUrl: 'https://github.com/gitaumoses4/myraui',
   brandTarget: '_self',
 };
 

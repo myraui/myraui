@@ -1,5 +1,5 @@
 {
-  "name": "@myra-ui/utilities",
+  "name": "@myraui/utilities",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/utilities/src",
   "projectType": "library",
@@ -9,19 +9,14 @@
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/vite:build",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "packages/utilities/dist"
-      },
-      "configurations": {
-        "development": {
-          "mode": "development"
-        },
-        "production": {
-          "mode": "production"
-        }
+        "outputPath": "packages/utilities/dist",
+        "rootDir": "packages/utilities/src",
+        "main": "packages/utilities/src/index.ts",
+        "tsConfig": "packages/utilities/tsconfig.lib.json",
+        "assets": []
       }
     },
     "test": {

@@ -1,4 +1,4 @@
-# @myra-ui/react-utils
+# @myraui/utilities
 
 A Quick description of the component
 
@@ -7,12 +7,12 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myra-ui/react-theme
+yarn add @myraui/utilities
 # or
-npm i @myra-ui/react-theme
+npm i @myraui/utilities
 ```
 
 ## Licence
 
 This project is licensed under the terms of the
-[MIT license](https://github.com/gitaumoses4@gmail.com/myra-ui/blob/master/LICENSE).
+[MIT license](https://github.com/gitaumoses4@gmail.com/myraui/blob/master/LICENSE).

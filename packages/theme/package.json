@@ -1,0 +1,38 @@
+{
+  "name": "@myraui/theme",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "The base theme for Myra UI components",
+  "keywords": [
+    "theme"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/theme"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "@myraui/utilities": "workspace:^"
+  },
+  "clean-package": "../../clean-package.config.json"
+}

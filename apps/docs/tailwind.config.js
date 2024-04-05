@@ -1,6 +1,6 @@
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const myraUIPlugin = require('@myra-ui/core/plugin');
+const myraUIPlugin = require('@myraui/react/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

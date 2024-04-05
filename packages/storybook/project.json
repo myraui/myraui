@@ -1,5 +1,5 @@
 {
-  "name": "@myra-ui/storybook",
+  "name": "@myraui/storybook",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "src",
   "projectType": "library",
@@ -45,12 +45,12 @@
     "static-storybook": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "@myra-ui/storybook:build-storybook",
+        "buildTarget": "@myraui/storybook:build-storybook",
         "staticFilePath": "packages/storybook/dist"
       },
       "configurations": {
         "ci": {
-          "buildTarget": "@myra-ui/storybook:build-storybook:ci"
+          "buildTarget": "@myraui/storybook:build-storybook:ci"
         }
       }
     }

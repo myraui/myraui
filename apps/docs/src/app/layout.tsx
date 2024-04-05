@@ -1,7 +1,7 @@
 import React from 'react';
 import './global.css';
-import { eudoxusSans } from '@myra-ui/fonts';
-import { MyraUIProvider } from '@myra-ui/core';
+import { eudoxusSans } from '@myraui/fonts';
+import { MyraUIProvider } from '@myraui/react';
 
 export const metadata = {
   title: 'Myra UI',

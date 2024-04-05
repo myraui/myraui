@@ -1,4 +1,4 @@
-# @myra-ui/fonts
+# @myraui/fonts
 
 A Quick description of the component
 
@@ -7,12 +7,12 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myra-ui/fonts
+yarn add @myraui/fonts
 # or
-npm i @myra-ui/fonts
+npm i @myraui/fonts
 ```
 
 ## Licence
 
 This project is licensed under the terms of the
-[MIT license](https://github.com/gitaumoses4@gmail.com/myra-ui/blob/master/LICENSE).
+[MIT license](https://github.com/gitaumoses4@gmail.com/myraui/blob/master/LICENSE).

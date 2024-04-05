@@ -24,12 +24,12 @@ export default defineConfig({
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myra-ui/{{packageName}}',
+      name: '@myraui/{{packageName}}',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', /@myra-ui\/.*/],
+      external: ['react', 'react-dom', 'react/jsx-runtime', /@myraui\/.*/],
     },
   },
 });

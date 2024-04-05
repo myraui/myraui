@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: '@myra-ui/fonts',
+  displayName: '@myraui/fonts',
   preset: '../../jest.preset.js',
   transform: {
     '^.+\\.[tj]s?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],

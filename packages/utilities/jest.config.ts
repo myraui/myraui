@@ -1,13 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: '@myra-ui/utilities',
+  displayName: '@myraui/utilities',
   preset: '../../jest.preset.js',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+    '^.+\\.[tj]s?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  setupFilesAfterEnv: ['@testing-library/jest-dom', '../../tools/scripts/setup-tests.ts'],
-  transformIgnorePatterns: ['!(react/.+)'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  transformIgnorePatterns: ['!(src/.+)'],
+  moduleFileExtensions: ['ts', 'js'],
   coverageDirectory: '../../coverage/packages/utilities',
 };

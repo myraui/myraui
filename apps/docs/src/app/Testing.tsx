@@ -1,9 +1,11 @@
-import { myra } from '@myra-ui/core';
+import { myra } from '@myraui/react';
 import React from 'react';
 import { useTheme } from 'next-themes';
 
 export const Testing: React.FC<TestingProps> = (props) => {
   const { theme, setTheme } = useTheme();
+
+  console.log(myra, '--------------------------------');
 
   return (
     <myra.div className="h-screen flex flex-col p-2">
