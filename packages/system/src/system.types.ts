@@ -6,7 +6,7 @@ import { ComponentTheme } from '@myraui/theme';
 import { Assign, Dict } from '@myraui/utilities';
 import { ComponentPropsWithoutRef, ElementType, FunctionComponent } from 'react';
 
-export type MyraUIStyledOptions = {};
+export interface MyraUIStyledOptions {}
 
 export type As = ElementType;
 
