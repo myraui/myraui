@@ -1,15 +1,10 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
-import { DefaultSemanticColors } from './semantic-tokens/colors';
+import { DefaultSemanticColors } from './theme/colors';
+import { CSSVariable } from './utils';
 
 export type ThemeEnv = {
   prefix: string;
 };
-
-export type CSSVariables = Record<string, string>;
-
-export type GroupedCSSVariables<K extends string = string> = Record<K, string | CSSVariables>;
-
-export type ThemedCSSVariables = Partial<GroupedCSSVariables<Theme>>;
 
 export type Theme = ColorMode | string;
 
@@ -36,7 +31,11 @@ export type SemanticRecord<
 > = Record<K1 | string, Value | Record<K2 | string, Value | Record<K3 | string, Value | Record<K4 | string, Value | Record<K5 | string, Value>>>>>;
 
 export type SemanticTokens = {
-  colors?: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
+  colors: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
+};
+
+export type FlatSemanticTokens<S extends SemanticTokens> = {
+  [K in keyof S]: S[K] extends SemanticRecord<infer Value> ? Record<string, Value> : never;
 };
 
 export type ExtractSemanticRecord<K extends keyof Required<SemanticTokens>> = Required<SemanticTokens>[K] extends SemanticRecord<
@@ -50,11 +49,13 @@ export type ExtractSemanticRecord<K extends keyof Required<SemanticTokens>> = Re
   ? SemanticRecord<Value, K1, K2, K3, K4, K5>
   : never;
 
-export type ComponentTheme = Partial<{
-  [K in keyof Required<SemanticTokens>]: ExtractSemanticRecord<K>;
-}>;
+export type ComponentTheme = {
+  [K in keyof SemanticTokens]?: ExtractSemanticRecord<K>;
+};
 
-export type ResolvedSemanticTokens = Partial<Record<keyof SemanticTokens, Record<string, string>>>;
+export type ResolvedSemanticTokens = {
+  [K in keyof SemanticTokens]: Array<CSSVariable>;
+};
 
 export type ConfigTheme = {
   extend?: ColorMode;

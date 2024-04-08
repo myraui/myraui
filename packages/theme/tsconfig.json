@@ -5,6 +5,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "paths": {
+      "@myraui/utils": ["packages/utils/src/index.ts"],
+      "@myraui/test-utils": ["packages/utils/test/index.ts"]
+    }
   },
   "files": [],
   "include": ["src", "stories"],

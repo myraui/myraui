@@ -1,0 +1,1 @@
+describe('generate-color-variables', () => {});

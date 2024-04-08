@@ -1,21 +1,11 @@
-import { Dict, Exception, flattenObject } from '@myraui/utils';
+import { Dict, flattenObject, mapKeys } from '@myraui/utils';
 import deepMerge from 'deepmerge';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
-import * as RE from 'fp-ts/ReaderEither';
 import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
-import {
-  ColorValue,
-  CSSVariables,
-  GroupedCSSVariables,
-  ResolvedSemanticTokens,
-  Theme,
-  ThemedCSSVariables,
-  ThemedValue,
-  ThemeEnv,
-  ThemeRecord,
-} from '../theme.types';
+import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
+import { ScopedCSSVariables, ThemedCSSVariables } from './css-variables';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -57,8 +47,8 @@ export function flattenColorPalette(palette: ColorPalette): Array<[string, strin
   );
 }
 
-export function flattenThemedCSSVariables(variables: ThemedCSSVariables): GroupedCSSVariables {
-  const result: GroupedCSSVariables = {};
+export function flattenThemedCSSVariables(variables: ThemedCSSVariables): ScopedCSSVariables {
+  const result: ScopedCSSVariables = {};
 
   for (const [theme, themeVariables] of Object.entries(variables)) {
     if (!themeVariables) {
@@ -74,33 +64,26 @@ export function flattenThemedCSSVariables(variables: ThemedCSSVariables): Groupe
   return result;
 }
 
-export function flattenSemanticTokens(semanticTokens: ResolvedSemanticTokens): RE.ReaderEither<ThemeEnv, Exception, CSSVariables> {
-  return pipe(RE.asks(({ prefix }) => flattenObject(semanticTokens, { prefix: `--${prefix}` })));
-}
-
 export function mergeThemedCSSVariables(variables: ThemedCSSVariables, otherVariables: ThemedCSSVariables): ThemedCSSVariables {
   return deepMerge({ ...variables }, { ...otherVariables });
 }
 
-export function buildCSSVariables(cssVariables: GroupedCSSVariables): Record<string, string | Record<string, string>> {
+export function buildCSSVariables(cssVariables: ScopedCSSVariables): Record<string, string | Record<string, string>> {
   const result: Record<string, string | Record<string, string>> = {};
 
-  for (const [key, value] of Object.entries(cssVariables)) {
-    if (typeof value === 'string') {
-      result[key] = `var(${value})`;
-    } else {
-      result[key] = buildCSSVariables(value as Record<string, string>) as Record<string, string>;
-    }
-  }
+  // for (const [key, value] of Object.entries(cssVariables)) {
+  //   if (typeof value === 'string') {
+  //     result[key] = `var(${value})`;
+  //   } else {
+  //     result[key] = buildCSSVariables(value as Record<string, string>) as Record<string, string>;
+  //   }
+  // }
 
   return result;
 }
 
 export function resolveThemeRecord<Value>(themeRecord: ThemeRecord<Value>): Record<Theme, Value> {
-  return Object.entries(themeRecord).reduce((acc, [key, value]) => {
-    const theme = key.replace('_', '') as Theme;
-    return { ...acc, [theme]: value as Value };
-  }, {} as Record<Theme, Value>);
+  return mapKeys((key) => key.replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
 }
 
 export function isThemeRecord(record: Dict = {}): record is ThemeRecord<any> {

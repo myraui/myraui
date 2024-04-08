@@ -16,8 +16,7 @@ export function generateColorResolver(colorName: string): RE.ReaderEither<Plugin
       const _opacityVariable = myrauiOpacityVariable(prefix, colorName);
 
       return ({ opacityVariable, opacityValue }) => {
-        // if the opacity is set  with a slash (e.g. bg-primary/90), use the provided value
-        if (!isNaN(+opacityValue)) {
+        if (opacityValue && !isNaN(+opacityValue)) {
           return `hsl(var(${_colorVariable}) / ${opacityValue})`;
         }
         // if no opacityValue was provided (=it is not parsable to a number)
