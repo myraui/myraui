@@ -7,7 +7,7 @@ import * as R from 'fp-ts/Record';
 import { ThemeEnv } from '../theme.types';
 import { Exception } from '@myraui/utils';
 
-function createColorValue(key: string, value: string, shade?: ColorShade): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
+export function createColorValue(key: string, value: string, shade?: ColorShade): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(
     RE.of(extractColorShade(value)),
     RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
@@ -18,7 +18,7 @@ function createColorValue(key: string, value: string, shade?: ColorShade): RE.Re
   );
 }
 
-function createShades(key: string, value: string) {
+export function createShades(key: string, value: string) {
   return pipe(
     createColorValue(key, value),
     RE.chain((colorVariables) =>

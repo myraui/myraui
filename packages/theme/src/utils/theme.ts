@@ -5,11 +5,11 @@ import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
-import { ScopedCSSVariables, ThemedCSSVariables } from './css-variables';
+import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
-function resolveColorValue(colors: Record<string, ColorValue>, colorValue: unknown): ColorScale {
+export function resolveColorValue(colors: Record<string, ColorValue>, colorValue: unknown): ColorScale {
   if (isColorScale(colorValue)) {
     return colorValue;
   }
@@ -36,25 +36,23 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPal
  *
  * @returns an array of key-value pairs e.g. [['primary.1', '#fff'], ['primary.2', '#000']]
  */
-export function flattenColorPalette(palette: ColorPalette): Array<[string, string]> {
-  return pipe(
-    flattenObject(palette),
-    Object.entries,
-    A.filter(([, value]) => !!value)
-  );
+export function flattenColorPalette(palette: ColorPalette): Dict<string> {
+  return pipe(flattenObject(palette));
 }
 
-export function flattenThemedCSSVariables(variables: ThemedCSSVariables): ScopedCSSVariables {
+export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<string | Dict<string>> {
   return pipe(
     variables,
+    R.map((variables) => buildCSSVariables(variables || [])),
     R.toEntries,
     A.map(([theme, scopedVariables]) => {
       if (theme === BASE_THEME) {
-        return [theme, scopedVariables];
+        return Object.entries(scopedVariables); // These should be global, hence no scoping
       } else {
-        return [`.${theme} &,[data-theme="${theme}"] &`, scopedVariables];
+        return [[`.${theme} &,[data-theme="${theme}"] &`, scopedVariables]];
       }
     }),
+    A.flatten,
     Object.fromEntries
   );
 }

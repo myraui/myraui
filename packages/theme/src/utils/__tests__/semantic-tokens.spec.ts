@@ -1,8 +1,7 @@
-import { pipe } from 'fp-ts/function';
-import * as RE from 'fp-ts/ReaderEither';
-import { buildComponentTheme, createSemanticTokens, normalizeSemanticRecord, resolveSemanticRecord } from '../semantic-tokens';
+import { buildComponentTheme, normalizeSemanticRecord, resolveComponentTheme, resolveSemanticRecord } from '../semantic-tokens';
+import { unwrapRE } from '@myraui/utils';
 
-describe('theme', () => {
+describe('utils/semantic-tokens', () => {
   describe('normalizeSemanticRecord', () => {
     it('should transform a themeless value', () => {
       const result = normalizeSemanticRecord<string>({ primary: 'blue' });
@@ -29,8 +28,6 @@ describe('theme', () => {
           primary: 'blue',
         },
       });
-
-      console.log(JSON.stringify(resolveSemanticRecord(result), null, 2));
 
       expect(result).toEqual({
         backgrounds: {
@@ -69,9 +66,9 @@ describe('theme', () => {
     });
   });
 
-  describe('createSemanticTokens', () => {
+  describe('resolveComponentTheme', () => {
     it('should build semantic tokens from a component theme', () => {
-      const result = createSemanticTokens({
+      const result = resolveComponentTheme({
         colors: {
           primary: { _light: 'blue', _dark: 'white' },
           secondary: 'green',
@@ -96,23 +93,21 @@ describe('theme', () => {
 
   describe('buildComponentTheme', () => {
     it('should generate CSS Variables from a component theme', () => {
-      const result = pipe(
+      const result = unwrapRE(
         buildComponentTheme({
           colors: {
             primary: { _light: 'blue', _dark: 'white' },
             secondary: 'green',
           },
         }),
-        RE.getOrElse(() => {
-          throw new Error('Failed to generate CSS Variables');
-        })
-      )({ prefix: 'prefix' });
+        { prefix: 'prefix' }
+      );
 
       expect(result).toMatchObject({
-        '--prefix-colors-primary': '--prefix-colors-blue-9',
-        '--prefix-colors-secondary': '--prefix-colors-green-9',
+        '--prefix-colors-primary': 'var(--prefix-colors-blue-9)',
+        '--prefix-colors-secondary': 'var(--prefix-colors-green-9)',
         '.dark &,[data-theme="dark"] &': {
-          '--prefix-colors-primary': '--prefix-colors-white-9',
+          '--prefix-colors-primary': 'var(--prefix-colors-white-9)',
         },
       });
     });

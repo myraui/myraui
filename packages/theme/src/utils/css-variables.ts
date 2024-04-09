@@ -44,10 +44,10 @@ function dashCase(string: string) {
 
 export function cssVariable(name: string, { fallback, value }: CSSVariableOptions = {}): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return RE.asks(({ prefix }) => {
-    const variable = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    const variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
     return {
-      name: variable,
-      reference(_fallback) {
+      name: variableName,
+      reference(_fallback: CSSVariableOptions['fallback']) {
         const finalFallback = _fallback || fallback;
         return `var(${this.name}${finalFallback ? `, ${typeof finalFallback === 'string' ? finalFallback : finalFallback.reference()}` : ``})`;
       },

@@ -1,7 +1,24 @@
-import { buildSemanticTokens, resolveSemanticTokens } from '../build-semantic-tokens';
+import { buildSemanticTokens, createSemanticTokens, resolveSemanticTokens } from '../build-semantic-tokens';
 import { unwrapRE } from '@myraui/utils';
 
 describe('semantic-tokens/build-semantic-tokens', () => {
+  describe('createSemanticTokens', () => {
+    it('should create semantic tokens from a non-value', () => {
+      const result = createSemanticTokens();
+      expect(result).toEqual({ colors: {} });
+    });
+
+    it('should create semantic tokens from a value without colors', () => {
+      const result = createSemanticTokens({});
+      expect(result).toEqual({ colors: {} });
+    });
+
+    it('should create semantic tokens from a value with colors', () => {
+      const result = createSemanticTokens({ colors: { background: { primary: 'blue' } } });
+      expect(result).toEqual({ colors: { background: { primary: 'blue' } } });
+    });
+  });
+
   describe('resolveSemanticTokens', () => {
     it('should resolve semantic tokens', () => {
       const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } } }), { prefix: 'prefix' });

@@ -2,9 +2,9 @@ import { Dict, Exception, mergeObjects, swapKeys } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ComponentTheme, SemanticRecord, SemanticTokens, Theme, ThemedValue, ThemeEnv, ThemeRecord } from '../theme.types';
-import { flattenThemedCSSVariables, isThemeRecord, normalizeThemedValue, resolveThemeRecord } from './theme';
+import { buildThemedCSSVariables, isThemeRecord, normalizeThemedValue, resolveThemeRecord } from './theme';
 import { buildSemanticTokens } from '../semantic-tokens';
-import { ScopedCSSVariables, ThemedCSSVariables } from './css-variables';
+import { ThemedCSSVariables } from './css-variables';
 import * as R from 'fp-ts/Record';
 import { flow } from 'fp-ts/function';
 
@@ -31,12 +31,12 @@ export function resolveComponentTheme(componentTheme: ComponentTheme): Record<Th
   return pipe(
     componentTheme,
     R.filter((value) => !!value),
-    R.mapWithIndex((_, value) => resolveSemanticRecord(value as any)),
+    R.map((value) => pipe(normalizeSemanticRecord(value), resolveSemanticRecord)),
     swapKeys
   ) as Record<Theme, SemanticTokens>;
 }
 
-export function buildComponentTheme(componentTheme: ComponentTheme): RE.ReaderEither<ThemeEnv, Exception, ScopedCSSVariables> {
+export function buildComponentTheme(componentTheme: ComponentTheme): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Dict<string>>> {
   return pipe(
     resolveComponentTheme(componentTheme),
     Object.entries,
@@ -47,6 +47,6 @@ export function buildComponentTheme(componentTheme: ComponentTheme): RE.ReaderEi
       );
     }),
     RE.map(mergeObjects),
-    RE.map(flattenThemedCSSVariables)
+    RE.map(buildThemedCSSVariables)
   );
 }
