@@ -1,6 +1,6 @@
 import { Dict, flattenObject, mapKeys } from '@myraui/utils';
-import deepMerge from 'deepmerge';
 import * as A from 'fp-ts/Array';
+import * as R from 'fp-ts/Record';
 import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
@@ -24,13 +24,10 @@ function resolveColorValue(colors: Record<string, ColorValue>, colorValue: unkno
 }
 
 export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPalette {
-  const resolvedColors: Record<string, ColorScale> = {};
-
-  for (const [key, value] of Object.entries(colors)) {
-    resolvedColors[key] = resolveColorValue(colors, value);
-  }
-
-  return resolvedColors;
+  return pipe(
+    colors,
+    R.mapWithIndex((key, value) => resolveColorValue(colors, value))
+  );
 }
 
 /**
@@ -48,38 +45,18 @@ export function flattenColorPalette(palette: ColorPalette): Array<[string, strin
 }
 
 export function flattenThemedCSSVariables(variables: ThemedCSSVariables): ScopedCSSVariables {
-  const result: ScopedCSSVariables = {};
-
-  for (const [theme, themeVariables] of Object.entries(variables)) {
-    if (!themeVariables) {
-      continue;
-    }
-    if (theme === BASE_THEME) {
-      Object.assign(result, themeVariables);
-    } else {
-      result[`.${theme} &,[data-theme="${theme}"] &`] = themeVariables;
-    }
-  }
-
-  return result;
-}
-
-export function mergeThemedCSSVariables(variables: ThemedCSSVariables, otherVariables: ThemedCSSVariables): ThemedCSSVariables {
-  return deepMerge({ ...variables }, { ...otherVariables });
-}
-
-export function buildCSSVariables(cssVariables: ScopedCSSVariables): Record<string, string | Record<string, string>> {
-  const result: Record<string, string | Record<string, string>> = {};
-
-  // for (const [key, value] of Object.entries(cssVariables)) {
-  //   if (typeof value === 'string') {
-  //     result[key] = `var(${value})`;
-  //   } else {
-  //     result[key] = buildCSSVariables(value as Record<string, string>) as Record<string, string>;
-  //   }
-  // }
-
-  return result;
+  return pipe(
+    variables,
+    R.toEntries,
+    A.map(([theme, scopedVariables]) => {
+      if (theme === BASE_THEME) {
+        return [theme, scopedVariables];
+      } else {
+        return [`.${theme} &,[data-theme="${theme}"] &`, scopedVariables];
+      }
+    }),
+    Object.fromEntries
+  );
 }
 
 export function resolveThemeRecord<Value>(themeRecord: ThemeRecord<Value>): Record<Theme, Value> {

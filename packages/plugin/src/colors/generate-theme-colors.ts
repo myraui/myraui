@@ -1,17 +1,16 @@
-import { ConfigTheme, CSSVariables, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
+import { ConfigTheme, CSSVariable, flattenColorPalette, isOpacityVariable, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
 import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
 import * as RE from 'fp-ts/ReaderEither';
 import { ColorResolver, PluginEnv } from '../plugin.types';
-import { isOpacityVariable } from '../theme/variables';
 import { generateColorResolver } from './generate-color-resolver';
 import { generateColorVariables } from './generate-color-variables';
 
-export type GeneratedColor = { variables: CSSVariables; resolver?: ColorResolver; colorName: string };
+export type GeneratedColor = { variables: CSSVariable[]; resolver?: ColorResolver; colorName: string };
 
 export type GeneratedColors = {
-  variables: CSSVariables;
+  variables: CSSVariable[];
   colors: Dict<ColorResolver>;
 };
 
@@ -51,11 +50,11 @@ function combineGeneratedColors(colors: readonly GeneratedColor[]) {
   return colors.reduce<GeneratedColors>(
     (acc, { variables, resolver, colorName }) => {
       return {
-        variables: { ...acc.variables, ...variables },
+        variables: [...acc.variables, ...variables],
         colors: resolver ? { ...acc.colors, [colorName]: resolver } : acc.colors,
       };
     },
-    { variables: {}, colors: {} }
+    { variables: [], colors: {} }
   );
 }
 

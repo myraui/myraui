@@ -1,5 +1,5 @@
 import { ColorShade, extractColorShade, shades } from '../colors';
-import { colorVariable, CSSVariable, opacityVariable } from '../utils';
+import { colorVariable, CSSVariable } from '../utils';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import * as RA from 'fp-ts/ReadonlyArray';
@@ -10,13 +10,10 @@ import { Exception } from '@myraui/utils';
 function createColorValue(key: string, value: string, shade?: ColorShade): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(
     RE.of(extractColorShade(value)),
-    RE.chain((color) =>
-      RE.sequenceArray([colorVariable(`${color.name}-${shade || color.shade}`), opacityVariable(`${color.name}-${shade || color.shade}`)])
+    RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
+    RE.chain(([colorValue, opacityColorValue]) =>
+      colorVariable(shade ? `${key}-${shade}` : key, { color: { value: colorValue }, opacity: { value: opacityColorValue } })
     ),
-    RE.chain(([colorValue, opacityColorValue]) => {
-      const colorKey = shade ? `${key}-${shade}` : key;
-      return RE.sequenceArray([colorVariable(colorKey, colorValue), opacityVariable(colorKey, opacityColorValue)]);
-    }),
     RE.map(([color, opacity]) => [color, opacity])
   );
 }

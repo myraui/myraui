@@ -34,6 +34,8 @@ export type SemanticTokens = {
   colors: SemanticRecord<(MyraColor | FlatMyraColor) | string, DefaultSemanticColors>;
 };
 
+export type PartialSemanticTokens = Partial<SemanticTokens>;
+
 export type FlatSemanticTokens<S extends SemanticTokens> = {
   [K in keyof S]: S[K] extends SemanticRecord<infer Value> ? Record<string, Value> : never;
 };
@@ -60,7 +62,7 @@ export type ResolvedSemanticTokens = {
 export type ConfigTheme = {
   extend?: ColorMode;
   colors?: Partial<Record<MyraColor & string, ColorValue>>;
-  semanticTokens?: SemanticTokens;
+  semanticTokens?: PartialSemanticTokens;
 };
 
 export type ConfigThemes = Record<string, ConfigTheme>;

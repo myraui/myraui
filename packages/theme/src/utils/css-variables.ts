@@ -1,13 +1,14 @@
 import { SemanticTokens, Theme, ThemeEnv } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
-import { Exception } from '@myraui/utils';
+import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
+import * as A from 'fp-ts/Array';
 
 export interface CSSVariable {
   /**
    * This is the reference name of the CSS variable. e.g. var(--color-primary)
    */
-  reference(): string;
+  reference(fallback?: string | CSSVariable): string;
   /**
    * This is the name of the CSS variable. e.g. --color-primary
    */
@@ -16,6 +17,16 @@ export interface CSSVariable {
   // This is the value of the CSS variable. e.g. #fff
   value?: string;
 }
+
+export type CSSVariableOptions = {
+  value?: string | CSSVariable;
+  fallback?: string | CSSVariable;
+};
+
+export type ColorCSSVariableOptions = {
+  color?: CSSVariableOptions;
+  opacity?: CSSVariableOptions;
+};
 
 export type ScopedCSSVariables<Scope extends string = string> = Record<Scope, CSSVariable[]>;
 
@@ -31,17 +42,14 @@ function dashCase(string: string) {
   return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
 }
 
-export function cssVariable(
-  name: string,
-  value?: string | CSSVariable,
-  fallback?: string | CSSVariable
-): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function cssVariable(name: string, { fallback, value }: CSSVariableOptions = {}): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return RE.asks(({ prefix }) => {
     const variable = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
     return {
       name: variable,
-      reference() {
-        return `var(${this.name}${fallback ? `, ${typeof fallback === 'string' ? fallback : fallback.reference}` : ``})`;
+      reference(_fallback) {
+        const finalFallback = _fallback || fallback;
+        return `var(${this.name}${finalFallback ? `, ${typeof finalFallback === 'string' ? finalFallback : finalFallback.reference()}` : ``})`;
       },
       value: value ? (typeof value === 'string' ? value : value.reference()) : '',
     };
@@ -53,47 +61,43 @@ export function cssVariable(
  *
  * @param token the token
  * @param valueKey the key of the value
- * @param value
- * @param fallback
+ * @param options
  */
 export function semanticTokenVariable(
   token: keyof SemanticTokens,
   valueKey: string,
-  value?: string | CSSVariable,
-  fallback?: string | CSSVariable
+  options?: CSSVariableOptions
 ): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
-  return cssVariable(`${token}-${valueKey}`, value, fallback);
+  return cssVariable(`${token}-${valueKey}`, options);
 }
 
 /**
  * Create a variable for a color
  *
  * @param colorKey the key of the color
- * @param value
- * @param fallback
+ * @param options the options
+ *
+ * @return a tuple with the color and opacity variables
  */
 export function colorVariable(
   colorKey: string,
-  value?: string | CSSVariable,
-  fallback?: string | CSSVariable
-): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
-  return semanticTokenVariable('colors', colorKey, value, fallback);
+  options: ColorCSSVariableOptions = {}
+): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
+  return pipe(
+    RE.sequenceArray([semanticTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
+    RE.map(([color, opacity]) => [color, opacity])
+  );
 }
 
 /**
  * Create a variable for a color with a specific opacity
  *
  * @param colorKey the key of the color
- * @param value
- * @param fallback
+ * @param options the options
  */
-export function opacityVariable(
-  colorKey: string,
-  value?: string | CSSVariable,
-  fallback?: string | CSSVariable
-): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function opacityVariable(colorKey: string, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return pipe(
-    semanticTokenVariable('colors', colorKey, value, fallback),
+    semanticTokenVariable('colors', colorKey, options),
     RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
   );
 }
@@ -103,8 +107,8 @@ export function opacityVariable(
  *
  * @param variable the variable reference
  */
-export function isOpacityVariable(variable: CSSVariable) {
-  return variable.name.endsWith('-opacity');
+export function isOpacityVariable(variable: string | CSSVariable) {
+  return (typeof variable === 'string' ? variable : variable.name).endsWith('-opacity');
 }
 
 /**
@@ -113,4 +117,12 @@ export function isOpacityVariable(variable: CSSVariable) {
  */
 export function isCSSVariable(token: string) {
   return token.startsWith('--');
+}
+
+export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
+  return pipe(
+    cssVariables,
+    A.filter((variable) => variable.value !== undefined && variable.value !== ''),
+    A.reduce({} as Dict<string>, (acc, variable) => ({ ...acc, [variable.name]: variable.value } as Dict<string>))
+  );
 }
