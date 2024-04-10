@@ -8,6 +8,8 @@
   },
   "files": [],
   "include": ["src", "stories"],
+  "paths": {
+  },
   "references": [
     {
       "path": "./tsconfig.lib.json"

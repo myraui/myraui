@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { buildComponentTheme, buildCSSVariables } from '@myraui/theme';
+import { buildComponentTheme } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Reader';
 import * as RE from 'fp-ts/ReaderEither';
@@ -11,7 +11,6 @@ function applyComponentTheme(prefix: string) {
   return (props: MyraProps) =>
     pipe(
       buildComponentTheme({ ...(props.componentTheme || {}), colors: props.themeColors }),
-      RE.map(buildCSSVariables),
       RE.getOrElse(() => R.of({}))
     )({ prefix });
 }

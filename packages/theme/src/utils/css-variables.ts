@@ -1,0 +1,128 @@
+import { SemanticTokens, Theme, ThemeEnv } from '../theme.types';
+import * as RE from 'fp-ts/ReaderEither';
+import { Dict, Exception } from '@myraui/utils';
+import { pipe } from 'fp-ts/lib/function';
+import * as A from 'fp-ts/Array';
+
+export interface CSSVariable {
+  /**
+   * This is the reference name of the CSS variable. e.g. var(--color-primary)
+   */
+  reference(fallback?: string | CSSVariable): string;
+  /**
+   * This is the name of the CSS variable. e.g. --color-primary
+   */
+  name: string;
+
+  // This is the value of the CSS variable. e.g. #fff
+  value?: string;
+}
+
+export type CSSVariableOptions = {
+  value?: string | CSSVariable;
+  fallback?: string | CSSVariable;
+};
+
+export type ColorCSSVariableOptions = {
+  color?: CSSVariableOptions;
+  opacity?: CSSVariableOptions;
+};
+
+export type ScopedCSSVariables<Scope extends string = string> = Record<Scope, CSSVariable[]>;
+
+export type ThemedCSSVariables = Partial<ScopedCSSVariables<Theme>>;
+
+const escRegex = /[^a-zA-Z0-9_\u0081-\uffff-]/g;
+function esc(string: string) {
+  return `${string}`.replace(escRegex, (s) => `\\${s}`);
+}
+
+const dashCaseRegex = /[A-Z]/g;
+function dashCase(string: string) {
+  return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
+}
+
+export function cssVariable(name: string, { fallback, value }: CSSVariableOptions = {}): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+  return RE.asks(({ prefix }) => {
+    const variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    return {
+      name: variableName,
+      reference(_fallback: CSSVariableOptions['fallback']) {
+        const finalFallback = _fallback || fallback;
+        return `var(${this.name}${finalFallback ? `, ${typeof finalFallback === 'string' ? finalFallback : finalFallback.reference()}` : ``})`;
+      },
+      value: value ? (typeof value === 'string' ? value : value.reference()) : '',
+    };
+  });
+}
+
+/**
+ * Create a variable for a specific token
+ *
+ * @param token the token
+ * @param valueKey the key of the value
+ * @param options
+ */
+export function semanticTokenVariable(
+  token: keyof SemanticTokens,
+  valueKey: string,
+  options?: CSSVariableOptions
+): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+  return cssVariable(`${token}-${valueKey}`, options);
+}
+
+/**
+ * Create a variable for a color
+ *
+ * @param colorKey the key of the color
+ * @param options the options
+ *
+ * @return a tuple with the color and opacity variables
+ */
+export function colorVariable(
+  colorKey: string,
+  options: ColorCSSVariableOptions = {}
+): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
+  return pipe(
+    RE.sequenceArray([semanticTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
+    RE.map(([color, opacity]) => [color, opacity])
+  );
+}
+
+/**
+ * Create a variable for a color with a specific opacity
+ *
+ * @param colorKey the key of the color
+ * @param options the options
+ */
+export function opacityVariable(colorKey: string, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+  return pipe(
+    semanticTokenVariable('colors', colorKey, options),
+    RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
+  );
+}
+
+/**
+ * Check if a variable is an opacity variable
+ *
+ * @param variable the variable reference
+ */
+export function isOpacityVariable(variable: string | CSSVariable) {
+  return (typeof variable === 'string' ? variable : variable.name).endsWith('-opacity');
+}
+
+/**
+ *  Check if a token is a CSS variable
+ * @param token
+ */
+export function isCSSVariable(token: string) {
+  return token.startsWith('--');
+}
+
+export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
+  return pipe(
+    cssVariables,
+    A.filter((variable) => variable.value !== undefined && variable.value !== ''),
+    A.reduce({} as Dict<string>, (acc, variable) => ({ ...acc, [variable.name]: variable.value } as Dict<string>))
+  );
+}

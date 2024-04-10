@@ -78,7 +78,6 @@ module.exports = function main(plop) {
         description,
         outDir,
         destination,
-        tags: isReact ? 'scope:client' : 'scope:common',
       };
 
       actions.push({
@@ -88,24 +87,6 @@ module.exports = function main(plop) {
         base: `plop/${isReact ? 'react-package' : 'package'}`,
         data,
         abortOnFail: true,
-      });
-
-      actions.push({
-        type: 'modify',
-        template: `$1\n\t  "@myraui/${packageName}": ["${destination}/src/index.ts"],`,
-        path: './tsconfig.json',
-        pattern: /("paths": {)/,
-      });
-
-      fs.readdirSync('./packages').forEach((file) => {
-        if (!fs.existsSync(`./packages/${file}/tsconfig.json`)) return;
-
-        actions.push({
-          type: 'modify',
-          template: `$1\n\t  "@myraui/${packageName}": ["${destination}/src/index.ts"],`,
-          path: `./packages/${file}/tsconfig.json`,
-          pattern: /("paths": {)/,
-        });
       });
 
       return actions;

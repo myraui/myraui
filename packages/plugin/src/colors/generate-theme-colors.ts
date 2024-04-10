@@ -1,21 +1,21 @@
-import { ConfigTheme, CSSVariables, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
-import { Dict, Exception } from '@myraui/utils';
-import { pipe } from 'fp-ts/function';
-import * as O from 'fp-ts/Option';
+import { ConfigTheme, CSSVariable, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
+import { Dict, Exception, toValues } from '@myraui/utils';
+import { flow, pipe } from 'fp-ts/function';
+import * as R from 'fp-ts/Record';
+import * as A from 'fp-ts/Array';
 import * as RE from 'fp-ts/ReaderEither';
 import { ColorResolver, PluginEnv } from '../plugin.types';
-import { isOpacityVariable } from '../theme/variables';
 import { generateColorResolver } from './generate-color-resolver';
 import { generateColorVariables } from './generate-color-variables';
 
-export type GeneratedColor = { variables: CSSVariables; resolver?: ColorResolver; colorName: string };
+export type GeneratedColor = { variables: readonly CSSVariable[]; resolver?: ColorResolver; colorName: string };
 
 export type GeneratedColors = {
-  variables: CSSVariables;
+  variables: readonly CSSVariable[];
   colors: Dict<ColorResolver>;
 };
 
-function generateThemeColor([colorName, colorValue]: [string, string]): RE.ReaderEither<PluginEnv, Exception, GeneratedColor> {
+export function generateThemeColor(colorName: string, colorValue: string): RE.ReaderEither<PluginEnv, Exception, GeneratedColor> {
   return pipe(
     generateColorVariables(colorName, colorValue),
     RE.chain((variables) =>
@@ -27,42 +27,47 @@ function generateThemeColor([colorName, colorValue]: [string, string]): RE.Reade
   );
 }
 
-function generateSemanticTokenColor([tokenKey, tokenValue]: [string, string]): RE.ReaderEither<PluginEnv, Exception, GeneratedColor> {
+export function generateSemanticTokenColor(
+  tokenKey: string,
+  variables: readonly CSSVariable[]
+): RE.ReaderEither<PluginEnv, Exception, GeneratedColor> {
   return pipe(
-    generateColorVariables(tokenKey, tokenValue),
-    RE.chain((variables) =>
-      pipe(
-        tokenKey,
-        O.fromPredicate(isOpacityVariable),
-        O.fold(
-          () =>
-            pipe(
-              generateColorResolver(tokenKey),
-              RE.map((resolver) => ({ variables, resolver, colorName: tokenKey }))
-            ),
-          () => RE.of({ variables, colorName: tokenKey })
-        )
-      )
-    )
+    generateColorResolver(tokenKey),
+    RE.map((resolver) => ({ variables, resolver, colorName: tokenKey }))
   );
 }
 
-function combineGeneratedColors(colors: readonly GeneratedColor[]) {
+export function combineGeneratedColors(colors: readonly GeneratedColor[]) {
   return colors.reduce<GeneratedColors>(
     (acc, { variables, resolver, colorName }) => {
       return {
-        variables: { ...acc.variables, ...variables },
+        variables: [...acc.variables, ...variables],
         colors: resolver ? { ...acc.colors, [colorName]: resolver } : acc.colors,
       };
     },
-    { variables: {}, colors: {} }
+    { variables: [], colors: {} }
   );
 }
 
 export function generateThemeColors(colors: ConfigTheme['colors']): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
-  return pipe(resolveThemeColors(colors || {}), flattenColorPalette, RE.traverseArray(generateThemeColor), RE.map(combineGeneratedColors));
+  return pipe(
+    resolveThemeColors(colors || {}),
+    flattenColorPalette,
+    R.mapWithIndex(generateThemeColor),
+    R.sequence(RE.Applicative),
+    RE.map(toValues),
+    RE.map(combineGeneratedColors)
+  );
 }
 
-export function generateSemanticTokenColors(semanticTokens: ResolvedSemanticTokens): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
-  return pipe(semanticTokens.colors || {}, Object.entries, RE.traverseArray(generateSemanticTokenColor), RE.map(combineGeneratedColors));
+export function generateSemanticTokenColors(
+  semanticTokenColors: ResolvedSemanticTokens['colors']
+): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
+  return pipe(
+    semanticTokenColors,
+    R.map(flow(R.mapWithIndex(generateSemanticTokenColor), R.sequence(RE.Applicative))),
+    R.sequence(RE.Applicative),
+    RE.map(flow(toValues, A.chain(toValues))),
+    RE.map(combineGeneratedColors)
+  );
 }

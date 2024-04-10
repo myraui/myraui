@@ -4,7 +4,13 @@
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@myraui/fonts": ["packages/fonts/src/index.ts"],
+      "@myraui/theme": ["packages/theme/src/index.ts"],
+      "@myraui/utils": ["packages/utils/src/index.ts"],
+      "@myraui/test-utils": ["packages/utils/test/index.ts"]
+    }
   },
   "files": [],
   "include": ["src", "stories"],

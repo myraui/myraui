@@ -7,6 +7,11 @@ export type MyraColor = (typeof colorNames)[number];
 
 export type ColorShade = (typeof shades)[number];
 
+export interface ColorWithShade {
+  name: string;
+  shade: ColorShade;
+}
+
 export type ColorScale = Record<ColorShade, string>;
 
 export type FlatMyraColor = `${MyraColor}.${ColorShade}`;

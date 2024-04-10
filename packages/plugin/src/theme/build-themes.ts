@@ -6,7 +6,7 @@ import { pipe } from 'fp-ts/lib/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { PluginEnv } from '../plugin.types';
 
-function compose(themeName: string, theme: ConfigTheme, defaultExtendTheme: string) {
+export function applyBaseTheme(themeName: string, theme: ConfigTheme, defaultExtendTheme: string) {
   const baseTheme = (isColorMode(themeName) ? themeName : theme.extend && isColorMode(theme.extend) ? theme.extend : defaultExtendTheme) as ColorMode;
   return {
     colors: deepMerge(getByColorMode(baseTheme), theme.colors || {}),
@@ -14,7 +14,7 @@ function compose(themeName: string, theme: ConfigTheme, defaultExtendTheme: stri
   };
 }
 
-function createBaseThemes(themes: ConfigThemes) {
+export function createBaseThemes(themes: ConfigThemes) {
   return { dark: {}, light: {}, ...themes };
 }
 
@@ -25,7 +25,7 @@ export function buildThemes(themes: ConfigThemes): RE.ReaderEither<PluginEnv, Ex
       Object.entries,
       A.reduce({}, (acc, [themeName, theme]) => ({
         ...acc,
-        [themeName]: compose(themeName, theme, defaultExtendTheme),
+        [themeName]: applyBaseTheme(themeName, theme, defaultExtendTheme),
       }))
     );
   });
