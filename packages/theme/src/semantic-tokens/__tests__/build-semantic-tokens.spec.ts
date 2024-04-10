@@ -25,28 +25,32 @@ describe('semantic-tokens/build-semantic-tokens', () => {
 
       expect(result).toEqual(
         expect.objectContaining({
-          'background-primary': expect.arrayContaining([
-            {
-              name: '--prefix-colors-background-primary',
-              value: 'var(--prefix-colors-blue-9)',
-              reference: expect.any(Function),
-            },
-            {
-              name: '--prefix-colors-background-primary-opacity',
-              value: 'var(--prefix-colors-blue-9-opacity)',
-              reference: expect.any(Function),
-            },
-            {
-              name: '--prefix-colors-background-primary-12',
-              value: 'var(--prefix-colors-blue-12)',
-              reference: expect.any(Function),
-            },
-            {
-              name: '--prefix-colors-background-primary-12-opacity',
-              value: 'var(--prefix-colors-blue-12-opacity)',
-              reference: expect.any(Function),
-            },
-          ]),
+          'background-primary': expect.objectContaining({
+            'background-primary-12': [
+              {
+                name: '--prefix-colors-background-primary-12',
+                value: 'var(--prefix-colors-blue-12)',
+                reference: expect.any(Function),
+              },
+              {
+                name: '--prefix-colors-background-primary-12-opacity',
+                value: 'var(--prefix-colors-blue-12-opacity)',
+                reference: expect.any(Function),
+              },
+            ],
+            'background-primary': [
+              {
+                name: '--prefix-colors-background-primary',
+                value: 'var(--prefix-colors-blue-9)',
+                reference: expect.any(Function),
+              },
+              {
+                name: '--prefix-colors-background-primary-opacity',
+                value: 'var(--prefix-colors-blue-9-opacity)',
+                reference: expect.any(Function),
+              },
+            ],
+          }),
         })
       );
     });
@@ -59,28 +63,32 @@ describe('semantic-tokens/build-semantic-tokens', () => {
       expect(result).toEqual(
         expect.objectContaining({
           colors: {
-            'background-primary': expect.arrayContaining([
-              {
-                name: '--prefix-colors-background-primary',
-                value: 'var(--prefix-colors-blue-9)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-background-primary-opacity',
-                value: 'var(--prefix-colors-blue-9-opacity)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-background-primary-12',
-                value: 'var(--prefix-colors-blue-12)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-background-primary-12-opacity',
-                value: 'var(--prefix-colors-blue-12-opacity)',
-                reference: expect.any(Function),
-              },
-            ]),
+            'background-primary': expect.objectContaining({
+              'background-primary-12': [
+                {
+                  name: '--prefix-colors-background-primary-12',
+                  value: 'var(--prefix-colors-blue-12)',
+                  reference: expect.any(Function),
+                },
+                {
+                  name: '--prefix-colors-background-primary-12-opacity',
+                  value: 'var(--prefix-colors-blue-12-opacity)',
+                  reference: expect.any(Function),
+                },
+              ],
+              'background-primary': [
+                {
+                  name: '--prefix-colors-background-primary',
+                  value: 'var(--prefix-colors-blue-9)',
+                  reference: expect.any(Function),
+                },
+                {
+                  name: '--prefix-colors-background-primary-opacity',
+                  value: 'var(--prefix-colors-blue-9-opacity)',
+                  reference: expect.any(Function),
+                },
+              ],
+            }),
           },
         })
       );
