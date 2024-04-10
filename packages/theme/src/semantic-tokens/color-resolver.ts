@@ -3,7 +3,6 @@ import { colorVariable, CSSVariable } from '../utils';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import * as RA from 'fp-ts/ReadonlyArray';
-import * as R from 'fp-ts/Record';
 import { ThemeEnv } from '../theme.types';
 import { Exception } from '@myraui/utils';
 
@@ -18,7 +17,7 @@ export function createColorValue(key: string, value: string, shade?: ColorShade)
   );
 }
 
-export function createShades(key: string, value: string) {
+export function colorResolver(key: string, value: string): RE.ReaderEither<ThemeEnv, Exception, ReadonlyArray<CSSVariable>> {
   return pipe(
     createColorValue(key, value),
     RE.chain((colorVariables) =>
@@ -29,14 +28,5 @@ export function createShades(key: string, value: string) {
         RE.map(RA.flatten)
       )
     )
-  );
-}
-
-export function colorResolver(record: Record<string, string>): RE.ReaderEither<ThemeEnv, Exception, ReadonlyArray<CSSVariable>> {
-  return pipe(
-    record,
-    R.toEntries,
-    RE.traverseArray(([key, value]) => createShades(key, value)),
-    RE.map(RA.flatten)
   );
 }

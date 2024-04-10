@@ -7,7 +7,7 @@ import { pipe } from 'fp-ts/function';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
-function createColorValue(colorValue: string): ColorCSSVariableOptions {
+export function createColorValueOptions(colorValue: string): ColorCSSVariableOptions {
   if (isCSSVariable(colorValue)) return { color: { value: colorValue } };
 
   const parsedColor = parsedColorsCache[colorValue] || Color(colorValue).hsl().round().array();
@@ -29,5 +29,5 @@ function createColorValue(colorValue: string): ColorCSSVariableOptions {
  * @param colorValue the value of the color
  */
 export function generateColorVariables(colorName: string, colorValue: string): RE.ReaderEither<PluginEnv, Exception, CSSVariable[]> {
-  return pipe(createColorValue(colorValue), (options) => colorVariable(colorName, options));
+  return pipe(createColorValueOptions(colorValue), (options) => colorVariable(colorName, options));
 }

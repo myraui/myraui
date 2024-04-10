@@ -30,3 +30,7 @@ export function swapKeys<K extends string, J extends string, A>(record: Record<K
     })
   ) as Record<J, Record<K, A>>;
 }
+
+export function toValues<K extends string, A>(record: Record<K, A>): A[] {
+  return Object.values(record);
+}

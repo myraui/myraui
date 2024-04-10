@@ -4,7 +4,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Exception } from '@myraui/utils';
 import { colorResolver } from './color-resolver';
 
-type Resolver = (semanticRecord: Record<string, string>) => RE.ReaderEither<ThemeEnv, Exception, ReadonlyArray<CSSVariable>>;
+type Resolver = (tokenKey: string, tokenValue: string) => RE.ReaderEither<ThemeEnv, Exception, ReadonlyArray<CSSVariable>>;
 
 type Resolvers = Record<keyof SemanticTokens, Resolver>;
 

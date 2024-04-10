@@ -1,6 +1,7 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { DefaultSemanticColors } from './theme/colors';
 import { CSSVariable } from './utils';
+import { Dict } from '@myraui/utils';
 
 export type ThemeEnv = {
   prefix: string;
@@ -55,9 +56,7 @@ export type ComponentTheme = {
   [K in keyof SemanticTokens]?: ExtractSemanticRecord<K>;
 };
 
-export type ResolvedSemanticTokens = {
-  [K in keyof SemanticTokens]: Array<CSSVariable>;
-};
+export type ResolvedSemanticTokens = Record<keyof SemanticTokens, Dict>;
 
 export type ConfigTheme = {
   extend?: ColorMode;

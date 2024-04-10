@@ -39,7 +39,7 @@ export function resolveComponentTheme(componentTheme: ComponentTheme): Record<Th
 export function buildComponentTheme(componentTheme: ComponentTheme): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Dict<string>>> {
   return pipe(
     resolveComponentTheme(componentTheme),
-    Object.entries,
+    R.toEntries,
     RE.traverseArray(([theme, tokens]) => {
       return pipe(
         buildSemanticTokens(tokens),
