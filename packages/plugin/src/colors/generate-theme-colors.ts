@@ -1,7 +1,8 @@
 import { ConfigTheme, CSSVariable, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
 import { Dict, Exception, toValues } from '@myraui/utils';
-import { pipe } from 'fp-ts/function';
+import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
+import * as A from 'fp-ts/Array';
 import * as RE from 'fp-ts/ReaderEither';
 import { ColorResolver, PluginEnv } from '../plugin.types';
 import { generateColorResolver } from './generate-color-resolver';
@@ -52,18 +53,21 @@ export function generateThemeColors(colors: ConfigTheme['colors']): RE.ReaderEit
   return pipe(
     resolveThemeColors(colors || {}),
     flattenColorPalette,
-    R.toEntries,
-    RE.traverseArray(generateThemeColor),
+    R.mapWithIndex(generateThemeColor),
+    R.sequence(RE.Applicative),
+    RE.map(toValues),
     RE.map(combineGeneratedColors)
   );
 }
 
-export function generateSemanticTokenColors(semanticTokens: ResolvedSemanticTokens): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
+export function generateSemanticTokenColors(
+  semanticTokenColors: ResolvedSemanticTokens['colors']
+): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
   return pipe(
-    semanticTokens.colors || {},
-    R.mapWithIndex(generateSemanticTokenColor),
+    semanticTokenColors,
+    R.map(flow(R.mapWithIndex(generateSemanticTokenColor), R.sequence(RE.Applicative))),
     R.sequence(RE.Applicative),
-    RE.map(toValues),
+    RE.map(flow(toValues, A.chain(toValues))),
     RE.map(combineGeneratedColors)
   );
 }

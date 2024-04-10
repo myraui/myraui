@@ -56,11 +56,13 @@ export type ComponentTheme = {
   [K in keyof SemanticTokens]?: ExtractSemanticRecord<K>;
 };
 
-export type ResolvedSemanticTokens = Record<keyof SemanticTokens, Dict>;
+export type ResolvedSemanticRecord = Dict<Dict<readonly CSSVariable[]>>;
+
+export type ResolvedSemanticTokens = Record<keyof SemanticTokens, ResolvedSemanticRecord>;
 
 export type ConfigTheme = {
   extend?: ColorMode;
-  colors?: Partial<Record<MyraColor & string, ColorValue>>;
+  colors?: Record<MyraColor | string, ColorValue>;
   semanticTokens?: PartialSemanticTokens;
 };
 
