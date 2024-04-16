@@ -4,6 +4,20 @@ import formatCode from './utils/formatCode';
 import { themes } from '@storybook/theming';
 
 import './style.scss';
+import React from 'react';
+import { MyraUIProvider } from '@myraui/system';
+
+const decorators: Preview['decorators'] = [
+  (Story) => {
+    return (
+      <MyraUIProvider>
+        <div className="bg-dark">
+          <Story />
+        </div>
+      </MyraUIProvider>
+    );
+  },
+];
 
 const commonTheme = {
   brandTitle: 'MyraUI',
@@ -45,6 +59,7 @@ const preview: Preview = {
       storySort: {},
     },
   },
+  decorators,
 };
 
 export default preview;

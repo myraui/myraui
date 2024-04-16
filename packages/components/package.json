@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/theme",
+  "name": "@myraui/components",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "The base theme for Myra UI components",
+  "description": "The core Myra UI components",
   "keywords": [
-    "theme"
+    "components"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
-    "directory": "packages/theme"
+    "directory": "packages/components"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
@@ -31,9 +31,10 @@
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/utils": "workspace:^",
-    "deepmerge": "^4.3.1",
-    "tailwind-variants": "^0.2.1"
+    "@myraui/react-utils": "workspace:^",
+    "@myraui/system": "workspace:^",
+    "@myraui/theme": "workspace:^",
+    "@myraui/utils": "workspace:^"
   },
   "clean-package": "../../clean-package.config.json"
 }

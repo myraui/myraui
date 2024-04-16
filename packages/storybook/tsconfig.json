@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@myraui/system": ["packages/system/src/index.ts"]
+    }
+  },
+  "files": [],
+  "include": [".storybook"]
+}
