@@ -1,12 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "paths": {
-    }
+    "baseUrl": "."
   },
   "files": [],
   "include": ["src", "stories"],
