@@ -19,7 +19,7 @@ const button = tv({
   ],
   variants: {
     variant: {
-      default: 'bg-red-5',
+      default: 'bg-default',
     },
   },
   defaultVariants: {
