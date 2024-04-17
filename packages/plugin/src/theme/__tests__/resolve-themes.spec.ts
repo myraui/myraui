@@ -6,7 +6,7 @@ describe('theme/resolve-themes', () => {
   describe('resolveTheme', () => {
     it('should generate the resolved theme config from a config theme', () => {
       const result = unwrapRE(
-        resolveTheme('midnight', { extend: 'dark', colors: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } }),
+        resolveTheme('midnight', { extend: 'dark', colorPalette: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } }),
         {
           prefix: 'prefix',
           defaultExtendTheme: 'light',
@@ -129,8 +129,8 @@ describe('theme/resolve-themes', () => {
     it('should resolve the themes into a utility object for tailwind', () => {
       const result = unwrapRE(
         resolveThemes({
-          midnight: { extend: 'dark', colors: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } },
-          dawn: { colors: { red: myraColors.red.light }, semanticTokens: { colors: { primary: 'red' } } },
+          midnight: { extend: 'dark', colorPalette: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } },
+          dawn: { colorPalette: { red: myraColors.red.light }, semanticTokens: { colors: { primary: 'red' } } },
         }),
         { defaultExtendTheme: 'light', prefix: 'prefix' }
       );

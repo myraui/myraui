@@ -3,6 +3,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
+import { SpacingScaleKeys } from '../layout/spacing-scale';
 
 export interface CSSVariable {
   /**
@@ -125,4 +126,10 @@ export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
     A.filter((variable) => variable.value !== undefined && variable.value !== ''),
     A.reduce({} as Dict<string>, (acc, variable) => ({ ...acc, [variable.name]: variable.value } as Dict<string>))
   );
+}
+
+export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K | undefined, options?: CSSVariableOptions) {
+  const key = (spacingScaleKey ? `-${spacingScaleKey}` : '').replace('.', '_');
+
+  return cssVariable(`spacing-unit${key}`, options);
 }

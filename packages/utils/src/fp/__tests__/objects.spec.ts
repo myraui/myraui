@@ -1,4 +1,4 @@
-import { mapKeys, mergeObjects, swapKeys, toValues } from '../objects';
+import { fromArray, mapKeys, mergeObjects, swapKeys, toValues } from '../objects';
 
 describe('fp/objects', () => {
   describe('swapKeys', () => {
@@ -55,6 +55,18 @@ describe('fp/objects', () => {
     it('should return an empty array for an empty object', () => {
       const result = toValues({});
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('fromArray', () => {
+    it('should create an object from an array', () => {
+      const result = fromArray((key) => `${key}Value`)(['primary', 'secondary']);
+      expect(result).toEqual({ primary: 'primaryValue', secondary: 'secondaryValue' });
+    });
+
+    it('should create an empty object from an empty array', () => {
+      const result = fromArray((key) => `${key}Value`)([]);
+      expect(result).toEqual({});
     });
   });
 });

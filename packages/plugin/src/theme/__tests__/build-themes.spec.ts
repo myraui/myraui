@@ -7,19 +7,19 @@ describe('theme/build-themes', () => {
     it('should build the theme based on the color mode', () => {
       const result = applyBaseTheme('midnight', {}, 'light');
 
-      expect(result).toEqual({ colors: getByColorMode('light'), semanticTokens: semanticTokens.light });
+      expect(result).toEqual({ colorPalette: getByColorMode('light'), ...semanticTokens.light, spacingUnit: 4 });
     });
 
     it('should use the theme.extend value', () => {
       const result = applyBaseTheme('midnight', { extend: 'dark' }, 'light');
 
-      expect(result).toEqual({ colors: getByColorMode('dark'), semanticTokens: semanticTokens.dark });
+      expect(result).toEqual({ colorPalette: getByColorMode('dark'), ...semanticTokens.dark, spacingUnit: 4, extend: 'dark' });
     });
 
     it('should ignore the theme.extend and defaultExtendTheme for base themes', () => {
       const result = applyBaseTheme('light', { extend: 'dark' }, 'dark');
 
-      expect(result).toEqual({ colors: getByColorMode('light'), semanticTokens: semanticTokens.light });
+      expect(result).toEqual({ colorPalette: getByColorMode('light'), ...semanticTokens.light, spacingUnit: 4, extend: 'dark' });
     });
   });
 
@@ -42,10 +42,10 @@ describe('theme/build-themes', () => {
       const result = unwrapRE(buildThemes({ midnight: { extend: 'dark' }, dawn: {} }), { defaultExtendTheme: 'light', prefix: 'prefix' });
 
       expect(result).toEqual({
-        midnight: { colors: getByColorMode('dark'), semanticTokens: semanticTokens.dark },
-        dawn: { colors: getByColorMode('light'), semanticTokens: semanticTokens.light },
-        light: { colors: getByColorMode('light'), semanticTokens: semanticTokens.light },
-        dark: { colors: getByColorMode('dark'), semanticTokens: semanticTokens.dark },
+        midnight: { colorPalette: getByColorMode('dark'), ...semanticTokens.dark, spacingUnit: 4, extend: 'dark' },
+        dawn: { colorPalette: getByColorMode('light'), ...semanticTokens.light, spacingUnit: 4 },
+        light: { colorPalette: getByColorMode('light'), ...semanticTokens.light, spacingUnit: 4 },
+        dark: { colorPalette: getByColorMode('dark'), ...semanticTokens.dark, spacingUnit: 4 },
       });
     });
   });

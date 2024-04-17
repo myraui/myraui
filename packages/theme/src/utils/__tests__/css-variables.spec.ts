@@ -1,4 +1,12 @@
-import { buildCSSVariables, colorVariable, cssVariable, isCSSVariable, opacityVariable, semanticTokenVariable } from '../css-variables';
+import {
+  buildCSSVariables,
+  colorVariable,
+  cssVariable,
+  isCSSVariable,
+  opacityVariable,
+  semanticTokenVariable,
+  spacingUnitVariable,
+} from '../css-variables';
 import { unwrapRE } from '@myraui/utils';
 
 describe('utils/css-variables', () => {
@@ -85,6 +93,20 @@ describe('utils/css-variables', () => {
       const result = buildCSSVariables(variables);
 
       expect(result).toEqual({ '--prefix-colors-background': 'red' });
+    });
+  });
+
+  describe('spacingUnitVariable', () => {
+    it('should create a spacing unit variable', () => {
+      const result = unwrapRE(spacingUnitVariable(1, { value: '2px' }), { prefix: 'prefix' });
+
+      expect(result).toEqual({ name: '--prefix-spacing-unit-1', reference: expect.any(Function), value: '2px' });
+    });
+
+    it('should create a base spacing unit', () => {
+      const result = unwrapRE(spacingUnitVariable(), { prefix: 'prefix' });
+
+      expect(result).toEqual({ name: '--prefix-spacing-unit', reference: expect.any(Function), value: '' });
     });
   });
 });

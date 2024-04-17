@@ -26,13 +26,13 @@ export function resolveTheme(themeName: string, theme: ConfigTheme): RE.ReaderEi
     }),
     RE.chain((themeConfig) => {
       return pipe(
-        theme.semanticTokens,
+        theme,
         createSemanticTokens,
         resolveSemanticTokens,
         RE.chain((result) => generateSemanticTokenColors(result.colors)),
         RE.chain((semanticTokens) => {
           return pipe(
-            generateThemeColors(theme.colors),
+            generateThemeColors(theme.colorPalette || {}),
             RE.map((colors) => ({
               ...themeConfig,
               colors: { ...colors.colors, ...semanticTokens.colors },

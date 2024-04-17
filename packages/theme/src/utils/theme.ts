@@ -58,7 +58,7 @@ export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<str
 }
 
 export function resolveThemeRecord<Value>(themeRecord: ThemeRecord<Value>): Record<Theme, Value> {
-  return mapKeys((key) => key.replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
+  return mapKeys((key) => String(key).replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
 }
 
 export function isThemeRecord(record: Dict = {}): record is ThemeRecord<any> {

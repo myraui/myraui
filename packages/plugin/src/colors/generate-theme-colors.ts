@@ -1,4 +1,4 @@
-import { ConfigTheme, CSSVariable, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
+import { ColorPalette, CSSVariable, flattenColorPalette, ResolvedSemanticTokens, resolveThemeColors } from '@myraui/theme';
 import { Dict, Exception, toValues } from '@myraui/utils';
 import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
@@ -49,7 +49,7 @@ export function combineGeneratedColors(colors: readonly GeneratedColor[]) {
   );
 }
 
-export function generateThemeColors(colors: ConfigTheme['colors']): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
+export function generateThemeColors(colors: ColorPalette): RE.ReaderEither<PluginEnv, Exception, GeneratedColors> {
   return pipe(
     resolveThemeColors(colors || {}),
     flattenColorPalette,

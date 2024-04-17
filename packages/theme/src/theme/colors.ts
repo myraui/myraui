@@ -1,7 +1,7 @@
 import { FlatMyraColor, MyraColor } from '../colors';
-import { Theme } from '../theme.types';
+import { ThemedSemanticRecord } from '../theme.types';
 
-export type DefaultSemanticColors =
+export type SemanticColors =
   | 'background'
   | 'foreground'
   | 'focus'
@@ -13,7 +13,7 @@ export type DefaultSemanticColors =
   | 'warning'
   | 'danger';
 
-export const defaultColors: Record<Theme, Record<DefaultSemanticColors, MyraColor | FlatMyraColor>> = {
+export const colors: ThemedSemanticRecord<SemanticColors, MyraColor | FlatMyraColor> = {
   light: {
     background: 'gray.1',
     foreground: 'gray.12',

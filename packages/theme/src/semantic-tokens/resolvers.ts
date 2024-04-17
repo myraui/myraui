@@ -10,4 +10,4 @@ type Resolvers = Record<keyof SemanticTokens, Resolver>;
 
 export const resolvers: Resolvers = {
   colors: colorResolver,
-};
+} as any;

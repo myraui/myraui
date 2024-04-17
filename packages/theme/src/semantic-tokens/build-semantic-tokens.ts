@@ -11,6 +11,14 @@ import * as R from 'fp-ts/Record';
 export function createSemanticTokens(partialSemanticTokens: PartialSemanticTokens = {}): SemanticTokens {
   return {
     colors: partialSemanticTokens.colors || {},
+    fontSize: partialSemanticTokens.fontSize || {},
+    lineHeight: partialSemanticTokens.lineHeight || {},
+    width: partialSemanticTokens.width || {},
+    height: partialSemanticTokens.height || {},
+    radius: partialSemanticTokens.radius || {},
+    boxShadow: partialSemanticTokens.boxShadow || {},
+    borderWidth: partialSemanticTokens.borderWidth || {},
+    opacity: partialSemanticTokens.opacity || {},
   };
 }
 

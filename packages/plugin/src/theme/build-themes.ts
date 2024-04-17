@@ -9,8 +9,9 @@ import { PluginEnv } from '../plugin.types';
 export function applyBaseTheme(themeName: string, theme: ConfigTheme, defaultExtendTheme: string) {
   const baseTheme = (isColorMode(themeName) ? themeName : theme.extend && isColorMode(theme.extend) ? theme.extend : defaultExtendTheme) as ColorMode;
   return {
-    colors: deepMerge(getByColorMode(baseTheme), theme.colors || {}),
-    semanticTokens: deepMerge(semanticTokens[baseTheme], theme.semanticTokens || {}),
+    colorPalette: deepMerge(getByColorMode(baseTheme), theme.colorPalette || {}),
+    spacingUnit: 4,
+    ...deepMerge(semanticTokens[baseTheme], theme),
   };
 }
 

@@ -9,3 +9,5 @@ export type Dict<T = any> = Record<string, T>;
 export type Assign<T, U> = Omit<T, keyof U> & U;
 
 export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
+
+export type RecordKey = string | number | symbol;
