@@ -10,7 +10,7 @@ import { SemanticOpacity } from './theme/opacity';
 import { SpacingScaleKeys } from './layout/spacing-scale';
 import { SemanticHeight } from './theme/height';
 import { SemanticWidth } from './theme/width';
-import { ResolvedValue } from './semantic-tokens/resolvers';
+import { ResolvedValue } from './resolvers/resolvers';
 
 export type ThemeEnv = {
   prefix: string;

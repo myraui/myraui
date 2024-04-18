@@ -4,7 +4,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import { colorVariable } from '../../utils';
 
-describe('semantic-tokens/color-resolver', () => {
+describe('resolvers/color-resolver', () => {
   describe('generateColorValueFn', () => {
     const resolver = unwrapRE(
       pipe(

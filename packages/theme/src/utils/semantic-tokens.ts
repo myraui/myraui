@@ -2,7 +2,7 @@ import { pipe } from 'fp-ts/lib/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ComponentTheme, SemanticRecord, SemanticTokens, Theme, ThemedValue, ThemeEnv, ThemeRecord } from '../theme.types';
 import { buildThemedCSSVariables, isThemeRecord, normalizeThemedValue, resolveThemeRecord } from './theme';
-import { buildSemanticTokens } from '../semantic-tokens';
+import { buildSemanticTokens } from '../resolvers';
 import { ThemedCSSVariables } from './css-variables';
 import * as R from 'fp-ts/Record';
 import { flow } from 'fp-ts/function';

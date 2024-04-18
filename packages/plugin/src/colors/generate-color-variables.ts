@@ -28,6 +28,6 @@ export function createColorValueOptions(colorValue: string): ColorCSSVariableOpt
  * @param colorName the name of the color
  * @param colorValue the value of the color
  */
-export function generateColorVariables(colorName: string, colorValue: string): RE.ReaderEither<PluginEnv, Exception, CSSVariable[]> {
+export function generateColorVariables(colorName: string, colorValue: string): RE.ReaderEither<PluginEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(createColorValueOptions(colorValue), (options) => colorVariable(colorName, options));
 }

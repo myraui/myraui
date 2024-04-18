@@ -2,21 +2,57 @@ import { buildSemanticRecord, buildSemanticTokens, createSemanticTokens, resolve
 import { unwrapRE } from '@myraui/utils';
 import { fontSize } from '../../theme/fontSize';
 
-describe('semantic-tokens/build-semantic-tokens', () => {
+describe('resolvers/build-resolvers', () => {
   describe('createSemanticTokens', () => {
     it('should create semantic tokens from a non-value', () => {
       const result = createSemanticTokens();
-      expect(result).toEqual({ colors: {} });
+      expect(result).toEqual({
+        colors: {},
+        fontSize: {},
+        lineHeight: {},
+        width: {},
+        height: {},
+        radius: {},
+        boxShadow: {},
+        borderWidth: {},
+        opacity: {},
+        minWidth: {},
+        minHeight: {},
+      });
     });
 
     it('should create semantic tokens from a value without colors', () => {
       const result = createSemanticTokens({});
-      expect(result).toEqual({ colors: {} });
+      expect(result).toEqual({
+        colors: {},
+        fontSize: {},
+        lineHeight: {},
+        width: {},
+        height: {},
+        radius: {},
+        boxShadow: {},
+        borderWidth: {},
+        opacity: {},
+        minWidth: {},
+        minHeight: {},
+      });
     });
 
     it('should create semantic tokens from a value with colors', () => {
       const result = createSemanticTokens({ colors: { background: { primary: 'blue' } } });
-      expect(result).toEqual({ colors: { background: { primary: 'blue' } } });
+      expect(result).toEqual({
+        colors: { background: { primary: 'blue' } },
+        fontSize: {},
+        lineHeight: {},
+        width: {},
+        height: {},
+        radius: {},
+        boxShadow: {},
+        borderWidth: {},
+        opacity: {},
+        minWidth: {},
+        minHeight: {},
+      });
     });
   });
 
@@ -27,45 +63,9 @@ describe('semantic-tokens/build-semantic-tokens', () => {
       expect(result).toEqual(
         expect.objectContaining({
           'background-primary': expect.objectContaining({
-            'background-primary-12': [
-              {
-                name: '--prefix-colors-background-primary-12',
-                value: 'var(--prefix-colors-blue-12)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-background-primary-12-opacity',
-                value: 'var(--prefix-colors-blue-12-opacity)',
-                reference: expect.any(Function),
-              },
-            ],
-            'background-primary': [
-              {
-                name: '--prefix-colors-background-primary',
-                value: 'var(--prefix-colors-blue-9)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-background-primary-opacity',
-                value: 'var(--prefix-colors-blue-9-opacity)',
-                reference: expect.any(Function),
-              },
-            ],
-          }),
-        })
-      );
-    });
-  });
-
-  describe('resolveSemanticTokens', () => {
-    it('should generate the resolved semantic tokens as variables', () => {
-      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } }, fontSize } as any), { prefix: 'prefix' });
-
-      expect(result).toEqual(
-        expect.objectContaining({
-          colors: {
-            'background-primary': expect.objectContaining({
-              'background-primary-12': [
+            'background-primary-12': {
+              value: expect.any(Function),
+              utilities: [
                 {
                   name: '--prefix-colors-background-primary-12',
                   value: 'var(--prefix-colors-blue-12)',
@@ -77,7 +77,10 @@ describe('semantic-tokens/build-semantic-tokens', () => {
                   reference: expect.any(Function),
                 },
               ],
-              'background-primary': [
+            },
+            'background-primary': {
+              value: expect.any(Function),
+              utilities: [
                 {
                   name: '--prefix-colors-background-primary',
                   value: 'var(--prefix-colors-blue-9)',
@@ -89,6 +92,51 @@ describe('semantic-tokens/build-semantic-tokens', () => {
                   reference: expect.any(Function),
                 },
               ],
+            },
+          }),
+        })
+      );
+    });
+  });
+
+  describe('resolveSemanticTokens', () => {
+    it('should generate the resolved semantic tokens as variables', () => {
+      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } } } as any), { prefix: 'prefix' });
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          colors: {
+            'background-primary': expect.objectContaining({
+              'background-primary-12': {
+                value: expect.any(Function),
+                utilities: [
+                  {
+                    name: '--prefix-colors-background-primary-12',
+                    value: 'var(--prefix-colors-blue-12)',
+                    reference: expect.any(Function),
+                  },
+                  {
+                    name: '--prefix-colors-background-primary-12-opacity',
+                    value: 'var(--prefix-colors-blue-12-opacity)',
+                    reference: expect.any(Function),
+                  },
+                ],
+              },
+              'background-primary': {
+                value: expect.any(Function),
+                utilities: [
+                  {
+                    name: '--prefix-colors-background-primary',
+                    value: 'var(--prefix-colors-blue-9)',
+                    reference: expect.any(Function),
+                  },
+                  {
+                    name: '--prefix-colors-background-primary-opacity',
+                    value: 'var(--prefix-colors-blue-9-opacity)',
+                    reference: expect.any(Function),
+                  },
+                ],
+              },
             }),
           },
         })

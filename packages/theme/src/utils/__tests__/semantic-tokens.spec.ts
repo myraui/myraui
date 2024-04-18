@@ -1,7 +1,7 @@
 import { buildComponentTheme, normalizeSemanticRecord, resolveComponentTheme, resolveSemanticRecord } from '../semantic-tokens';
 import { unwrapRE } from '@myraui/utils';
 
-describe('utils/semantic-tokens', () => {
+describe('utils/resolvers', () => {
   describe('normalizeSemanticRecord', () => {
     it('should transform a themeless value', () => {
       const result = normalizeSemanticRecord<string>({ primary: 'blue' });

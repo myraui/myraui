@@ -7,6 +7,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { ColorResolver, PluginEnv } from '../plugin.types';
 import { generateColorResolver } from './generate-color-resolver';
 import { generateColorVariables } from './generate-color-variables';
+import { colorPaletteResolver } from './color-palette-resolver';
 
 export type GeneratedColor = { variables: readonly CSSVariable[]; resolver?: ColorResolver; colorName: string };
 
@@ -53,7 +54,7 @@ export function generateThemeColors(colors: ColorPalette): RE.ReaderEither<Plugi
   return pipe(
     resolveThemeColors(colors || {}),
     flattenColorPalette,
-    R.mapWithIndex(generateThemeColor),
+    R.mapWithIndex(colorPaletteResolver),
     R.sequence(RE.Applicative),
     RE.map(toValues),
     RE.map(combineGeneratedColors)
