@@ -2,7 +2,7 @@ import { unwrapRE } from '@myraui/utils';
 import { colorResolver, createColorValue, generateColorValueFn } from '../color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
-import { colorVariable } from '../../utils';
+import { colorVariable, opacityVariable } from '../../utils';
 
 describe('resolvers/color-resolver', () => {
   describe('generateColorValueFn', () => {
@@ -26,6 +26,14 @@ describe('resolvers/color-resolver', () => {
 
     it('should use 1 if the opacityValue was not provided', () => {
       expect(resolver({ opacityVariable: '', opacityValue: '' })).toBe('hsl(var(--prefix-colors-primary) / var(--prefix-colors-primary-opacity, 1))');
+    });
+
+    it('should use the color value string', () => {
+      const variable = unwrapRE(opacityVariable('primary'), { prefix: 'prefix' });
+
+      expect(generateColorValueFn('12 12% 12%', variable)({ opacityVariable: '', opacityValue: '' })).toEqual(
+        'hsl(12 12% 12% / var(--prefix-colors-primary-opacity, 1))'
+      );
     });
   });
   describe('createColorValue', () => {

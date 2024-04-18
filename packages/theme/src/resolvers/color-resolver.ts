@@ -8,20 +8,22 @@ import { ResolvedValue, Resolver } from './resolvers';
 
 export type ColorValueFunction = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
 
-export function generateColorValueFn(_colorVariable: CSSVariable, _opacityVariable: CSSVariable): ColorValueFunction {
+export function generateColorValueFn(_colorVariable: string | CSSVariable, _opacityVariable: CSSVariable): ColorValueFunction {
+  const colorValue = typeof _colorVariable === 'string' ? _colorVariable : _colorVariable.reference();
+
   return ({ opacityVariable, opacityValue }) => {
     if (opacityValue && !isNaN(+opacityValue)) {
-      return `hsl(${_colorVariable.reference()} / ${opacityValue})`;
+      return `hsl(${colorValue} / ${opacityValue})`;
     }
     // if no opacityValue was provided (=it is not parsable to a number)
     // the myrauiOpacityVariable (opacity defined in the color definition rgb(0, 0, 0, 0.5)) should have the priority
     // over the tw class based opacity(e.g. "bg-opacity-90")
     // This is how tailwind behaves as for v3.2.4
     if (opacityVariable) {
-      return `hsl(${_colorVariable.reference()} / ${_opacityVariable.reference(`var(${opacityVariable})`)})`;
+      return `hsl(${colorValue} / ${_opacityVariable.reference(`var(${opacityVariable})`)})`;
     }
 
-    return `hsl(${_colorVariable.reference()} / ${_opacityVariable.reference('1')})`;
+    return `hsl(${colorValue} / ${_opacityVariable.reference('1')})`;
   };
 }
 

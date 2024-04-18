@@ -1,6 +1,5 @@
 import { buildSemanticRecord, buildSemanticTokens, createSemanticTokens, resolveSemanticTokens } from '../build-semantic-tokens';
 import { unwrapRE } from '@myraui/utils';
-import { fontSize } from '../../theme/fontSize';
 
 describe('resolvers/build-resolvers', () => {
   describe('createSemanticTokens', () => {
@@ -62,7 +61,48 @@ describe('resolvers/build-resolvers', () => {
 
       expect(result).toEqual(
         expect.objectContaining({
-          'background-primary': expect.objectContaining({
+          'background-primary-12': {
+            value: expect.any(Function),
+            utilities: [
+              {
+                name: '--prefix-colors-background-primary-12',
+                value: 'var(--prefix-colors-blue-12)',
+                reference: expect.any(Function),
+              },
+              {
+                name: '--prefix-colors-background-primary-12-opacity',
+                value: 'var(--prefix-colors-blue-12-opacity)',
+                reference: expect.any(Function),
+              },
+            ],
+          },
+          'background-primary': {
+            value: expect.any(Function),
+            utilities: [
+              {
+                name: '--prefix-colors-background-primary',
+                value: 'var(--prefix-colors-blue-9)',
+                reference: expect.any(Function),
+              },
+              {
+                name: '--prefix-colors-background-primary-opacity',
+                value: 'var(--prefix-colors-blue-9-opacity)',
+                reference: expect.any(Function),
+              },
+            ],
+          },
+        })
+      );
+    });
+  });
+
+  describe('resolveSemanticTokens', () => {
+    it('should generate the resolved semantic tokens as variables', () => {
+      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } } } as any), { prefix: 'prefix' });
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          colors: expect.objectContaining({
             'background-primary-12': {
               value: expect.any(Function),
               utilities: [
@@ -94,51 +134,6 @@ describe('resolvers/build-resolvers', () => {
               ],
             },
           }),
-        })
-      );
-    });
-  });
-
-  describe('resolveSemanticTokens', () => {
-    it('should generate the resolved semantic tokens as variables', () => {
-      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } } } as any), { prefix: 'prefix' });
-
-      expect(result).toEqual(
-        expect.objectContaining({
-          colors: {
-            'background-primary': expect.objectContaining({
-              'background-primary-12': {
-                value: expect.any(Function),
-                utilities: [
-                  {
-                    name: '--prefix-colors-background-primary-12',
-                    value: 'var(--prefix-colors-blue-12)',
-                    reference: expect.any(Function),
-                  },
-                  {
-                    name: '--prefix-colors-background-primary-12-opacity',
-                    value: 'var(--prefix-colors-blue-12-opacity)',
-                    reference: expect.any(Function),
-                  },
-                ],
-              },
-              'background-primary': {
-                value: expect.any(Function),
-                utilities: [
-                  {
-                    name: '--prefix-colors-background-primary',
-                    value: 'var(--prefix-colors-blue-9)',
-                    reference: expect.any(Function),
-                  },
-                  {
-                    name: '--prefix-colors-background-primary-opacity',
-                    value: 'var(--prefix-colors-blue-9-opacity)',
-                    reference: expect.any(Function),
-                  },
-                ],
-              },
-            }),
-          },
         })
       );
     });

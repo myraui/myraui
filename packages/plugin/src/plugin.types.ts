@@ -1,4 +1,4 @@
-import { ColorMode, ConfigThemes, CSSVariable, ThemeEnv } from '@myraui/theme';
+import { ColorMode, ConfigThemes, ResolvedSemanticRecord, SemanticTokens, ThemeEnv } from '@myraui/theme';
 import { Dict } from '@myraui/utils';
 
 export type MyraUIPluginConfig = {
@@ -16,18 +16,19 @@ export type PluginEnv = ThemeEnv & {
   defaultExtendTheme: ColorMode;
 };
 
-export type ColorResolver = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
+export type ResolvedThemeValueKeys = keyof SemanticTokens | 'spacing';
+
+export type ResolvedThemeValues = Record<ResolvedThemeValueKeys, ResolvedSemanticRecord>;
 
 export type ResolvedThemeConfig = {
   themeName: string;
-  variables: CSSVariable[];
-  colors: Dict<ColorResolver>;
   colorMode: ColorMode;
+  values: ResolvedThemeValues;
 };
 
 export type ResolvedThemes = {
   variants: ResolvedVariant[];
   utilities: Record<string, Dict<string>>;
-  colors: Dict<ColorResolver>;
+  values: Record<ResolvedThemeValueKeys, Dict<unknown>>;
   baseStyles: Dict;
 };

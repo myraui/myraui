@@ -4,10 +4,6 @@ import { unwrapRE } from '@myraui/utils';
 
 describe('colors/generate-color-variables', () => {
   describe('createColorValueOptions', () => {
-    it('should create color value when the value is a css variable', () => {
-      expect(createColorValueOptions('--prefix-colors-primary')).toEqual({ color: { value: '--prefix-colors-primary' } });
-    });
-
     it('should resolve the hsl value of a color', () => {
       expect(createColorValueOptions('hsl(0, 100%, 50%)')).toEqual({ color: { value: '0 100% 50%' }, opacity: { value: undefined } });
     });

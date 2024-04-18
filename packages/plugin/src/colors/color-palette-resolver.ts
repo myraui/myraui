@@ -6,9 +6,11 @@ import { generateColorVariables } from './generate-color-variables';
 export const colorPaletteResolver: Resolver<ColorValueFunction> = (colorName, colorValue) => {
   return pipe(
     generateColorVariables(colorName, colorValue),
-    RE.map((variables) => ({
-      value: generateColorValueFn(...variables),
-      utilities: variables,
+    RE.map(([colorVariable, opacityVariable]) => ({
+      [colorName]: {
+        value: generateColorValueFn(colorVariable.value || '', opacityVariable),
+        utilities: [colorVariable, opacityVariable],
+      },
     }))
   );
 };

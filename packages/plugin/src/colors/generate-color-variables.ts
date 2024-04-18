@@ -1,15 +1,12 @@
-import { ColorCSSVariableOptions, colorVariable, CSSVariable, isCSSVariable } from '@myraui/theme';
+import { ColorCSSVariableOptions, colorVariable, CSSVariable, ThemeEnv } from '@myraui/theme';
 import { Exception } from '@myraui/utils';
 import Color from 'color';
 import * as RE from 'fp-ts/ReaderEither';
-import { PluginEnv } from '../plugin.types';
 import { pipe } from 'fp-ts/function';
 
 const parsedColorsCache: Record<string, number[]> = {};
 
 export function createColorValueOptions(colorValue: string): ColorCSSVariableOptions {
-  if (isCSSVariable(colorValue)) return { color: { value: colorValue } };
-
   const parsedColor = parsedColorsCache[colorValue] || Color(colorValue).hsl().round().array();
 
   parsedColorsCache[colorValue] = parsedColor;
@@ -28,6 +25,6 @@ export function createColorValueOptions(colorValue: string): ColorCSSVariableOpt
  * @param colorName the name of the color
  * @param colorValue the value of the color
  */
-export function generateColorVariables(colorName: string, colorValue: string): RE.ReaderEither<PluginEnv, Exception, [CSSVariable, CSSVariable]> {
+export function generateColorVariables(colorName: string, colorValue: string): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(createColorValueOptions(colorValue), (options) => colorVariable(colorName, options));
 }

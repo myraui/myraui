@@ -13,9 +13,26 @@ import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import * as RA from 'fp-ts/ReadonlyArray';
 import * as R from 'fp-ts/Record';
-import { generateSemanticTokenColors, generateThemeColors } from '../colors/generate-theme-colors';
-import { PluginEnv, ResolvedThemeConfig, ResolvedThemes } from '../plugin.types';
+import { generateThemeColorPalette } from '../colors/generate-theme-color-palette';
+import { PluginEnv, ResolvedThemeConfig, ResolvedThemes, ResolvedThemeValues } from '../plugin.types';
 import { createThemeSelector } from './create-theme-selector';
+
+export function buildThemeValues(theme: ConfigTheme): RE.ReaderEither<PluginEnv, Exception, ResolvedThemeValues> {
+  return pipe(
+    theme,
+    createSemanticTokens,
+    resolveSemanticTokens,
+    RE.chain((semanticTokens) => {
+      return pipe(
+        generateThemeColorPalette(theme.colorPalette || {}),
+        RE.map((colors) => ({
+          ...semanticTokens,
+          colors: { ...semanticTokens.colors, ...colors },
+        }))
+      );
+    })
+  );
+}
 
 export function resolveTheme(themeName: string, theme: ConfigTheme): RE.ReaderEither<PluginEnv, Exception, ResolvedThemeConfig> {
   return pipe(
@@ -26,20 +43,8 @@ export function resolveTheme(themeName: string, theme: ConfigTheme): RE.ReaderEi
     }),
     RE.chain((themeConfig) => {
       return pipe(
-        theme,
-        createSemanticTokens,
-        resolveSemanticTokens,
-        RE.chain((result) => generateSemanticTokenColors(result.colors)),
-        RE.chain((semanticTokens) => {
-          return pipe(
-            generateThemeColors(theme.colorPalette || {}),
-            RE.map((colors) => ({
-              ...themeConfig,
-              colors: { ...colors.colors, ...semanticTokens.colors },
-              variables: [...colors.variables, ...semanticTokens.variables],
-            }))
-          );
-        })
+        buildThemeValues(theme),
+        RE.map((values) => ({ ...themeConfig, values }))
       );
     })
   );

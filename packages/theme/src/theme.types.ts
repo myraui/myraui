@@ -76,7 +76,7 @@ export type ComponentTheme = {
 
 export type ThemedSemanticRecord<Key extends RecordKey, Value> = Record<Theme, SemanticRecord<Value, Key>>;
 
-export type ResolvedSemanticRecord = Dict<Dict<ResolvedValue<unknown>>>;
+export type ResolvedSemanticRecord = Dict<ResolvedValue<unknown>>;
 
 export type ResolvedSemanticTokens = Record<keyof SemanticTokens, ResolvedSemanticRecord>;
 
