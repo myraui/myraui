@@ -1,6 +1,5 @@
 import { ColorMode, ColorPalette, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { SemanticColors } from './theme/colors';
-import { CSSVariable } from './utils';
 import { Dict, RecordKey } from '@myraui/utils';
 import { SemanticFontSize } from './theme/fontSize';
 import { SemanticLineHeight } from './theme/lineHeight';
@@ -11,6 +10,7 @@ import { SemanticOpacity } from './theme/opacity';
 import { SpacingScaleKeys } from './layout/spacing-scale';
 import { SemanticHeight } from './theme/height';
 import { SemanticWidth } from './theme/width';
+import { ResolvedValue } from './semantic-tokens/resolvers';
 
 export type ThemeEnv = {
   prefix: string;
@@ -53,6 +53,8 @@ export type SemanticTokens = {
   opacity: SemanticRecord<string, SemanticOpacity>;
   width: SemanticRecord<string | SpacingScaleKeys, SemanticWidth>;
   height: SemanticRecord<string | SpacingScaleKeys, SemanticHeight>;
+  minWidth: SemanticRecord<string | SpacingScaleKeys>;
+  minHeight: SemanticRecord<string | SpacingScaleKeys>;
 };
 
 export type PartialSemanticTokens = Partial<SemanticTokens>;
@@ -74,7 +76,7 @@ export type ComponentTheme = {
 
 export type ThemedSemanticRecord<Key extends RecordKey, Value> = Record<Theme, SemanticRecord<Value, Key>>;
 
-export type ResolvedSemanticRecord = Dict<Dict<readonly CSSVariable[]>>;
+export type ResolvedSemanticRecord = Dict<Dict<ResolvedValue<unknown>>>;
 
 export type ResolvedSemanticTokens = Record<keyof SemanticTokens, ResolvedSemanticRecord>;
 

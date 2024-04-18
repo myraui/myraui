@@ -1,5 +1,6 @@
 import { buildSemanticRecord, buildSemanticTokens, createSemanticTokens, resolveSemanticTokens } from '../build-semantic-tokens';
 import { unwrapRE } from '@myraui/utils';
+import { fontSize } from '../../theme/fontSize';
 
 describe('semantic-tokens/build-semantic-tokens', () => {
   describe('createSemanticTokens', () => {
@@ -58,7 +59,7 @@ describe('semantic-tokens/build-semantic-tokens', () => {
 
   describe('resolveSemanticTokens', () => {
     it('should generate the resolved semantic tokens as variables', () => {
-      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } } }), { prefix: 'prefix' });
+      const result = unwrapRE(resolveSemanticTokens({ colors: { background: { primary: 'blue' } }, fontSize } as any), { prefix: 'prefix' });
 
       expect(result).toEqual(
         expect.objectContaining({
@@ -97,7 +98,7 @@ describe('semantic-tokens/build-semantic-tokens', () => {
 
   describe('buildSemanticTokens', () => {
     it('should generate CSS Variables from semantic tokens', () => {
-      const result = unwrapRE(buildSemanticTokens({ colors: { background: { primary: 'blue' } } }), { prefix: 'prefix' });
+      const result = unwrapRE(buildSemanticTokens({ colors: { background: { primary: 'blue' } } } as any), { prefix: 'prefix' });
 
       expect(result.map((variable) => ({ name: variable.name, value: variable.value }))).toEqual(
         expect.arrayContaining([

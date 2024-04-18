@@ -19,6 +19,8 @@ export function createSemanticTokens(partialSemanticTokens: PartialSemanticToken
     boxShadow: partialSemanticTokens.boxShadow || {},
     borderWidth: partialSemanticTokens.borderWidth || {},
     opacity: partialSemanticTokens.opacity || {},
+    minWidth: partialSemanticTokens.minWidth || {},
+    minHeight: partialSemanticTokens.minHeight || {},
   };
 }
 
@@ -34,5 +36,5 @@ export function resolveSemanticTokens(semanticTokens: SemanticTokens): RE.Reader
 }
 
 export function buildSemanticTokens(semanticTokens: SemanticTokens): RE.ReaderEither<ThemeEnv, Exception, ReadonlyArray<CSSVariable>> {
-  return pipe(semanticTokens, resolveSemanticTokens, RE.map(flow(toValues, A.chain(toValues), A.chain(toValues))), RE.map(RA.flatten));
+  return pipe(semanticTokens, resolveSemanticTokens, RE.map(flow(toValues, A.chain(toValues), A.chain(toValues))), RE.map(RA.flatten as any));
 }

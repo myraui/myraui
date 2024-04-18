@@ -19,12 +19,14 @@ const tokens: Record<keyof SemanticTokens, ThemedSemanticRecord<any, any>> = {
   opacity,
   width,
   height,
+  minHeight: {},
+  minWidth: {},
 };
 
 export const semanticTokens: Record<Theme, SemanticTokens> = Object.entries(tokens).reduce((acc, cur) => {
   const [key, value] = cur;
   return {
-    light: { ...acc.light, [key]: value.light },
-    dark: { ...acc.dark, [key]: value.dark },
+    light: { ...acc.light, [key]: value.light || {} },
+    dark: { ...acc.dark, [key]: value.dark || {} },
   };
 }, {} as Record<Theme, SemanticTokens>);
