@@ -9,10 +9,12 @@ export interface ResolvedValue<Value> {
   utilities?: ReadonlyArray<CSSVariable>;
 }
 
+export type ResolvedValues<Value> = Dict<ResolvedValue<Value>>;
+
 export type Resolver<Value = string, Env extends ThemeEnv = ThemeEnv> = (
   key: string,
   value: string
-) => RE.ReaderEither<Env, Exception, Dict<ResolvedValue<Value>>>;
+) => RE.ReaderEither<Env, Exception, ResolvedValues<Value>>;
 
 type Resolvers = Record<keyof SemanticTokens, Resolver>;
 

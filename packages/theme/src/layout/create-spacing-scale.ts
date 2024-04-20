@@ -7,23 +7,7 @@ import { ThemeEnv } from '../theme.types';
 import { Exception, fromArray, mapKeys } from '@myraui/utils';
 import { CSSVariable, spacingUnitVariable } from '../utils';
 
-export function createSpacingScale(spacingUnit: number): Record<SpacingScaleKeys, string> {
-  return pipe(
-    Array(...SPACING_SCALE),
-    A.map((value) => [`${value}`, value]),
-    A.map(([key, value]) => [key, (Number(value) * spacingUnit) / BASE_FONT_SIZE]),
-    A.map(([key, value]) => [key, `${value}rem`]),
-    Object.fromEntries
-  );
-}
-
-export function createSpacingUnitKey(key: SpacingScaleKeys): string {
-  return pipe(
-    key.toString(),
-    (key) => key.replace('.', '_'),
-    (key) => `unit-${key}`
-  );
-}
+export function createSpacingScale(spacingUnit: number): Record<SpacingScaleKeys, string> {}
 
 export function createSpacingUnits(): RE.ReaderEither<ThemeEnv, Exception, Record<string, CSSVariable>> {
   return pipe(

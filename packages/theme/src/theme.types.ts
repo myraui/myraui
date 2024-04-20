@@ -90,4 +90,8 @@ export interface ConfigTheme extends PartialSemanticTokens {
   spacingUnit?: number;
 }
 
+export type GeneratedConfigTheme = {
+  [K in keyof SemanticTokens]: Dict<string>;
+};
+
 export type ConfigThemes = Record<string, ConfigTheme>;
