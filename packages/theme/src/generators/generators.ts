@@ -28,5 +28,4 @@ export const generators: ConfigThemeGenerators = {
   minWidth: identityGenerator('minWidth'),
   minHeight: identityGenerator('minHeight'),
   spacing: identityGenerator('spacing'),
-  colorPalette: identityGenerator('colors'),
 };

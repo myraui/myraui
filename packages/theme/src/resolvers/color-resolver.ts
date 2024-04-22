@@ -4,7 +4,7 @@ import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ThemeEnv } from '../theme.types';
 import { Exception, mergeObjects } from '@myraui/utils';
-import { ResolvedValue, Resolver } from './resolvers';
+import { ResolvedValues, Resolver } from './resolvers';
 import Color from 'color';
 
 export type ColorValueFunction = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
@@ -57,7 +57,7 @@ export function createColorValue(
   key: string,
   value: string,
   shade?: ColorShade
-): RE.ReaderEither<ThemeEnv, Exception, ResolvedValue<ColorValueFunction>> {
+): RE.ReaderEither<ThemeEnv, Exception, ResolvedValues<ColorValueFunction>> {
   return pipe(
     RE.of(extractColorShade(value)),
     RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
@@ -66,8 +66,10 @@ export function createColorValue(
       return pipe(
         colorVariable(colorKey, { color: { value: colorValue }, opacity: { value: opacityColorValue } }),
         RE.map((colorVariables) => ({
-          value: generateColorValueFn(...colorVariables),
-          utilities: colorVariables,
+          [colorKey]: {
+            value: generateColorValueFn(...colorVariables),
+            utilities: colorVariables,
+          },
         }))
       );
     })

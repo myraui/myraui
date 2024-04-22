@@ -1,6 +1,6 @@
-import { ColorMode, ColorPalette, ColorScale, FlatMyraColor, MyraColor } from './colors';
+import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
-import { DeepRecord, DeepRecordCopy, RecordKey } from '@myraui/utils';
+import { DeepRecord, DeepRecordCopy, FlattenKeys, FlattenObjectKeys, RecordKey } from '@myraui/utils';
 import { ThemeFontSize } from './theme/fontSize';
 import { ThemeLineHeight } from './theme/lineHeight';
 import { ThemeRadius } from './theme/radius';
@@ -29,7 +29,7 @@ export type ThemedValue<Value> = Value | ThemeRecord<Value>;
 export type ColorValue = (ColorScale | MyraColor) | string;
 
 export type ThemeTokens = {
-  colors: DeepRecord<(MyraColor | FlatMyraColor) | string, ThemeColors>;
+  colors: DeepRecord<ColorValue | FlatMyraColor, ThemeColors>;
   fontSize: DeepRecord<string, ThemeFontSize>;
   lineHeight: DeepRecord<string, ThemeLineHeight>;
   radius: DeepRecord<string, ThemeRadius>;
@@ -61,7 +61,6 @@ export type ResolvedSemanticTokens = Record<keyof ThemeTokens, ResolvedThemeToke
 
 export interface ConfigTheme extends PartialThemeTokens {
   extend?: ColorMode;
-  colorPalette?: ColorPalette<MyraColor | string>;
   /**
    * The unit token that defines a consistent spacing scale across the components.
    * @default 4 (px)

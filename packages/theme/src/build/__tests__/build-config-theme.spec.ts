@@ -88,6 +88,9 @@ describe('build/build-config-theme', () => {
         }),
         env
       );
+
+      console.log(JSON.stringify(result, null, 2));
+
       expect(result).toEqual({
         tokens: expect.objectContaining({ colors: { primary: 'blue.2' } }),
         utilities: expect.arrayContaining([]),

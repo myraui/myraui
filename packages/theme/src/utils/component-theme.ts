@@ -44,7 +44,7 @@ export function buildComponentTheme(componentTheme: ComponentTheme): RE.ReaderEi
       return pipe(
         tokens,
         R.filter((value) => !!value),
-        R.mapWithIndex((key, value) => resolveThemeToken(key as keyof ThemeTokens, value as GeneratedThemeToken)),
+        R.mapWithIndex((key, value) => resolveThemeToken(key as keyof ThemeTokens, value as GeneratedtqThemeToken)),
         R.sequence(RE.Applicative),
         RE.chain(extractUtilities),
         RE.map((variables) => ({ [theme]: variables } as ThemedCSSVariables))

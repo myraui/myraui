@@ -81,7 +81,7 @@ describe('resolvers/color-resolver', () => {
         },
       });
 
-      const valueFunction = result.value;
+      const valueFunction = result.primary.value;
 
       expect(valueFunction({ opacityVariable: '', opacityValue: '90' })).toBe('hsl(var(--prefix-colors-primary) / 90)');
     });

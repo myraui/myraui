@@ -32,3 +32,9 @@ export type DeepRecord<
 export type DeepRecordCopy<T extends DeepRecord<any>, Value> = {
   [K in keyof T]: T[K] extends DeepRecord<any> ? DeepRecordCopy<T[K], Value> : Value;
 };
+
+export type FlattenObjectKeys<T extends DeepRecord<any>, Key = keyof T> = Key extends string
+  ? T[Key] extends Record<string, unknown>
+    ? `${Key}.${FlattenObjectKeys<T[Key]>}`
+    : `${Key}`
+  : never;
