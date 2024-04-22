@@ -1,9 +1,9 @@
-import { ThemedSemanticRecord } from '../theme.types';
-import { SpacingScaleKeys } from '../layout/spacing-scale';
+import { ThemedTokens } from '../theme.types';
+import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
 
-export type SemanticWidth = 'divider';
+export type ThemeWidth = 'divider';
 
-export const width: ThemedSemanticRecord<SemanticWidth, string | SpacingScaleKeys> = {
+export const width: ThemedTokens<ThemeWidth, string | SpacingScaleKeys> = {
   light: {
     divider: '1px',
   },

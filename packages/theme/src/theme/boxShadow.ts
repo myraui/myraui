@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticBoxShadow = 'none' | 'small' | 'medium' | 'large' | 'huge';
+export type ThemeBoxShadow = 'none' | 'small' | 'medium' | 'large' | 'huge';
 
-export const boxShadow: ThemedSemanticRecord<SemanticBoxShadow, string> = {
+export const boxShadow: ThemedTokens<ThemeBoxShadow, string> = {
   light: {
     none: 'none',
     small: '0px 0px 5px 0px rgb(0 0 0 / 0.02), 0px 2px 10px 0px rgb(0 0 0 / 0.06), 0px 0px 1px 0px rgb(0 0 0 / 0.3)',

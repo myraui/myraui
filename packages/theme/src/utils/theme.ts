@@ -1,6 +1,6 @@
 import { Dict, flattenObject, mapKeys } from '@myraui/utils';
-import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
+import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
@@ -44,16 +44,9 @@ export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<str
   return pipe(
     variables,
     R.map((variables) => buildCSSVariables(variables || [])),
+    mapKeys((key) => (key === BASE_THEME ? '' : `.${key} &,[data-theme="${key}"] &`)),
     R.toEntries,
-    A.map(([theme, scopedVariables]) => {
-      if (theme === BASE_THEME) {
-        return Object.entries(scopedVariables); // These should be global, hence no scoping
-      } else {
-        return [[`.${theme} &,[data-theme="${theme}"] &`, scopedVariables]];
-      }
-    }),
-    A.flatten,
-    Object.fromEntries
+    A.reduce({}, (acc, [key, value]) => (key === '' ? { ...acc, ...value } : { ...acc, [key]: value }))
   );
 }
 

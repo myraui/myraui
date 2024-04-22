@@ -1,5 +1,5 @@
 import { unwrapRE } from '@myraui/utils';
-import { createSpacingUnitKey, spacingGenerator } from '../spacing-unit-generator';
+import { createSpacingUnitKey, spacingUnitGenerator } from '../spacing-unit-generator';
 
 describe('generators/spacing-unit-generator', () => {
   describe('createSpacingUnitKey', () => {
@@ -14,7 +14,7 @@ describe('generators/spacing-unit-generator', () => {
 
   describe('spacingGenerator', () => {
     it('should generate the spacing scale', () => {
-      const scale = unwrapRE(spacingGenerator(4), { prefix: 'prefix' });
+      const scale = unwrapRE(spacingUnitGenerator(4), { prefix: 'prefix' });
 
       expect(scale).toEqual(
         expect.objectContaining({

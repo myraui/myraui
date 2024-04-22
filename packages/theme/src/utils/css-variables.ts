@@ -1,9 +1,9 @@
-import { SemanticTokens, Theme, ThemeEnv } from '../theme.types';
+import { Theme, ThemeEnv, ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
-import { SpacingScaleKeys } from '../layout/spacing-scale';
+import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
 
 export interface CSSVariable {
   /**
@@ -65,7 +65,7 @@ export function cssVariable(name: string, { fallback, value }: CSSVariableOption
  * @param options
  */
 export function semanticTokenVariable(
-  token: keyof SemanticTokens,
+  token: keyof ThemeTokens,
   valueKey: string,
   options?: CSSVariableOptions
 ): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
@@ -101,15 +101,6 @@ export function opacityVariable(colorKey: string, options?: CSSVariableOptions):
     semanticTokenVariable('colors', colorKey, options),
     RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
   );
-}
-
-/**
- * Check if a variable is an opacity variable
- *
- * @param variable the variable reference
- */
-export function isOpacityVariable(variable: string | CSSVariable) {
-  return (typeof variable === 'string' ? variable : variable.name).endsWith('-opacity');
 }
 
 /**

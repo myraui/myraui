@@ -1,6 +1,6 @@
 import { colors } from './colors';
 import { fontSize } from './fontSize';
-import { SemanticTokens, Theme, ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens, ThemeTokens } from '../theme.types';
 import { lineHeight } from './lineHeight';
 import { radius } from './radius';
 import { borderWidth } from './borderWidth';
@@ -8,8 +8,11 @@ import { boxShadow } from './boxShadow';
 import { opacity } from './opacity';
 import { width } from './width';
 import { height } from './height';
+import { ColorMode } from '../colors';
+import { pipe } from 'fp-ts/lib/function';
+import { swapKeys } from '@myraui/utils';
 
-const tokens: Record<keyof SemanticTokens, ThemedSemanticRecord<any, any>> = {
+const tokens: Record<keyof ThemeTokens, ThemedTokens<any, any>> = {
   colors,
   fontSize,
   lineHeight,
@@ -21,12 +24,9 @@ const tokens: Record<keyof SemanticTokens, ThemedSemanticRecord<any, any>> = {
   height,
   minHeight: {},
   minWidth: {},
+  spacing: {},
 };
 
-export const semanticTokens: Record<Theme, SemanticTokens> = Object.entries(tokens).reduce((acc, cur) => {
-  const [key, value] = cur;
-  return {
-    light: { ...acc.light, [key]: value.light || {} },
-    dark: { ...acc.dark, [key]: value.dark || {} },
-  };
-}, {} as Record<Theme, SemanticTokens>);
+export type DefaultThemes = Record<ColorMode, ThemeTokens>;
+
+export const defaultThemes = pipe(tokens, swapKeys) as DefaultThemes;

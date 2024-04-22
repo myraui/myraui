@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticBorderWidth = 'none' | 'small' | 'medium' | 'large' | 'huge';
+export type ThemeBorderWidth = 'none' | 'small' | 'medium' | 'large' | 'huge';
 
-export const borderWidth: ThemedSemanticRecord<SemanticBorderWidth, string> = {
+export const borderWidth: ThemedTokens<ThemeBorderWidth, string> = {
   light: {
     none: '0',
     small: '1px',

@@ -1,3 +1,4 @@
+import { RecordKey } from '@myraui/utils';
 import { colorNames } from './color-names';
 import { shades } from './color-shades';
 
@@ -16,7 +17,7 @@ export type ColorScale = Record<ColorShade, string>;
 
 export type FlatMyraColor = `${MyraColor}.${ColorShade}`;
 
-export type ColorPalette<T extends string = string> = Record<T, ColorScale>;
+export type ColorPalette<T extends RecordKey = RecordKey> = Record<T, ColorScale>;
 
 export type ThemedColorScale = Record<ColorMode, ColorScale>;
 

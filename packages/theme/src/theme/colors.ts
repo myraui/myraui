@@ -1,19 +1,9 @@
 import { FlatMyraColor, MyraColor } from '../colors';
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticColors =
-  | 'background'
-  | 'foreground'
-  | 'focus'
-  | 'divider'
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger';
+export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
-export const colors: ThemedSemanticRecord<SemanticColors, MyraColor | FlatMyraColor> = {
+export const colors: ThemedTokens<ThemeColors, MyraColor | FlatMyraColor> = {
   light: {
     background: 'gray.1',
     foreground: 'gray.12',

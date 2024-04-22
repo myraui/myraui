@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticFontSize = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
+export type ThemeFontSize = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 
-export const fontSize: ThemedSemanticRecord<SemanticFontSize, string> = {
+export const fontSize: ThemedTokens<ThemeFontSize, string> = {
   light: {
     tiny: '0.75rem',
     small: '0.875rem',

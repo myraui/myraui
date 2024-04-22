@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
+export type ThemeRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 
-export const radius: ThemedSemanticRecord<SemanticRadius, string> = {
+export const radius: ThemedTokens<ThemeRadius, string> = {
   light: {
     none: '0',
     small: '8px',

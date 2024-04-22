@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticOpacity = 'hover' | 'disabled';
+export type ThemeOpacity = 'hover' | 'disabled';
 
-export const opacity: ThemedSemanticRecord<SemanticOpacity, string> = {
+export const opacity: ThemedTokens<ThemeOpacity, string> = {
   light: {
     hover: '0.8',
     disabled: '0.5',

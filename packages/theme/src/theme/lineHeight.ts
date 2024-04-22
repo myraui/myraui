@@ -1,8 +1,8 @@
-import { ThemedSemanticRecord } from '../theme.types';
+import { ThemedTokens } from '../theme.types';
 
-export type SemanticLineHeight = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
+export type ThemeLineHeight = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 
-export const lineHeight: ThemedSemanticRecord<SemanticLineHeight, string> = {
+export const lineHeight: ThemedTokens<ThemeLineHeight, string> = {
   light: {
     tiny: '1rem',
     small: '1.25rem',

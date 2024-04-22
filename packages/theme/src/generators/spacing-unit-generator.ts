@@ -4,7 +4,7 @@ import * as A from 'fp-ts/Array';
 import * as RE from 'fp-ts/ReaderEither';
 
 export const SPACING_SCALE = [
-  1, 2, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96,
+  0.5, 1, 2, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96,
 ] as const;
 
 export const BASE_FONT_SIZE = 16;
@@ -19,7 +19,7 @@ export function createSpacingUnitKey(key: SpacingScaleKeys): string {
   );
 }
 
-export const spacingGenerator: ConfigThemeGenerator<'spacingUnit'> = (spacingUnit: number) => {
+export const spacingUnitGenerator: ConfigThemeGenerator<'spacingUnit'> = (spacingUnit: number) => {
   return RE.of(
     pipe(
       Array(...SPACING_SCALE),
@@ -28,7 +28,7 @@ export const spacingGenerator: ConfigThemeGenerator<'spacingUnit'> = (spacingUni
       A.map(([key, value]) => [key, `${value}rem`]),
       A.map(([key, value]) => [createSpacingUnitKey(key as SpacingScaleKeys), value]),
       A.prepend(['unit', spacingUnit]),
-      Object.fromEntries
+      (value) => ({ spacing: Object.fromEntries(value) })
     )
   );
 };
