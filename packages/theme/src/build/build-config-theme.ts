@@ -3,7 +3,6 @@ import { BuiltConfigTheme, ConfigTheme, ResolvedConfigTheme, ResolvedTokenValues
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
-import { ResolvedValue } from '../resolvers';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
 import { CSSVariable } from '../utils';
 import * as RA from 'fp-ts/ReadonlyArray';
@@ -12,25 +11,24 @@ import { generateConfigTheme } from './generate-config-theme';
 import { resolveConfigTheme } from './resolve-config-theme';
 import { applyBaseTheme } from './apply-base-theme';
 import { ColorMode } from '../colors';
+import { ResolvedValue } from '../resolvers';
 
-export function extractUtilities<T extends DeepRecord<ResolvedValue<any>>>(record: T): RE.ReaderEither<ThemeEnv, Exception, readonly CSSVariable[]> {
+export function extractUtilities(record: DeepRecord<ResolvedValue<any>>): RE.ReaderEither<ThemeEnv, Exception, readonly CSSVariable[]> {
   return pipe(
     record,
     R.map((value) => {
-      return isResolvedValue(value) ? RE.right(value.utilities || []) : extractUtilities(value);
+      return isResolvedValue(value) ? RE.right(value.utilities || []) : extractUtilities(value as any);
     }),
     R.sequence(RE.Applicative),
     RE.map(flow(toValues, RA.flatten))
   );
 }
 
-export function extractResolvedValue<T extends DeepRecord<ResolvedValue<any>>>(
-  record: T
-): RE.ReaderEither<ThemeEnv, Exception, DeepRecordCopy<T, any>> {
+export function extractResolvedValue<T extends DeepRecord<ResolvedValue<any>>>(record: T): RE.ReaderEither<ThemeEnv, Exception, DeepRecordCopy<T>> {
   return pipe(
     record,
     R.map((value) => {
-      return isResolvedValue(value) ? RE.right(value.value) : extractResolvedValue(value);
+      return isResolvedValue(value) ? RE.right(value.value) : extractResolvedValue(value as any);
     }),
     R.sequence(RE.Applicative) as any
   );

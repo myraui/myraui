@@ -1,9 +1,8 @@
-import { ThemedTokens } from '../theme.types';
-import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
+import { ThemedThemeTokens } from '../theme.types';
 
 export type ThemeWidth = 'divider';
 
-export const width: ThemedTokens<ThemeWidth, string | SpacingScaleKeys> = {
+export const width: ThemedThemeTokens<'width'> = {
   light: {
     divider: '1px',
   },

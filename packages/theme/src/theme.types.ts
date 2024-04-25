@@ -1,6 +1,6 @@
-import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
+import { ColorMode, ColorScale, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
-import { DeepRecord, DeepRecordCopy, FlattenKeys, FlattenObjectKeys, RecordKey } from '@myraui/utils';
+import { Assign, DeepRecordCopy, RecordKey } from '@myraui/utils';
 import { ThemeFontSize } from './theme/fontSize';
 import { ThemeLineHeight } from './theme/lineHeight';
 import { ThemeRadius } from './theme/radius';
@@ -10,7 +10,6 @@ import { ThemeOpacity } from './theme/opacity';
 import { ThemeHeight } from './theme/height';
 import { ThemeWidth } from './theme/width';
 import { ResolvedValue } from './resolvers';
-import { SpacingScaleKeys } from './generators/spacing-unit-generator';
 import { CSSVariable } from './utils';
 
 export type ThemeEnv = {
@@ -28,36 +27,48 @@ export type ThemedValue<Value> = Value | ThemeRecord<Value>;
 
 export type ColorValue = (ColorScale | MyraColor) | string;
 
+export type WithDefault<K extends RecordKey, V> = Assign<Record<K, V>, { DEFAULT?: K | RecordKey }> | Record<RecordKey, V>;
+
+export type ThemeTokensRecord<
+  Value,
+  K1 extends RecordKey = RecordKey,
+  K2 extends RecordKey = RecordKey,
+  K3 extends RecordKey = RecordKey,
+  K4 extends RecordKey = RecordKey
+> = WithDefault<K1, Value | WithDefault<K2, Value | WithDefault<K3, Value | WithDefault<K4, Value>>>>;
+
 export type ThemeTokens = {
-  colors: DeepRecord<ColorValue | FlatMyraColor, ThemeColors>;
-  fontSize: DeepRecord<string, ThemeFontSize>;
-  lineHeight: DeepRecord<string, ThemeLineHeight>;
-  radius: DeepRecord<string, ThemeRadius>;
-  borderWidth: DeepRecord<string, ThemeBorderWidth>;
-  boxShadow: DeepRecord<string, ThemeBoxShadow>;
-  opacity: DeepRecord<string, ThemeOpacity>;
-  width: DeepRecord<string | SpacingScaleKeys, ThemeWidth>;
-  height: DeepRecord<string | SpacingScaleKeys, ThemeHeight>;
-  minWidth: DeepRecord<string | SpacingScaleKeys>;
-  minHeight: DeepRecord<string | SpacingScaleKeys>;
-  spacing: DeepRecord<string | SpacingScaleKeys>;
+  colors: ThemeTokensRecord<string, ThemeColors | MyraColor, keyof ColorScale>;
+  fontSize: ThemeTokensRecord<string, ThemeFontSize>;
+  lineHeight: ThemeTokensRecord<string, ThemeLineHeight>;
+  radius: ThemeTokensRecord<string, ThemeRadius>;
+  borderWidth: ThemeTokensRecord<string, ThemeBorderWidth>;
+  boxShadow: ThemeTokensRecord<string, ThemeBoxShadow>;
+  opacity: ThemeTokensRecord<string, ThemeOpacity>;
+  width: ThemeTokensRecord<string, ThemeWidth>;
+  height: ThemeTokensRecord<string, ThemeHeight>;
+  minWidth: ThemeTokensRecord<string>;
+  minHeight: ThemeTokensRecord<string>;
+  spacing: ThemeTokensRecord<string>;
 };
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
 export type ComponentTheme = {
-  [K in keyof ThemeTokens]?: ThemeTokens[K] extends DeepRecord<infer V> ? DeepRecord<ThemedValue<V>> : ThemeTokens[K];
+  [K in keyof ThemeTokens]?: ThemeTokensRecord<ThemeTokens[K] extends ThemeTokensRecord<infer V> ? ThemedValue<V> : ThemedValue<unknown>>;
 };
 
-export type ThemedTokens<Key extends RecordKey, Value> = Record<Theme, DeepRecord<Value, Key>>;
+export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
 
-export type GeneratedThemeToken<D = unknown> = D extends DeepRecord<any> ? DeepRecordCopy<D, string> : DeepRecord<string>;
+export type GeneratedThemeToken<D = unknown> = D extends ThemeTokensRecord<any> ? DeepRecordCopy<D, string> : ThemeTokensRecord<string>;
 
-export type ResolvedThemeToken<D = unknown> = D extends DeepRecord<any> ? DeepRecordCopy<D, ResolvedValue<any>> : DeepRecord<ResolvedValue<any>>;
+export type ResolvedThemeToken<D = unknown> = D extends ThemeTokensRecord<any>
+  ? DeepRecordCopy<D, ResolvedValue<any>>
+  : ThemeTokensRecord<ResolvedValue<any>>;
 
-export type BuiltThemeToken<D = unknown> = D extends DeepRecord<any> ? DeepRecordCopy<D, any> : DeepRecord<any>;
+export type BuiltThemeToken<D = unknown> = D extends ThemeTokensRecord<any> ? DeepRecordCopy<D> : ThemeTokensRecord<any>;
 
-export type ResolvedSemanticTokens = Record<keyof ThemeTokens, ResolvedThemeToken<any>>;
+export type ResolvedSemanticTokens = Record<keyof ThemeTokens, ResolvedThemeToken>;
 
 export interface ConfigTheme extends PartialThemeTokens {
   extend?: ColorMode;
@@ -77,11 +88,11 @@ export type GeneratedConfigTheme<T extends FullConfigTheme<any> = FullConfigThem
 };
 
 export type ResolvedConfigTheme<T extends GeneratedConfigTheme = GeneratedConfigTheme> = {
-  [K in keyof T]: ResolvedThemeToken<T[K]>;
+  [K in keyof ThemeTokens]: ResolvedThemeToken<T[K]>;
 };
 
 export type ResolvedTokenValues<T extends ResolvedConfigTheme> = {
-  [K in keyof T]: BuiltThemeToken<T[K]>;
+  [K in keyof ThemeTokens]: BuiltThemeToken<T[K]>;
 };
 
 export interface BuiltConfigTheme<T extends ResolvedConfigTheme> {

@@ -2,10 +2,11 @@ import { Dict, flattenObject, mapKeys } from '@myraui/utils';
 import * as R from 'fp-ts/Record';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
-import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
+import { ColorPalette, ColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
+import { isColorScale } from '../colors/utils';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -17,7 +18,7 @@ export function resolveColorValue(colors: Record<string, ColorValue>, colorValue
   const colorFromValue = colors[colorValue as never];
 
   if (!colorFromValue || colorFromValue === colorValue) {
-    return myraColors.blackAlpha.light;
+    return myraColors.black.light;
   }
 
   return resolveColorValue(colors, colorFromValue);

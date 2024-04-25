@@ -9,7 +9,11 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: ({ theme }) => ({
+        blue: theme('colors.blue'),
+      }),
+    },
   },
   plugins: [
     myraUIPlugin({

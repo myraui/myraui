@@ -14,6 +14,7 @@ export const jade: ThemedColorScale = {
     '10': '#26997b',
     '11': '#208368',
     '12': '#1d3b31',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0d1512',
@@ -28,5 +29,6 @@ export const jade: ThemedColorScale = {
     '10': '#27b08b',
     '11': '#1fd8a4',
     '12': '#adf0d4',
+    DEFAULT: 9,
   },
 };

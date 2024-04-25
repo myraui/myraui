@@ -1,8 +1,8 @@
-import { ThemedTokens } from '../theme.types';
+import { ThemedThemeTokens } from '../theme.types';
 
 export type ThemeOpacity = 'hover' | 'disabled';
 
-export const opacity: ThemedTokens<ThemeOpacity, string> = {
+export const opacity: ThemedThemeTokens<'opacity'> = {
   light: {
     hover: '0.8',
     disabled: '0.5',

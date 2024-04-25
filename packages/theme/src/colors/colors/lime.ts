@@ -14,6 +14,7 @@ export const lime: ThemedColorScale = {
     '10': '#b0e64c',
     '11': '#5c7c2f',
     '12': '#37401c',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#11130c',
@@ -28,5 +29,6 @@ export const lime: ThemedColorScale = {
     '10': '#d4ff70',
     '11': '#bde56c',
     '12': '#e3f7ba',
+    DEFAULT: 9,
   },
 };

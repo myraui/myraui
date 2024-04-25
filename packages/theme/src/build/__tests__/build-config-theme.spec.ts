@@ -83,16 +83,16 @@ describe('build/build-config-theme', () => {
       const result = unwrapRE(
         buildConfigTheme('midnight', {
           colors: {
-            primary: 'blue.2',
+            primary: 'colors.blue.2',
           },
         }),
         env
       );
 
-      console.log(JSON.stringify(result, null, 2));
+      console.log(JSON.stringify(result.tokens, null, 2));
 
       expect(result).toEqual({
-        tokens: expect.objectContaining({ colors: { primary: 'blue.2' } }),
+        tokens: expect.objectContaining({ colors: { primary: { DEFAULT: '2' } } }),
         utilities: expect.arrayContaining([]),
         colorMode: 'light',
       });

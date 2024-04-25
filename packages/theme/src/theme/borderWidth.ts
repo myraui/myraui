@@ -1,20 +1,20 @@
-import { ThemedTokens } from '../theme.types';
+import { ThemedThemeTokens } from '../theme.types';
 
-export type ThemeBorderWidth = 'none' | 'small' | 'medium' | 'large' | 'huge';
+export type ThemeBorderWidth = 'small' | 'medium' | 'large' | 'huge';
 
-export const borderWidth: ThemedTokens<ThemeBorderWidth, string> = {
+export const borderWidth: ThemedThemeTokens<'borderWidth'> = {
   light: {
-    none: '0',
     small: '1px',
     medium: '2px',
     large: '3px',
     huge: '4px',
+    DEFAULT: 'medium',
   },
   dark: {
-    none: '0',
     small: '1px',
     medium: '2px',
     large: '3px',
     huge: '4px',
+    DEFAULT: 'medium',
   },
 };

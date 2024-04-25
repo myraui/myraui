@@ -10,6 +10,8 @@ export type Assign<T, U> = Omit<T, keyof U> & U;
 
 export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
 
+export type StringOrNumber = string | number;
+
 export type RecordKey = string | number | symbol;
 
 /**
@@ -23,18 +25,15 @@ export type DeepRecord<
   K2 extends RecordKey = RecordKey,
   K3 extends RecordKey = RecordKey,
   K4 extends RecordKey = RecordKey,
-  K5 extends RecordKey = RecordKey
-> = Record<
-  K1 | RecordKey,
-  Value | Record<K2 | RecordKey, Value | Record<K3 | RecordKey, Value | Record<K4 | RecordKey, Value | Record<K5 | RecordKey, Value>>>>
->;
+  K5 extends RecordKey = RecordKey,
+  V2 = Value,
+  V3 = Value,
+  V4 = Value,
+  V5 = Value
+> = Record<K1 | RecordKey, Value | Record<K2 | RecordKey, V2 | Record<K3 | RecordKey, V3 | Record<K4 | RecordKey, V4 | Record<K5 | RecordKey, V5>>>>>;
 
-export type DeepRecordCopy<T extends DeepRecord<any>, Value> = {
-  [K in keyof T]: T[K] extends DeepRecord<any> ? DeepRecordCopy<T[K], Value> : Value;
-};
-
-export type FlattenObjectKeys<T extends DeepRecord<any>, Key = keyof T> = Key extends string
-  ? T[Key] extends Record<string, unknown>
-    ? `${Key}.${FlattenObjectKeys<T[Key]>}`
-    : `${Key}`
-  : never;
+export type DeepRecordCopy<T, Value = any> = T extends Record<any, any>
+  ? {
+      [K in keyof T]: T[K] extends Record<any, any> ? DeepRecordCopy<T[K], Value> : Value;
+    }
+  : unknown;

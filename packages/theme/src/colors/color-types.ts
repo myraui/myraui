@@ -13,7 +13,7 @@ export interface ColorWithShade {
   shade: ColorShade;
 }
 
-export type ColorScale = Record<ColorShade, string>;
+export type ColorScale = Record<ColorShade, string> & { DEFAULT: ColorShade };
 
 export type FlatMyraColor = `${MyraColor}.${ColorShade}`;
 

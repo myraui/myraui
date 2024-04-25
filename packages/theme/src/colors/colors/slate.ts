@@ -14,6 +14,7 @@ export const slate: ThemedColorScale = {
     '10': '#80838d',
     '11': '#60646c',
     '12': '#1c2024',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#111113',
@@ -28,5 +29,6 @@ export const slate: ThemedColorScale = {
     '10': '#777b84',
     '11': '#b0b4ba',
     '12': '#edeef0',
+    DEFAULT: 9,
   },
 };

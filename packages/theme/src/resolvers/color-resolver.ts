@@ -1,18 +1,27 @@
-import { ColorShade, extractColorShade, shades } from '../colors';
-import { ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils';
+import { ColorCSSVariableOptions, colorVariable, CSSVariable, opacityVariable } from '../utils';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ThemeEnv } from '../theme.types';
-import { Exception, mergeObjects } from '@myraui/utils';
-import { ResolvedValues, Resolver } from './resolvers';
+import { Exception } from '@myraui/utils';
+import { Resolver } from './resolvers';
 import Color from 'color';
 
 export type ColorValueFunction = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
 
 const parsedColorsCache: Record<string, number[]> = {};
 
+export function parseColor(colorValue: string) {
+  try {
+    return Color(colorValue).hsl().round().array();
+  } catch (err) {
+    console.error(`Error parsing color: ${colorValue}`);
+
+    return [0, 0, 0, 1];
+  }
+}
+
 export function createColorValueOptions(colorValue: string): ColorCSSVariableOptions {
-  const parsedColor = parsedColorsCache[colorValue] || Color(colorValue).hsl().round().array();
+  const parsedColor = parsedColorsCache[colorValue] || parseColor(colorValue);
 
   parsedColorsCache[colorValue] = parsedColor;
   const [h, s, l, defaultAlphaValue] = parsedColor;
@@ -53,39 +62,23 @@ export function generateColorValueFn(_colorVariable: string | CSSVariable, _opac
   };
 }
 
-export function createColorValue(
-  key: string,
-  value: string,
-  shade?: ColorShade
-): RE.ReaderEither<ThemeEnv, Exception, ResolvedValues<ColorValueFunction>> {
+export function resolveColorValue(key: string, value: string | CSSVariable) {
+  if (typeof value === 'string') {
+    return generateColorVariables(key, value);
+  }
+
   return pipe(
-    RE.of(extractColorShade(value)),
-    RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
-    RE.chain(([colorValue, opacityColorValue]) => {
-      const colorKey = shade ? `${key}-${shade}` : key;
-      return pipe(
-        colorVariable(colorKey, { color: { value: colorValue }, opacity: { value: opacityColorValue } }),
-        RE.map((colorVariables) => ({
-          [colorKey]: {
-            value: generateColorValueFn(...colorVariables),
-            utilities: colorVariables,
-          },
-        }))
-      );
-    })
+    opacityVariable(value),
+    RE.chain((opacity) => colorVariable(key, { color: { value }, opacity: { value: opacity } }))
   );
 }
 
-export const colorResolver: Resolver<ColorValueFunction> = (key: string, value: string) => {
+export const colorResolver: Resolver<ColorValueFunction> = (key: string, value: string | CSSVariable) => {
   return pipe(
-    createColorValue(key, value),
-    RE.chain((colorVariables) =>
-      pipe(
-        shades,
-        RE.traverseArray((shade) => createColorValue(key, value, shade)),
-        RE.map(mergeObjects),
-        RE.map((shadeVariables) => ({ ...shadeVariables, ...colorVariables }))
-      )
-    )
+    resolveColorValue(key, value),
+    RE.map(([colorVariable, opacityVariable]) => ({
+      value: generateColorValueFn(colorVariable, opacityVariable),
+      utilities: [colorVariable, opacityVariable],
+    }))
   );
 };

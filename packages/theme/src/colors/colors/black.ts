@@ -1,6 +1,6 @@
 import { ThemedColorScale } from '../color-types';
 
-export const blackAlpha: ThemedColorScale = {
+export const black: ThemedColorScale = {
   light: {
     '1': 'rgba(0, 0, 0, 0.05)',
     '2': 'rgba(0, 0, 0, 0.1)',
@@ -13,7 +13,8 @@ export const blackAlpha: ThemedColorScale = {
     '9': 'rgba(0, 0, 0, 0.7)',
     '10': 'rgba(0, 0, 0, 0.8)',
     '11': 'rgba(0, 0, 0, 0.9)',
-    '12': 'rgba(0, 0, 0, 0.95)',
+    '12': 'rgba(0, 0, 0, 1)',
+    DEFAULT: 12,
   },
   dark: {
     '1': 'rgba(0, 0, 0, 0.05)',
@@ -27,6 +28,7 @@ export const blackAlpha: ThemedColorScale = {
     '9': 'rgba(0, 0, 0, 0.7)',
     '10': 'rgba(0, 0, 0, 0.8)',
     '11': 'rgba(0, 0, 0, 0.9)',
-    '12': 'rgba(0, 0, 0, 0.95)',
+    '12': 'rgba(0, 0, 0, 1)',
+    DEFAULT: 12,
   },
 };

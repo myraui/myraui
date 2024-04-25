@@ -43,9 +43,17 @@ function dashCase(string: string) {
   return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
 }
 
-export function cssVariable(name: string, { fallback, value }: CSSVariableOptions = {}): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function cssVariable(
+  name: string | CSSVariable,
+  { fallback, value }: CSSVariableOptions = {}
+): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return RE.asks(({ prefix }) => {
-    const variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    let variableName = '';
+    if (typeof name === 'string') {
+      variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    } else {
+      variableName = name.name;
+    }
     return {
       name: variableName,
       reference(_fallback: CSSVariableOptions['fallback']) {
@@ -64,7 +72,7 @@ export function cssVariable(name: string, { fallback, value }: CSSVariableOption
  * @param valueKey the key of the value
  * @param options
  */
-export function semanticTokenVariable(
+export function themeTokenVariable(
   token: keyof ThemeTokens,
   valueKey: string,
   options?: CSSVariableOptions
@@ -85,7 +93,7 @@ export function colorVariable(
   options: ColorCSSVariableOptions = {}
 ): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(
-    RE.sequenceArray([semanticTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
+    RE.sequenceArray([themeTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
     RE.map(([color, opacity]) => [color, opacity])
   );
 }
@@ -96,9 +104,9 @@ export function colorVariable(
  * @param colorKey the key of the color
  * @param options the options
  */
-export function opacityVariable(colorKey: string, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function opacityVariable(colorKey: string | CSSVariable, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return pipe(
-    semanticTokenVariable('colors', colorKey, options),
+    typeof colorKey === 'string' ? themeTokenVariable('colors', colorKey, options) : cssVariable(colorKey, options),
     RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
   );
 }
@@ -107,8 +115,8 @@ export function opacityVariable(colorKey: string, options?: CSSVariableOptions):
  *  Check if a token is a CSS variable
  * @param token
  */
-export function isCSSVariable(token: string) {
-  return token.startsWith('--');
+export function isCSSVariable(token: any): token is CSSVariable {
+  return typeof token === 'object' && 'name' in token && 'reference' in token && typeof token.reference === 'function';
 }
 
 export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {

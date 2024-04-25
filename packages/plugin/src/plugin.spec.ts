@@ -10,7 +10,10 @@ describe('plugin', () => {
   describe('resolveTheme', () => {
     it('should generate the resolved theme config from a config theme', () => {
       const result = unwrapRE(
-        resolveTheme('midnight', { extend: 'dark', colorPalette: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } }),
+        resolveTheme('midnight', {
+          extend: 'dark',
+          colors: { primary: 'colors.red.1', red: myraColors.red.dark, steel: myraColors.red.dark },
+        }),
         {
           prefix: 'prefix',
           defaultExtendTheme: 'light',

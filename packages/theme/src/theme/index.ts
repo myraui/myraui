@@ -1,6 +1,6 @@
 import { colors } from './colors';
 import { fontSize } from './fontSize';
-import { ThemedTokens, ThemeTokens } from '../theme.types';
+import { ThemedThemeTokens, ThemeTokens } from '../theme.types';
 import { lineHeight } from './lineHeight';
 import { radius } from './radius';
 import { borderWidth } from './borderWidth';
@@ -10,9 +10,13 @@ import { width } from './width';
 import { height } from './height';
 import { ColorMode } from '../colors';
 import { pipe } from 'fp-ts/lib/function';
-import { swapKeys } from '@myraui/utils';
+import { Dict, swapKeys } from '@myraui/utils';
 
-const tokens: Record<keyof ThemeTokens, ThemedTokens<any, any>> = {
+type Tokens = {
+  [K in keyof ThemeTokens]: ThemedThemeTokens<K>;
+};
+
+const tokens: Tokens = {
   colors,
   fontSize,
   lineHeight,
@@ -29,4 +33,4 @@ const tokens: Record<keyof ThemeTokens, ThemedTokens<any, any>> = {
 
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;
 
-export const defaultThemes = pipe(tokens, swapKeys) as DefaultThemes;
+export const defaultThemes = pipe(tokens as Dict, swapKeys) as DefaultThemes;

@@ -8,7 +8,7 @@ import { flow } from 'fp-ts/function';
 import deepmerge from 'deepmerge';
 import { generators } from '../generators/generators';
 
-export const generateConfigTheme = <T extends FullConfigTheme>(configTheme: T): RE.ReaderEither<ThemeEnv, Exception, GeneratedConfigTheme<T>> => {
+export function generateConfigTheme<T extends FullConfigTheme>(configTheme: T): RE.ReaderEither<ThemeEnv, Exception, GeneratedConfigTheme<T>> {
   return pipe(
     generators,
     R.mapWithIndex((key, generator) => generator(configTheme[key as keyof typeof configTheme] as any)),
@@ -20,4 +20,4 @@ export const generateConfigTheme = <T extends FullConfigTheme>(configTheme: T): 
       )
     )
   );
-};
+}

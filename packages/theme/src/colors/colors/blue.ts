@@ -14,6 +14,7 @@ export const blue: ThemedColorScale = {
     '10': '#0588f0',
     '11': '#0d74ce',
     '12': '#113264',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0d1520',
@@ -28,5 +29,6 @@ export const blue: ThemedColorScale = {
     '10': '#3b9eff',
     '11': '#70b8ff',
     '12': '#c2e6ff',
+    DEFAULT: 9,
   },
 };

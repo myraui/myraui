@@ -1,20 +1,20 @@
-import { ThemedTokens } from '../theme.types';
+import { ThemedThemeTokens } from '../theme.types';
 
-export type ThemeRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
+export type ThemeRadius = 'small' | 'medium' | 'large' | 'full';
 
-export const radius: ThemedTokens<ThemeRadius, string> = {
+export const radius: ThemedThemeTokens<'radius'> = {
   light: {
-    none: '0',
     small: '8px',
     medium: '12px',
     large: '14px',
     full: '9999px',
+    DEFAULT: 'medium',
   },
   dark: {
-    none: '0',
     small: '8px',
     medium: '12px',
     large: '14px',
     full: '9999px',
+    DEFAULT: 'medium',
   },
 };

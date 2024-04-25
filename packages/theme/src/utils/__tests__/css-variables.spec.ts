@@ -4,7 +4,7 @@ import {
   cssVariable,
   isCSSVariable,
   opacityVariable,
-  semanticTokenVariable,
+  themeTokenVariable,
   spacingUnitVariable,
 } from '../css-variables';
 import { unwrapRE } from '@myraui/utils';
@@ -52,7 +52,7 @@ describe('utils/css-variables', () => {
 
   describe('semanticTokenVariable', () => {
     it('should create a variable from semantic tokens', () => {
-      const result = unwrapRE(semanticTokenVariable('colors', 'background'), { prefix: 'prefix' });
+      const result = unwrapRE(themeTokenVariable('colors', 'background'), { prefix: 'prefix' });
 
       expect(result).toEqual({ name: '--prefix-colors-background', reference: expect.any(Function), value: '' });
     });
