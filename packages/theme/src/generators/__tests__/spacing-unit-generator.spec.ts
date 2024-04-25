@@ -14,7 +14,7 @@ describe('generators/spacing-unit-generator', () => {
 
   describe('spacingGenerator', () => {
     it('should generate the spacing scale', () => {
-      const scale = unwrapRE(spacingUnitGenerator(4), { prefix: 'prefix' });
+      const scale = unwrapRE(spacingUnitGenerator(4), { prefix: 'prefix', defaultExtendTheme: 'light' });
 
       expect(scale).toEqual(
         expect.objectContaining({

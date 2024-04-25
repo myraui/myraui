@@ -59,8 +59,8 @@ export function createBuiltConfigTheme(colorMode: ColorMode) {
 export function buildConfigTheme<T extends ConfigTheme>(themeName: string, configTheme: T) {
   return pipe(
     applyBaseTheme(themeName, configTheme),
-    RE.chain((fullConfigTheme) =>
-      pipe(generateConfigTheme(fullConfigTheme), RE.chain(flow(resolveConfigTheme, RE.chain(createBuiltConfigTheme(fullConfigTheme.extend)))))
-    )
+    RE.chain((fullConfigTheme) => {
+      return pipe(generateConfigTheme(fullConfigTheme), RE.chain(flow(resolveConfigTheme, RE.chain(createBuiltConfigTheme(fullConfigTheme.extend)))));
+    })
   );
 }

@@ -27,10 +27,10 @@ export function resolveThemeToken<K extends keyof ThemeTokens, T extends Generat
     token,
     resolveDefault,
     R.mapWithIndex((key, value) => {
-      if (typeof value === 'string' || isCSSVariable(value)) {
-        return resolvers[tokenKey](joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key), value);
+      if (typeof value === 'object' && !isCSSVariable(value)) {
+        return resolveThemeToken(tokenKey, value as any, joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key));
       }
-      return resolveThemeToken(tokenKey, value as any, joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key));
+      return resolvers[tokenKey](joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key), value);
     }),
     R.sequence(RE.Applicative) as any
   );

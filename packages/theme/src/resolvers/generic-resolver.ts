@@ -1,6 +1,6 @@
 import { Resolver } from './resolvers';
 import { pipe } from 'fp-ts/lib/function';
-import { CSSVariable, cssVariable } from '../utils';
+import { CSSVariable, cssVariable, isCSSVariable } from '../utils';
 import { ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 
@@ -10,7 +10,7 @@ export const genericResolver =
     return pipe(
       cssVariable(`${tokenKey}-${key}`, { value }),
       RE.map((variable) => ({
-        value,
+        value: isCSSVariable(value) ? value.value : value,
         utilities: [variable],
       }))
     );

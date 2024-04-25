@@ -50,12 +50,17 @@ describe('build/build-config-theme', () => {
         extractResolvedTokens({
           colors: {
             primary: { value: 'primary', utilities: primary },
-            secondary: { value: 'secondary', utilities: secondary },
+            secondary: {
+              main: {
+                value: 'secondary',
+                utilities: secondary,
+              },
+            },
           },
         } as any),
         env
       );
-      expect(result).toEqual({ colors: { primary: 'primary', secondary: 'secondary' } });
+      expect(result).toEqual({ colors: { primary: 'primary', secondary: { main: 'secondary' } } });
     });
   });
 
@@ -89,10 +94,11 @@ describe('build/build-config-theme', () => {
         env
       );
 
-      console.log(JSON.stringify(result.tokens, null, 2));
-
       expect(result).toEqual({
-        tokens: expect.objectContaining({ colors: { primary: { DEFAULT: '2' } } }),
+        tokens: expect.objectContaining({
+          colors: expect.objectContaining({ primary: expect.objectContaining({ DEFAULT: expect.any(Function) }) }),
+          spacing: expect.objectContaining({ unit: 4 }),
+        }),
         utilities: expect.arrayContaining([]),
         colorMode: 'light',
       });

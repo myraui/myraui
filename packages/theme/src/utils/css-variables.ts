@@ -60,7 +60,7 @@ export function cssVariable(
         const finalFallback = _fallback || fallback;
         return `var(${this.name}${finalFallback ? `, ${typeof finalFallback === 'string' ? finalFallback : finalFallback.reference()}` : ``})`;
       },
-      value: value ? (typeof value === 'string' ? value : value.reference()) : '',
+      value: value ? (isCSSVariable(value) ? value.reference() : value) : '',
     };
   });
 }
