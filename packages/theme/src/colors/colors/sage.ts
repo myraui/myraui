@@ -14,6 +14,7 @@ export const sage: ThemedColorScale = {
     '10': '#7c8481',
     '11': '#5f6563',
     '12': '#1a211e',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#101211',
@@ -28,5 +29,6 @@ export const sage: ThemedColorScale = {
     '10': '#717d79',
     '11': '#adb5b2',
     '12': '#eceeed',
+    DEFAULT: 9,
   },
 };

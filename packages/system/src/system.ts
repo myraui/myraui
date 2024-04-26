@@ -12,7 +12,7 @@ function applyComponentTheme(prefix: string) {
     pipe(
       buildComponentTheme({ ...(props.componentTheme || {}), colors: props.themeColors }),
       RE.getOrElse(() => R.of({}))
-    )({ prefix });
+    )({ prefix, defaultExtendTheme: 'light' });
 }
 
 const getDisplayName = (Component: any) => {

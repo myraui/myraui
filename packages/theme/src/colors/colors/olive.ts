@@ -14,6 +14,7 @@ export const olive: ThemedColorScale = {
     '10': '#7f847d',
     '11': '#60655f',
     '12': '#1d211c',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#111210',
@@ -28,5 +29,6 @@ export const olive: ThemedColorScale = {
     '10': '#767d74',
     '11': '#afb5ad',
     '12': '#eceeec',
+    DEFAULT: 9,
   },
 };

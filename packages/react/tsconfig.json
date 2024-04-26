@@ -1,21 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "types": ["vite/client"],
-    "paths": {
-      "@myraui/plugin": ["packages/plugin/src/index.ts"],
-      "@myraui/react-utils": ["packages/react-utils/src/index.ts"],
-      "@myraui/react-test-utils": ["packages/react-utils/test/index.ts"],
-      "@myraui/system": ["packages/system/src/index.ts"],
-      "@myraui/theme": ["packages/theme/src/index.ts"],
-      "@myraui/utils": ["packages/utils/src/index.ts"],
-      "@myraui/test-utils": ["packages/utils/test/index.ts"]
-    }
+    "baseUrl": "."
   },
   "files": [],
   "include": ["src", "stories"],

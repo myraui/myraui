@@ -14,6 +14,7 @@ export const red: ThemedColorScale = {
     '10': '#dc3e42',
     '11': '#ce2c31',
     '12': '#641723',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#191111',
@@ -28,5 +29,6 @@ export const red: ThemedColorScale = {
     '10': '#ec5d5e',
     '11': '#ff9592',
     '12': '#ffd1d9',
+    DEFAULT: 9,
   },
 };

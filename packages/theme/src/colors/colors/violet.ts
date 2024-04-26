@@ -14,6 +14,7 @@ export const violet: ThemedColorScale = {
     '10': '#654dc4',
     '11': '#6550b9',
     '12': '#2f265f',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#14121f',
@@ -28,5 +29,6 @@ export const violet: ThemedColorScale = {
     '10': '#7d66d9',
     '11': '#baa7ff',
     '12': '#e2ddfe',
+    DEFAULT: 9,
   },
 };

@@ -14,6 +14,7 @@ export const bronze: ThemedColorScale = {
     '10': '#957468',
     '11': '#7d5e54',
     '12': '#43302b',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#141110',
@@ -28,5 +29,6 @@ export const bronze: ThemedColorScale = {
     '10': '#ae8c7e',
     '11': '#d4b3a5',
     '12': '#ede0d9',
+    DEFAULT: 9,
   },
 };

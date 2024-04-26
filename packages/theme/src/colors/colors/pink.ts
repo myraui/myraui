@@ -14,6 +14,7 @@ export const pink: ThemedColorScale = {
     '10': '#cf3897',
     '11': '#c2298a',
     '12': '#651249',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#191117',
@@ -28,5 +29,6 @@ export const pink: ThemedColorScale = {
     '10': '#de51a8',
     '11': '#ff8dcc',
     '12': '#fdd1ea',
+    DEFAULT: 9,
   },
 };

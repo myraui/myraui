@@ -1,12 +1,12 @@
 import * as A from 'fp-ts/Array';
-import { Dict } from '../types';
+import { Dict, RecordKey } from '../types';
 import { pipe } from 'fp-ts/function';
 
 export function mergeObjects<T extends Dict>(array: readonly T[]): T {
   return A.reduce<T, T>({} as T, (acc, obj) => ({ ...acc, ...obj }))([...array]);
 }
 
-export function mapKeys<K extends string, J extends string, A>(f: (key: K, value: A) => J) {
+export function mapKeys<K extends RecordKey, J extends RecordKey, A>(f: (key: K, value: A) => J) {
   return (record: Record<K, A>): Record<J, A> => {
     return pipe(
       record,
@@ -17,7 +17,7 @@ export function mapKeys<K extends string, J extends string, A>(f: (key: K, value
   };
 }
 
-export function swapKeys<K extends string, J extends string, A>(record: Record<K, Record<J, A>>): Record<J, Record<K, A>> {
+export function swapKeys<K extends RecordKey, J extends RecordKey, A>(record: Record<K, Record<J, A>>): Record<J, Record<K, A>> {
   return pipe(
     record,
     Object.entries,
@@ -31,6 +31,15 @@ export function swapKeys<K extends string, J extends string, A>(record: Record<K
   ) as Record<J, Record<K, A>>;
 }
 
-export function toValues<K extends string, A>(record: Record<K, A>): A[] {
+export function toValues<K extends RecordKey, A>(record: Record<K, A>): A[] {
   return Object.values(record);
+}
+
+export function fromArray<K extends RecordKey, A>(f: (a: K) => A) {
+  return (array: Array<K>): Record<K, A> =>
+    pipe(
+      array,
+      A.map((a) => [a, f(a)]),
+      Object.fromEntries
+    );
 }

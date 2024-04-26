@@ -33,6 +33,7 @@ describe('colors/utils/is-color-scale', () => {
           10: 'teal',
           11: 'white',
           12: 'black',
+          DEFAULT: 12,
           13: 'gray',
         })
       ).toBe(false);
@@ -53,6 +54,7 @@ describe('colors/utils/is-color-scale', () => {
           10: 'teal',
           11: 'white',
           12: 'black',
+          DEFAULT: 12,
         })
       ).toBe(true);
     });

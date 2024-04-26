@@ -30,6 +30,6 @@ export const colorNames = [
   'lime',
   'mint',
   'sky',
-  'whiteAlpha',
-  'blackAlpha',
+  'white',
+  'black',
 ] as const;

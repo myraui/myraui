@@ -14,6 +14,7 @@ export const brown: ThemedColorScale = {
     '10': '#a07553',
     '11': '#815e46',
     '12': '#3e332e',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#12110f',
@@ -28,5 +29,6 @@ export const brown: ThemedColorScale = {
     '10': '#b88c67',
     '11': '#dbb594',
     '12': '#f2e1ca',
+    DEFAULT: 9,
   },
 };

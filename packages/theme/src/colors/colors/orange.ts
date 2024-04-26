@@ -14,6 +14,7 @@ export const orange: ThemedColorScale = {
     '10': '#ef5f00',
     '11': '#cc4e00',
     '12': '#582d1d',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#17120e',
@@ -28,5 +29,6 @@ export const orange: ThemedColorScale = {
     '10': '#ff801f',
     '11': '#ffa057',
     '12': '#ffe0c2',
+    DEFAULT: 9,
   },
 };

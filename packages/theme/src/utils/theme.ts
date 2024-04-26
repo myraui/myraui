@@ -1,11 +1,12 @@
 import { Dict, flattenObject, mapKeys } from '@myraui/utils';
-import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
+import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
-import { ColorPalette, ColorScale, isColorScale, myraColors } from '../colors';
+import { ColorPalette, ColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
+import { isColorScale } from '../colors/utils/is-color-scale';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -17,7 +18,7 @@ export function resolveColorValue(colors: Record<string, ColorValue>, colorValue
   const colorFromValue = colors[colorValue as never];
 
   if (!colorFromValue || colorFromValue === colorValue) {
-    return myraColors.blackAlpha.light;
+    return myraColors.black.light;
   }
 
   return resolveColorValue(colors, colorFromValue);
@@ -30,35 +31,18 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPal
   );
 }
 
-/**
- * Flattens the color palette to a simple array of key-value pairs
- * @param palette the color palette e.g. { primary: { 1: '#fff', 2: '#000' } }
- *
- * @returns an array of key-value pairs e.g. [['primary.1', '#fff'], ['primary.2', '#000']]
- */
-export function flattenColorPalette(palette: ColorPalette): Dict<string> {
-  return pipe(flattenObject(palette));
-}
-
 export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<string | Dict<string>> {
   return pipe(
     variables,
     R.map((variables) => buildCSSVariables(variables || [])),
+    mapKeys((key) => (key === BASE_THEME ? '' : `.${key} &,[data-theme="${key}"] &`)),
     R.toEntries,
-    A.map(([theme, scopedVariables]) => {
-      if (theme === BASE_THEME) {
-        return Object.entries(scopedVariables); // These should be global, hence no scoping
-      } else {
-        return [[`.${theme} &,[data-theme="${theme}"] &`, scopedVariables]];
-      }
-    }),
-    A.flatten,
-    Object.fromEntries
+    A.reduce({}, (acc, [key, value]) => (key === '' ? { ...acc, ...value } : { ...acc, [key]: value }))
   );
 }
 
 export function resolveThemeRecord<Value>(themeRecord: ThemeRecord<Value>): Record<Theme, Value> {
-  return mapKeys((key) => key.replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
+  return mapKeys((key) => String(key).replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
 }
 
 export function isThemeRecord(record: Dict = {}): record is ThemeRecord<any> {

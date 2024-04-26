@@ -1,7 +1,7 @@
 import { ColorMode, ColorScale, MyraColor } from '../color-types';
 import { myraColors } from '../colors';
 import * as A from 'fp-ts/Array';
-import { pipe } from 'fp-ts/lib/function';
+import { pipe } from 'fp-ts/function';
 
 export function getByColorMode(colorMode: ColorMode): Record<MyraColor, ColorScale> {
   return pipe(

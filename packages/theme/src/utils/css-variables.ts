@@ -1,8 +1,9 @@
-import { SemanticTokens, Theme, ThemeEnv } from '../theme.types';
+import { Theme, ThemeEnv, ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception } from '@myraui/utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
+import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
 
 export interface CSSVariable {
   /**
@@ -28,6 +29,11 @@ export type ColorCSSVariableOptions = {
   opacity?: CSSVariableOptions;
 };
 
+export type FontSizeVariableOptions = {
+  fontSize?: CSSVariableOptions;
+  lineHeight?: CSSVariableOptions;
+};
+
 export type ScopedCSSVariables<Scope extends string = string> = Record<Scope, CSSVariable[]>;
 
 export type ThemedCSSVariables = Partial<ScopedCSSVariables<Theme>>;
@@ -42,16 +48,24 @@ function dashCase(string: string) {
   return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
 }
 
-export function cssVariable(name: string, { fallback, value }: CSSVariableOptions = {}): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function cssVariable(
+  name: string | CSSVariable,
+  { fallback, value }: CSSVariableOptions = {}
+): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return RE.asks(({ prefix }) => {
-    const variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    let variableName = '';
+    if (typeof name === 'string') {
+      variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+    } else {
+      variableName = name.name;
+    }
     return {
       name: variableName,
       reference(_fallback: CSSVariableOptions['fallback']) {
         const finalFallback = _fallback || fallback;
         return `var(${this.name}${finalFallback ? `, ${typeof finalFallback === 'string' ? finalFallback : finalFallback.reference()}` : ``})`;
       },
-      value: value ? (typeof value === 'string' ? value : value.reference()) : '',
+      value: value ? (isCSSVariable(value) ? value.reference() : value) : '',
     };
   });
 }
@@ -63,12 +77,12 @@ export function cssVariable(name: string, { fallback, value }: CSSVariableOption
  * @param valueKey the key of the value
  * @param options
  */
-export function semanticTokenVariable(
-  token: keyof SemanticTokens,
+export function themeTokenVariable(
+  token: keyof ThemeTokens,
   valueKey: string,
   options?: CSSVariableOptions
 ): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
-  return cssVariable(`${token}-${valueKey}`, options);
+  return cssVariable(`${token}${valueKey === '' ? '' : `-${valueKey}`}`, options);
 }
 
 /**
@@ -84,7 +98,7 @@ export function colorVariable(
   options: ColorCSSVariableOptions = {}
 ): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
   return pipe(
-    RE.sequenceArray([semanticTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
+    RE.sequenceArray([themeTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
     RE.map(([color, opacity]) => [color, opacity])
   );
 }
@@ -95,28 +109,19 @@ export function colorVariable(
  * @param colorKey the key of the color
  * @param options the options
  */
-export function opacityVariable(colorKey: string, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+export function opacityVariable(colorKey: string | CSSVariable, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
   return pipe(
-    semanticTokenVariable('colors', colorKey, options),
+    typeof colorKey === 'string' ? themeTokenVariable('colors', colorKey, options) : cssVariable(colorKey, options),
     RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
   );
-}
-
-/**
- * Check if a variable is an opacity variable
- *
- * @param variable the variable reference
- */
-export function isOpacityVariable(variable: string | CSSVariable) {
-  return (typeof variable === 'string' ? variable : variable.name).endsWith('-opacity');
 }
 
 /**
  *  Check if a token is a CSS variable
  * @param token
  */
-export function isCSSVariable(token: string) {
-  return token.startsWith('--');
+export function isCSSVariable(token: any): token is CSSVariable {
+  return typeof token === 'object' && 'name' in token && 'reference' in token && typeof token.reference === 'function';
 }
 
 export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
@@ -124,5 +129,19 @@ export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
     cssVariables,
     A.filter((variable) => variable.value !== undefined && variable.value !== ''),
     A.reduce({} as Dict<string>, (acc, variable) => ({ ...acc, [variable.name]: variable.value } as Dict<string>))
+  );
+}
+
+export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K, options?: CSSVariableOptions) {
+  const key = (spacingScaleKey ? `-${spacingScaleKey}` : '').replace('.', '_');
+
+  return cssVariable(`spacing-unit${key}`, options);
+}
+
+export function fontSizeVariable(fontSizeKey?: string, options?: FontSizeVariableOptions) {
+  const key = (fontSizeKey ? `-${fontSizeKey}` : '').replace('.', '_');
+  return pipe(
+    RE.sequenceArray([cssVariable(`font-size${key}`, options?.fontSize || {}), cssVariable(`line-height${key}`, options?.lineHeight || {})]),
+    RE.map(([fontSize, lineHeight]) => [fontSize, lineHeight])
   );
 }

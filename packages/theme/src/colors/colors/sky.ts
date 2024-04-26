@@ -14,6 +14,7 @@ export const sky: ThemedColorScale = {
     '10': '#74daf8',
     '11': '#00749e',
     '12': '#1d3e56',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0d141f',
@@ -28,5 +29,6 @@ export const sky: ThemedColorScale = {
     '10': '#a8eeff',
     '11': '#75c7f0',
     '12': '#c2f3ff',
+    DEFAULT: 9,
   },
 };

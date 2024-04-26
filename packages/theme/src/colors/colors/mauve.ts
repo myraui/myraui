@@ -14,6 +14,7 @@ export const mauve: ThemedColorScale = {
     '10': '#84828e',
     '11': '#65636d',
     '12': '#211f26',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#121113',
@@ -28,5 +29,6 @@ export const mauve: ThemedColorScale = {
     '10': '#7c7a85',
     '11': '#b5b2bc',
     '12': '#eeeef0',
+    DEFAULT: 9,
   },
 };

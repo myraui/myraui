@@ -14,6 +14,7 @@ export const cyan: ThemedColorScale = {
     '10': '#0797b9',
     '11': '#107d98',
     '12': '#0d3c48',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0b161a',
@@ -28,5 +29,6 @@ export const cyan: ThemedColorScale = {
     '10': '#23afd0',
     '11': '#4ccce6',
     '12': '#b6ecf7',
+    DEFAULT: 9,
   },
 };
