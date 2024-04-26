@@ -1,63 +1,19 @@
-import myrauiPlugin, { combineBuiltThemes, createThemeSelector } from './plugin';
+import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from './plugin';
 import { getBaseStyles, MYRA_UI_PREFIX, myraColors } from '@myraui/theme';
 import { expect } from '@storybook/jest';
-import { resolveTheme } from '../dist/theme/resolve-themes';
 import { unwrapRE } from '@myraui/utils';
 
 jest.mock('tailwindcss/plugin.js', () => jest.fn((handler, config) => ({ handler, config })));
 
 describe('plugin', () => {
-  describe('resolveTheme', () => {
-    it('should generate the resolved theme config from a config theme', () => {
-      const result = unwrapRE(
-        resolveTheme('midnight', {
-          extend: 'dark',
-          colors: { primary: 'colors.red.1', red: myraColors.red.dark, steel: myraColors.red.dark },
-        }),
-        {
-          prefix: 'prefix',
-          defaultExtendTheme: 'light',
-        }
-      );
-
-      expect(result).toEqual({
-        colors: expect.objectContaining({
-          primary: expect.any(Function),
-          'red-1': expect.any(Function),
-          'primary-1': expect.any(Function),
-        }),
-        variables: expect.arrayContaining([
-          {
-            name: '--prefix-colors-red-1',
-            value: '0 19% 8%',
-            reference: expect.any(Function),
-          },
-          {
-            name: '--prefix-colors-primary',
-            value: 'var(--prefix-colors-red-9)',
-            reference: expect.any(Function),
-          },
-          {
-            name: '--prefix-colors-primary-1',
-            value: 'var(--prefix-colors-red-1)',
-            reference: expect.any(Function),
-          },
-        ]),
-        colorMode: 'dark',
-        themeName: 'midnight',
-      });
-    });
-  });
-
-  describe('combineResolvedThemes', () => {
+  describe('combineBuiltThemes', () => {
     it('should combine the resolved themes into a utility object for tailwind', () => {
       const functionMock = jest.fn();
-      const result = combineBuiltThemes([
-        {
-          themeName: 'midnight',
+      const result = combineBuiltThemes({
+        midnight: {
           colorMode: 'dark',
-          colors: { primary: functionMock, 'red-1': functionMock },
-          variables: [
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
+          utilities: [
             {
               name: '--prefix-colors-red-1',
               value: '0 19% 8%',
@@ -75,11 +31,10 @@ describe('plugin', () => {
             },
           ],
         },
-        {
-          themeName: 'dawn',
+        dawn: {
           colorMode: 'light',
-          colors: { primary: functionMock, 'red-1': functionMock },
-          variables: [
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
+          utilities: [
             {
               name: '--prefix-colors-red-1',
               value: '0 19% 99%',
@@ -97,13 +52,17 @@ describe('plugin', () => {
             },
           ],
         },
-      ])({ '--base-colors-primary': 'red' });
+      })({ '--base-colors-primary': 'red' });
+
+      console.log(result);
 
       expect(result).toEqual({
         baseStyles: {
           '--base-colors-primary': 'red',
         },
-        colors: { primary: functionMock, 'red-1': functionMock },
+        tokens: {
+          colors: { primary: functionMock, 'red-1': functionMock },
+        },
         utilities: {
           ':root,.dawn,[data-theme="dawn"]': {
             '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
@@ -120,12 +79,12 @@ describe('plugin', () => {
         },
         variants: [
           {
-            definition: ['&.midnight', '&[data-theme="midnight"]'],
-            name: 'midnight',
-          },
-          {
             definition: ['&.dawn', '&[data-theme="dawn"]'],
             name: 'dawn',
+          },
+          {
+            definition: ['&.midnight', '&[data-theme="midnight"]'],
+            name: 'midnight',
           },
         ],
       });
@@ -136,18 +95,20 @@ describe('plugin', () => {
     it('should resolve the themes into a utility object for tailwind', () => {
       const result = unwrapRE(
         resolveThemes({
-          midnight: { extend: 'dark', colorPalette: { red: myraColors.red.dark }, semanticTokens: { colors: { primary: 'red' } } },
-          dawn: { colorPalette: { red: myraColors.red.light }, semanticTokens: { colors: { primary: 'red' } } },
+          midnight: { extend: 'dark', colors: { primary: 'red', red: myraColors.red.dark } },
+          dawn: { colors: { red: myraColors.red.light, primary: 'red' } },
         }),
         { defaultExtendTheme: 'light', prefix: 'prefix' }
       );
 
       expect(result).toEqual({
         baseStyles: getBaseStyles('prefix'),
-        colors: expect.objectContaining({
-          primary: expect.any(Function),
-          'red-1': expect.any(Function),
-          'primary-1': expect.any(Function),
+        tokens: expect.objectContaining({
+          colors: expect.objectContaining({
+            primary: expect.any(Function),
+            'red-1': expect.any(Function),
+            'primary-1': expect.any(Function),
+          }),
         }),
         utilities: {
           ':root,.dawn,[data-theme="dawn"]': expect.objectContaining({
@@ -243,9 +204,10 @@ describe('plugin', () => {
 
       expect(plugin.config).toEqual({
         theme: {
-          extend: {
+          extend: expect.objectContaining({
             colors: expect.objectContaining({ 'red-1': expect.any(Function) }),
-          },
+            spacing: expect.objectContaining({ unit: 4 }),
+          }),
         },
       });
     });
