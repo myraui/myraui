@@ -54,8 +54,6 @@ describe('plugin', () => {
         },
       })({ '--base-colors-primary': 'red' });
 
-      console.log(result);
-
       expect(result).toEqual({
         baseStyles: {
           '--base-colors-primary': 'red',
@@ -210,7 +208,7 @@ describe('plugin', () => {
         theme: {
           extend: expect.objectContaining({
             colors: expect.objectContaining({ red: expect.objectContaining({ DEFAULT: expect.any(Function) }) }),
-            spacing: expect.objectContaining({ unit: 4 }),
+            spacing: expect.objectContaining({ unit: 'var(--myraui-spacing-unit)' }),
           }),
         },
       });

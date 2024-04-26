@@ -71,8 +71,6 @@ function createPlugin(resolved: ResolvedThemes) {
     ({ addBase, addUtilities, addVariant }) => {
       addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
       addUtilities({ ...resolved?.utilities });
-      console.log(resolved.variants);
-
       resolved?.variants.forEach((variant) => {
         addVariant(variant.name, variant.definition);
       });

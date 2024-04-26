@@ -122,8 +122,6 @@ describe('generators/color-palette-generator', () => {
     it('should build all the colors with a scale', () => {
       const colors = unwrapRE(colorGenerator({ blue: myraColors.blue.light, primary: 'blue' }), env);
 
-      console.log(colors);
-
       expect(colors).toEqual({
         colors: expect.objectContaining({
           blue: expect.objectContaining({
