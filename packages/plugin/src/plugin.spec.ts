@@ -105,9 +105,13 @@ describe('plugin', () => {
         baseStyles: getBaseStyles('prefix'),
         tokens: expect.objectContaining({
           colors: expect.objectContaining({
-            primary: expect.any(Function),
-            'red-1': expect.any(Function),
-            'primary-1': expect.any(Function),
+            primary: expect.objectContaining({
+              DEFAULT: expect.any(Function),
+              1: expect.any(Function),
+            }),
+            red: expect.objectContaining({
+              1: expect.any(Function),
+            }),
           }),
         }),
         utilities: {
@@ -205,7 +209,7 @@ describe('plugin', () => {
       expect(plugin.config).toEqual({
         theme: {
           extend: expect.objectContaining({
-            colors: expect.objectContaining({ 'red-1': expect.any(Function) }),
+            colors: expect.objectContaining({ red: expect.objectContaining({ DEFAULT: expect.any(Function) }) }),
             spacing: expect.objectContaining({ unit: 4 }),
           }),
         },
