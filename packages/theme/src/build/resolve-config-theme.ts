@@ -1,4 +1,4 @@
-import { Exception, mergeObjects, toValues } from '@myraui/utils';
+import { Exception, mergeObjects, StringOrNumber, toValues } from '@myraui/utils';
 import { GeneratedConfigTheme, GeneratedThemeToken, ResolvedConfigTheme, ResolvedThemeToken, ThemeEnv, ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
@@ -6,9 +6,9 @@ import * as R from 'fp-ts/Record';
 import { resolvers } from '../resolvers/resolvers';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
 import { flow } from 'fp-ts/function';
-import { themeTokenVariable } from '../utils';
+import { themeTokenVariable } from '../utils/css-variables';
 
-export function resolveDefault<K extends keyof ThemeTokens>(tokenKey: K, value: string, prefix: string) {
+export function resolveDefault<K extends keyof ThemeTokens>(tokenKey: K, value: StringOrNumber, prefix: string) {
   const key = prefix.replace(/-$/, '');
   return pipe(
     themeTokenVariable(tokenKey, `${prefix}${value}`),

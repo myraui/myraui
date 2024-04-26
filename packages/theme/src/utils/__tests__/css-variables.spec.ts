@@ -9,6 +9,7 @@ import {
 } from '../css-variables';
 import { unwrapRE } from '@myraui/utils';
 import { ThemeEnv } from '../../theme.types';
+import { SpacingScaleKeys } from '../../generators/spacing-unit-generator';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 

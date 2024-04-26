@@ -127,7 +127,7 @@ export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
   );
 }
 
-export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K | undefined, options?: CSSVariableOptions) {
+export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K, options?: CSSVariableOptions) {
   const key = (spacingScaleKey ? `-${spacingScaleKey}` : '').replace('.', '_');
 
   return cssVariable(`spacing-unit${key}`, options);

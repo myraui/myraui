@@ -1,7 +1,7 @@
 import { unwrapRE } from '@myraui/utils';
 import { buildConfigTheme, createBuiltConfigTheme, extractResolvedTokens, extractResolvedValue, extractUtilities } from '../build-config-theme';
 import { ThemeEnv } from '../../theme.types';
-import { colorVariable } from '../../utils';
+import { colorVariable } from '../../utils/css-variables';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
@@ -97,7 +97,7 @@ describe('build/build-config-theme', () => {
       expect(result).toEqual({
         tokens: expect.objectContaining({
           colors: expect.objectContaining({ primary: expect.any(Function) }),
-          spacing: expect.objectContaining({ unit: 4 }),
+          spacing: expect.objectContaining({ unit: `var(--prefix-spacing-unit)` }),
           borderWidth: expect.objectContaining({
             DEFAULT: 'var(--prefix-border-width)',
           }),

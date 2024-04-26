@@ -4,7 +4,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
-import { CSSVariable } from '../utils';
+import { CSSVariable } from '../utils/css-variables';
 import * as RA from 'fp-ts/ReadonlyArray';
 import { flow } from 'fp-ts/function';
 import { generateConfigTheme } from './generate-config-theme';

@@ -2,7 +2,7 @@ import { unwrapRE } from '@myraui/utils';
 import { colorResolver, createColorValue, generateColorValueFn } from '../color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
-import { colorVariable, opacityVariable } from '../../utils';
+import { colorVariable, opacityVariable } from '../../utils/css-variables';
 import { ThemeEnv } from '../../theme.types';
 
 const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };

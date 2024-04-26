@@ -2,7 +2,7 @@ import { ConfigThemeGenerator } from './generators';
 import { pipe } from 'fp-ts/lib/function';
 import { ColorScale } from '../colors';
 import * as R from 'fp-ts/Record';
-import { ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils';
+import { ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils/css-variables';
 import * as RE from 'fp-ts/ReaderEither';
 import { ThemeEnv, ThemeTokens } from '../theme.types';
 import { Dict, Exception, flattenObject, mapKeys } from '@myraui/utils';
@@ -45,6 +45,13 @@ export function generateColorVariables(colorName: string, colorValue: string): R
   return pipe(createColorValueOptions(colorValue), (options) => colorVariable(colorName, options));
 }
 
+export function generateDefaultColor(color: string, shade: string): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
+  return pipe(
+    colorVariable(`${color}-${shade}`),
+    RE.chain(([colorValue, opacityValue]) => colorVariable(color, { color: { value: colorValue }, opacity: { value: opacityValue } }))
+  );
+}
+
 export function generateColorScale(
   color: string,
   value: string | ColorScale
@@ -56,7 +63,7 @@ export function generateColorScale(
   return pipe(
     value,
     R.mapWithIndex((shade, colorValue) => {
-      if (shade === 'DEFAULT') return generateColorVariables(color, (value as any)[colorValue]);
+      if (shade === 'DEFAULT') return generateDefaultColor(color, String(colorValue));
       return generateColorVariables(`${color}-${shade}`, colorValue as any);
     }),
     R.sequence(RE.Applicative),

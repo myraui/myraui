@@ -1,10 +1,10 @@
-import { colorVariable, CSSVariable } from '../utils';
+import { colorVariable, CSSVariable } from '../utils/css-variables';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ResolvedValues, Resolver } from './resolvers';
 import { ColorShade, extractColorShade, shades } from '../colors';
 import { ThemeEnv } from '../theme.types';
-import { Exception, mergeObjects } from '@myraui/utils';
+import { Exception, mergeObjects, StringOrNumber } from '@myraui/utils';
 
 export type ColorValueFunction = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
 
@@ -50,13 +50,13 @@ export function createColorValue(
   );
 }
 
-export const colorResolver: Resolver<ColorValueFunction> = (key: string, value: string) => {
+export const colorResolver: Resolver<ColorValueFunction> = (key: string, value: StringOrNumber) => {
   return pipe(
-    createColorValue(key, value),
+    createColorValue(key, String(value)),
     RE.chain((colorVariables) =>
       pipe(
         shades,
-        RE.traverseArray((shade) => createColorValue(key, value, shade)),
+        RE.traverseArray((shade) => createColorValue(key, String(value), shade)),
         RE.map(mergeObjects),
         RE.map((shadeVariables) => ({ ...shadeVariables, ...colorVariables }))
       )

@@ -10,7 +10,7 @@ import { ThemeOpacity } from './theme/opacity';
 import { ThemeHeight } from './theme/height';
 import { ThemeWidth } from './theme/width';
 import { ResolvedValue } from './resolvers';
-import { CSSVariable } from './utils';
+import { CSSVariable } from './utils/css-variables';
 
 export type ThemeEnv = {
   prefix: string;
@@ -52,7 +52,7 @@ export type ComponentTheme = {
 
 export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
 
-export type GeneratedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, string | ResolvedValue<any>>;
+export type GeneratedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, StringOrNumber | ResolvedValue<any>>;
 
 export type ResolvedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, ResolvedValue<any>>;
 

@@ -1,21 +1,22 @@
-import { ResolvedValue, Resolver } from './resolvers';
+import { Resolver } from './resolvers';
 import { pipe } from 'fp-ts/lib/function';
-import { cssVariable } from '../utils';
+import { cssVariable } from '../utils/css-variables';
 import { ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
-import { isResolvedValue } from './utils/is-resolved-value';
+import { StringOrNumber } from '@myraui/utils';
+
+function validateKey(key: string) {
+  return key.replace(/\./, '_');
+}
 
 export const genericResolver =
   (tokenKey: keyof ThemeTokens): Resolver =>
-  (key: string, value: string | ResolvedValue<any>) => {
-    if (isResolvedValue(value)) {
-      return RE.of({ [key]: value });
-    }
+  (key: string, value: StringOrNumber) => {
     return pipe(
-      cssVariable(`${tokenKey}-${key}`, { value }),
+      cssVariable(`${tokenKey}-${validateKey(key)}`, { value: String(value) }),
       RE.map((variable) => ({
         [key]: {
-          value: value,
+          value: variable.reference(),
           utilities: [variable],
         },
       }))

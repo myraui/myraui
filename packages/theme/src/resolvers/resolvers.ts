@@ -1,7 +1,7 @@
 import { ThemeEnv, ThemeTokens } from '../theme.types';
-import { CSSVariable } from '../utils';
+import { CSSVariable } from '../utils/css-variables';
 import * as RE from 'fp-ts/ReaderEither';
-import { Dict, Exception } from '@myraui/utils';
+import { Dict, Exception, StringOrNumber } from '@myraui/utils';
 import { colorResolver } from './color-resolver';
 import { genericResolver } from './generic-resolver';
 
@@ -14,7 +14,7 @@ export type ResolvedValues<Value> = Dict<ResolvedValue<Value>>;
 
 export type Resolver<Value = any, Env extends ThemeEnv = ThemeEnv> = (
   key: string,
-  value: string
+  value: StringOrNumber
 ) => RE.ReaderEither<Env, Exception, ResolvedValues<Value>>;
 
 type Resolvers = Record<keyof ThemeTokens, Resolver>;

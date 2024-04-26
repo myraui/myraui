@@ -60,7 +60,7 @@ describe('build/resolve-config-theme', () => {
             utilities: [expect.objectContaining({ name: '--prefix-radius', value: 'var(--prefix-radius-medium)' })],
           },
           medium: {
-            value: '12px',
+            value: 'var(--prefix-radius-medium)',
             utilities: [expect.objectContaining({ name: '--prefix-radius-medium', value: '12px' })],
           },
         })
@@ -79,7 +79,7 @@ describe('build/resolve-config-theme', () => {
             utilities: [expect.objectContaining({ name: '--prefix-radius-test', value: 'var(--prefix-radius-test-medium)' })],
           },
           'test-medium': {
-            value: '12px',
+            value: 'var(--prefix-radius-test-medium)',
             utilities: [expect.objectContaining({ name: '--prefix-radius-test-medium', value: '12px' })],
           },
         })
