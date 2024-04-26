@@ -41,10 +41,10 @@ describe('resolvers/color-resolver', () => {
   });
   describe('createColorValue', () => {
     it('should create a color value when the value has a shade', () => {
-      const result = unwrapRE(createColorValue('primary', 'blue.12'), env);
+      const result = unwrapRE(createColorValue('primary', 'blue.12'), env) as any;
 
       expect(result).toEqual({
-        primary: {
+        DEFAULT: {
           value: expect.any(Function),
           utilities: [
             { name: '--prefix-colors-primary', value: 'var(--prefix-colors-blue-12)', reference: expect.any(Function) },
@@ -53,7 +53,7 @@ describe('resolvers/color-resolver', () => {
         },
       });
 
-      const valueFunction = result.primary.value;
+      const valueFunction = result.DEFAULT.value;
 
       expect(valueFunction({ opacityVariable: '', opacityValue: '90' })).toBe('hsl(var(--prefix-colors-primary) / 90)');
     });
@@ -62,7 +62,7 @@ describe('resolvers/color-resolver', () => {
       const result = unwrapRE(createColorValue('primary', 'blue'), env);
 
       expect(result).toEqual({
-        primary: {
+        DEFAULT: {
           value: expect.any(Function),
           utilities: [
             { name: '--prefix-colors-primary', value: 'var(--prefix-colors-blue-9)', reference: expect.any(Function) },
@@ -76,7 +76,7 @@ describe('resolvers/color-resolver', () => {
       const result = unwrapRE(createColorValue('primary', 'blue', 12), env);
 
       expect(result).toEqual({
-        'primary-12': {
+        12: {
           value: expect.any(Function),
           utilities: [
             { name: '--prefix-colors-primary-12', value: 'var(--prefix-colors-blue-12)', reference: expect.any(Function) },
@@ -94,21 +94,21 @@ describe('resolvers/color-resolver', () => {
       expect(Object.keys(result).length).toEqual(13);
       expect(result).toEqual(
         expect.objectContaining({
-          primary: {
+          DEFAULT: {
             value: expect.any(Function),
             utilities: expect.arrayContaining([
               { name: '--prefix-colors-primary', value: 'var(--prefix-colors-blue-9)', reference: expect.any(Function) },
               { name: '--prefix-colors-primary-opacity', value: 'var(--prefix-colors-blue-9-opacity)', reference: expect.any(Function) },
             ]),
           },
-          'primary-1': {
+          1: {
             value: expect.any(Function),
             utilities: expect.arrayContaining([
               { name: '--prefix-colors-primary-1', value: 'var(--prefix-colors-blue-1)', reference: expect.any(Function) },
               { name: '--prefix-colors-primary-1-opacity', value: 'var(--prefix-colors-blue-1-opacity)', reference: expect.any(Function) },
             ]),
           },
-          'primary-12': {
+          12: {
             value: expect.any(Function),
             utilities: expect.arrayContaining([
               { name: '--prefix-colors-primary-12', value: 'var(--prefix-colors-blue-12)', reference: expect.any(Function) },

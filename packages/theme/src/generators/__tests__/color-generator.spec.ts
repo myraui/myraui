@@ -122,22 +122,26 @@ describe('generators/color-palette-generator', () => {
     it('should build all the colors with a scale', () => {
       const colors = unwrapRE(colorGenerator({ blue: myraColors.blue.light, primary: 'blue' }), env);
 
+      console.log(colors);
+
       expect(colors).toEqual({
         colors: expect.objectContaining({
           blue: expect.objectContaining({
-            value: expect.any(Function),
-            utilities: expect.arrayContaining([
-              {
-                name: '--prefix-colors-blue',
-                value: 'var(--prefix-colors-blue-9)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-blue-opacity',
-                value: 'var(--prefix-colors-blue-9-opacity)',
-                reference: expect.any(Function),
-              },
-            ]),
+            DEFAULT: expect.objectContaining({
+              value: expect.any(Function),
+              utilities: expect.arrayContaining([
+                {
+                  name: '--prefix-colors-blue',
+                  value: 'var(--prefix-colors-blue-9)',
+                  reference: expect.any(Function),
+                },
+                {
+                  name: '--prefix-colors-blue-opacity',
+                  value: 'var(--prefix-colors-blue-9-opacity)',
+                  reference: expect.any(Function),
+                },
+              ]),
+            }),
           }),
           primary: 'blue',
         }),

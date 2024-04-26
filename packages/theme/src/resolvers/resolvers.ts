@@ -4,13 +4,14 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception, StringOrNumber } from '@myraui/utils';
 import { colorResolver } from './color-resolver';
 import { genericResolver } from './generic-resolver';
+import { fontSizeResolver } from './font-size-resolver';
 
 export interface ResolvedValue<Value> {
   value: Value;
   utilities?: ReadonlyArray<CSSVariable>;
 }
 
-export type ResolvedValues<Value> = Dict<ResolvedValue<Value>>;
+export type ResolvedValues<Value> = Dict<ResolvedValue<Value>> | ResolvedValue<any>;
 
 export type Resolver<Value = any, Env extends ThemeEnv = ThemeEnv> = (
   key: string,
@@ -22,7 +23,7 @@ type Resolvers = Record<keyof ThemeTokens, Resolver>;
 export const resolvers: Resolvers = {
   colors: colorResolver,
   opacity: genericResolver('opacity'),
-  fontSize: genericResolver('fontSize'),
+  fontSize: fontSizeResolver,
   lineHeight: genericResolver('lineHeight'),
   width: genericResolver('width'),
   height: genericResolver('height'),

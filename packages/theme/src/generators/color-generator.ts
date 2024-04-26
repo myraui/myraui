@@ -5,7 +5,7 @@ import * as R from 'fp-ts/Record';
 import { ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils/css-variables';
 import * as RE from 'fp-ts/ReaderEither';
 import { ThemeEnv, ThemeTokens } from '../theme.types';
-import { Dict, Exception, flattenObject, mapKeys } from '@myraui/utils';
+import { Dict, Exception } from '@myraui/utils';
 import Color from 'color';
 import { generateColorValueFn, ResolvedValue } from '../resolvers';
 import { isColorScale } from '../colors/utils';
@@ -16,7 +16,9 @@ export function parseColor(colorValue: string) {
   try {
     return Color(colorValue).hsl().round().array();
   } catch (err) {
-    console.error(`Error parsing color: ${colorValue}`);
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(`Error parsing color: ${colorValue}`);
+    }
 
     return [0, 0, 0, 1];
   }
@@ -81,8 +83,6 @@ export const colorGenerator: ConfigThemeGenerator<'colors'> = (colors: ThemeToke
     colors as Dict,
     R.mapWithIndex(generateColorScale),
     R.sequence(RE.Applicative),
-    RE.map((palette) => flattenObject(palette, { maxDepth: 2 })),
-    RE.map(mapKeys((key) => (key.endsWith('-DEFAULT') ? key.replace('-DEFAULT', '') : key))),
     RE.map((palette) => ({ colors: palette }))
   );
 };

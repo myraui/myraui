@@ -36,9 +36,9 @@ export function createColorValue(
     RE.of(extractColorShade(value)),
     RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
     RE.chain(([colorValue, opacityColorValue]) => {
-      const colorKey = shade ? `${key}-${shade}` : key;
+      const colorKey = shade ? `${shade}` : 'DEFAULT';
       return pipe(
-        colorVariable(colorKey, { color: { value: colorValue }, opacity: { value: opacityColorValue } }),
+        colorVariable(colorKey === 'DEFAULT' ? key : `${key}-${colorKey}`, { color: { value: colorValue }, opacity: { value: opacityColorValue } }),
         RE.map((colorVariables) => ({
           [colorKey]: {
             value: generateColorValueFn(...colorVariables),

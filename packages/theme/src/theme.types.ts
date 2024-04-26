@@ -1,6 +1,6 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
-import { DeepRecord, RecordKey, StringOrNumber } from '@myraui/utils';
+import { DeepRecord, Dict, RecordKey, StringOrNumber } from '@myraui/utils';
 import { ThemeFontSize } from './theme/fontSize';
 import { ThemeLineHeight } from './theme/lineHeight';
 import { ThemeRadius } from './theme/radius';
@@ -52,7 +52,10 @@ export type ComponentTheme = {
 
 export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
 
-export type GeneratedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, StringOrNumber | ResolvedValue<any>>;
+export type GeneratedThemeToken<D = unknown> = Record<
+  D extends Record<infer K, any> ? K : string,
+  StringOrNumber | ResolvedValue<any> | Dict<ResolvedValue<any>>
+>;
 
 export type ResolvedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, ResolvedValue<any>>;
 

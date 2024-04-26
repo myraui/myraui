@@ -29,6 +29,11 @@ export type ColorCSSVariableOptions = {
   opacity?: CSSVariableOptions;
 };
 
+export type FontSizeVariableOptions = {
+  fontSize?: CSSVariableOptions;
+  lineHeight?: CSSVariableOptions;
+};
+
 export type ScopedCSSVariables<Scope extends string = string> = Record<Scope, CSSVariable[]>;
 
 export type ThemedCSSVariables = Partial<ScopedCSSVariables<Theme>>;
@@ -131,4 +136,12 @@ export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?
   const key = (spacingScaleKey ? `-${spacingScaleKey}` : '').replace('.', '_');
 
   return cssVariable(`spacing-unit${key}`, options);
+}
+
+export function fontSizeVariable(fontSizeKey?: string, options?: FontSizeVariableOptions) {
+  const key = (fontSizeKey ? `-${fontSizeKey}` : '').replace('.', '_');
+  return pipe(
+    RE.sequenceArray([cssVariable(`font-size${key}`, options?.fontSize || {}), cssVariable(`line-height${key}`, options?.lineHeight || {})]),
+    RE.map(([fontSize, lineHeight]) => [fontSize, lineHeight])
+  );
 }

@@ -15,10 +15,8 @@ export const genericResolver =
     return pipe(
       cssVariable(`${tokenKey}-${validateKey(key)}`, { value: String(value) }),
       RE.map((variable) => ({
-        [key]: {
-          value: variable.reference(),
-          utilities: [variable],
-        },
+        value: variable.reference(),
+        utilities: [variable],
       }))
     );
   };

@@ -2,6 +2,7 @@ import { unwrapRE } from '@myraui/utils';
 import { buildConfigTheme, createBuiltConfigTheme, extractResolvedTokens, extractResolvedValue, extractUtilities } from '../build-config-theme';
 import { ThemeEnv } from '../../theme.types';
 import { colorVariable } from '../../utils/css-variables';
+import { expect } from '@storybook/jest';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
@@ -96,10 +97,14 @@ describe('build/build-config-theme', () => {
 
       expect(result).toEqual({
         tokens: expect.objectContaining({
-          colors: expect.objectContaining({ primary: expect.any(Function) }),
+          colors: expect.objectContaining({
+            primary: expect.objectContaining({
+              DEFAULT: expect.any(Function),
+            }),
+          }),
           spacing: expect.objectContaining({ unit: `var(--prefix-spacing-unit)` }),
           borderWidth: expect.objectContaining({
-            DEFAULT: 'var(--prefix-border-width)',
+            DEFAULT: 'var(--prefix-border-width-medium)',
           }),
         }),
         utilities: expect.arrayContaining([
@@ -108,8 +113,12 @@ describe('build/build-config-theme', () => {
             value: 'var(--prefix-colors-blue-2)',
           }),
           expect.objectContaining({
-            name: '--prefix-border-width',
-            value: 'var(--prefix-border-width-medium)',
+            name: '--prefix-colors-primary-opacity',
+            value: 'var(--prefix-colors-blue-2-opacity)',
+          }),
+          expect.objectContaining({
+            name: '--prefix-border-width-medium',
+            value: '2px',
           }),
         ]),
         colorMode: 'light',

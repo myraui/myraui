@@ -2,6 +2,7 @@ import {
   buildCSSVariables,
   colorVariable,
   cssVariable,
+  fontSizeVariable,
   isCSSVariable,
   opacityVariable,
   spacingUnitVariable,
@@ -9,7 +10,6 @@ import {
 } from '../css-variables';
 import { unwrapRE } from '@myraui/utils';
 import { ThemeEnv } from '../../theme.types';
-import { SpacingScaleKeys } from '../../generators/spacing-unit-generator';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
@@ -112,6 +112,26 @@ describe('utils/css-variables', () => {
       const result = unwrapRE(spacingUnitVariable(), env);
 
       expect(result).toEqual({ name: '--prefix-spacing-unit', reference: expect.any(Function), value: '' });
+    });
+  });
+
+  describe('fontSizeVariable', () => {
+    it('should create a font size variable', () => {
+      const result = unwrapRE(fontSizeVariable('medium'), env);
+
+      expect(result).toEqual([
+        { name: '--prefix-font-size-medium', reference: expect.any(Function), value: '' },
+        { name: '--prefix-line-height-medium', reference: expect.any(Function), value: '' },
+      ]);
+    });
+
+    it('should create a font size variable with options', () => {
+      const result = unwrapRE(fontSizeVariable('medium', { fontSize: { value: '2rem' }, lineHeight: { value: '2' } }), env);
+
+      expect(result).toEqual([
+        { name: '--prefix-font-size-medium', reference: expect.any(Function), value: '2rem' },
+        { name: '--prefix-line-height-medium', reference: expect.any(Function), value: '2' },
+      ]);
     });
   });
 });

@@ -1,5 +1,5 @@
 import { unwrapRE } from '@myraui/utils';
-import { resolveConfigTheme, resolveDefault, resolveThemeToken } from '../resolve-config-theme';
+import { resolveConfigTheme, resolveThemeToken } from '../resolve-config-theme';
 import { ThemeEnv } from '../../theme.types';
 import { myraColors } from '../../colors';
 import { generateConfigTheme } from '../generate-config-theme';
@@ -26,24 +26,28 @@ describe('build/resolve-config-theme', () => {
 
       expect(resolved).toEqual(
         expect.objectContaining({
-          'primary-background': {
-            value: expect.any(Function),
-            utilities: [
-              expect.objectContaining({ name: '--prefix-colors-primary-background', value: 'var(--prefix-colors-red-1)' }),
-              expect.objectContaining({ name: '--prefix-colors-primary-background-opacity', value: 'var(--prefix-colors-red-1-opacity)' }),
-            ],
-          },
-          secondary: {
-            value: expect.any(Function),
-            utilities: [
-              expect.objectContaining({ name: '--prefix-colors-secondary', value: 'var(--prefix-colors-blue-1)' }),
-              expect.objectContaining({ name: '--prefix-colors-secondary-opacity', value: 'var(--prefix-colors-blue-1-opacity)' }),
-            ],
-          },
+          'primary-background': expect.objectContaining({
+            DEFAULT: {
+              value: expect.any(Function),
+              utilities: [
+                expect.objectContaining({ name: '--prefix-colors-primary-background', value: 'var(--prefix-colors-red-1)' }),
+                expect.objectContaining({ name: '--prefix-colors-primary-background-opacity', value: 'var(--prefix-colors-red-1-opacity)' }),
+              ],
+            },
+          }),
+          secondary: expect.objectContaining({
+            DEFAULT: {
+              value: expect.any(Function),
+              utilities: [
+                expect.objectContaining({ name: '--prefix-colors-secondary', value: 'var(--prefix-colors-blue-1)' }),
+                expect.objectContaining({ name: '--prefix-colors-secondary-opacity', value: 'var(--prefix-colors-blue-1-opacity)' }),
+              ],
+            },
+          }),
         })
       );
 
-      const primaryBackground = resolved['primary-background'].value;
+      const primaryBackground = resolved['primary-background'].DEFAULT.value;
 
       expect(primaryBackground({})).toBe('hsl(var(--prefix-colors-primary-background) / var(--prefix-colors-primary-background-opacity, 1))');
     });
@@ -56,8 +60,8 @@ describe('build/resolve-config-theme', () => {
       expect(resolved).toEqual(
         expect.objectContaining({
           DEFAULT: {
-            value: 'var(--prefix-radius)',
-            utilities: [expect.objectContaining({ name: '--prefix-radius', value: 'var(--prefix-radius-medium)' })],
+            value: 'var(--prefix-radius-medium)',
+            utilities: [expect.objectContaining({ name: '--prefix-radius-medium', value: '12px' })],
           },
           medium: {
             value: 'var(--prefix-radius-medium)',
@@ -74,44 +78,45 @@ describe('build/resolve-config-theme', () => {
 
       expect(resolved).toEqual(
         expect.objectContaining({
-          test: {
-            value: 'var(--prefix-radius-test)',
-            utilities: [expect.objectContaining({ name: '--prefix-radius-test', value: 'var(--prefix-radius-test-medium)' })],
-          },
-          'test-medium': {
-            value: 'var(--prefix-radius-test-medium)',
-            utilities: [expect.objectContaining({ name: '--prefix-radius-test-medium', value: '12px' })],
-          },
+          test: expect.objectContaining({
+            DEFAULT: {
+              value: 'var(--prefix-radius-test-medium)',
+              utilities: [expect.objectContaining({ name: '--prefix-radius-test-medium', value: '12px' })],
+            },
+            medium: {
+              value: 'var(--prefix-radius-test-medium)',
+              utilities: [expect.objectContaining({ name: '--prefix-radius-test-medium', value: '12px' })],
+            },
+          }),
         })
       );
     });
   });
 
-  describe('resolveDefault', () => {
-    it('should generate the default token', () => {
-      const resolved = unwrapRE(resolveDefault('colors', 'red', ''), env);
-
-      expect(resolved).toEqual({
-        DEFAULT: {
-          value: 'var(--prefix-colors)',
-          utilities: [expect.objectContaining({ name: '--prefix-colors', value: 'var(--prefix-colors-red)' })],
-        },
-      });
-    });
-
-    it('should generate the default token for a nested token', () => {
-      const resolved = unwrapRE(resolveDefault('colors', 'red', 'primary-'), env);
-
-      expect(resolved).toEqual({
-        primary: {
-          value: 'var(--prefix-colors-primary)',
-          utilities: [expect.objectContaining({ name: '--prefix-colors-primary', value: 'var(--prefix-colors-primary-red)' })],
-        },
-      });
-    });
-  });
-
   describe('resolveConfigTheme', () => {
+    it('should resolve the font sizes', () => {
+      const configTheme = unwrapRE(
+        generateConfigTheme({
+          fontSize: defaultThemes.light.fontSize,
+        } as any),
+        env
+      );
+      const resolved = unwrapRE(resolveConfigTheme(configTheme), env);
+
+      expect(resolved).toEqual({
+        fontSize: expect.objectContaining({
+          DEFAULT: expect.objectContaining({
+            value: ['var(--prefix-font-size-medium)', 'var(--prefix-line-height-medium)'],
+            utilities: [expect.objectContaining({ name: '--prefix-font-size-medium', value: '1rem' })],
+          }),
+          medium: expect.objectContaining({
+            value: ['var(--prefix-font-size-medium)', 'var(--prefix-line-height-medium)'],
+            utilities: [expect.objectContaining({ name: '--prefix-font-size-medium', value: '1rem' })],
+          }),
+        }),
+      });
+    });
+
     it('should resolve the config theme', () => {
       const configTheme = unwrapRE(
         generateConfigTheme({
@@ -124,32 +129,38 @@ describe('build/resolve-config-theme', () => {
       expect(resolved).toEqual(
         expect.objectContaining({
           colors: expect.objectContaining({
-            'primary-background': {
-              value: expect.any(Function),
-              utilities: [
-                expect.objectContaining({ name: '--prefix-colors-primary-background', value: 'var(--prefix-colors-red-1)' }),
-                expect.objectContaining({ name: '--prefix-colors-primary-background-opacity', value: 'var(--prefix-colors-red-1-opacity)' }),
-              ],
-            },
-            secondary: {
-              value: expect.any(Function),
-              utilities: [
-                expect.objectContaining({ name: '--prefix-colors-secondary', value: 'var(--prefix-colors-blue-9)' }),
-                expect.objectContaining({ name: '--prefix-colors-secondary-opacity', value: 'var(--prefix-colors-blue-9-opacity)' }),
-              ],
-            },
-            'red-1': {
-              value: expect.any(Function),
-              utilities: [
-                expect.objectContaining({ name: '--prefix-colors-red-1', value: '0 100% 99%' }),
-                expect.objectContaining({ name: '--prefix-colors-red-1-opacity', value: '' }),
-              ],
-            },
+            'primary-background': expect.objectContaining({
+              DEFAULT: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-primary-background', value: 'var(--prefix-colors-red-1)' }),
+                  expect.objectContaining({ name: '--prefix-colors-primary-background-opacity', value: 'var(--prefix-colors-red-1-opacity)' }),
+                ],
+              },
+            }),
+            secondary: expect.objectContaining({
+              DEFAULT: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-secondary', value: 'var(--prefix-colors-blue-9)' }),
+                  expect.objectContaining({ name: '--prefix-colors-secondary-opacity', value: 'var(--prefix-colors-blue-9-opacity)' }),
+                ],
+              },
+            }),
+            red: expect.objectContaining({
+              1: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-red-1', value: '0 100% 99%' }),
+                  expect.objectContaining({ name: '--prefix-colors-red-1-opacity', value: '' }),
+                ],
+              },
+            }),
           }),
         })
       );
 
-      const primaryBackground = (resolved.colors['primary-background'] as any).value;
+      const primaryBackground = (resolved.colors['primary-background'] as any).DEFAULT.value;
 
       expect(primaryBackground({})).toBe('hsl(var(--prefix-colors-primary-background) / var(--prefix-colors-primary-background-opacity, 1))');
     });

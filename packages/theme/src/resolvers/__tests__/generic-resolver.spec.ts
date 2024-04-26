@@ -10,10 +10,8 @@ describe('resolvers/generic-resolver', () => {
       const result = unwrapRE(genericResolver('colors')('key', 'value'), env);
 
       expect(result).toEqual({
-        key: {
-          value: 'var(--prefix-colors-key)',
-          utilities: [expect.objectContaining({})],
-        },
+        value: 'var(--prefix-colors-key)',
+        utilities: [expect.objectContaining({})],
       });
     });
 
@@ -22,10 +20,8 @@ describe('resolvers/generic-resolver', () => {
       const result = unwrapRE(resolver('2.5', 'value'), env);
 
       expect(result).toEqual({
-        '2.5': {
-          value: 'var(--prefix-colors-2_5)',
-          utilities: [expect.objectContaining({ value: 'value', name: '--prefix-colors-2_5' })],
-        },
+        value: 'var(--prefix-colors-2_5)',
+        utilities: [expect.objectContaining({ value: 'value', name: '--prefix-colors-2_5' })],
       });
     });
   });

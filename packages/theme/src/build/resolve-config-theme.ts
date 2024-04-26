@@ -1,52 +1,38 @@
-import { Exception, mergeObjects, StringOrNumber, toValues } from '@myraui/utils';
+import { Exception } from '@myraui/utils';
 import { GeneratedConfigTheme, GeneratedThemeToken, ResolvedConfigTheme, ResolvedThemeToken, ThemeEnv, ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
-import { resolvers } from '../resolvers/resolvers';
+import { ResolvedValue, resolvers } from '../resolvers/resolvers';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
-import { flow } from 'fp-ts/function';
-import { themeTokenVariable } from '../utils/css-variables';
 
-export function resolveDefault<K extends keyof ThemeTokens>(tokenKey: K, value: StringOrNumber, prefix: string) {
-  const key = prefix.replace(/-$/, '');
-  return pipe(
-    themeTokenVariable(tokenKey, `${prefix}${value}`),
-    RE.chain((variableValue) =>
-      pipe(
-        themeTokenVariable(tokenKey, `${key}`, { value: variableValue }),
-        RE.map((variable) => ({
-          [key || 'DEFAULT']: {
-            value: variable.reference(),
-            utilities: [variable],
-          },
-        }))
-      )
-    )
-  );
+function applyDefault(record: Record<string, any>) {
+  if (record.DEFAULT) {
+    return { ...record, DEFAULT: record[record.DEFAULT] };
+  }
+  return record;
 }
 
 export function resolveThemeToken<K extends keyof ThemeTokens, T extends GeneratedThemeToken>(
   tokenKey: K,
   token: T,
   prefix = ''
-): RE.ReaderEither<ThemeEnv, Exception, ResolvedThemeToken<T>> {
+): RE.ReaderEither<ThemeEnv, Exception, ResolvedThemeToken<T> | ResolvedValue<any>> {
   return pipe(
     token,
     R.mapWithIndex((key, value) => {
       if (typeof value === 'object') {
-        if (isResolvedValue(value)) return RE.of({ [`${prefix}${key}`]: value });
+        if (isResolvedValue(value)) return RE.of(value);
         return resolveThemeToken(tokenKey, value as any, `${prefix}${key}-`);
       }
 
       if (key === 'DEFAULT') {
-        return resolveDefault(tokenKey, value, prefix);
+        return resolvers[tokenKey](`${prefix}${value}`, token[value] as any);
       }
 
       return resolvers[tokenKey](`${prefix}${key}`, value);
     }),
-    R.sequence(RE.Applicative),
-    RE.map(flow(toValues, mergeObjects))
+    R.sequence(RE.Applicative)
   ) as any;
 }
 

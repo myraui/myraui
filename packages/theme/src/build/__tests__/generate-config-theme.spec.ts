@@ -21,17 +21,38 @@ describe('build/generate-config-theme', () => {
         expect.objectContaining({
           colors: expect.objectContaining({
             primary: 'gray.1',
-            'gray-1': {
-              value: expect.any(Function),
-              utilities: [
-                expect.objectContaining({ name: '--prefix-colors-gray-1', value: '0 0% 99%' }),
-                expect.objectContaining({ name: '--prefix-colors-gray-1-opacity', value: '' }),
-              ],
-            },
+            gray: expect.objectContaining({
+              1: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-gray-1', value: '0 0% 99%' }),
+                  expect.objectContaining({ name: '--prefix-colors-gray-1-opacity', value: '' }),
+                ],
+              },
+              DEFAULT: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-gray', value: 'var(--prefix-colors-gray-9)' }),
+                  expect.objectContaining({ name: '--prefix-colors-gray-opacity', value: 'var(--prefix-colors-gray-9-opacity)' }),
+                ],
+              },
+            }),
           }),
           spacing: expect.objectContaining({
             unit: 4,
             'unit-1': '0.25rem',
+          }),
+          minWidth: expect.objectContaining({
+            'unit-1': {
+              value: 'var(--prefix-spacing-unit-1)',
+              utilities: [],
+            },
+          }),
+          minHeight: expect.objectContaining({
+            'unit-1': {
+              value: 'var(--prefix-spacing-unit-1)',
+              utilities: [],
+            },
           }),
         })
       );
