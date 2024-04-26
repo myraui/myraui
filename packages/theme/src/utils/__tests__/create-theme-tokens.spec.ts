@@ -14,6 +14,7 @@ describe('utils/create-theme-tokens', () => {
         boxShadow: {},
         borderWidth: {},
         opacity: {},
+        spacing: {},
         minWidth: {},
         minHeight: {},
       });
@@ -29,6 +30,7 @@ describe('utils/create-theme-tokens', () => {
         height: {},
         radius: {},
         boxShadow: {},
+        spacing: {},
         borderWidth: {},
         opacity: {},
         minWidth: {},
@@ -37,9 +39,9 @@ describe('utils/create-theme-tokens', () => {
     });
 
     it('should create theme tokens from a value with colors', () => {
-      const result = createThemeTokens({ colors: { background: { primary: 'blue' } } });
+      const result = createThemeTokens({ colors: { background: 'blue' } });
       expect(result).toEqual({
-        colors: { background: { primary: 'blue' } },
+        colors: { background: 'blue' },
         fontSize: {},
         lineHeight: {},
         width: {},
@@ -48,6 +50,7 @@ describe('utils/create-theme-tokens', () => {
         boxShadow: {},
         borderWidth: {},
         opacity: {},
+        spacing: {},
         minWidth: {},
         minHeight: {},
       });

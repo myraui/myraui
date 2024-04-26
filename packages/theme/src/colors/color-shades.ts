@@ -1,5 +1,6 @@
 import { ColorShade, ColorWithShade } from './color-types';
-import { DEFAULT_SHADE } from '../utils';
+
+export const DEFAULT_SHADE = 9; // Solid Color Shade
 
 export const shades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 

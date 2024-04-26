@@ -1,21 +1,29 @@
-import { Exception } from '@myraui/utils';
+import { Exception, mergeObjects, toValues } from '@myraui/utils';
 import { GeneratedConfigTheme, GeneratedThemeToken, ResolvedConfigTheme, ResolvedThemeToken, ThemeEnv, ThemeTokens } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
 import { resolvers } from '../resolvers/resolvers';
-import { runPathResolver } from './run-path-resolver';
-import { isCSSVariable } from '../utils';
+import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
+import { flow } from 'fp-ts/function';
+import { themeTokenVariable } from '../utils';
 
-export function joinTokenPrefix(prefix: string, path: string) {
-  return !path ? prefix : !prefix ? path : `${prefix}-${path}`;
-}
-
-export function resolveDefault(value: Record<string, any>) {
-  if (value.DEFAULT) {
-    return { ...value, DEFAULT: value[value.DEFAULT] };
-  }
-  return value;
+export function resolveDefault<K extends keyof ThemeTokens>(tokenKey: K, value: string, prefix: string) {
+  const key = prefix.replace(/-$/, '');
+  return pipe(
+    themeTokenVariable(tokenKey, `${prefix}${value}`),
+    RE.chain((variableValue) =>
+      pipe(
+        themeTokenVariable(tokenKey, `${key}`, { value: variableValue }),
+        RE.map((variable) => ({
+          [key || 'DEFAULT']: {
+            value: variable.reference(),
+            utilities: [variable],
+          },
+        }))
+      )
+    )
+  );
 }
 
 export function resolveThemeToken<K extends keyof ThemeTokens, T extends GeneratedThemeToken>(
@@ -25,21 +33,27 @@ export function resolveThemeToken<K extends keyof ThemeTokens, T extends Generat
 ): RE.ReaderEither<ThemeEnv, Exception, ResolvedThemeToken<T>> {
   return pipe(
     token,
-    resolveDefault,
     R.mapWithIndex((key, value) => {
-      if (typeof value === 'object' && !isCSSVariable(value)) {
-        return resolveThemeToken(tokenKey, value as any, joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key));
+      if (typeof value === 'object') {
+        if (isResolvedValue(value)) return RE.of({ [`${prefix}${key}`]: value });
+        return resolveThemeToken(tokenKey, value as any, `${prefix}${key}-`);
       }
-      return resolvers[tokenKey](joinTokenPrefix(prefix, key === 'DEFAULT' ? '' : key), value);
+
+      if (key === 'DEFAULT') {
+        return resolveDefault(tokenKey, value, prefix);
+      }
+
+      return resolvers[tokenKey](`${prefix}${key}`, value);
     }),
-    R.sequence(RE.Applicative) as any
-  );
+    R.sequence(RE.Applicative),
+    RE.map(flow(toValues, mergeObjects))
+  ) as any;
 }
 
 export function resolveConfigTheme<T extends GeneratedConfigTheme>(theme: T): RE.ReaderEither<ThemeEnv, Exception, ResolvedConfigTheme<T>> {
   return pipe(
-    runPathResolver(theme),
-    RE.map(R.mapWithIndex((key, value) => resolveThemeToken(key, value as GeneratedThemeToken))),
-    RE.chain(R.sequence(RE.Applicative))
+    theme,
+    R.mapWithIndex((key, value) => resolveThemeToken(key, value as GeneratedThemeToken)),
+    R.sequence(RE.Applicative)
   ) as any;
 }

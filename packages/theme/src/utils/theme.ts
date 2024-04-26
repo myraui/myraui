@@ -6,7 +6,7 @@ import { ColorPalette, ColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
-import { isColorScale } from '../colors/utils';
+import { isColorScale } from '../colors/utils/is-color-scale';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -29,16 +29,6 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPal
     colors,
     R.mapWithIndex((key, value) => resolveColorValue(colors, value))
   );
-}
-
-/**
- * Flattens the color palette to a simple array of key-value pairs
- * @param palette the color palette e.g. { primary: { 1: '#fff', 2: '#000' } }
- *
- * @returns an array of key-value pairs e.g. [['primary.1', '#fff'], ['primary.2', '#000']]
- */
-export function flattenColorPalette(palette: ColorPalette): Dict<string> {
-  return pipe(flattenObject(palette));
 }
 
 export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<string | Dict<string>> {

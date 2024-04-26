@@ -16,14 +16,14 @@ describe('generators/spacing-unit-generator', () => {
     it('should generate the spacing scale', () => {
       const scale = unwrapRE(spacingUnitGenerator(4), { prefix: 'prefix', defaultExtendTheme: 'light' });
 
-      expect(scale).toEqual(
-        expect.objectContaining({
+      expect(scale).toEqual({
+        spacing: expect.objectContaining({
           unit: 4,
           'unit-1': '0.25rem',
           'unit-48': '12rem',
           'unit-96': '24rem',
-        })
-      );
+        }),
+      });
     });
   });
 });

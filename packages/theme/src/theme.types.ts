@@ -1,6 +1,6 @@
-import { ColorMode, ColorScale, MyraColor } from './colors';
+import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
-import { Assign, DeepRecordCopy, RecordKey } from '@myraui/utils';
+import { DeepRecord, RecordKey, StringOrNumber } from '@myraui/utils';
 import { ThemeFontSize } from './theme/fontSize';
 import { ThemeLineHeight } from './theme/lineHeight';
 import { ThemeRadius } from './theme/radius';
@@ -27,48 +27,36 @@ export type ThemedValue<Value> = Value | ThemeRecord<Value>;
 
 export type ColorValue = (ColorScale | MyraColor) | string;
 
-export type WithDefault<K extends RecordKey, V> = Assign<Record<K, V>, { DEFAULT?: K | RecordKey }> | Record<RecordKey, V>;
-
-export type ThemeTokensRecord<
-  Value,
-  K1 extends RecordKey = RecordKey,
-  K2 extends RecordKey = RecordKey,
-  K3 extends RecordKey = RecordKey,
-  K4 extends RecordKey = RecordKey
-> = WithDefault<K1, Value | WithDefault<K2, Value | WithDefault<K3, Value | WithDefault<K4, Value>>>>;
+export type ThemeTokenRecord<K extends RecordKey, V = StringOrNumber> = Partial<Record<K, V>> & { DEFAULT?: K };
 
 export type ThemeTokens = {
-  colors: ThemeTokensRecord<string, ThemeColors | MyraColor, keyof ColorScale>;
-  fontSize: ThemeTokensRecord<string, ThemeFontSize>;
-  lineHeight: ThemeTokensRecord<string, ThemeLineHeight>;
-  radius: ThemeTokensRecord<string, ThemeRadius>;
-  borderWidth: ThemeTokensRecord<string, ThemeBorderWidth>;
-  boxShadow: ThemeTokensRecord<string, ThemeBoxShadow>;
-  opacity: ThemeTokensRecord<string, ThemeOpacity>;
-  width: ThemeTokensRecord<string, ThemeWidth>;
-  height: ThemeTokensRecord<string, ThemeHeight>;
-  minWidth: ThemeTokensRecord<string>;
-  minHeight: ThemeTokensRecord<string>;
-  spacing: ThemeTokensRecord<string>;
+  colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
+  fontSize: ThemeTokenRecord<ThemeFontSize>;
+  lineHeight: ThemeTokenRecord<ThemeLineHeight>;
+  radius: ThemeTokenRecord<ThemeRadius>;
+  borderWidth: ThemeTokenRecord<ThemeBorderWidth>;
+  boxShadow: ThemeTokenRecord<ThemeBoxShadow>;
+  opacity: ThemeTokenRecord<ThemeOpacity>;
+  width: ThemeTokenRecord<ThemeWidth>;
+  height: ThemeTokenRecord<ThemeHeight>;
+  minWidth: ThemeTokenRecord<string>;
+  minHeight: ThemeTokenRecord<string>;
+  spacing: ThemeTokenRecord<string>;
 };
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
 export type ComponentTheme = {
-  [K in keyof ThemeTokens]?: ThemeTokensRecord<ThemeTokens[K] extends ThemeTokensRecord<infer V> ? ThemedValue<V> : ThemedValue<unknown>>;
+  [K in keyof ThemeTokens]?: DeepRecord<ThemeTokens[K] extends DeepRecord<infer V> ? ThemedValue<V> : ThemedValue<unknown>>;
 };
 
 export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
 
-export type GeneratedThemeToken<D = unknown> = D extends ThemeTokensRecord<any> ? DeepRecordCopy<D, string> : ThemeTokensRecord<string>;
+export type GeneratedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, string | ResolvedValue<any>>;
 
-export type ResolvedThemeToken<D = unknown> = D extends ThemeTokensRecord<any>
-  ? DeepRecordCopy<D, ResolvedValue<any>>
-  : ThemeTokensRecord<ResolvedValue<any>>;
+export type ResolvedThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, ResolvedValue<any>>;
 
-export type BuiltThemeToken<D = unknown> = D extends ThemeTokensRecord<any> ? DeepRecordCopy<D> : ThemeTokensRecord<any>;
-
-export type ResolvedSemanticTokens = Record<keyof ThemeTokens, ResolvedThemeToken>;
+export type BuiltThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, any>;
 
 export interface ConfigTheme extends PartialThemeTokens {
   extend?: ColorMode;

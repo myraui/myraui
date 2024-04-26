@@ -88,7 +88,7 @@ describe('build/build-config-theme', () => {
       const result = unwrapRE(
         buildConfigTheme('midnight', {
           colors: {
-            primary: 'colors.blue.2',
+            primary: 'blue.2',
           },
         }),
         env
@@ -96,10 +96,22 @@ describe('build/build-config-theme', () => {
 
       expect(result).toEqual({
         tokens: expect.objectContaining({
-          colors: expect.objectContaining({ primary: expect.objectContaining({ DEFAULT: expect.any(Function) }) }),
+          colors: expect.objectContaining({ primary: expect.any(Function) }),
           spacing: expect.objectContaining({ unit: 4 }),
+          borderWidth: expect.objectContaining({
+            DEFAULT: 'var(--prefix-border-width)',
+          }),
         }),
-        utilities: expect.arrayContaining([]),
+        utilities: expect.arrayContaining([
+          expect.objectContaining({
+            name: '--prefix-colors-primary',
+            value: 'var(--prefix-colors-blue-2)',
+          }),
+          expect.objectContaining({
+            name: '--prefix-border-width',
+            value: 'var(--prefix-border-width-medium)',
+          }),
+        ]),
         colorMode: 'light',
       });
     });

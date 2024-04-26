@@ -10,7 +10,6 @@ import {
   ThemeEnv,
   ThemeRecord,
   ThemeTokens,
-  ThemeTokensRecord,
 } from '../theme.types';
 import { buildThemedCSSVariables, isThemeRecord, normalizeThemedValue, resolveThemeRecord } from './theme';
 import { ThemedCSSVariables } from './css-variables';
@@ -19,7 +18,7 @@ import { flow } from 'fp-ts/function';
 import { Dict, Exception, mergeObjects, swapKeys, toValues } from '@myraui/utils';
 import { extractUtilities, resolveThemeToken } from '../build';
 
-export function normalizeThemeToken<Value>(themeToken: ThemeTokensRecord<ThemedValue<Value>>): ThemeTokensRecord<ThemeRecord<Value>>;
+export function normalizeThemeToken<Value>(themeToken: Record<string, ThemedValue<Value>>): Record<string, ThemeRecord<Value>>;
 export function normalizeThemeToken<Value>(themedValue: ThemeRecord<Value>): ThemeRecord<Value>;
 export function normalizeThemeToken(themeToken: Dict): any {
   if (!themeToken) return {};
@@ -27,7 +26,7 @@ export function normalizeThemeToken(themeToken: Dict): any {
   return pipe(themeToken, R.map(flow(normalizeThemedValue, normalizeThemeToken)));
 }
 
-export function buildThemedThemeToken<Value>(themeToken: ThemeTokensRecord<ThemeRecord<Value>>): Record<Theme, ThemeTokensRecord<Value>> {
+export function buildThemedThemeToken<Value>(themeToken: Record<string, ThemeRecord<Value>>): Record<Theme, Record<string, Value>> {
   if (!themeToken) return {};
   if (isThemeRecord(themeToken)) return resolveThemeRecord(themeToken);
 

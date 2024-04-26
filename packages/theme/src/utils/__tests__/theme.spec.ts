@@ -1,6 +1,5 @@
 import {
   buildThemedCSSVariables,
-  flattenColorPalette,
   isColorMode,
   isThemeRecord,
   normalizeThemedValue,
@@ -11,6 +10,9 @@ import {
 import { myraColors } from '../../colors';
 import { unwrapRE } from '@myraui/utils';
 import { colorVariable } from '../css-variables';
+import { ThemeEnv } from '../../theme.types';
+
+const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
 describe('utils/theme', () => {
   describe('isColorMode', () => {
@@ -35,8 +37,8 @@ describe('utils/theme', () => {
     });
 
     it('should return black if the value is not valid', () => {
-      expect(resolveColorValue({}, 'invalid')).toEqual(myraColors.blackAlpha.light);
-      expect(resolveColorValue({ invalid: 'invalid' }, 'invalid')).toEqual(myraColors.blackAlpha.light); // self reference
+      expect(resolveColorValue({}, 'invalid')).toEqual(myraColors.black.light);
+      expect(resolveColorValue({ invalid: 'invalid' }, 'invalid')).toEqual(myraColors.black.light); // self reference
     });
 
     it('should resolve a valid color value', () => {
@@ -56,31 +58,10 @@ describe('utils/theme', () => {
     });
   });
 
-  describe('flattenColorPalette', () => {
-    it('should return a flat color palette', () => {
-      const result = flattenColorPalette({ red: myraColors.red.light });
-
-      expect(result).toEqual({
-        'red-1': myraColors.red.light['1'],
-        'red-2': myraColors.red.light['2'],
-        'red-3': myraColors.red.light['3'],
-        'red-4': myraColors.red.light['4'],
-        'red-5': myraColors.red.light['5'],
-        'red-6': myraColors.red.light['6'],
-        'red-7': myraColors.red.light['7'],
-        'red-8': myraColors.red.light['8'],
-        'red-9': myraColors.red.light['9'],
-        'red-10': myraColors.red.light['10'],
-        'red-11': myraColors.red.light['11'],
-        'red-12': myraColors.red.light['12'],
-      });
-    });
-  });
-
   describe('buildThemedCSSVariables', () => {
     it('should build themed css variables', () => {
-      const lightVariables = unwrapRE(colorVariable('background', { color: { value: 'blue' }, opacity: { value: 'green' } }), { prefix: 'prefix' });
-      const darkVariables = unwrapRE(colorVariable('background', { color: { value: 'red' }, opacity: { value: 'pink' } }), { prefix: 'prefix' });
+      const lightVariables = unwrapRE(colorVariable('background', { color: { value: 'blue' }, opacity: { value: 'green' } }), env);
+      const darkVariables = unwrapRE(colorVariable('background', { color: { value: 'red' }, opacity: { value: 'pink' } }), env);
 
       const result = buildThemedCSSVariables({ light: lightVariables, dark: darkVariables });
 

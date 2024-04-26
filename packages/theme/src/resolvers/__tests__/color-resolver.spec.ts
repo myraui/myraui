@@ -1,5 +1,5 @@
 import { unwrapRE } from '@myraui/utils';
-import { colorResolver, createColorValue, createColorValueOptions, generateColorValueFn, generateColorVariables } from '../color-resolver';
+import { colorResolver, createColorValue, generateColorValueFn } from '../color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import { colorVariable, opacityVariable } from '../../utils';
@@ -8,34 +8,6 @@ import { ThemeEnv } from '../../theme.types';
 const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };
 
 describe('resolvers/color-resolver', () => {
-  describe('createColorValueOptions', () => {
-    it('should resolve the hsl value of a color', () => {
-      expect(createColorValueOptions('hsl(0, 100%, 50%)')).toEqual({ color: { value: '0 100% 50%' }, opacity: { value: undefined } });
-    });
-
-    it('should resolve the hsla value of a color', () => {
-      expect(createColorValueOptions('hsla(0, 100%, 50%, 0.5)')).toEqual({ color: { value: '0 100% 50%' }, opacity: { value: '0.50' } });
-    });
-  });
-
-  describe('generateColorVariables', () => {
-    it('should generate color variables', () => {
-      const result = unwrapRE(generateColorVariables('blue', '#0000ff'), env);
-
-      expect(result).toEqual([
-        {
-          name: '--prefix-colors-blue',
-          value: '240 100% 50%',
-          reference: expect.any(Function),
-        },
-        {
-          name: '--prefix-colors-blue-opacity',
-          value: '',
-          reference: expect.any(Function),
-        },
-      ]);
-    });
-  });
   describe('generateColorValueFn', () => {
     const resolver = unwrapRE(
       pipe(

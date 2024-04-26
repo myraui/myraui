@@ -77,7 +77,7 @@ export function themeTokenVariable(
   valueKey: string,
   options?: CSSVariableOptions
 ): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
-  return cssVariable(`${token}-${valueKey}`, options);
+  return cssVariable(`${token}${valueKey === '' ? '' : `-${valueKey}`}`, options);
 }
 
 /**

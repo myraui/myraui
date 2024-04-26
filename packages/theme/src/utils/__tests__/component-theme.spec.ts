@@ -16,24 +16,20 @@ describe('utils/component-theme', () => {
     });
 
     it('should transform a nested themed value', () => {
-      const result = normalizeThemeToken<string>({ backgrounds: { neutral: { _light: 'white', _dark: 'black' } } });
+      const result = normalizeThemeToken<string>({ backgrounds: { _light: 'white', _dark: 'black' } });
 
-      expect(result).toEqual({ backgrounds: { neutral: { _light: 'white', _dark: 'black' } } });
+      expect(result).toEqual({ backgrounds: { _light: 'white', _dark: 'black' } });
     });
 
     it('should transform a nested themed value with a themeless value', () => {
       const result = normalizeThemeToken<string>({
-        backgrounds: {
-          neutral: { _light: 'white', _dark: 'black' },
-          primary: 'blue',
-        },
+        backgrounds: 'blue',
+        neutral: { _light: 'white', _dark: 'black' },
       });
 
       expect(result).toEqual({
-        backgrounds: {
-          neutral: { _light: 'white', _dark: 'black' },
-          primary: { _light: 'blue' },
-        },
+        backgrounds: { _light: 'blue' },
+        neutral: { _light: 'white', _dark: 'black' },
       });
     });
   });
@@ -46,23 +42,9 @@ describe('utils/component-theme', () => {
     });
 
     it('should transform a nested themed value', () => {
-      const result = buildThemedThemeToken<string>({ backgrounds: { neutral: { _light: 'white', _dark: 'black' } } });
+      const result = buildThemedThemeToken<string>({ backgrounds: { _light: 'white', _dark: 'black' } });
 
-      expect(result).toEqual({ light: { backgrounds: { neutral: 'white' } }, dark: { backgrounds: { neutral: 'black' } } });
-    });
-
-    it('should transform a nested themed value with a themeless value', () => {
-      const result = buildThemedThemeToken<string>({
-        backgrounds: {
-          neutral: { _light: 'white', _dark: 'black' },
-        },
-        primary: { _light: 'blue' },
-      });
-
-      expect(result).toEqual({
-        light: { backgrounds: { neutral: 'white' }, primary: 'blue' },
-        dark: { backgrounds: { neutral: 'black' } },
-      });
+      expect(result).toEqual({ light: { backgrounds: 'white' }, dark: { backgrounds: 'black' } });
     });
   });
 
