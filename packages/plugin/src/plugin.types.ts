@@ -1,4 +1,4 @@
-import { ColorMode, ConfigThemes, CSSVariable, ThemeEnv } from '@myraui/theme';
+import { ColorMode, ConfigThemes, ResolvedTokenValues, ThemeEnv, ThemeTokens } from '@myraui/theme';
 import { Dict } from '@myraui/utils';
 
 export type MyraUIPluginConfig = {
@@ -12,22 +12,11 @@ export type ResolvedVariant = {
   definition: string[];
 };
 
-export type PluginEnv = ThemeEnv & {
-  defaultExtendTheme: ColorMode;
-};
+export type PluginEnv = ThemeEnv;
 
-export type ColorResolver = ({ opacityValue, opacityVariable }: { opacityValue: string; opacityVariable: string }) => string;
-
-export type ResolvedThemeConfig = {
-  themeName: string;
-  variables: CSSVariable[];
-  colors: Dict<ColorResolver>;
-  colorMode: ColorMode;
-};
-
-export type ResolvedThemes = {
+export interface ResolvedThemes {
   variants: ResolvedVariant[];
-  utilities: Record<string, Dict<string>>;
-  colors: Dict<ColorResolver>;
   baseStyles: Dict;
-};
+  utilities: Dict;
+  tokens: ResolvedTokenValues<any>;
+}

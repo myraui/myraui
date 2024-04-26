@@ -14,6 +14,7 @@ export const green: ThemedColorScale = {
     '10': '#2b9a66',
     '11': '#218358',
     '12': '#193b2d',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0e1512',
@@ -28,5 +29,6 @@ export const green: ThemedColorScale = {
     '10': '#33b074',
     '11': '#3dd68c',
     '12': '#b1f1cb',
+    DEFAULT: 9,
   },
 };

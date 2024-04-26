@@ -14,6 +14,7 @@ export const plum: ThemedColorScale = {
     '10': '#a144af',
     '11': '#953ea3',
     '12': '#53195d',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#181118',
@@ -28,5 +29,6 @@ export const plum: ThemedColorScale = {
     '10': '#b658c4',
     '11': '#e796f3',
     '12': '#f4d4f4',
+    DEFAULT: 9,
   },
 };

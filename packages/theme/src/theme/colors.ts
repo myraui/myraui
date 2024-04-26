@@ -1,24 +1,15 @@
-import { FlatMyraColor, MyraColor } from '../colors';
-import { Theme } from '../theme.types';
+import { ThemedThemeTokens } from '../theme.types';
+import { getByColorMode } from '../colors/utils';
 
-export type DefaultSemanticColors =
-  | 'background'
-  | 'foreground'
-  | 'focus'
-  | 'divider'
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger';
+export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
-export const defaultColors: Record<Theme, Record<DefaultSemanticColors, MyraColor | FlatMyraColor>> = {
+export const colors: ThemedThemeTokens<'colors'> = {
   light: {
+    ...getByColorMode('light'),
     background: 'gray.1',
     foreground: 'gray.12',
     focus: 'blue.8',
-    divider: 'blackAlpha.2',
+    divider: 'black.2',
     default: 'slate',
     primary: 'blue',
     secondary: 'purple',
@@ -27,10 +18,11 @@ export const defaultColors: Record<Theme, Record<DefaultSemanticColors, MyraColo
     danger: 'red',
   },
   dark: {
+    ...getByColorMode('dark'),
     background: 'gray.1',
     foreground: 'gray.12',
     focus: 'blue.8',
-    divider: 'whiteAlpha.2',
+    divider: 'white.2',
     default: 'slate',
     primary: 'blue',
     secondary: 'purple',

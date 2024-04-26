@@ -14,6 +14,7 @@ export const iris: ThemedColorScale = {
     '10': '#5151cd',
     '11': '#5753c6',
     '12': '#272962',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#13131e',
@@ -28,5 +29,6 @@ export const iris: ThemedColorScale = {
     '10': '#6e6ade',
     '11': '#b1a9ff',
     '12': '#e0dffe',
+    DEFAULT: 9,
   },
 };

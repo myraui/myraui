@@ -5,7 +5,7 @@
 
 import { MyraColors } from '../color-types';
 import { amber } from './amber';
-import { blackAlpha } from './blackAlpha';
+import { black } from './black';
 import { blue } from './blue';
 import { yellow } from './yellow';
 import { bronze } from './bronze';
@@ -36,7 +36,7 @@ import { slate } from './slate';
 import { teal } from './teal';
 import { tomato } from './tomato';
 import { violet } from './violet';
-import { whiteAlpha } from './whiteAlpha';
+import { white } from './white';
 
 export const myraColors: MyraColors = {
   gray,
@@ -70,6 +70,6 @@ export const myraColors: MyraColors = {
   lime,
   mint,
   sky,
-  whiteAlpha,
-  blackAlpha,
+  white,
+  black,
 };

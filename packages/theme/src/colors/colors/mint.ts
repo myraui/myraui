@@ -14,6 +14,7 @@ export const mint: ThemedColorScale = {
     '10': '#7de0cb',
     '11': '#027864',
     '12': '#16433c',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0e1515',
@@ -28,5 +29,6 @@ export const mint: ThemedColorScale = {
     '10': '#a8f5e5',
     '11': '#58d5ba',
     '12': '#c4f5e1',
+    DEFAULT: 9,
   },
 };

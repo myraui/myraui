@@ -14,6 +14,7 @@ export const gray: ThemedColorScale = {
     '10': '#838383',
     '11': '#646464',
     '12': '#202020',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#111111',
@@ -28,5 +29,6 @@ export const gray: ThemedColorScale = {
     '10': '#7b7b7b',
     '11': '#b4b4b4',
     '12': '#eeeeee',
+    DEFAULT: 9,
   },
 };

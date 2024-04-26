@@ -14,6 +14,7 @@ export const grass: ThemedColorScale = {
     '10': '#3e9b4f',
     '11': '#2a7e3b',
     '12': '#203c25',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#0e1511',
@@ -28,5 +29,6 @@ export const grass: ThemedColorScale = {
     '10': '#53b365',
     '11': '#71d083',
     '12': '#c2f0c2',
+    DEFAULT: 9,
   },
 };

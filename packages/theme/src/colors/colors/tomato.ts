@@ -14,6 +14,7 @@ export const tomato: ThemedColorScale = {
     '10': '#dd4425',
     '11': '#d13415',
     '12': '#5c271f',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#181111',
@@ -28,5 +29,6 @@ export const tomato: ThemedColorScale = {
     '10': '#ec6142',
     '11': '#ff977d',
     '12': '#fbd3cb',
+    DEFAULT: 9,
   },
 };

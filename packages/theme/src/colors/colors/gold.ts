@@ -14,6 +14,7 @@ export const gold: ThemedColorScale = {
     '10': '#8c7a5e',
     '11': '#71624b',
     '12': '#3b352b',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#121211',
@@ -28,5 +29,6 @@ export const gold: ThemedColorScale = {
     '10': '#a39073',
     '11': '#cbb99f',
     '12': '#e8e2d9',
+    DEFAULT: 9,
   },
 };

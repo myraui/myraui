@@ -14,6 +14,7 @@ export const purple: ThemedColorScale = {
     '10': '#8347b9',
     '11': '#8145b5',
     '12': '#402060',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#18111b',
@@ -28,5 +29,6 @@ export const purple: ThemedColorScale = {
     '10': '#9a5cd0',
     '11': '#d19dff',
     '12': '#ecd9fa',
+    DEFAULT: 9,
   },
 };

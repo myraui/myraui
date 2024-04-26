@@ -14,6 +14,7 @@ export const ruby: ThemedColorScale = {
     '10': '#dc3b5d',
     '11': '#ca244d',
     '12': '#64172b',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#191113',
@@ -28,5 +29,6 @@ export const ruby: ThemedColorScale = {
     '10': '#ec5a72',
     '11': '#ff949d',
     '12': '#fed2e1',
+    DEFAULT: 9,
   },
 };

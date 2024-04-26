@@ -14,6 +14,7 @@ export const yellow: ThemedColorScale = {
     '10': '#ffdc00',
     '11': '#9e6c00',
     '12': '#473b1f',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#14120b',
@@ -28,5 +29,6 @@ export const yellow: ThemedColorScale = {
     '10': '#ffff57',
     '11': '#f5e147',
     '12': '#f6eeb4',
+    DEFAULT: 9,
   },
 };

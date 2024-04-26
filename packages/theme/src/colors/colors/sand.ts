@@ -14,6 +14,7 @@ export const sand: ThemedColorScale = {
     '10': '#82827c',
     '11': '#63635e',
     '12': '#21201c',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#111110',
@@ -28,5 +29,6 @@ export const sand: ThemedColorScale = {
     '10': '#7c7b74',
     '11': '#b5b3ad',
     '12': '#eeeeec',
+    DEFAULT: 9,
   },
 };

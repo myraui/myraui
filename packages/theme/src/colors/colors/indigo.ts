@@ -14,6 +14,7 @@ export const indigo: ThemedColorScale = {
     '10': '#3358d4',
     '11': '#3a5bc7',
     '12': '#1f2d5c',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#11131f',
@@ -28,5 +29,6 @@ export const indigo: ThemedColorScale = {
     '10': '#5472e4',
     '11': '#9eb1ff',
     '12': '#d6e1ff',
+    DEFAULT: 9,
   },
 };

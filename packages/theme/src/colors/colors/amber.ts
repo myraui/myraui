@@ -14,6 +14,7 @@ export const amber: ThemedColorScale = {
     '10': '#ffba18',
     '11': '#ab6400',
     '12': '#4f3422',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#16120c',
@@ -28,5 +29,6 @@ export const amber: ThemedColorScale = {
     '10': '#ffd60a',
     '11': '#ffca16',
     '12': '#ffe7b3',
+    DEFAULT: 9,
   },
 };

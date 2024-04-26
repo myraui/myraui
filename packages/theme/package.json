@@ -28,11 +28,13 @@
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
-    "clean-package": "2.2.0"
+    "clean-package": "2.2.0",
+    "@types/color": "^3.0.6"
   },
   "dependencies": {
     "@myraui/utils": "workspace:^",
     "deepmerge": "^4.3.1",
+    "color": "^4.2.3",
     "tailwind-variants": "^0.2.1"
   },
   "clean-package": "../../clean-package.config.json"

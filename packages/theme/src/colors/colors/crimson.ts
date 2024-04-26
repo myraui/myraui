@@ -14,6 +14,7 @@ export const crimson: ThemedColorScale = {
     '10': '#df3478',
     '11': '#cb1d63',
     '12': '#621639',
+    DEFAULT: 9,
   },
   dark: {
     '1': '#191114',
@@ -28,5 +29,6 @@ export const crimson: ThemedColorScale = {
     '10': '#ee518a',
     '11': '#ff92ad',
     '12': '#fdd3e8',
+    DEFAULT: 9,
   },
 };
