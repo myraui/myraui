@@ -2,7 +2,7 @@
  * Part of this code is taken from @chakra-ui/system ❤️
  */
 
-import { ComponentTheme } from '@myraui/theme';
+import { ComponentColorScheme } from '@myraui/theme';
 import { Assign, Dict } from '@myraui/utils';
 import { ComponentPropsWithoutRef, ElementType, FunctionComponent } from 'react';
 
@@ -22,8 +22,7 @@ export type HTMLMyraComponents = {
 };
 
 export interface MyraProps {
-  themeColors?: ComponentTheme['colors'];
-  componentTheme?: ComponentTheme;
+  colorScheme?: ComponentColorScheme;
 }
 
 export type HTMLMyraProps<T extends As, P extends Dict> = ComponentPropsWithoutRef<T> & PolymorphicProps<T> & Assign<MyraProps, P>;

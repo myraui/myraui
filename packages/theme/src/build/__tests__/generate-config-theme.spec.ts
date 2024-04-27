@@ -11,6 +11,7 @@ describe('build/generate-config-theme', () => {
       const theme = unwrapRE(
         generateConfigTheme({
           spacingUnit: 4,
+          colorScheme: 'primary.9',
           colors: { gray: myraColors.gray.light, primary: 'gray.1' },
           spacing: {},
         } as unknown as FullConfigTheme),
@@ -21,6 +22,15 @@ describe('build/generate-config-theme', () => {
         expect.objectContaining({
           colors: expect.objectContaining({
             primary: 'gray.1',
+            'color-scheme': expect.objectContaining({
+              DEFAULT: {
+                value: expect.any(Function),
+                utilities: [
+                  expect.objectContaining({ name: '--prefix-colors-color-scheme', value: 'var(--prefix-colors-primary-9)' }),
+                  expect.objectContaining({ name: '--prefix-colors-color-scheme-opacity', value: 'var(--prefix-colors-primary-9-opacity)' }),
+                ],
+              },
+            }),
             gray: expect.objectContaining({
               1: {
                 value: expect.any(Function),

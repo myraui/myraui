@@ -3,7 +3,11 @@ import { myra } from '@myraui/system';
 import { button } from '@myraui/theme';
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  return <myra.button className={button()}>Button</myra.button>;
+  return (
+    <myra.button colorScheme="danger" className={button({ ...props })}>
+      Button
+    </myra.button>
+  );
 };
 
 export interface ButtonProps {}

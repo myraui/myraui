@@ -1,4 +1,4 @@
-import { Dict, flattenObject, mapKeys } from '@myraui/utils';
+import { Dict, mapKeys, StringOrNumber } from '@myraui/utils';
 import * as R from 'fp-ts/Record';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
@@ -49,6 +49,6 @@ export function isThemeRecord(record: Dict = {}): record is ThemeRecord<any> {
   return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
 }
 
-export function normalizeThemedValue<Value extends string | number>(themedValue: ThemedValue<Value>): ThemeRecord<Value> {
+export function normalizeThemedValue<Value extends StringOrNumber>(themedValue: ThemedValue<Value>): ThemeRecord<Value> {
   return typeof themedValue === 'object' ? themedValue : ({ [`_${BASE_THEME}`]: themedValue } as ThemeRecord<Value>);
 }

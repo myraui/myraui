@@ -1,6 +1,6 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
-import { DeepRecord, Dict, RecordKey, StringOrNumber } from '@myraui/utils';
+import { Dict, RecordKey, StringOrNumber } from '@myraui/utils';
 import { ThemeFontSize } from './theme/fontSize';
 import { ThemeLineHeight } from './theme/lineHeight';
 import { ThemeRadius } from './theme/radius';
@@ -46,9 +46,7 @@ export type ThemeTokens = {
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
-export type ComponentTheme = {
-  [K in keyof ThemeTokens]?: DeepRecord<ThemeTokens[K] extends DeepRecord<infer V> ? ThemedValue<V> : ThemedValue<unknown>>;
-};
+export type ComponentColorScheme = ThemedValue<Required<ConfigTheme>['colorScheme']>;
 
 export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
 
@@ -68,6 +66,11 @@ export interface ConfigTheme extends PartialThemeTokens {
    * @default 4 (px)
    */
   spacingUnit?: number;
+
+  /**
+   * The default color applied to components
+   */
+  colorScheme?: FlatMyraColor | MyraColor | ThemeColors | string;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {

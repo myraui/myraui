@@ -19,12 +19,23 @@ const button = tv({
   ],
   variants: {
     variant: {
-      default: 'bg-default',
+      filled: 'bg-color-scheme',
+      light: '',
+      outline: '',
+      subtle: '',
+      link: '',
+    },
+    size: {
+      sm: 'px-unit-3 min-w-unit-16 h-unit-8 text-tiny gap-unit-2 rounded-sm',
+      md: 'px-unit-5 min-w-unit-20 h-unit-10 text-medium gap-unit-4 rounded-md',
+      lg: 'px-unit-6 min-w-unit-24 h-unit-12 text-large gap-unit-6 rounded-lg',
     },
   },
   defaultVariants: {
-    variant: 'default',
+    variant: 'filled',
+    size: 'md',
   },
+  compoundVariants: [],
 });
 
 export type ButtonVariantProps = VariantProps<typeof button>;

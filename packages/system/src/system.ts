@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { buildComponentTheme } from '@myraui/theme';
+import { buildComponentColorScheme } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Reader';
 import * as RE from 'fp-ts/ReaderEither';
@@ -8,11 +8,13 @@ import { useMyraUIContext } from './context';
 import { As, MyraComponent, MyraProps, MyraUIStyledOptions } from './system.types';
 
 function applyComponentTheme(prefix: string) {
-  return (props: MyraProps) =>
-    pipe(
-      buildComponentTheme({ ...(props.componentTheme || {}), colors: props.themeColors }),
+  return (props: MyraProps) => {
+    if (!props.colorScheme) return {};
+    return pipe(
+      buildComponentColorScheme(props.colorScheme),
       RE.getOrElse(() => R.of({}))
     )({ prefix, defaultExtendTheme: 'light' });
+  };
 }
 
 const getDisplayName = (Component: any) => {
