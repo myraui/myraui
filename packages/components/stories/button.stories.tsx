@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
 import { Button } from '../src/button/button';
-import { button } from '@myraui/theme';
+import { button, colorSchemes } from '@myraui/theme';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -18,6 +18,18 @@ const meta: Meta<typeof Button> = {
         type: 'select',
       },
       options: Object.keys(button.variants.size),
+    },
+    radius: {
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(button.variants.radius),
+    },
+    colorScheme: {
+      control: {
+        type: 'select',
+      },
+      options: colorSchemes,
     },
   },
 };

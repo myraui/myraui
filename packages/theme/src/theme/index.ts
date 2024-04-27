@@ -8,7 +8,7 @@ import { boxShadow } from './boxShadow';
 import { opacity } from './opacity';
 import { width } from './width';
 import { height } from './height';
-import { ColorMode } from '../colors';
+import { ColorMode, myraColors } from '../colors';
 import { pipe } from 'fp-ts/lib/function';
 import { Dict, swapKeys } from '@myraui/utils';
 
@@ -34,3 +34,16 @@ const tokens: Tokens = {
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;
 
 export const defaultThemes = pipe(tokens as Dict, swapKeys) as DefaultThemes;
+
+export const colorSchemes = [
+  'background',
+  'foreground',
+  'focus',
+  'divider',
+  'primary',
+  'secondary',
+  'success',
+  'warning',
+  'danger',
+  ...Object.keys(myraColors),
+];
