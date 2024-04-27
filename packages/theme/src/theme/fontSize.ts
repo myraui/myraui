@@ -2,19 +2,19 @@ import { ThemedThemeTokens } from '../theme.types';
 
 export const fontSize: ThemedThemeTokens<'fontSize'> = {
   light: {
-    xs: '0.75rem',
-    sm: '0.875rem',
-    md: '1rem',
-    lg: '1.125rem',
-    xl: '1.25rem',
-    DEFAULT: 'md',
+    tiny: '0.75rem',
+    small: '0.875rem',
+    medium: '1rem',
+    large: '1.125rem',
+    huge: '1.25rem',
+    DEFAULT: 'medium',
   },
   dark: {
-    xs: '0.75rem',
-    sm: '0.875rem',
-    md: '1rem',
-    lg: '1.125rem',
-    xl: '1.25rem',
-    DEFAULT: 'md',
+    tiny: '0.75rem',
+    small: '0.875rem',
+    medium: '1rem',
+    large: '1.125rem',
+    huge: '1.25rem',
+    DEFAULT: 'medium',
   },
 };

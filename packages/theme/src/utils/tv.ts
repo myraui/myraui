@@ -1,6 +1,6 @@
 import { tv as tvBase, TV } from 'tailwind-variants';
 
-const commonUnits = ['small', 'medium', 'large'];
+const tokenUnits = ['tiny', 'small', 'medium', 'large', 'huge'];
 
 export const tv: TV = (options, config) =>
   tvBase(options, {
@@ -10,12 +10,12 @@ export const tv: TV = (options, config) =>
       ...config?.twMergeConfig,
       theme: {
         ...config?.twMergeConfig?.theme,
-        borderRadius: commonUnits,
-        borderWidth: commonUnits,
+        borderRadius: tokenUnits,
+        borderWidth: tokenUnits,
       },
       classGroups: {
         ...config?.twMergeConfig?.classGroups,
-        'font-size': [{ text: ['tiny', ...commonUnits] }],
+        'font-size': [{ text: tokenUnits }],
       },
     },
   });

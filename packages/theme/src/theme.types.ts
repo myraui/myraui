@@ -24,7 +24,7 @@ export type ColorValue = (ColorScale | MyraColor) | string;
 
 export type ThemeTokenRecord<K extends RecordKey, V = StringOrNumber> = Partial<Record<K, V>> & { DEFAULT?: K };
 
-export type ThemeUnits = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ThemeUnits = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 
 export type ThemeTokens = {
   colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
