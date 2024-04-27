@@ -2,7 +2,7 @@ import { colors } from './colors';
 import { fontSize } from './fontSize';
 import { ThemedThemeTokens, ThemeTokens } from '../theme.types';
 import { lineHeight } from './lineHeight';
-import { radius } from './radius';
+import { borderRadius } from './borderRadius';
 import { borderWidth } from './borderWidth';
 import { boxShadow } from './boxShadow';
 import { opacity } from './opacity';
@@ -20,7 +20,7 @@ const tokens: Tokens = {
   colors,
   fontSize,
   lineHeight,
-  radius,
+  borderRadius,
   borderWidth,
   boxShadow,
   opacity,

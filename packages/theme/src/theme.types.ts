@@ -1,11 +1,6 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
 import { Dict, RecordKey, StringOrNumber } from '@myraui/utils';
-import { ThemeFontSize } from './theme/fontSize';
-import { ThemeLineHeight } from './theme/lineHeight';
-import { ThemeRadius } from './theme/radius';
-import { ThemeBorderWidth } from './theme/borderWidth';
-import { ThemeBoxShadow } from './theme/boxShadow';
 import { ThemeOpacity } from './theme/opacity';
 import { ThemeHeight } from './theme/height';
 import { ThemeWidth } from './theme/width';
@@ -29,13 +24,15 @@ export type ColorValue = (ColorScale | MyraColor) | string;
 
 export type ThemeTokenRecord<K extends RecordKey, V = StringOrNumber> = Partial<Record<K, V>> & { DEFAULT?: K };
 
+export type ThemeUnits = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
 export type ThemeTokens = {
   colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
-  fontSize: ThemeTokenRecord<ThemeFontSize>;
-  lineHeight: ThemeTokenRecord<ThemeLineHeight>;
-  radius: ThemeTokenRecord<ThemeRadius>;
-  borderWidth: ThemeTokenRecord<ThemeBorderWidth>;
-  boxShadow: ThemeTokenRecord<ThemeBoxShadow>;
+  fontSize: ThemeTokenRecord<ThemeUnits>;
+  lineHeight: ThemeTokenRecord<ThemeUnits>;
+  borderRadius: ThemeTokenRecord<ThemeUnits>;
+  borderWidth: ThemeTokenRecord<ThemeUnits>;
+  boxShadow: ThemeTokenRecord<ThemeUnits>;
   opacity: ThemeTokenRecord<ThemeOpacity>;
   width: ThemeTokenRecord<ThemeWidth>;
   height: ThemeTokenRecord<ThemeHeight>;

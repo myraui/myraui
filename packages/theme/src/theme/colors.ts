@@ -1,7 +1,7 @@
 import { ThemedThemeTokens } from '../theme.types';
 import { getByColorMode } from '../colors/utils';
 
-export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
 export const colors: ThemedThemeTokens<'colors'> = {
   light: {
@@ -10,8 +10,7 @@ export const colors: ThemedThemeTokens<'colors'> = {
     foreground: 'gray.12',
     focus: 'blue.8',
     divider: 'black.2',
-    default: 'slate.2',
-    primary: 'blue',
+    primary: 'teal',
     secondary: 'purple',
     success: 'green',
     warning: 'yellow',
@@ -23,8 +22,7 @@ export const colors: ThemedThemeTokens<'colors'> = {
     foreground: 'gray.12',
     focus: 'blue.8',
     divider: 'white.2',
-    default: 'slate.2',
-    primary: 'blue',
+    primary: 'teal',
     secondary: 'purple',
     success: 'green',
     warning: 'yellow',

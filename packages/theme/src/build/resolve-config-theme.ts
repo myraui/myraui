@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
 import { ResolvedValue, resolvers } from '../resolvers/resolvers';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
+import { genericResolver } from '../resolvers/generic-resolver';
 
 function applyDefault(record: Record<string, any>) {
   if (record.DEFAULT) {
@@ -26,11 +27,13 @@ export function resolveThemeToken<K extends keyof ThemeTokens, T extends Generat
         return resolveThemeToken(tokenKey, value as any, `${prefix}${key}-`);
       }
 
+      const resolver = resolvers[tokenKey] || genericResolver(tokenKey);
+
       if (key === 'DEFAULT') {
-        return resolvers[tokenKey](`${prefix}${value}`, token[value] as any);
+        return resolver(`${prefix}${value}`, token[value] as any);
       }
 
-      return resolvers[tokenKey](`${prefix}${key}`, value);
+      return resolver(`${prefix}${key}`, value);
     }),
     R.sequence(RE.Applicative)
   ) as any;

@@ -25,6 +25,6 @@ export interface MyraProps {
   colorScheme?: ComponentColorScheme;
 }
 
-export type HTMLMyraProps<T extends As, P extends Dict> = ComponentPropsWithoutRef<T> & PolymorphicProps<T> & Assign<MyraProps, P>;
+export type HTMLMyraProps<T extends As, P extends Dict> = ComponentPropsWithoutRef<T> & PolymorphicProps<T> & MyraProps & P;
 
 export type MyraComponent<T extends As, P extends Dict = Dict> = FunctionComponent<HTMLMyraProps<T, P> & { ref?: unknown }>;

@@ -34,6 +34,7 @@ const preview: Preview = {
       source: {
         transform: formatCode,
       },
+      toc: true,
       theme,
     },
     darkMode: {

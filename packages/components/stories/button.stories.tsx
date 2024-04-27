@@ -5,6 +5,7 @@ import { button } from '@myraui/theme';
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
+  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: {
@@ -26,9 +27,7 @@ const defaultProps = {
 };
 
 export const Default = {
-  args: {
-    ...defaultProps,
-  },
+  args: defaultProps,
 };
 
 export default meta;

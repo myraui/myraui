@@ -7,7 +7,7 @@ export function createThemeTokens(partialThemeTokens: PartialThemeTokens = {}): 
     lineHeight: partialThemeTokens.lineHeight || {},
     width: partialThemeTokens.width || {},
     height: partialThemeTokens.height || {},
-    radius: partialThemeTokens.radius || {},
+    borderRadius: partialThemeTokens.borderRadius || {},
     boxShadow: partialThemeTokens.boxShadow || {},
     borderWidth: partialThemeTokens.borderWidth || {},
     opacity: partialThemeTokens.opacity || {},

@@ -19,16 +19,18 @@ const button = tv({
   ],
   variants: {
     variant: {
-      filled: 'bg-color-scheme',
-      light: '',
-      outline: '',
-      subtle: '',
-      link: '',
+      filled: 'bg-color-scheme text-color-scheme-1 hover:bg-color-scheme/90',
+      light: 'bg-color-scheme-3 hover:bg-color-scheme-3/90 text-color-scheme',
+      outline: 'border-color-scheme border-small text-color-scheme hover:bg-color-scheme-2/90',
+      subtle: 'text-color-scheme hover:bg-color-scheme-2/90',
+      link: 'text-color-scheme hover:underline',
     },
     size: {
-      sm: 'px-unit-3 min-w-unit-16 h-unit-8 text-tiny gap-unit-2 rounded-sm',
-      md: 'px-unit-5 min-w-unit-20 h-unit-10 text-medium gap-unit-4 rounded-md',
-      lg: 'px-unit-6 min-w-unit-24 h-unit-12 text-large gap-unit-6 rounded-lg',
+      xs: 'px-unit-2 min-w-unit-12 h-unit-6 text-xs gap-unit-1 rounded-sm',
+      sm: 'px-unit-3 min-w-unit-16 h-unit-8 text-sm gap-unit-2 rounded-sm',
+      md: 'px-unit-5 min-w-unit-20 h-unit-10 text-md gap-unit-4 rounded-md',
+      lg: 'px-unit-6 min-w-unit-24 h-unit-12 text-lg gap-unit-6 rounded-md',
+      xl: 'px-unit-8 min-w-unit-28 h-unit-14 text-xl gap-unit-8 rounded-lg',
     },
   },
   defaultVariants: {

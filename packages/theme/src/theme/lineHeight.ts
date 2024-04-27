@@ -1,22 +1,20 @@
 import { ThemedThemeTokens } from '../theme.types';
 
-export type ThemeLineHeight = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
-
 export const lineHeight: ThemedThemeTokens<'lineHeight'> = {
   light: {
-    tiny: '1rem',
-    small: '1.25rem',
-    medium: '1.5rem',
-    large: '1.75rem',
-    huge: '2rem',
-    DEFAULT: 'medium',
+    xs: '1rem',
+    sm: '1.25rem',
+    md: '1.5rem',
+    lg: '1.75rem',
+    xl: '2rem',
+    DEFAULT: 'md',
   },
   dark: {
-    tiny: '1rem',
-    small: '1.25rem',
-    medium: '1.5rem',
-    large: '1.75rem',
-    huge: '2rem',
-    DEFAULT: 'medium',
+    xs: '1rem',
+    sm: '1.25rem',
+    md: '1.5rem',
+    lg: '1.75rem',
+    xl: '2rem',
+    DEFAULT: 'md',
   },
 };
