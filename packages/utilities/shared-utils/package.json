@@ -1,0 +1,37 @@
+{
+  "name": "@myraui/shared-utils",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "A set of utilities for Myra UI packages",
+  "keywords": [
+    "utilities"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/utilities/shared-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "flat": "^6.0.1"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

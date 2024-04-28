@@ -1,0 +1,41 @@
+{
+  "name": "@myraui/react",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "The Myra UI react package",
+  "keywords": [
+    "react"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/core/react"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "@myraui/theme": "workspace:^",
+    "@myraui/shared-utils": "workspace:^",
+    "@myraui/react-utils": "workspace:^",
+    "@myraui/system": "workspace:^",
+    "@myraui/plugin": "workspace:^"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}
