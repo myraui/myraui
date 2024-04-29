@@ -1,23 +1,31 @@
 import theme from './theme';
 import { Preview } from '@storybook/react';
-import formatCode from './utils/formatCode';
 import { themes } from '@storybook/theming';
 
 import './style.scss';
 import React from 'react';
 import { MyraUIProvider } from '@myraui/system';
+import { DocsContainer, DocsContainerProps } from '@storybook/blocks';
 
 const decorators: Preview['decorators'] = [
   (Story) => {
     return (
       <MyraUIProvider>
-        <div className="bg-dark">
+        <div className="bg-dark w-72">
           <Story />
         </div>
       </MyraUIProvider>
     );
   },
 ];
+
+const Container = (props: DocsContainerProps) => {
+  return (
+    <MyraUIProvider>
+      <DocsContainer {...props} />
+    </MyraUIProvider>
+  );
+};
 
 const commonTheme = {
   brandTitle: 'MyraUI',
@@ -29,13 +37,9 @@ const preview: Preview = {
   parameters: {
     layout: 'centered',
     controls: { hideNoControlsWarning: true },
-    actions: { argTypesRegex: '^on.*' },
     docs: {
-      source: {
-        transform: formatCode,
-      },
-      toc: true,
       theme,
+      container: Container,
     },
     darkMode: {
       current: 'dark',

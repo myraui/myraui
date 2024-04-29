@@ -16,6 +16,7 @@ const button = tv({
     'select-none',
     'whitespace-nowrap',
     'z-0',
+    'active:translate-y-[1px]',
   ],
   variants: {
     variant: {
@@ -39,13 +40,55 @@ const button = tv({
       large: 'rounded-large',
       huge: 'rounded-huge',
     },
+    fullWidth: {
+      true: 'w-full',
+      false: '',
+    },
+    compact: {
+      true: '',
+      false: '',
+    },
+    isDisabled: {
+      true: 'opacity-disabled pointer-events-none',
+      false: '',
+    },
   },
   defaultVariants: {
     variant: 'filled',
     size: 'medium',
-    radius: 'medium',
+    radius: 'small',
+    fullWidth: false,
+    compact: false,
+    isDisabled: false,
   },
-  compoundVariants: [],
+  compoundVariants: [
+    /** Compact Variant Sizes */
+    {
+      size: 'tiny',
+      compact: true,
+      className: 'px-unit-1 h-unit-5',
+    },
+    {
+      size: 'small',
+      compact: true,
+      className: 'px-unit-1 h-unit-6',
+    },
+    {
+      size: 'medium',
+      compact: true,
+      className: 'px-unit-3 h-unit-7',
+    },
+    {
+      size: 'large',
+      compact: true,
+      className: 'px-unit-3 h-unit-8',
+    },
+    {
+      size: 'huge',
+      compact: true,
+      className: 'px-unit-3 h-unit-9',
+    },
+  ],
 });
 
 export type ButtonVariantProps = VariantProps<typeof button>;

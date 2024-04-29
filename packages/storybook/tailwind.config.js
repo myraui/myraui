@@ -4,7 +4,11 @@ const myraUIPlugin = require('@myraui/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [join(__dirname, '../../packages/**/stories/**/*.{js,jsx,ts,tsx,mdx}'), ...createGlobPatternsForDependencies(__dirname)],
+  content: [
+    join(__dirname, '../../packages/**/stories/**/*.{js,jsx,ts,tsx,mdx}'),
+    ...createGlobPatternsForDependencies(__dirname),
+    join(__dirname, '.storybook'),
+  ],
   darkMode: 'class',
   theme: {
     extend: {

@@ -29,6 +29,8 @@ export const SCALE_LABELS = {
 };
 
 export const BASE_FONT_SIZE = 16;
+export const SPACING_SCALE_KEYS = [0, ...Object.keys(SCALE_LABELS), ...SPACING_SCALE];
+export const MAPPED_SPACING_SCALE_KEYS = SPACING_SCALE_KEYS.map((key) => `unit-${key}`);
 
 export type SpacingScaleKeys = (typeof SPACING_SCALE)[number] | keyof typeof SCALE_LABELS;
 
