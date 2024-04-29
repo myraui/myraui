@@ -39,6 +39,7 @@ export type ThemeTokens = {
   minWidth: ThemeTokenRecord<string>;
   minHeight: ThemeTokenRecord<string>;
   spacing: ThemeTokenRecord<string>;
+  grayscale: ThemeTokenRecord<ThemeGrayscale>;
 };
 
 export type PartialThemeTokens = Partial<ThemeTokens>;

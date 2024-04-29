@@ -10,7 +10,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
   const styles = useButtonStyles(props);
 
   return (
-    <myra.button className={styles} {...props}>
+    <myra.button className={styles} colorScheme={props.colorScheme} disabled={props.isDisabled} as={props.as}>
       {props.children}
     </myra.button>
   );

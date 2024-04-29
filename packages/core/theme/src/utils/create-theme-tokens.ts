@@ -14,5 +14,6 @@ export function createThemeTokens(partialThemeTokens: PartialThemeTokens = {}): 
     minWidth: partialThemeTokens.minWidth || {},
     minHeight: partialThemeTokens.minHeight || {},
     spacing: partialThemeTokens.spacing || {},
+    grayscale: partialThemeTokens.grayscale || {},
   };
 }

@@ -11,6 +11,7 @@ import { height } from './height';
 import { ColorMode, myraColors } from '../colors';
 import { pipe } from 'fp-ts/lib/function';
 import { Dict, swapKeys } from '@myraui/shared-utils';
+import { grayscale } from './grayscale';
 
 type Tokens = {
   [K in keyof ThemeTokens]: ThemedThemeTokens<K>;
@@ -29,6 +30,7 @@ const tokens: Tokens = {
   minHeight: {},
   minWidth: {},
   spacing: {},
+  grayscale,
 };
 
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;

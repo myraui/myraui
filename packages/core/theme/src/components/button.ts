@@ -49,7 +49,7 @@ const button = tv({
       false: '',
     },
     isDisabled: {
-      true: 'opacity-disabled pointer-events-none',
+      true: 'opacity-disabled grayscale-disabled pointer-events-none',
       false: '',
     },
   },
