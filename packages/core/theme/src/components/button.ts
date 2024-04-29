@@ -21,7 +21,7 @@ const button = tv({
   variants: {
     variant: {
       filled: 'bg-color-scheme-9 text-foreground-1 hover:bg-color-scheme-9/90',
-      light: 'bg-color-scheme-3 hover:bg-color-scheme-3/90 text-color-scheme',
+      light: 'bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme',
       outline: 'border-color-scheme border-small text-color-scheme hover:bg-color-scheme-2/90',
       subtle: 'text-color-scheme hover:bg-color-scheme-2/90',
       link: 'text-color-scheme hover:underline',

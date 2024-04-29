@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../src';
 import React from 'react';
+import { myraColors } from '@myraui/theme';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -129,5 +130,35 @@ export const Disabled: Story = {
   args: {
     ...Default.args,
     isDisabled: true,
+  },
+};
+
+export const Colors: Story = {
+  args: {
+    variant: 'filled',
+    children: 'Button',
+  },
+  render: (args) => {
+    const semantic = ['primary', 'secondary', 'success', 'danger', 'warning'];
+    return (
+      <div className="flex flex-col gap-2">
+        <h2>Base Colors</h2>
+        <div className="flex flex-wrap gap-4 items-center max-w-6xl">
+          {Object.keys(myraColors).map((color) => (
+            <Button key={color} {...args} colorScheme={color}>
+              {color}
+            </Button>
+          ))}
+        </div>
+        <h2>Semantic Colors</h2>
+        <div className="flex flex-wrap gap-4 items-center max-w-2xl">
+          {semantic.map((color) => (
+            <Button key={color} {...args} colorScheme={color}>
+              {color}
+            </Button>
+          ))}
+        </div>
+      </div>
+    );
   },
 };
