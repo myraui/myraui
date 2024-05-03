@@ -1,5 +1,5 @@
 import { flatten } from 'flat';
-import { Dict } from '../types';
+import { Dict } from './types';
 
 export type FlattenObjectOptions = {
   delimiter?: string;

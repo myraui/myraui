@@ -1,3 +1,4 @@
 export * from './types';
-export * from './fp';
-export * from './object';
+export * from './functions';
+export * from './objects';
+export * from './assertion';

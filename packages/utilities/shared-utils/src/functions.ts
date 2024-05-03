@@ -1,6 +1,21 @@
 import * as A from 'fp-ts/Array';
-import { Dict, RecordKey } from '../types';
+import { Dict, RecordKey } from './types';
 import { pipe } from 'fp-ts/function';
+import * as RE from 'fp-ts/ReaderEither';
+import { Exception } from './errors';
+
+type ErrorTransformer<E> = (e: E) => Exception;
+
+const errorTransform = <E>(e: E) => e;
+
+export function unwrapRE<R, E extends Exception, A>(readerEither: RE.ReaderEither<R, E, A>, env: R, error: ErrorTransformer<E> = errorTransform): A {
+  return pipe(
+    readerEither,
+    RE.getOrElse((e) => {
+      throw error(e);
+    })
+  )(env);
+}
 
 export function mergeObjects<T extends Dict>(array: readonly T[]): T {
   return A.reduce<T, T>({} as T, (acc, obj) => ({ ...acc, ...obj }))([...array]);

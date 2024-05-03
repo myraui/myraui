@@ -1,6 +1,6 @@
-import { fromArray, mapKeys, mergeObjects, swapKeys, toValues } from '../objects';
+import { fromArray, mapKeys, mergeObjects, swapKeys, toValues } from '../functions';
 
-describe('fp/objects', () => {
+describe('functions', () => {
   describe('swapKeys', () => {
     it('should not change an empty object', () => {
       const result = swapKeys({});

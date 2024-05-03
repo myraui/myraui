@@ -162,3 +162,28 @@ export const Colors: Story = {
     );
   },
 };
+
+export const Polymorphic: Story = {
+  args: {
+    variant: 'filled',
+    children: 'Button',
+  },
+  render: (args) => (
+    <div className="flex gap-4 items-center">
+      <Button
+        as="a"
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
+        Link
+      </Button>
+      <Button {...args} as="button" type="submit">
+        Button
+      </Button>
+      <Button {...args} as="span">
+        Span
+      </Button>
+    </div>
+  ),
+};

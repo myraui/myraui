@@ -1,6 +1,6 @@
-import { flattenObject } from '../flatten';
+import { flattenObject } from '../objects';
 
-describe('object/flatten', () => {
+describe('objects', () => {
   describe('flattenObject', () => {
     it('should flatten an object', () => {
       const result = flattenObject({ primary: { dark: 'blue' } });
