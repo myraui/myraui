@@ -43,7 +43,7 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
 
 export interface MyraUIStyledOptions {}
 
-export type As<Props = any> = ElementType<Props>;
+export type As = ElementType;
 
 export interface PolymorphicProps {
   as?: As;

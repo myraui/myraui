@@ -1,8 +1,8 @@
-import { Assign, dataAttr } from '@myraui/shared-utils';
+import { dataAttr } from '@myraui/shared-utils';
 import { HTMLMyraProps } from '@myraui/system';
 import { button, ButtonVariantProps } from '@myraui/theme';
-import { AriaButtonProps, useButton as useAriaButton } from 'react-aria';
-import React, { useMemo } from 'react';
+import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
+import React, { HTMLAttributes, useMemo } from 'react';
 import { useDOMRef } from '@myraui/react-utils';
 
 interface Props extends HTMLMyraProps<'button'> {
@@ -11,10 +11,21 @@ interface Props extends HTMLMyraProps<'button'> {
 
 export type UseButtonProps = Props & Omit<AriaButtonProps, keyof ButtonVariantProps> & ButtonVariantProps;
 
-export function useButton({ size, variant, radius, fullWidth, compact, isDisabled, as, ref, ...props }: UseButtonProps) {
+export type UseButtonReturn = {
+  Component: React.ElementType;
+  styles: string;
+  buttonProps: HTMLAttributes<HTMLButtonElement>;
+  domRef: React.RefObject<HTMLButtonElement>;
+};
+
+export function useButton({ size, variant, radius, fullWidth, compact, isDisabled, as, ref, autoFocus, ...props }: UseButtonProps): UseButtonReturn {
   const Component = as || 'button';
 
   const domRef = useDOMRef(ref);
+
+  const { isFocusVisible, isFocused, focusProps } = useFocusRing({
+    autoFocus,
+  });
 
   const styles = useMemo(() => {
     return button({
@@ -38,9 +49,11 @@ export function useButton({ size, variant, radius, fullWidth, compact, isDisable
 
   const buttonProps = useMemo(() => {
     return {
-      ...ariaButtonProps,
       'data-disabled': dataAttr(isDisabled),
       'data-pressed': dataAttr(isPressed),
+      'data-focused': dataAttr(isFocused),
+      'data-focus-visible': dataAttr(isFocusVisible),
+      ...mergeProps(ariaButtonProps, focusProps),
     };
   }, [ariaButtonProps, isPressed]);
 

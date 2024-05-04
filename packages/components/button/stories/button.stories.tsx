@@ -1,12 +1,53 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../src';
 import React from 'react';
-import { myraColors } from '@myraui/theme';
+import { button, colorSchemes, myraColors } from '@myraui/theme';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(button.variants.variant),
+    },
+    colorScheme: {
+      control: {
+        type: 'select',
+      },
+      options: colorSchemes,
+    },
+    size: {
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(button.variants.size),
+    },
+    radius: {
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(button.variants.radius),
+    },
+    fullWidth: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    compact: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    isDisabled: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
 };
 
 export default meta;

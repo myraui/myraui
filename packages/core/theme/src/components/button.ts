@@ -1,5 +1,6 @@
 import { tv } from '../utils/tv';
 import { VariantProps } from 'tailwind-variants';
+import { dataFocusVisibleClasses } from '../utils';
 
 const button = tv({
   base: [
@@ -16,7 +17,8 @@ const button = tv({
     'select-none',
     'whitespace-nowrap',
     'z-0',
-    'active:translate-y-[1px]',
+    'data-[pressed=true]:translate-y-[1px]',
+    ...dataFocusVisibleClasses,
   ],
   variants: {
     variant: {
