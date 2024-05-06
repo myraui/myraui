@@ -1,0 +1,25 @@
+import React from "react";
+import { Meta } from "@storybook/react";
+import { {{packageName}} } from "@myraui/theme";
+
+import { {{capitalize packageName }}, {{capitalize packageName}}Props } from "../src";
+
+export default {
+  title: "Components/{{capitalize packageName}}",
+  component: {{capitalize packageName}},
+  argTypes: {
+  },
+} as Meta<typeof {{capitalize packageName}}>;
+
+const defaultProps = {
+  ...{{packageName}}.defaultVariants,
+}
+
+const Template = (args: {{capitalize packageName}}Props) => <{{capitalize packageName}} {...args} />;
+
+export const Default = {
+  render: Template,
+  args: {
+    ...defaultProps,
+  }
+}

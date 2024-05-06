@@ -1,11 +1,13 @@
 import { ColorMode, ColorScale, FlatMyraColor, MyraColor } from './colors';
 import { ThemeColors } from './theme/colors';
+import { ClassValue } from 'tailwind-variants';
 import { Dict, RecordKey, StringOrNumber } from '@myraui/shared-utils';
 import { ThemeOpacity } from './theme/opacity';
 import { ThemeHeight } from './theme/height';
 import { ThemeWidth } from './theme/width';
 import { ResolvedValue } from './resolvers';
 import { CSSVariable } from './utils/css-variables';
+import { ThemeGrayscale } from './theme/grayscale';
 
 export type ThemeEnv = {
   prefix: string;
@@ -94,3 +96,10 @@ export interface BuiltConfigTheme<T extends ResolvedConfigTheme> {
 }
 
 export type ConfigThemes = Record<string, ConfigTheme>;
+
+/**
+ * This Typescript utility transform a list of slots into a list of {slot: classes}
+ */
+export type SlotsToClasses<S extends string> = {
+  [key in S]?: ClassValue;
+};

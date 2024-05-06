@@ -112,6 +112,25 @@ module.exports = function main(plop) {
           abortOnFail: true,
         });
 
+        if (generator === 'component') {
+          actions.push({
+            type: 'add',
+            templateFile: `plop/component-theme/theme.ts.hbs`,
+            path: `packages/core/theme/src/components/{{packageName}}.ts`,
+            data,
+          });
+
+          // update index.ts
+          actions.push({
+            type: 'append',
+            path: `packages/core/theme/src/components/index.ts`,
+            pattern: /^/,
+            template: `export * from './{{packageName}}';\n`,
+            separator: '',
+            data,
+          });
+        }
+
         return actions;
       },
     });

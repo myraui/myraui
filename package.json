@@ -14,9 +14,9 @@
     "build:all": "nx run-many --target=build --all --parallel",
     "build-storybook": "nx storybook build @myraui/storybook",
     "coverage-merge": "node tools/scripts/coverageMerger.js",
-    "create:package": "plop package",
-    "create:component": "plop component",
-    "create:hook": "plop hook",
+    "create:package": "plop package && pnpm install",
+    "create:component": "plop component && pnpm install",
+    "create:hook": "plop hook && pnpm install",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./packages/**/node_modules && npx rimraf ./node_modules",
     "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist"
   },

@@ -1,13 +1,14 @@
 /* eslint-disable */
 export default {
-  displayName: '@myraui/react-utils',
+  displayName: '@myraui/loader',
   preset: '../../../jest.preset.js',
   transform: {
-    '^.+\\.[tj]sx?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   setupFilesAfterEnv: ['@testing-library/jest-dom', '../../../tools/scripts/setup-tests.ts'],
   transformIgnorePatterns: ['!(src/.+)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/packages/utilities/react-utils',
+  coverageDirectory: '../../../coverage/packages/components/loader',
   collectCoverage: false,
 };

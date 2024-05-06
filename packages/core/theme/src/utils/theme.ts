@@ -6,7 +6,7 @@ import { ColorPalette, ColorScale, myraColors } from '../colors';
 import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
-import { isColorScale } from '../colors/utils/is-color-scale';
+import { isColorScale } from '../colors/utils';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 

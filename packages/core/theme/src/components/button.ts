@@ -1,6 +1,5 @@
-import { tv } from '../utils/tv';
+import { dataFocusVisibleClasses, tv } from '../utils';
 import { VariantProps } from 'tailwind-variants';
-import { dataFocusVisibleClasses } from '../utils';
 
 const button = tv({
   base: [

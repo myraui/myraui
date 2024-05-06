@@ -1,3 +1,3 @@
-export * from './cn';
+export * from './props';
 export * from './context';
 export * from './dom';

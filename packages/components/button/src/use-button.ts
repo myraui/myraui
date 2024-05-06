@@ -1,4 +1,4 @@
-import { dataAttr } from '@myraui/shared-utils';
+import { Assign, dataAttr } from '@myraui/shared-utils';
 import { HTMLMyraProps } from '@myraui/system';
 import { button, ButtonVariantProps } from '@myraui/theme';
 import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
@@ -9,7 +9,7 @@ interface Props extends HTMLMyraProps<'button'> {
   ref?: React.Ref<HTMLButtonElement | null>;
 }
 
-export type UseButtonProps = Props & Omit<AriaButtonProps, keyof ButtonVariantProps> & ButtonVariantProps;
+export type UseButtonProps = Props & Assign<AriaButtonProps, ButtonVariantProps>;
 
 export type UseButtonReturn = {
   Component: React.ElementType;
