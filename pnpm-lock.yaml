@@ -389,6 +389,9 @@ importers:
       '@myraui/theme':
         specifier: workspace:^
         version: link:../theme
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.3)
     devDependencies:
       clean-package:
         specifier: 2.2.0
@@ -447,6 +450,9 @@ importers:
 
   packages/utilities/shared-utils:
     dependencies:
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.0
       flat:
         specifier: ^6.0.1
         version: 6.0.1

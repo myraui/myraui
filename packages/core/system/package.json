@@ -32,9 +32,10 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "@myraui/shared-utils": "workspace:^",
     "@myraui/react-utils": "workspace:^",
-    "@myraui/theme": "workspace:^"
+    "@myraui/shared-utils": "workspace:^",
+    "@myraui/theme": "workspace:^",
+    "tailwind-variants": "^0.2.1"
   },
   "clean-package": "../../../clean-package.config.json"
 }

@@ -4,3 +4,4 @@ export * from './system';
 export * from './provider';
 export { useMyraUIContext } from './context';
 export * from './forwardRef';
+export * from './use-variant-component';

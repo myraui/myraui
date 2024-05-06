@@ -1,48 +1,27 @@
-import { Assign, dataAttr } from '@myraui/shared-utils';
-import { HTMLMyraProps } from '@myraui/system';
-import { button, ButtonVariantProps } from '@myraui/theme';
+import { dataAttr } from '@myraui/shared-utils';
+import { useVariantComponent, VariantComponentProps } from '@myraui/system';
+import { button } from '@myraui/theme';
 import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
-import React, { HTMLAttributes, useMemo } from 'react';
-import { useDOMRef } from '@myraui/react-utils';
+import { useMemo } from 'react';
 
-interface Props extends HTMLMyraProps<'button'> {
-  ref?: React.Ref<HTMLButtonElement | null>;
-}
+type Props = VariantComponentProps<typeof button, 'button'>;
 
-export type UseButtonProps = Props & Assign<AriaButtonProps, ButtonVariantProps>;
+export type UseButtonProps = Props & AriaButtonProps;
 
-export type UseButtonReturn = {
-  Component: React.ElementType;
-  styles: string;
-  buttonProps: HTMLAttributes<HTMLButtonElement>;
-  domRef: React.RefObject<HTMLButtonElement>;
-};
+export function useButton(originalProps: UseButtonProps) {
+  const { Component, domRef, otherProps, colorScheme } = useVariantComponent(originalProps, button, 'button');
 
-export function useButton({ size, variant, radius, fullWidth, compact, isDisabled, as, ref, autoFocus, ...props }: UseButtonProps): UseButtonReturn {
-  const Component = as || 'button';
-
-  const domRef = useDOMRef(ref);
+  const { autoFocus, isDisabled } = otherProps;
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
   });
 
-  const styles = useMemo(() => {
-    return button({
-      size,
-      variant,
-      radius,
-      fullWidth,
-      compact,
-      isDisabled,
-    });
-  }, [size, variant, radius, fullWidth, compact, isDisabled]);
-
   const { buttonProps: ariaButtonProps, isPressed } = useAriaButton(
     {
       elementType: Component,
       isDisabled,
-      ...props,
+      ...otherProps,
     },
     domRef
   );
@@ -59,8 +38,11 @@ export function useButton({ size, variant, radius, fullWidth, compact, isDisable
 
   return {
     Component,
-    styles,
     buttonProps,
     domRef,
+    otherProps,
+    colorScheme,
   };
 }
+
+export type UseButtonReturn = ReturnType<typeof useButton>;
