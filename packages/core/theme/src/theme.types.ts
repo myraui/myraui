@@ -7,6 +7,8 @@ import { ThemeWidth } from './theme/width';
 import { ResolvedValue } from './resolvers';
 import { CSSVariable } from './utils/css-variables';
 import { ThemeGrayscale } from './theme/grayscale';
+import { ThemeAnimation } from './theme/animation';
+import { ThemeKeyframes } from './theme/keyframes';
 
 export type ThemeEnv = {
   prefix: string;
@@ -17,9 +19,9 @@ export type Theme = ColorMode | string;
 
 export type BaseTheme = 'light';
 
-export type ThemeRecord<Value> = Partial<Record<`_${Theme}`, Value>> & Record<`_${BaseTheme}`, Value>;
+export type ColorModeRecord<Value> = Partial<Record<Theme, Value>> & Record<BaseTheme, Value>;
 
-export type ThemedValue<Value> = Value | ThemeRecord<Value>;
+export type ColorModeValue<Value> = Value | ColorModeRecord<Value>;
 
 export type ColorValue = (ColorScale | MyraColor) | string;
 
@@ -41,13 +43,15 @@ export type ThemeTokens = {
   minHeight: ThemeTokenRecord<string>;
   spacing: ThemeTokenRecord<string>;
   grayscale: ThemeTokenRecord<ThemeGrayscale>;
+  animation: ThemeTokenRecord<ThemeAnimation>;
+  keyframes: ThemeTokenRecord<ThemeKeyframes, Dict>;
 };
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
-export type ComponentColorScheme = ThemedValue<Required<ConfigTheme>['colorScheme']>;
+export type ComponentColorScheme = ColorModeValue<Required<ConfigTheme>['colorScheme']>;
 
-export type ThemedThemeTokens<Key extends keyof ThemeTokens> = Record<Theme, Partial<ThemeTokens[Key]>>;
+export type DefaultThemeTokens<Key extends keyof ThemeTokens> = ColorModeValue<ThemeTokens[Key]>;
 
 export type GeneratedThemeToken<D = unknown> = Record<
   D extends Record<infer K, any> ? K : string,

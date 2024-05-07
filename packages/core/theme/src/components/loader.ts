@@ -3,20 +3,36 @@ import { VariantProps } from 'tailwind-variants';
 
 const loader = tv({
   slots: {
-    base: '',
-    wrapper: '',
-    path1: '',
-    path2: '',
-    path3: '',
+    base: 'relative inline-flex flex-col gap-2 items-center justify-center',
+    wrapper: 'relative flex',
+    path1: [
+      'absolute',
+      'w-full',
+      'h-full',
+      'rounded-full',
+      'animate-spin-ease',
+      'border-2',
+      'border-solid',
+      'border-t-transparent',
+      'border-l-transparent',
+      // 'border-r-transparent',
+    ],
+    path2: 'hidden',
+    path3: 'hidden',
   },
   variants: {
     size: {
-      tiny: '',
+      tiny: {
+        wrapper: 'w-10 h-10',
+      },
       small: '',
       medium: '',
       large: '',
       huge: '',
     },
+  },
+  defaultVariants: {
+    size: 'tiny',
   },
 });
 

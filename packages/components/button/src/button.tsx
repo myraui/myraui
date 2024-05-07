@@ -5,11 +5,11 @@ import { useButton, UseButtonProps } from './use-button';
 /**
  * Button component is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
  */
-const Button: React.FC<ButtonProps> = forwardRef<'button', ButtonProps>((props, ref) => {
-  const { Component, domRef, buttonProps, otherProps, colorScheme } = useButton({ ...props, ref });
+const Button: React.FC<ButtonProps> = forwardRef<'button', ButtonProps>((props, baseRef) => {
+  const { Component, ref, buttonProps, colorScheme } = useButton({ ...props, ref: baseRef });
 
   return (
-    <myra.button className={otherProps.className} colorScheme={colorScheme} ref={domRef} as={Component} {...buttonProps}>
+    <myra.button colorScheme={colorScheme} ref={ref} as={Component} {...buttonProps}>
       {props.children}
     </myra.button>
   );

@@ -2,7 +2,6 @@ import { unwrapRE } from '@myraui/shared-utils';
 import { buildConfigTheme, createBuiltConfigTheme, extractResolvedTokens, extractResolvedValue, extractUtilities } from '../build-config-theme';
 import { ThemeEnv } from '../../theme.types';
 import { colorVariable } from '../../utils/css-variables';
-import { expect } from '@storybook/jest';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
@@ -104,7 +103,7 @@ describe('build/build-config-theme', () => {
           }),
           spacing: expect.objectContaining({ unit: `var(--prefix-spacing-unit)` }),
           borderWidth: expect.objectContaining({
-            DEFAULT: 'var(--prefix-border-width-medium)',
+            DEFAULT: 'var(--prefix-border-width-small)',
           }),
         }),
         utilities: expect.arrayContaining([
@@ -118,7 +117,7 @@ describe('build/build-config-theme', () => {
           }),
           expect.objectContaining({
             name: '--prefix-border-width-medium',
-            value: '2px',
+            value: '3px',
           }),
         ]),
         colorMode: 'light',

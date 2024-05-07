@@ -1,20 +1,16 @@
 import React, { useMemo } from 'react';
 import { ClassValue, TVReturnType, VariantProps } from 'tailwind-variants';
 import { mapPropsVariants, ReactRef, useDOMRef } from '@myraui/react-utils';
-import { clsx, Dict } from '@myraui/shared-utils';
+import { Assign, clsx, Dict } from '@myraui/shared-utils';
 import { As, HTMLMyraProps } from './system.types';
 
 type InferTV<TV> = TV extends TVReturnType<infer V, infer S, infer B, infer C, infer EV, infer ES, infer E>
   ? TVReturnType<V, S, B, C, EV, ES, E>
   : never;
 
-type InferSlots<TV> = TV extends TVReturnType<infer V, infer S, infer B, infer C, infer EV, infer ES, infer E>
-  ? ReturnType<TVReturnType<V, S, B, C, EV, ES, E>>
-  : never;
+type InferSlots<TV> = TV extends (...args: any) => any ? ReturnType<TV> : never;
 
-type InferSlotClasses<TV> = TV extends TVReturnType<infer V, infer S, infer B, infer C, infer EV, infer ES, infer E>
-  ? Record<keyof ReturnType<TVReturnType<V, S, B, C, EV, ES, E>>, ClassValue>
-  : never;
+type InferSlotClasses<TV> = { [key in keyof InferSlots<TV>]?: ClassValue };
 
 type InferVariantProps<TV> = VariantProps<InferTV<TV>>;
 
@@ -28,13 +24,6 @@ type SlotsComponentProps<TV> = InferSlots<TV> extends Record<any, any>
     }
   : Dict;
 
-type SlotsUseVariantComponentReturn<TV> = InferSlots<TV> extends Record<any, any>
-  ? {
-      slots: ReturnType<InferTV<TV>>;
-      classNames: InferSlotClasses<TV>;
-    }
-  : Dict;
-
 export type VariantComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
   InferVariantProps<TV> & {
     /**
@@ -43,13 +32,17 @@ export type VariantComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
     ref?: React.Ref<HTMLElement | null>;
   } & SlotsComponentProps<TV>;
 
-export type UseVariantComponentReturn<A extends As, Props extends VariantComponentProps<TV, A>, TV> = {
-  Component: A;
-  domRef: React.RefObject<Required<Props>['ref'] extends ReactRef<infer T> ? Exclude<T, null> : HTMLElement>;
-  otherProps: Omit<Props, 'ref' | 'as' | 'classNames' | 'colorScheme'>;
-  variantProps: InferVariantProps<TV>;
-  colorScheme?: Props['colorScheme'];
-} & SlotsUseVariantComponentReturn<TV>;
+export type UseVariantComponentReturn<A extends As, Props extends VariantComponentProps<TV, A>, TV> = Assign<
+  Props,
+  {
+    Component: A;
+    ref: React.RefObject<Required<Props>['ref'] extends ReactRef<infer T> ? Exclude<T, null> : HTMLElement>;
+    variantProps: InferVariantProps<TV>;
+    colorScheme?: Props['colorScheme'];
+    styles: InferSlots<TV>;
+    classNames?: Props['classNames'];
+  }
+>;
 
 export function useVariantComponent<A extends As, TV, Props extends VariantComponentProps<TV, A>>(
   originalProps: Props,
@@ -74,12 +67,13 @@ export function useVariantComponent(originalProps: any, componentVariants: any, 
   const finalClassName = useMemo(() => (hasSlots ? styles.base({ class: baseStyles }) : baseStyles), [styles, baseStyles, hasSlots]);
 
   return {
+    ...otherProps,
     Component,
-    slots: hasSlots ? styles : undefined,
-    domRef,
-    otherProps: { ...otherProps, className: finalClassName },
+    styles: hasSlots ? styles : finalClassName,
+    ref: domRef,
     variantProps,
-    classNames: hasSlots ? classNames : undefined,
+    classNames,
     colorScheme,
+    className: finalClassName,
   };
 }

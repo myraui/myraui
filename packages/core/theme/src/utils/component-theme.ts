@@ -1,7 +1,7 @@
 import { pipe } from 'fp-ts/lib/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ComponentColorScheme, ThemeEnv } from '../theme.types';
-import { buildThemedCSSVariables, normalizeThemedValue, resolveThemeRecord } from './theme';
+import { buildThemedCSSVariables, normalizeColorModeValue } from './theme';
 import { ThemedCSSVariables } from './css-variables';
 import * as R from 'fp-ts/Record';
 import { flow } from 'fp-ts/function';
@@ -12,11 +12,10 @@ import { ResolvedValue } from '../resolvers';
 
 export function buildComponentColorScheme(colorScheme: ComponentColorScheme): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Dict<string>>> {
   return pipe(
-    normalizeThemedValue(colorScheme),
-    resolveThemeRecord,
+    normalizeColorModeValue(colorScheme),
     R.mapWithIndex((theme, value) => {
       return pipe(
-        colorSchemeGenerator(value),
+        colorSchemeGenerator(value as string),
         RE.map((result) => result.colors as DeepRecord<ResolvedValue<any>>),
         RE.chain(extractUtilities),
         RE.map((variables) => ({ [theme]: variables } as ThemedCSSVariables))

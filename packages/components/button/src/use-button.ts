@@ -9,9 +9,7 @@ type Props = VariantComponentProps<typeof button, 'button'>;
 export type UseButtonProps = Props & AriaButtonProps;
 
 export function useButton(originalProps: UseButtonProps) {
-  const { Component, domRef, otherProps, colorScheme } = useVariantComponent(originalProps, button, 'button');
-
-  const { autoFocus, isDisabled } = otherProps;
+  const { Component, ref, autoFocus, isDisabled, colorScheme, ...otherProps } = useVariantComponent(originalProps, button, 'button');
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
@@ -23,7 +21,7 @@ export function useButton(originalProps: UseButtonProps) {
       isDisabled,
       ...otherProps,
     },
-    domRef
+    ref
   );
 
   const buttonProps = useMemo(() => {
@@ -39,8 +37,7 @@ export function useButton(originalProps: UseButtonProps) {
   return {
     Component,
     buttonProps,
-    domRef,
-    otherProps,
+    ref,
     colorScheme,
   };
 }

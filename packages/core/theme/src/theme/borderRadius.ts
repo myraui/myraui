@@ -1,20 +1,10 @@
-import { ThemedThemeTokens } from '../theme.types';
+import { DefaultThemeTokens } from '../theme.types';
 
-export const borderRadius: ThemedThemeTokens<'borderRadius'> = {
-  light: {
-    tiny: '2px',
-    small: '4px',
-    medium: '8px',
-    large: '12px',
-    huge: '16px',
-    DEFAULT: 'medium',
-  },
-  dark: {
-    tiny: '2px',
-    small: '4px',
-    medium: '8px',
-    large: '12px',
-    huge: '16px',
-    DEFAULT: 'medium',
-  },
+export const borderRadius: DefaultThemeTokens<'borderRadius'> = {
+  tiny: '2px',
+  small: '4px',
+  medium: '8px',
+  large: '12px',
+  huge: '16px',
+  DEFAULT: 'medium',
 };

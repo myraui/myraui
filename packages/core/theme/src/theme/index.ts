@@ -1,6 +1,6 @@
 import { colors } from './colors';
 import { fontSize } from './fontSize';
-import { ThemedThemeTokens, ThemeTokens } from '../theme.types';
+import { DefaultThemeTokens, ThemeTokens } from '../theme.types';
 import { lineHeight } from './lineHeight';
 import { borderRadius } from './borderRadius';
 import { borderWidth } from './borderWidth';
@@ -10,11 +10,16 @@ import { width } from './width';
 import { height } from './height';
 import { ColorMode, myraColors } from '../colors';
 import { pipe } from 'fp-ts/lib/function';
-import { Dict, swapKeys } from '@myraui/shared-utils';
+import { swapKeys } from '@myraui/shared-utils';
+import * as R from 'fp-ts/Record';
 import { grayscale } from './grayscale';
+import { keyframes } from './keyframes';
+import { animation } from './animation';
+import deepMerge from 'deepmerge';
+import { normalizeColorModeValue } from '../utils';
 
 type Tokens = {
-  [K in keyof ThemeTokens]: ThemedThemeTokens<K>;
+  [K in keyof ThemeTokens]: DefaultThemeTokens<K>;
 };
 
 const tokens: Tokens = {
@@ -31,11 +36,18 @@ const tokens: Tokens = {
   minWidth: {},
   spacing: {},
   grayscale,
+  animation: animation,
+  keyframes,
 };
 
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;
 
-export const defaultThemes = pipe(tokens as Dict, swapKeys) as DefaultThemes;
+export const defaultThemes = pipe(
+  tokens,
+  R.map(normalizeColorModeValue),
+  R.map((value) => ({ ...value, dark: deepMerge(value.light as any, (value.dark as any) || {}) })),
+  swapKeys
+) as DefaultThemes;
 
 export const colorSchemes = [
   'background',

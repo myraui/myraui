@@ -1,12 +1,7 @@
-import { ThemedThemeTokens } from '../theme.types';
+import { DefaultThemeTokens } from '../theme.types';
 
 export type ThemeWidth = 'divider';
 
-export const width: ThemedThemeTokens<'width'> = {
-  light: {
-    divider: '1px',
-  },
-  dark: {
-    divider: '1px',
-  },
+export const width: DefaultThemeTokens<'width'> = {
+  divider: '1px',
 };

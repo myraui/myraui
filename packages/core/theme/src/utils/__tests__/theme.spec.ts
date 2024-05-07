@@ -1,12 +1,4 @@
-import {
-  buildThemedCSSVariables,
-  isColorMode,
-  isThemeRecord,
-  normalizeThemedValue,
-  resolveColorValue,
-  resolveThemeColors,
-  resolveThemeRecord,
-} from '../theme';
+import { buildThemedCSSVariables, isColorMode, isColorModeRecord, normalizeColorModeValue, resolveColorValue, resolveThemeColors } from '../theme';
 import { myraColors } from '../../colors';
 import { unwrapRE } from '@myraui/shared-utils';
 import { colorVariable } from '../css-variables';
@@ -76,37 +68,27 @@ describe('utils/theme', () => {
     });
   });
 
-  describe('resolveThemeRecord', () => {
-    it('should extract the resolve the theme record keys', () => {
-      expect(resolveThemeRecord({ _light: 'white', _dark: 'blue', _midnight: 'green' })).toEqual({
-        light: 'white',
-        dark: 'blue',
-        midnight: 'green',
-      });
-    });
-  });
-
-  describe('isThemeRecord', () => {
-    it('should return true if the value is a theme record', () => {
-      expect(isThemeRecord({ _light: 'white', _dark: 'blue', _midnight: 'green' })).toBeTruthy();
-    });
-
-    it('should return false if the value is an empty record', () => {
-      expect(isThemeRecord({})).toBeFalsy();
-    });
-
-    it('should return false if the value does not have the base theme', () => {
-      expect(isThemeRecord({ _dark: 'green' })).toBeFalsy();
-    });
-  });
-
   describe('normalizeThemedValue', () => {
     it('should keep a themed record as is', () => {
-      expect(normalizeThemedValue({ _light: 'white', _dark: 'black' })).toEqual({ _light: 'white', _dark: 'black' });
+      expect(normalizeColorModeValue({ light: 'white', dark: 'black' })).toEqual({ light: 'white', dark: 'black' });
     });
 
     it('should normalize a themed value', () => {
-      expect(normalizeThemedValue('white')).toEqual({ _light: 'white' });
+      expect(normalizeColorModeValue('white')).toEqual({ light: 'white' });
+    });
+  });
+
+  describe('isColorModeRecord', () => {
+    it('should return true if the value is a color mode record', () => {
+      expect(isColorModeRecord({ light: {}, dark: {} })).toBeTruthy();
+    });
+
+    it('should return false if the value is an empty record', () => {
+      expect(isColorModeRecord({})).toBeFalsy();
+    });
+
+    it('should return false if the value has one color mode', () => {
+      expect(isColorModeRecord({ light: {} })).toBeFalsy();
     });
   });
 });

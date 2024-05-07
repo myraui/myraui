@@ -1,9 +1,9 @@
-import { Dict, mapKeys, StringOrNumber } from '@myraui/shared-utils';
+import { Dict, mapKeys } from '@myraui/shared-utils';
 import * as R from 'fp-ts/Record';
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, myraColors } from '../colors';
-import { ColorValue, Theme, ThemedValue, ThemeRecord } from '../theme.types';
+import { ColorModeRecord, ColorModeValue, ColorValue } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
 import { isColorScale } from '../colors/utils';
@@ -41,14 +41,14 @@ export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<str
   );
 }
 
-export function resolveThemeRecord<Value>(themeRecord: ThemeRecord<Value>): Record<Theme, Value> {
-  return mapKeys((key) => String(key).replace('_', '') as Theme)(themeRecord) as Record<Theme, Value>;
+export function isColorModeRecord(record: any): record is ColorModeRecord<any> {
+  return 'light' in record && 'dark' in record && Object.keys(record).length === 2;
 }
 
-export function isThemeRecord(record: Dict = {}): record is ThemeRecord<any> {
-  return Object.keys(record).every((key) => key.startsWith('_')) && `_${BASE_THEME}` in record;
-}
+export function normalizeColorModeValue<Value>(colorModeValue: ColorModeValue<Value>): ColorModeRecord<Value> {
+  if (typeof colorModeValue === 'object' && isColorModeRecord(colorModeValue)) {
+    return colorModeValue;
+  }
 
-export function normalizeThemedValue<Value extends StringOrNumber>(themedValue: ThemedValue<Value>): ThemeRecord<Value> {
-  return typeof themedValue === 'object' ? themedValue : ({ [`_${BASE_THEME}`]: themedValue } as ThemeRecord<Value>);
+  return { [BASE_THEME]: colorModeValue } as ColorModeRecord<Value>;
 }

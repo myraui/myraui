@@ -4,6 +4,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception, StringOrNumber } from '@myraui/shared-utils';
 import { colorResolver } from './color-resolver';
 import { fontSizeResolver } from './font-size-resolver';
+import { rawValueResolver } from './raw-value-resolver';
 
 export interface ResolvedValue<Value> {
   value: Value;
@@ -22,4 +23,6 @@ type Resolvers = Partial<Record<keyof ThemeTokens, Resolver>>;
 export const resolvers: Resolvers = {
   colors: colorResolver,
   fontSize: fontSizeResolver,
+  keyframes: rawValueResolver,
+  animation: rawValueResolver,
 };

@@ -1,9 +1,9 @@
-import { ThemedThemeTokens } from '../theme.types';
+import { DefaultThemeTokens } from '../theme.types';
 import { getByColorMode } from '../colors/utils';
 
 export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
-export const colors: ThemedThemeTokens<'colors'> = {
+export const colors: DefaultThemeTokens<'colors'> = {
   light: {
     ...getByColorMode('light'),
     background: 'gray.1',
@@ -18,14 +18,6 @@ export const colors: ThemedThemeTokens<'colors'> = {
   },
   dark: {
     ...getByColorMode('dark'),
-    background: 'gray.1',
-    foreground: 'gray.12',
-    focus: 'blue.8',
     divider: 'white.2',
-    primary: 'cyan',
-    secondary: 'purple',
-    success: 'green',
-    warning: 'yellow',
-    danger: 'red',
   },
 };
