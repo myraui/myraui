@@ -37,7 +37,7 @@ export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProp
   Props,
   {
     Component: MyraComponent;
-    ref: React.RefObject<Required<Props>['ref'] extends ReactRef<infer T> ? Exclude<T, null> : HTMLElement>;
+    domRef: React.RefObject<Required<Props>['ref'] extends ReactRef<infer T> ? Exclude<T, null> : HTMLElement>;
     variantProps: InferVariantProps<TV>;
     colorScheme?: Props['colorScheme'];
     styles: InferSlots<TV>;
@@ -73,7 +73,7 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
     ...otherProps,
     Component,
     styles: hasSlots ? styles : finalClassName,
-    ref: domRef,
+    domRef,
     variantProps,
     classNames,
     colorScheme,

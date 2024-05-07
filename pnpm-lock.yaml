@@ -312,6 +312,9 @@ importers:
         specifier: '>=18'
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@myraui/react-test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/react-test-utils
       '@myraui/system':
         specifier: workspace:*
         version: link:../../core/system
@@ -427,6 +430,16 @@ importers:
       '@myraui/system':
         specifier: workspace:^
         version: link:../core/system
+    devDependencies:
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+
+  packages/utilities/react-test-utils:
+    dependencies:
+      '@myraui/system':
+        specifier: workspace:^
+        version: link:../../core/system
     devDependencies:
       clean-package:
         specifier: 2.2.0

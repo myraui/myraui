@@ -13,4 +13,26 @@ module.exports = {
     '!src/**/*.spec.tsx',
     '!src/**/*.spec.ts',
   ],
+  transform: {
+    '^.+\\.(t|j)sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
+  },
+  setupFilesAfterEnv: ['@testing-library/jest-dom', '../../../tools/scripts/setup-tests.ts'],
+  transformIgnorePatterns: ['!(src/.+)'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+  },
 };

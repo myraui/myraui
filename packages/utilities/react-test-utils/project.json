@@ -1,0 +1,23 @@
+{
+  "name": "@myraui/react-test-utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/utilities/react-test-utils/src",
+  "projectType": "library",
+  "tags": ["scope:client"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/utilities/react-test-utils/dist",
+        "rootDir": "packages/utilities/react-test-utils/src",
+        "main": "packages/utilities/react-test-utils/src/index.ts",
+        "tsConfig": "packages/utilities/react-test-utils/tsconfig.json",
+        "assets": []
+      }
+    }
+  }
+}
