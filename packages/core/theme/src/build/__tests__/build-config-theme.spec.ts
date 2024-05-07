@@ -94,6 +94,8 @@ describe('build/build-config-theme', () => {
         env
       );
 
+      console.log(result.tokens.animation);
+
       expect(result).toEqual({
         tokens: expect.objectContaining({
           colors: expect.objectContaining({

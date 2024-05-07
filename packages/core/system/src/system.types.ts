@@ -2,7 +2,7 @@
  * Part of this code is taken from @chakra-ui/system ❤️
  */
 
-import { Dict } from '@myraui/shared-utils';
+import { Assign, Dict } from '@myraui/shared-utils';
 import { ComponentColorScheme } from '@myraui/theme';
 import React, { ElementType, FunctionComponent } from 'react';
 
@@ -65,4 +65,4 @@ export interface MyraProps {
 
 export type HTMLMyraProps<T extends As = 'div'> = PropsOf<T> & PolymorphicProps & MyraProps;
 
-export type MyraComponent<T extends As = 'div'> = FunctionComponent<HTMLMyraProps<T> & { ref?: unknown }>;
+export type MyraComponent<T extends As = 'div', Props = Dict> = FunctionComponent<Assign<HTMLMyraProps<T>, Props> & { ref?: unknown }>;

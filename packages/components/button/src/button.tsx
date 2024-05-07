@@ -1,18 +1,14 @@
 import React from 'react';
-import { forwardRef, myra } from '@myraui/system';
+import { forwardRef } from '@myraui/system';
 import { useButton, UseButtonProps } from './use-button';
 
 /**
  * Button component is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
  */
 const Button: React.FC<ButtonProps> = forwardRef<'button', ButtonProps>((props, baseRef) => {
-  const { Component, ref, buttonProps, colorScheme } = useButton({ ...props, ref: baseRef });
+  const { Component, buttonProps } = useButton({ ...props, ref: baseRef });
 
-  return (
-    <myra.button colorScheme={colorScheme} ref={ref} as={Component} {...buttonProps}>
-      {props.children}
-    </myra.button>
-  );
+  return <Component {...buttonProps}>{props.children}</Component>;
 });
 
 export interface ButtonProps extends UseButtonProps {}

@@ -1,15 +1,15 @@
 import { dataAttr } from '@myraui/shared-utils';
-import { useVariantComponent, VariantComponentProps } from '@myraui/system';
+import { useMyraComponent, MyraComponentProps } from '@myraui/system';
 import { button } from '@myraui/theme';
 import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
 import { useMemo } from 'react';
 
-type Props = VariantComponentProps<typeof button, 'button'>;
+type Props = MyraComponentProps<typeof button, 'button'>;
 
 export type UseButtonProps = Props & AriaButtonProps;
 
 export function useButton(originalProps: UseButtonProps) {
-  const { Component, ref, autoFocus, isDisabled, colorScheme, ...otherProps } = useVariantComponent(originalProps, button, 'button');
+  const { Component, ref, autoFocus, isDisabled, ...otherProps } = useMyraComponent(originalProps, button, 'button');
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
@@ -37,8 +37,6 @@ export function useButton(originalProps: UseButtonProps) {
   return {
     Component,
     buttonProps,
-    ref,
-    colorScheme,
   };
 }
 

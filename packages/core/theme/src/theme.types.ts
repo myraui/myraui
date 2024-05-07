@@ -43,7 +43,7 @@ export type ThemeTokens = {
   minHeight: ThemeTokenRecord<string>;
   spacing: ThemeTokenRecord<string>;
   grayscale: ThemeTokenRecord<ThemeGrayscale>;
-  animation: ThemeTokenRecord<ThemeAnimation>;
+  animation: ThemeTokenRecord<ThemeAnimation, Dict | string>;
   keyframes: ThemeTokenRecord<ThemeKeyframes, Dict>;
 };
 
