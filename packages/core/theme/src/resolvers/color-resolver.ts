@@ -34,7 +34,12 @@ export function createColorValue(
 ): RE.ReaderEither<ThemeEnv, Exception, ResolvedValues<ColorValueFunction>> {
   return pipe(
     RE.of(extractColorShade(value)),
-    RE.chain((color) => colorVariable(`${color.name}-${shade || color.shade}`)),
+    RE.chain((color) => {
+      if (!shade) {
+        return color.isFallbackShade ? colorVariable(color.name) : colorVariable(`${color.name}-${color.shade}`);
+      }
+      return colorVariable(`${color.name}-${shade}`);
+    }),
     RE.chain(([colorValue, opacityColorValue]) => {
       const colorKey = shade ? `${shade}` : 'DEFAULT';
       return pipe(

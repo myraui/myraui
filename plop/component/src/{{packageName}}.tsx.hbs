@@ -5,10 +5,10 @@ import React from 'react';
 export interface {{capitalize packageName}}Props extends Use{{capitalize packageName}}Props {}
 
 const {{capitalize packageName}} = forwardRef<"div", {{capitalize packageName}}Props>((props, ref) => {
-  const {Component, domRef, children, styles, ...otherProps} =  use{{capitalize packageName}}({...props, ref});
+  const {Component, componentProps: { children, ...otherProps }} =  use{{capitalize packageName}}({...props, ref});
 
   return (
-  <Component ref={domRef} className={styles} {...otherProps}>
+  <Component className={styles} {...otherProps}>
     {children}
   </Component>
   );

@@ -7,9 +7,10 @@ import { {{capitalize packageName }}, {{capitalize packageName}}Props } from "..
 export default {
   title: "Components/{{capitalize packageName}}",
   component: {{capitalize packageName}},
-  argTypes: {
-  },
+  tags: ['autodocs'],
+  argTypes: {},
 } as Meta<typeof {{capitalize packageName}}>;
+type Story = StoryObj<typeof {{capitalize packageName}}>;
 
 const defaultProps = {
   ...{{packageName}}.defaultVariants,
@@ -17,7 +18,7 @@ const defaultProps = {
 
 const Template = (args: {{capitalize packageName}}Props) => <{{capitalize packageName}} {...args} />;
 
-export const Default = {
+export const Default: Story = {
   render: Template,
   args: {
     ...defaultProps,

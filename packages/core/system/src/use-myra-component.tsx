@@ -32,7 +32,7 @@ export type MyraComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
       /**
        * Ref to the DOM node.
        */
-      ref?: React.Ref<HTMLElement | null>;
+      ref?: React.Ref<HTMLOrSVGElement | null>;
     },
     SlotsComponentProps<TV>
   >;
@@ -41,9 +41,10 @@ export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProp
   Component: MyraComponent;
   variantProps: InferVariantProps<TV>;
   colorScheme?: Props['colorScheme'];
-  componentProps: Omit<Props, 'colorScheme'>;
+  componentProps: Omit<Props, 'colorScheme' | 'ref'>;
   slots: InferSlots<TV> extends Record<any, any> ? InferSlots<TV> : undefined;
   classNames?: Props['classNames'];
+  domRef: React.RefObject<HTMLOrSVGElement>;
 };
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(
@@ -69,11 +70,12 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
   }, [as, defaultAs, colorScheme, finalClassName]);
 
   return {
-    componentProps: { ...otherProps, ref, className: finalClassName },
+    componentProps: { ...otherProps, className: finalClassName },
     Component,
     slots: hasSlots ? styles : undefined,
     variantProps,
     classNames: hasSlots ? classNames : undefined,
     colorScheme,
+    domRef: ref,
   };
 }

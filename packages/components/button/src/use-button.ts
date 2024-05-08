@@ -1,15 +1,28 @@
 import { dataAttr } from '@myraui/shared-utils';
-import { useMyraComponent, MyraComponentProps } from '@myraui/system';
+import { MyraComponentProps, useMyraComponent } from '@myraui/system';
 import { button } from '@myraui/theme';
 import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
-type Props = MyraComponentProps<typeof button, 'button'>;
+interface Props {
+  /**
+   * The button start content.
+   */
+  startSection?: ReactNode;
+  /**
+   * The button end content.
+   */
+  endSection?: ReactNode;
+}
 
-export type UseButtonProps = Props & AriaButtonProps;
+export type UseButtonProps = Props & AriaButtonProps & MyraComponentProps<typeof button, 'button'>;
 
 export function useButton(originalProps: UseButtonProps) {
-  const { Component, ref, autoFocus, isDisabled, ...otherProps } = useMyraComponent(originalProps, button, 'button');
+  const {
+    Component,
+    domRef,
+    componentProps: { autoFocus, isDisabled, startSection, endSection, ...otherProps },
+  } = useMyraComponent(originalProps, button, 'button');
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
@@ -21,7 +34,7 @@ export function useButton(originalProps: UseButtonProps) {
       isDisabled,
       ...otherProps,
     },
-    ref
+    domRef
   );
 
   const buttonProps = useMemo(() => {
@@ -37,6 +50,8 @@ export function useButton(originalProps: UseButtonProps) {
   return {
     Component,
     buttonProps,
+    startSection,
+    endSection,
   };
 }
 

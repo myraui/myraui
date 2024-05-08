@@ -28,7 +28,7 @@ describe('useMyraComponent', () => {
     });
 
     it('should return the original props', () => {
-      expect(result.current.componentProps).toEqual({ isDisabled: true, ref, className: 'bg-red h-2' });
+      expect(result.current.componentProps).toEqual({ isDisabled: true, className: 'bg-red h-2' });
       expect(result.current.colorScheme).toEqual('primary');
     });
 

@@ -11,6 +11,7 @@ export type ColorShade = (typeof shades)[number];
 export interface ColorWithShade {
   name: string;
   shade: ColorShade;
+  isFallbackShade?: boolean;
 }
 
 export type ColorScale = Record<ColorShade, string> & { DEFAULT: ColorShade };

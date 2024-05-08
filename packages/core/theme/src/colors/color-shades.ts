@@ -10,6 +10,6 @@ export function extractColorShade(colorName: string): ColorWithShade {
   if (colorShade && shades.includes(+colorShade as ColorShade)) {
     return { name: colorName.split('.')[0], shade: +colorShade as ColorShade };
   } else {
-    return { name: colorName, shade: DEFAULT_SHADE };
+    return { name: colorName, shade: DEFAULT_SHADE, isFallbackShade: true };
   }
 }
