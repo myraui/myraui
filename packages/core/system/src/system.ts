@@ -1,52 +1,52 @@
 import styled from '@emotion/styled';
 import { buildComponentColorScheme } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
-import * as R from 'fp-ts/Reader';
+import * as Reader from 'fp-ts/Reader';
 import * as RE from 'fp-ts/ReaderEither';
 import React, { createElement, useMemo } from 'react';
 import { useMyraUIContext } from './context';
 import { As, MyraComponent, MyraProps, MyraUIStyledOptions } from './system.types';
 
-function applyComponentTheme(prefix: string) {
+export function applyComponentTheme(prefix: string) {
   return (props: MyraProps) => {
     if (!props.colorScheme) return {};
     return pipe(
       buildComponentColorScheme(props.colorScheme),
-      RE.getOrElse(() => R.of({}))
+      RE.getOrElse(() => Reader.of({}))
     )({ prefix, defaultExtendTheme: 'light' });
   };
 }
 
-const getDisplayName = (Component: any) => {
+export function getDisplayName(Component: any) {
   if (typeof Component === 'string') return Component;
   return Component?.displayName || Component?.name || 'Component';
-};
+}
 
-export function styledFn<T extends As, P extends object = object>(Dynamic: any, options: MyraUIStyledOptions = {}) {
+export function assignDisplayName(Component: any) {
+  return <T extends object>(el: T): T => {
+    Object.assign(el, {
+      displayName: `myra.${getDisplayName(Component)}`,
+      __el: Component,
+    });
+    return el;
+  };
+}
+
+export function useCreateStyledComponent(Component: any, _options: MyraUIStyledOptions = {}) {
+  const { prefix } = useMyraUIContext();
+
+  return useMemo(() => {
+    return pipe(applyComponentTheme(prefix), styled(Component as React.ComponentType<any>), assignDisplayName(Component));
+  }, [Component, prefix]);
+}
+
+export function styledFn<T extends As, P extends object = object>(Component: any, options: MyraUIStyledOptions = {}) {
   const Comp = React.forwardRef<any, any>(function Comp(props, ref) {
-    const { prefix } = useMyraUIContext();
+    const { as: Element = Component.__el || Component, children, ...restProps } = props;
 
-    const { as: Element = Dynamic.__el || Dynamic, children, ...restProps } = props;
+    const element = useCreateStyledComponent(Element, options);
 
-    const assign = (el: any) => {
-      Object.assign(el, {
-        displayName: `myra.${getDisplayName(Dynamic)}`,
-        __el: Dynamic,
-      });
-    };
-
-    const element = useMemo(() => styled(Element as React.ComponentType<any>)(applyComponentTheme(prefix)), [Element]);
-
-    assign(element);
-
-    return createElement(
-      element,
-      {
-        ref,
-        ...restProps,
-      },
-      children
-    );
+    return createElement(element, { ref, ...restProps }, children);
   });
 
   return React.memo(Comp as MyraComponent<T, P>);

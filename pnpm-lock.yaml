@@ -287,9 +287,15 @@ importers:
         specifier: '>=18'
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@myraui/react-test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/react-test-utils
       '@myraui/system':
         specifier: workspace:*
         version: link:../../core/system
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       '@myraui/theme':
         specifier: workspace:*
         version: link:../../core/theme
@@ -318,6 +324,9 @@ importers:
       '@myraui/system':
         specifier: workspace:*
         version: link:../../core/system
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       '@myraui/theme':
         specifier: workspace:*
         version: link:../../core/theme
@@ -327,6 +336,9 @@ importers:
 
   packages/core/fonts:
     devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -349,6 +361,9 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
     devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       '@types/color':
         specifier: ^3.0.6
         version: 3.0.6
@@ -374,6 +389,12 @@ importers:
         specifier: workspace:^
         version: link:../theme
     devDependencies:
+      '@myraui/react-test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/react-test-utils
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -396,6 +417,9 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.3)
     devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -415,6 +439,9 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.3)
     devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
       '@types/color':
         specifier: ^3.0.6
         version: 3.0.6
@@ -436,11 +463,10 @@ importers:
         version: 2.2.0
 
   packages/utilities/react-test-utils:
-    dependencies:
-      '@myraui/system':
-        specifier: workspace:^
-        version: link:../../core/system
     devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -457,6 +483,12 @@ importers:
         specifier: ^2.2.2
         version: 2.2.2
     devDependencies:
+      '@myraui/react-test-utils':
+        specifier: workspace:^
+        version: link:../react-test-utils
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -469,6 +501,15 @@ importers:
       flat:
         specifier: ^6.0.1
         version: 6.0.1
+    devDependencies:
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../test-utils
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+
+  packages/utilities/test-utils:
     devDependencies:
       clean-package:
         specifier: 2.2.0

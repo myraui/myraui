@@ -28,14 +28,16 @@
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/theme": "workspace:^",
-    "@myraui/shared-utils": "workspace:^",
+    "@myraui/plugin": "workspace:^",
     "@myraui/react-utils": "workspace:^",
+    "@myraui/shared-utils": "workspace:^",
     "@myraui/system": "workspace:^",
-    "@myraui/plugin": "workspace:^"
+    "@myraui/theme": "workspace:^"
   },
   "clean-package": "../../../clean-package.config.json"
 }

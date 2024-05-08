@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ClassValue, TVReturnType, VariantProps } from 'tailwind-variants';
-import { mapPropsVariants, ReactRef, useDOMRef } from '@myraui/react-utils';
+import { mapPropsVariants } from '@myraui/react-utils';
 import { Assign, clsx, Dict } from '@myraui/shared-utils';
 import { As, HTMLMyraProps, MyraComponent } from './system.types';
 import { myra } from './factory';
@@ -23,30 +23,31 @@ type SlotsComponentProps<TV> = InferSlots<TV> extends Record<any, any>
        */
       classNames?: InferSlotClasses<TV>;
     }
-  : Dict;
+  : {};
 
 export type MyraComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
-  InferVariantProps<TV> & {
-    /**
-     * Ref to the DOM node.
-     */
-    ref?: React.Ref<HTMLElement | null>;
-  } & SlotsComponentProps<TV>;
+  InferVariantProps<TV> &
+  Assign<
+    {
+      /**
+       * Ref to the DOM node.
+       */
+      ref?: React.Ref<HTMLElement | null>;
+    },
+    SlotsComponentProps<TV>
+  >;
 
-export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProps<TV, A>, TV> = Assign<
-  Props,
-  {
-    Component: MyraComponent;
-    domRef: React.RefObject<Required<Props>['ref'] extends ReactRef<infer T> ? Exclude<T, null> : HTMLElement>;
-    variantProps: InferVariantProps<TV>;
-    colorScheme?: Props['colorScheme'];
-    styles: InferSlots<TV>;
-    classNames?: Props['classNames'];
-  }
->;
+export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProps<TV, A>, TV> = {
+  Component: MyraComponent;
+  variantProps: InferVariantProps<TV>;
+  colorScheme?: Props['colorScheme'];
+  componentProps: Omit<Props, 'colorScheme'>;
+  slots: InferSlots<TV> extends Record<any, any> ? InferSlots<TV> : undefined;
+  classNames?: Props['classNames'];
+};
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(
-  originalProps: Props,
+  originalProps: Props & Dict,
   componentVariants: TV,
   as?: A
 ): UseMyraComponentReturn<A, Props, TV>;
@@ -54,8 +55,6 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
   const { props, variantProps } = mapPropsVariants(originalProps, componentVariants.variantKeys as []);
 
   const { ref, as, className, classNames, colorScheme, ...otherProps } = props;
-
-  const domRef = useDOMRef(ref);
 
   const styles = useMemo(() => componentVariants({ ...variantProps }), [...Object.values(variantProps)]);
 
@@ -66,17 +65,15 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
   const finalClassName = useMemo(() => (hasSlots ? styles.base({ class: baseStyles }) : baseStyles), [styles, baseStyles, hasSlots]);
 
   const Component = useMemo(() => {
-    return (props: any) => <myra.div as={as || defaultAs} colorScheme={colorScheme} className={finalClassName} ref={domRef} {...props} />;
-  }, [as, defaultAs, colorScheme, finalClassName, domRef, otherProps]);
+    return (props: any) => <myra.div as={as || defaultAs} colorScheme={colorScheme} className={finalClassName} {...props} ref={ref} />;
+  }, [as, defaultAs, colorScheme, finalClassName]);
 
   return {
-    ...otherProps,
+    componentProps: { ...otherProps, ref, className: finalClassName },
     Component,
-    styles: hasSlots ? styles : finalClassName,
-    domRef,
+    slots: hasSlots ? styles : undefined,
     variantProps,
-    classNames,
+    classNames: hasSlots ? classNames : undefined,
     colorScheme,
-    className: finalClassName,
   };
 }

@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
     "@myraui/system": "workspace:*",
     "@myraui/theme": "workspace:*",
     "clean-package": "2.2.0"

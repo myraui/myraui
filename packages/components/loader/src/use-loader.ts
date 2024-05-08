@@ -1,6 +1,7 @@
-import { useMyraComponent, MyraComponentProps } from '@myraui/system';
+import { MyraComponentProps, useMyraComponent } from '@myraui/system';
 import type { LoaderVariantProps } from '@myraui/theme';
 import { loader } from '@myraui/theme';
+import { useMemo } from 'react';
 
 interface Props extends MyraComponentProps<typeof loader> {
   /**
@@ -12,7 +13,18 @@ interface Props extends MyraComponentProps<typeof loader> {
 export type UseLoaderProps = Props & LoaderVariantProps;
 
 export function useLoader(originalProps: UseLoaderProps) {
-  return useMyraComponent(originalProps, loader);
+  const {
+    componentProps: { label, ...props },
+    ...rest
+  } = useMyraComponent(originalProps, loader);
+
+  const ariaLabel = useMemo(() => {
+    if (label || props.children) return label || props.children;
+
+    return !props['aria-label'] ? 'Loading' : '';
+  }, [label, props.children, props['aria-label']]);
+
+  return { ...rest, componentProps: { 'aria-label': ariaLabel, label, ...props } };
 }
 
 export type UseLoaderReturn = ReturnType<typeof useLoader>;

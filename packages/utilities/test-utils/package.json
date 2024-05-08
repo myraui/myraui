@@ -1,17 +1,17 @@
 {
-  "name": "@myraui/plugin",
+  "name": "@myraui/test-utils",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "The tailwind plugin for Myra UI",
+  "description": "Common test utils for all packages",
   "keywords": [
-    "plugin"
+    "test-utils"
   ],
   "author": {
     "name": "Moses Gitau",
     "email": "gitaumoses4@gmail.com"
   },
   "license": "MIT",
-  "main": "./src/index.ts",
+  "main": "./src/assertion.ts",
   "sideEffects": false,
   "files": [
     "dist"
@@ -22,21 +22,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
-    "directory": "packages/core/plugin"
+    "directory": "packages/utilities/test-utils"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
-    "@types/color": "^3.0.6",
-    "clean-package": "2.2.0",
-    "@myraui/test-utils": "workspace:^"
+    "clean-package": "2.2.0"
   },
   "dependencies": {
-    "color": "^4.2.3",
-    "deepmerge": "^4.3.1",
-    "@myraui/shared-utils": "workspace:^",
-    "@myraui/theme": "workspace:^"
   },
   "clean-package": "../../../clean-package.config.json"
 }

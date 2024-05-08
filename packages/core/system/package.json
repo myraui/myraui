@@ -28,6 +28,7 @@
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
+    "@myraui/test-utils": "workspace:^",
     "clean-package": "2.2.0"
   },
   "dependencies": {

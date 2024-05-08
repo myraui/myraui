@@ -28,12 +28,14 @@
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
     "clean-package": "2.2.0"
   },
   "dependencies": {
+    "@myraui/shared-utils": "workspace:^",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.2",
-    "@myraui/shared-utils": "workspace:^"
+    "tailwind-merge": "^2.2.2"
   },
   "clean-package": "../../../clean-package.config.json"
 }

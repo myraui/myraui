@@ -1,0 +1,30 @@
+{
+  "name": "@myraui/test-utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/utilities/test-utils/src",
+  "projectType": "library",
+  "tags": ["scope:common"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/utilities/test-utils/dist",
+        "rootDir": "packages/utilities/test-utils/src",
+        "main": "packages/utilities/test-utils/src/index.ts",
+        "tsConfig": "packages/utilities/test-utils/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/utilities/test-utils/jest.config.ts"
+      }
+    }
+  }
+}
