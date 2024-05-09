@@ -339,6 +339,9 @@ importers:
 
   packages/components/icons:
     dependencies:
+      '@myraui/icon':
+        specifier: workspace:^
+        version: link:../icon
       '@myraui/react-utils':
         specifier: workspace:*
         version: link:../../utilities/react-utils

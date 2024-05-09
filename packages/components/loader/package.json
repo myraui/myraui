@@ -11,7 +11,7 @@
     "email": "gitaumoses4@gmail.com"
   },
   "license": "MIT",
-  "main": "./src/assertion.ts",
+  "main": "./src/index.ts",
   "sideEffects": false,
   "files": [
     "dist"
