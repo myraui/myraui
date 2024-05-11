@@ -1,4 +1,4 @@
-import { colorVariable, CSSVariable } from '../utils/css-variables';
+import { buildCSSVariables, colorVariable, CSSVariable } from '../utils/css-variables';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { ResolvedValues, Resolver } from './resolvers';
@@ -47,7 +47,7 @@ export function createColorValue(
         RE.map((colorVariables) => ({
           [colorKey]: {
             value: generateColorValueFn(...colorVariables),
-            utilities: colorVariables,
+            utilities: buildCSSVariables(colorVariables),
           },
         }))
       );

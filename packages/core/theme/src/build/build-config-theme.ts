@@ -1,26 +1,25 @@
-import { DeepRecord, DeepRecordCopy, Exception, toValues } from '@myraui/shared-utils';
+import { DeepRecord, DeepRecordCopy, Exception, mergeObjects, toValues } from '@myraui/shared-utils';
 import { BuiltConfigTheme, ConfigTheme, ResolvedConfigTheme, ResolvedTokenValues, ThemeEnv } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/lib/function';
 import * as R from 'fp-ts/Record';
 import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
-import { CSSVariable } from '../utils/css-variables';
-import * as RA from 'fp-ts/ReadonlyArray';
 import { flow } from 'fp-ts/function';
 import { generateConfigTheme } from './generate-config-theme';
 import { resolveConfigTheme } from './resolve-config-theme';
 import { applyBaseTheme } from './apply-base-theme';
 import { ColorMode } from '../colors';
 import { ResolvedValue } from '../resolvers';
+import { Utilities } from '../resolvers/resolvers';
 
-export function extractUtilities(record: DeepRecord<ResolvedValue<any>>): RE.ReaderEither<ThemeEnv, Exception, readonly CSSVariable[]> {
+export function extractUtilities(record: DeepRecord<ResolvedValue<any>>): RE.ReaderEither<ThemeEnv, Exception, Utilities> {
   return pipe(
     record,
     R.map((value) => {
-      return isResolvedValue(value) ? RE.right(value.utilities || []) : extractUtilities(value as any);
+      return isResolvedValue(value) ? RE.right(value.utilities ? value.utilities : {}) : extractUtilities(value as any);
     }),
     R.sequence(RE.Applicative),
-    RE.map(flow(toValues, RA.flatten))
+    RE.map(flow(toValues, mergeObjects))
   );
 }
 
@@ -46,7 +45,7 @@ export function createBuiltConfigTheme(colorMode: ColorMode) {
         return pipe(
           extractUtilities(configTheme),
           RE.map((utilities) => ({
-            utilities: [...utilities],
+            utilities: utilities,
             tokens: resolvedTokens,
             colorMode,
           }))

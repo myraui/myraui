@@ -2,7 +2,7 @@ import { ConfigThemeGenerator } from './generators';
 import { pipe } from 'fp-ts/lib/function';
 import { ColorScale } from '../colors';
 import * as R from 'fp-ts/Record';
-import { ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils/css-variables';
+import { buildCSSVariables, ColorCSSVariableOptions, colorVariable, CSSVariable } from '../utils/css-variables';
 import * as RE from 'fp-ts/ReaderEither';
 import { ThemeEnv, ThemeTokens } from '../theme.types';
 import { Dict, Exception } from '@myraui/shared-utils';
@@ -72,7 +72,7 @@ export function generateColorScale(
     RE.map(
       R.mapWithIndex((key, value) => ({
         value: generateColorValueFn(...(value as [CSSVariable, CSSVariable])),
-        utilities: value,
+        utilities: buildCSSVariables(value),
       }))
     )
   );

@@ -57,7 +57,7 @@ export function createVariantIcon<T extends Record<string, CreateIconOptions> = 
   options: T,
   defaultVariant: keyof T
 ) {
-  return ({ variant = defaultVariant, ...props }: IconProps & { variant: keyof T }) => {
+  return ({ variant = defaultVariant, ...props }: IconProps & { variant?: keyof T }) => {
     const Icon = useMemo(() => {
       return createIcon(options[variant]);
     }, [variant]);

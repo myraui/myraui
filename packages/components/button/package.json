@@ -35,12 +35,13 @@
   },
   "devDependencies": {
     "@myraui/react-test-utils": "workspace:^",
-    "@myraui/test-utils": "workspace:^",
     "@myraui/system": "workspace:*",
+    "@myraui/test-utils": "workspace:^",
     "@myraui/theme": "workspace:*",
     "clean-package": "2.2.0"
   },
   "dependencies": {
+    "@myraui/icons": "workspace:^",
     "@myraui/react-utils": "workspace:*",
     "@myraui/shared-utils": "workspace:*"
   },

@@ -1,4 +1,4 @@
-import { ColorMode, ConfigThemes, ResolvedTokenValues, ThemeEnv, ThemeTokens } from '@myraui/theme';
+import { ColorMode, ConfigThemes, ResolvedTokenValues, ThemeEnv } from '@myraui/theme';
 import { Dict } from '@myraui/shared-utils';
 
 export type MyraUIPluginConfig = {

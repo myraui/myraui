@@ -4,7 +4,7 @@ import React from 'react';
 
 export interface IconProps extends UseIconProps {}
 
-const Icon = forwardRef<'svg', IconProps>(({ colorScheme = 'foreground', ...props }, ref) => {
+const Icon = forwardRef<'svg', IconProps>(({ colorScheme, ...props }, ref) => {
   const { Component, componentProps } = useIcon({ ...props, colorScheme, ref });
 
   return <Component {...componentProps} />;

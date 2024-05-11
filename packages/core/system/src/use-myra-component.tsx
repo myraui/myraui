@@ -44,7 +44,7 @@ export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProp
   componentProps: Omit<Props, 'colorScheme' | 'ref'>;
   slots: InferSlots<TV> extends Record<any, any> ? InferSlots<TV> : undefined;
   classNames?: Props['classNames'];
-  domRef: React.RefObject<HTMLOrSVGElement>;
+  domRef: React.RefObject<Element>;
 };
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(

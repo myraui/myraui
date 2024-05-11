@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../src';
 import React from 'react';
 import { button, colorSchemes, myraColors } from '@myraui/theme';
+import { ArrowDownTrayIcon, PhotoIcon } from '@myraui/icons';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -211,8 +212,10 @@ export const Sections: Story = {
   },
   render: (args) => (
     <div className="flex gap-4 items-center">
-      <Button>Left Section</Button>
-      <Button {...args}>Right Section</Button>
+      <Button startSection={<PhotoIcon />}>Start Section</Button>
+      <Button {...args} endSection={<ArrowDownTrayIcon />}>
+        End Section
+      </Button>
     </div>
   ),
 };

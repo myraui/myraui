@@ -274,6 +274,9 @@ importers:
 
   packages/components/button:
     dependencies:
+      '@myraui/icons':
+        specifier: workspace:^
+        version: link:../icons
       '@myraui/react-utils':
         specifier: workspace:*
         version: link:../../utilities/react-utils

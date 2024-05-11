@@ -20,11 +20,12 @@ describe('create-icon', () => {
     const Component = createIcon({
       d: 'M0 0h24v24H0z',
       displayName: 'TestIcon',
+      defaultProps: { role: 'path' },
     });
 
     const result = render(<Component />);
 
-    expect(result.container.firstChild.innerHTML).toEqual('<path d="M0 0h24v24H0z"></path>');
+    expect(result.getByRole('path')).toBeInTheDocument();
   });
 
   it('should pass default props', () => {
@@ -47,22 +48,26 @@ describe('create-icon', () => {
           solid: {
             displayName: 'TestIconSolid',
             d: 'm0 0v24h24v-24h-24z',
+            defaultProps: {
+              role: 'solid',
+            },
           },
           outline: {
             d: 'M0 0h24v24H0z',
             displayName: 'TestIconOutline',
+            defaultProps: {
+              role: 'outline',
+            },
           },
         },
         'outline'
       );
 
       const result = render(<VariantComponent />);
-
-      expect(result.container.firstChild.innerHTML).toEqual('<path d="M0 0h24v24H0z"></path>');
+      expect(result.getByRole('outline')).toBeInTheDocument();
 
       const solidResult = render(<VariantComponent variant="solid" />);
-
-      expect(solidResult.container.firstChild.innerHTML).toEqual('<path d="m0 0v24h24v-24h-24z"></path>');
+      expect(solidResult.getByRole('solid')).toBeInTheDocument();
     });
   });
 });

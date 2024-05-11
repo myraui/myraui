@@ -4,6 +4,7 @@ import { Dict, Exception } from '@myraui/shared-utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
+import { Utilities } from '../resolvers/resolvers';
 
 export interface CSSVariable {
   /**
@@ -34,9 +35,9 @@ export type FontSizeVariableOptions = {
   lineHeight?: CSSVariableOptions;
 };
 
-export type ScopedCSSVariables<Scope extends string = string> = Record<Scope, CSSVariable[]>;
+export type ScopedUtilities<Scope extends string = string> = Record<Scope, Utilities>;
 
-export type ThemedCSSVariables = Partial<ScopedCSSVariables<Theme>>;
+export type ThemedUtilities = Partial<ScopedUtilities<Theme>>;
 
 const escRegex = /[^a-zA-Z0-9_\u0081-\uffff-]/g;
 function esc(string: string) {

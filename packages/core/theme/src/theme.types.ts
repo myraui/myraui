@@ -5,10 +5,10 @@ import { ThemeOpacity } from './theme/opacity';
 import { ThemeHeight } from './theme/height';
 import { ThemeWidth } from './theme/width';
 import { ResolvedValue } from './resolvers';
-import { CSSVariable } from './utils/css-variables';
 import { ThemeGrayscale } from './theme/grayscale';
 import { ThemeAnimation } from './theme/animation';
 import { ThemeKeyframes } from './theme/keyframes';
+import { Utilities } from './resolvers/resolvers';
 
 export type ThemeEnv = {
   prefix: string;
@@ -62,6 +62,10 @@ export type ResolvedThemeToken<D = unknown> = Record<D extends Record<infer K, a
 
 export type BuiltThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, any>;
 
+export type ColorSchemeValue = FlatMyraColor | MyraColor | ThemeColors | string;
+
+export type ColorScheme = { background: ColorSchemeValue; text: ColorSchemeValue };
+
 export interface ConfigTheme extends PartialThemeTokens {
   extend?: ColorMode;
   /**
@@ -71,9 +75,9 @@ export interface ConfigTheme extends PartialThemeTokens {
   spacingUnit?: number;
 
   /**
-   * The default color applied to components
+   * The default color mode for the theme
    */
-  colorScheme?: FlatMyraColor | MyraColor | ThemeColors | string;
+  colorScheme?: ColorScheme | ColorSchemeValue;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {
@@ -95,7 +99,7 @@ export type ResolvedTokenValues<T extends ResolvedConfigTheme> = {
 export interface BuiltConfigTheme<T extends ResolvedConfigTheme> {
   colorMode: ColorMode;
   tokens: ResolvedTokenValues<T>;
-  utilities: Array<CSSVariable>;
+  utilities: Utilities;
 }
 
 export type ConfigThemes = Record<string, ConfigTheme>;

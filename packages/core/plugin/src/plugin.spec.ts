@@ -1,6 +1,5 @@
 import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from './plugin';
 import { getBaseStyles, MYRA_UI_PREFIX, myraColors } from '@myraui/theme';
-import { expect } from '@storybook/jest';
 import { unwrapRE } from '@myraui/shared-utils';
 
 jest.mock('tailwindcss/plugin.js', () => jest.fn((handler, config) => ({ handler, config })));
@@ -13,44 +12,20 @@ describe('plugin', () => {
         midnight: {
           colorMode: 'dark',
           tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
-          utilities: [
-            {
-              name: '--prefix-colors-red-1',
-              value: '0 19% 8%',
-              reference: functionMock,
-            },
-            {
-              name: '--prefix-colors-primary',
-              value: 'var(--prefix-colors-red-9)',
-              reference: functionMock,
-            },
-            {
-              name: '--prefix-colors-primary-1',
-              value: 'var(--prefix-colors-red-1)',
-              reference: functionMock,
-            },
-          ],
+          utilities: {
+            '--prefix-colors-red-1': '0 19% 8%',
+            '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
+            '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
+          },
         },
         dawn: {
           colorMode: 'light',
           tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
-          utilities: [
-            {
-              name: '--prefix-colors-red-1',
-              value: '0 19% 99%',
-              reference: functionMock,
-            },
-            {
-              name: '--prefix-colors-primary',
-              value: 'var(--prefix-colors-red-9)',
-              reference: functionMock,
-            },
-            {
-              name: '--prefix-colors-primary-1',
-              value: 'var(--prefix-colors-red-1)',
-              reference: functionMock,
-            },
-          ],
+          utilities: {
+            '--prefix-colors-red-1': '0 19% 99%',
+            '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
+            '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
+          },
         },
       })({ '--base-colors-primary': 'red' });
 

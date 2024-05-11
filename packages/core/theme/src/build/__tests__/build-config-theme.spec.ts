@@ -1,42 +1,45 @@
 import { unwrapRE } from '@myraui/shared-utils';
 import { buildConfigTheme, createBuiltConfigTheme, extractResolvedTokens, extractResolvedValue, extractUtilities } from '../build-config-theme';
 import { ThemeEnv } from '../../theme.types';
-import { colorVariable } from '../../utils/css-variables';
+import { buildCSSVariables, colorVariable } from '../../utils/css-variables';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
 
 describe('build/build-config-theme', () => {
-  const primary = unwrapRE(colorVariable('primary'), env);
-  const secondary = unwrapRE(colorVariable('secondary'), env);
+  const primary = unwrapRE(colorVariable('primary', { color: { value: 'blue' } }), env);
+  const secondary = unwrapRE(colorVariable('secondary', { color: { value: 'white' } }), env);
 
   describe('extractUtilities', () => {
     it('should build all the CSS variables from a simple resolved value', () => {
-      const utilities = unwrapRE(extractUtilities({ primary: { value: 'value', utilities: primary } }), env);
+      const utilities = unwrapRE(extractUtilities({ primary: { value: 'value', utilities: buildCSSVariables(primary) } }), env);
 
-      expect(utilities).toEqual(primary);
+      expect(utilities).toEqual(buildCSSVariables(primary));
     });
 
     it('should build all the CSS variables from a nested resolved value', () => {
       const utilities = unwrapRE(
-        extractUtilities({ primary: { background: { value: 'value', utilities: primary } }, secondary: { value: 'value', utilities: secondary } }),
+        extractUtilities({
+          primary: { background: { value: 'value', utilities: buildCSSVariables(primary) } },
+          secondary: { value: 'value', utilities: buildCSSVariables(secondary) },
+        }),
         env
       );
 
-      expect(utilities).toEqual([...primary, ...secondary]);
+      expect(utilities).toEqual(buildCSSVariables([...primary, ...secondary]));
     });
   });
 
   describe('extractResolvedValue', () => {
     it('should extract the resolved value from a simple resolved value', () => {
-      const result = unwrapRE(extractResolvedValue({ primary: { value: 'primary', utilities: primary } }), env);
+      const result = unwrapRE(extractResolvedValue({ primary: { value: 'primary', utilities: buildCSSVariables(primary) } }), env);
       expect(result).toEqual({ primary: 'primary' });
     });
 
     it('should extract the resolved value from a nested resolved value', () => {
       const result = unwrapRE(
         extractResolvedValue({
-          primary: { background: { value: 'primary', utilities: primary } },
-          secondary: { value: 'secondary', utilities: secondary },
+          primary: { background: { value: 'primary', utilities: buildCSSVariables(primary) } },
+          secondary: { value: 'secondary', utilities: buildCSSVariables(secondary) },
         }),
         env
       );
@@ -53,7 +56,7 @@ describe('build/build-config-theme', () => {
             secondary: {
               main: {
                 value: 'secondary',
-                utilities: secondary,
+                utilities: buildCSSVariables(secondary),
               },
             },
           },
@@ -69,15 +72,15 @@ describe('build/build-config-theme', () => {
       const result = unwrapRE(
         createBuiltConfigTheme('light')({
           colors: {
-            primary: { value: 'primary', utilities: primary },
-            secondary: { value: 'secondary', utilities: secondary },
+            primary: { value: 'primary', utilities: buildCSSVariables(primary) },
+            secondary: { value: 'secondary', utilities: buildCSSVariables(secondary) },
           },
         } as any),
         env
       );
       expect(result).toEqual({
         tokens: { colors: { primary: 'primary', secondary: 'secondary' } },
-        utilities: [...primary, ...secondary],
+        utilities: buildCSSVariables([...primary, ...secondary]),
         colorMode: 'light',
       });
     });
@@ -108,20 +111,11 @@ describe('build/build-config-theme', () => {
             DEFAULT: 'var(--prefix-border-width-small)',
           }),
         }),
-        utilities: expect.arrayContaining([
-          expect.objectContaining({
-            name: '--prefix-colors-primary',
-            value: 'var(--prefix-colors-blue-2)',
-          }),
-          expect.objectContaining({
-            name: '--prefix-colors-primary-opacity',
-            value: 'var(--prefix-colors-blue-2-opacity)',
-          }),
-          expect.objectContaining({
-            name: '--prefix-border-width-medium',
-            value: '3px',
-          }),
-        ]),
+        utilities: expect.objectContaining({
+          '--prefix-colors-primary': 'var(--prefix-colors-blue-2)',
+          '--prefix-colors-primary-opacity': 'var(--prefix-colors-blue-2-opacity)',
+          '--prefix-border-width-medium': '3px',
+        }),
         colorMode: 'light',
       });
     });

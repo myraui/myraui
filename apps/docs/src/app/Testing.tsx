@@ -5,8 +5,6 @@ import { useTheme } from 'next-themes';
 export const Testing: React.FC<TestingProps> = (props) => {
   const { theme, setTheme } = useTheme();
 
-  console.log(myra, '--------------------------------');
-
   return (
     <myra.div className="h-screen flex flex-col p-2">
       {theme && (
@@ -15,7 +13,11 @@ export const Testing: React.FC<TestingProps> = (props) => {
         </div>
       )}
       <div className="p-4">
-        <myra.button>Hello World</myra.button>
+        <myra.button colorScheme="red.4">
+          <div className="bg-color-scheme  w-40 h-40 flex items-center justify-center">
+            <div>Hello World</div>
+          </div>
+        </myra.button>
 
         <p className="text-foreground">What is going on?</p>
       </div>

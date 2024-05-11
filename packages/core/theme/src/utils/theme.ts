@@ -5,8 +5,9 @@ import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, myraColors } from '../colors';
 import { ColorModeRecord, ColorModeValue, ColorValue } from '../theme.types';
 import { BASE_THEME } from './constants';
-import { buildCSSVariables, ThemedCSSVariables } from './css-variables';
+import { ThemedUtilities } from './css-variables';
 import { isColorScale } from '../colors/utils';
+import { Utilities } from '../resolvers/resolvers';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -31,10 +32,9 @@ export function resolveThemeColors(colors: Record<string, ColorValue>): ColorPal
   );
 }
 
-export function buildThemedCSSVariables(variables: ThemedCSSVariables): Dict<string | Dict<string>> {
+export function buildThemedUtilities(variables: ThemedUtilities): Dict<string | Utilities> {
   return pipe(
     variables,
-    R.map((variables) => buildCSSVariables(variables || [])),
     mapKeys((key) => (key === BASE_THEME ? '' : `.${key} &,[data-theme="${key}"] &`)),
     R.toEntries,
     A.reduce({}, (acc, [key, value]) => (key === '' ? { ...acc, ...value } : { ...acc, [key]: value }))

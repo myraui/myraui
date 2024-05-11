@@ -1,13 +1,4 @@
-import {
-  BASE_THEME,
-  buildConfigTheme,
-  buildCSSVariables,
-  BuiltConfigTheme,
-  ConfigThemes,
-  defaultThemes,
-  getBaseStyles,
-  MYRA_UI_PREFIX,
-} from '@myraui/theme';
+import { BASE_THEME, buildConfigTheme, BuiltConfigTheme, ConfigThemes, defaultThemes, getBaseStyles, MYRA_UI_PREFIX } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import plugin from 'tailwindcss/plugin.js';
@@ -15,7 +6,11 @@ import { MyraUIPluginConfig, PluginEnv, ResolvedThemes, ResolvedVariant } from '
 import * as R from 'fp-ts/Record';
 import * as RA from 'fp-ts/ReadonlyArray';
 import deepmerge from 'deepmerge';
+
 import { Dict, Exception } from '@myraui/shared-utils';
+
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
+import withAlphaVariable from 'tailwindcss/lib/util/withAlphaVariable';
 
 export function createThemeSelector(themeName: string): string {
   const rootSelector = themeName === BASE_THEME ? '' : `:root,`;
@@ -43,7 +38,7 @@ export function combineBuiltThemes(themes: Record<string, BuiltConfigTheme<any>>
           return {
             ...acc,
             variants: [...acc.variants, { name: themeName, definition: [`&.${themeName}`, `&[data-theme="${themeName}"]`] }],
-            utilities: { ...acc.utilities, [selector]: { 'color-scheme': colorMode, ...buildCSSVariables(utilities) } },
+            utilities: { ...acc.utilities, [selector]: { 'color-scheme': colorMode, ...utilities } },
             baseStyles,
             tokens: deepmerge(acc.tokens, tokens),
           };
@@ -68,9 +63,26 @@ export function resolveThemes(themes: ConfigThemes): RE.ReaderEither<PluginEnv, 
 
 function createPlugin(resolved: ResolvedThemes) {
   return plugin(
-    ({ addBase, addUtilities, addVariant }) => {
+    ({ addBase, addUtilities, addVariant, matchUtilities, theme }) => {
       addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
       addUtilities({ ...resolved?.utilities });
+      matchUtilities(
+        {
+          'bg-color-scheme': (value) => {
+            const { backgroundColor, ...rest } = withAlphaVariable({ color: value, property: 'backgroundColor', variable: '--tw-bg-opacity' });
+            const { textColor, ...restText } = withAlphaVariable({ color: value, property: 'backgroundColor', variable: '--tw-text-opacity' });
+            return {
+              ...rest,
+              ['background-color']: backgroundColor,
+              color: `blue`,
+            };
+          },
+        },
+        {
+          values: flattenColorPalette(theme('colors.color-scheme')),
+          type: 'color',
+        }
+      );
       resolved?.variants.forEach((variant) => {
         addVariant(variant.name, variant.definition);
       });

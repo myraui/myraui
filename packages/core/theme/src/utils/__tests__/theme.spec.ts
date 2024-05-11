@@ -1,4 +1,4 @@
-import { buildThemedCSSVariables, isColorMode, isColorModeRecord, normalizeColorModeValue, resolveColorValue, resolveThemeColors } from '../theme';
+import { buildThemedUtilities, isColorMode, isColorModeRecord, normalizeColorModeValue, resolveColorValue, resolveThemeColors } from '../theme';
 import { myraColors } from '../../colors';
 import { unwrapRE } from '@myraui/shared-utils';
 import { colorVariable } from '../css-variables';
@@ -55,7 +55,7 @@ describe('utils/theme', () => {
       const lightVariables = unwrapRE(colorVariable('background', { color: { value: 'blue' }, opacity: { value: 'green' } }), env);
       const darkVariables = unwrapRE(colorVariable('background', { color: { value: 'red' }, opacity: { value: 'pink' } }), env);
 
-      const result = buildThemedCSSVariables({ light: lightVariables, dark: darkVariables });
+      const result = buildThemedUtilities({ light: lightVariables, dark: darkVariables });
 
       expect(result).toEqual({
         '--prefix-colors-background': 'blue',
