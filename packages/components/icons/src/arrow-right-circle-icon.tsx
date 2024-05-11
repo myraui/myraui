@@ -1,5 +1,32 @@
-
-import { createIcon } from '@myraui/icon';
+import { createIconVariants } from '@myraui/icon';
 import React from 'react';
 
-export const ArrowRightCircleIcon = createIcon({ path: <><circle cx="12" cy="12" r="10"/><polyline points="12 16 16 12 12 8"/><line x1="8" y1="12" x2="16" y2="12"/></>, displayName: 'ArrowRightCircleIcon' });
+export const ArrowRightCircleIcon = createIconVariants(
+  {
+    outline: {
+      path: (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </>
+      ),
+      displayName: 'ArrowRightCircleIcon',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'none', stroke: 'currentColor', 'aria-hidden': true },
+    },
+    solid: {
+      path: (
+        <>
+          <path
+            fillRule="evenodd"
+            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z"
+            clipRule="evenodd"
+          />
+        </>
+      ),
+      displayName: 'ArrowRightCircleIconSolid',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'currentColor', 'aria-hidden': true },
+    },
+  },
+  'outline'
+);

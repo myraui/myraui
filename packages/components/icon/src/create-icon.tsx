@@ -1,5 +1,6 @@
-import React, { Children, forwardRef } from 'react';
+import React, { Children, useMemo } from 'react';
 import Icon, { IconProps } from './icon';
+import { forwardRef } from '@myraui/system';
 
 export interface CreateIconOptions {
   /**
@@ -34,10 +35,10 @@ export function createIcon(options: CreateIconOptions) {
 
   const path = Children.toArray(options.path);
 
-  const Component = forwardRef<SVGSVGElement, IconProps>((props, ref) => {
+  const Component = forwardRef<'svg', IconProps>((props, ref) => {
     return (
-      <Icon ref={ref} viewBox={viewBox} {...defaultProps} {...props} fill="currentColor">
-        {path?.length ? path : <path fill="currentColor" d={d} />}
+      <Icon ref={ref} viewBox={viewBox} {...defaultProps} {...props}>
+        {path?.length ? path : <path d={d} />}
       </Icon>
     );
   });
@@ -45,4 +46,22 @@ export function createIcon(options: CreateIconOptions) {
   Component.displayName = displayName;
 
   return Component;
+}
+
+type DefaultIconVariants = 'outline' | 'solid';
+
+/**
+ * Create an icon with multiple variants
+ */
+export function createIconVariants<T extends Record<string, CreateIconOptions> = Record<DefaultIconVariants, CreateIconOptions>>(
+  options: T,
+  defaultVariant: keyof T
+) {
+  return forwardRef<'svg', IconProps & { variant: keyof T }>(({ variant = defaultVariant, ...props }, ref) => {
+    const Icon = useMemo(() => {
+      return createIcon(options[variant]);
+    }, [variant]);
+
+    return <Icon ref={ref} {...props} />;
+  });
 }

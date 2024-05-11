@@ -1,5 +1,32 @@
-
-import { createIcon } from '@myraui/icon';
+import { createIconVariants } from '@myraui/icon';
 import React from 'react';
 
-export const GiftIcon = createIcon({ path: <><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></>, displayName: 'GiftIcon' });
+export const GiftIcon = createIconVariants(
+  {
+    outline: {
+      path: (
+        <>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
+          />
+        </>
+      ),
+      displayName: 'GiftIcon',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'none', stroke: 'currentColor', 'aria-hidden': true },
+    },
+    solid: {
+      path: (
+        <>
+          <path d="M9.375 3a1.875 1.875 0 0 0 0 3.75h1.875v4.5H3.375A1.875 1.875 0 0 1 1.5 9.375v-.75c0-1.036.84-1.875 1.875-1.875h3.193A3.375 3.375 0 0 1 12 2.753a3.375 3.375 0 0 1 5.432 3.997h3.943c1.035 0 1.875.84 1.875 1.875v.75c0 1.036-.84 1.875-1.875 1.875H12.75v-4.5h1.875a1.875 1.875 0 1 0-1.875-1.875V6.75h-1.5V4.875C11.25 3.839 10.41 3 9.375 3ZM11.25 12.75H3v6.75a2.25 2.25 0 0 0 2.25 2.25h6v-9ZM12.75 12.75v9h6.75a2.25 2.25 0 0 0 2.25-2.25v-6.75h-9Z" />
+        </>
+      ),
+      displayName: 'GiftIconSolid',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'currentColor', 'aria-hidden': true },
+    },
+  },
+  'outline'
+);

@@ -1,5 +1,32 @@
-
-import { createIcon } from '@myraui/icon';
+import { createIconVariants } from '@myraui/icon';
 import React from 'react';
 
-export const PlusCircleIcon = createIcon({ path: <><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></>, displayName: 'PlusCircleIcon' });
+export const PlusCircleIcon = createIconVariants(
+  {
+    outline: {
+      path: (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </>
+      ),
+      displayName: 'PlusCircleIcon',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'none', stroke: 'currentColor', 'aria-hidden': true },
+    },
+    solid: {
+      path: (
+        <>
+          <path
+            fillRule="evenodd"
+            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+            clipRule="evenodd"
+          />
+        </>
+      ),
+      displayName: 'PlusCircleIconSolid',
+      viewBox: '0 0 24 24',
+      defaultProps: { fill: 'currentColor', 'aria-hidden': true },
+    },
+  },
+  'outline'
+);
