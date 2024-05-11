@@ -1,7 +1,7 @@
-import { createIconVariants } from '@myraui/icon';
+import { createVariantIcon } from '@myraui/icon';
 import React from 'react';
 
-export const Square3Stack3dIcon = createIconVariants(
+export const Square3Stack3dIcon = createVariantIcon(
   {
     outline: {
       path: (

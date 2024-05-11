@@ -1,7 +1,7 @@
-import { createIconVariants } from '@myraui/icon';
+import { createVariantIcon } from '@myraui/icon';
 import React from 'react';
 
-export const ListBulletIcon = createIconVariants(
+export const ListBulletIcon = createVariantIcon(
   {
     outline: {
       path: (

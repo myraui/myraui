@@ -53,15 +53,15 @@ type DefaultIconVariants = 'outline' | 'solid';
 /**
  * Create an icon with multiple variants
  */
-export function createIconVariants<T extends Record<string, CreateIconOptions> = Record<DefaultIconVariants, CreateIconOptions>>(
+export function createVariantIcon<T extends Record<string, CreateIconOptions> = Record<DefaultIconVariants, CreateIconOptions>>(
   options: T,
   defaultVariant: keyof T
 ) {
-  return forwardRef<'svg', IconProps & { variant: keyof T }>(({ variant = defaultVariant, ...props }, ref) => {
+  return ({ variant = defaultVariant, ...props }: IconProps & { variant: keyof T }) => {
     const Icon = useMemo(() => {
       return createIcon(options[variant]);
     }, [variant]);
 
-    return <Icon ref={ref} {...props} />;
-  });
+    return <Icon {...props} />;
+  };
 }

@@ -1,7 +1,7 @@
-import { createIconVariants } from '@myraui/icon';
+import { createVariantIcon } from '@myraui/icon';
 import React from 'react';
 
-export const BriefcaseIcon = createIconVariants(
+export const BriefcaseIcon = createVariantIcon(
   {
     outline: {
       path: (

@@ -7,7 +7,7 @@ export type { IconProps } from './icon';
 export { useIcon } from './use-icon';
 
 // export utilities
-export { createIcon, createIconVariants } from './create-icon';
+export { createIcon, createVariantIcon } from './create-icon';
 
 // export component
 export { Icon };

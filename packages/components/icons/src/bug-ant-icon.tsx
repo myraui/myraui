@@ -1,7 +1,7 @@
-import { createIconVariants } from '@myraui/icon';
+import { createVariantIcon } from '@myraui/icon';
 import React from 'react';
 
-export const BugAntIcon = createIconVariants(
+export const BugAntIcon = createVariantIcon(
   {
     outline: {
       path: (
