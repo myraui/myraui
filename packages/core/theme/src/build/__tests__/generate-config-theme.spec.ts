@@ -11,40 +11,44 @@ describe('build/generate-config-theme', () => {
       const theme = unwrapRE(
         generateConfigTheme({
           spacingUnit: 4,
-          colorScheme: 'primary.9',
           colors: { gray: myraColors.gray.light, primary: 'gray.1' },
           spacing: {},
+          colorScheme: {
+            background: 'primary',
+            text: 'gray',
+          },
         } as unknown as FullConfigTheme),
         env
       );
 
       expect(theme).toEqual(
         expect.objectContaining({
+          colorScheme: expect.objectContaining({
+            DEFAULT: {
+              value: [expect.any(Function), expect.any(Function)],
+              utilities: {
+                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary)',
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-opacity)',
+                '--prefix-colors-color-scheme-text': 'var(--prefix-colors-gray)',
+                '--prefix-colors-color-scheme-text-opacity': 'var(--prefix-colors-gray-opacity)',
+              },
+            },
+          }),
           colors: expect.objectContaining({
             primary: 'gray.1',
-            'color-scheme': expect.objectContaining({
-              DEFAULT: {
-                value: expect.any(Function),
-                utilities: [
-                  expect.objectContaining({ name: '--prefix-colors-color-scheme', value: 'var(--prefix-colors-primary-9)' }),
-                  expect.objectContaining({ name: '--prefix-colors-color-scheme-opacity', value: 'var(--prefix-colors-primary-9-opacity)' }),
-                ],
-              },
-            }),
             gray: expect.objectContaining({
               1: {
                 value: expect.any(Function),
-                utilities: [
-                  expect.objectContaining({ name: '--prefix-colors-gray-1', value: '0 0% 99%' }),
-                  expect.objectContaining({ name: '--prefix-colors-gray-1-opacity', value: '' }),
-                ],
+                utilities: {
+                  '--prefix-colors-gray-1': '0 0% 99%',
+                },
               },
               DEFAULT: {
                 value: expect.any(Function),
-                utilities: [
-                  expect.objectContaining({ name: '--prefix-colors-gray', value: 'var(--prefix-colors-gray-9)' }),
-                  expect.objectContaining({ name: '--prefix-colors-gray-opacity', value: 'var(--prefix-colors-gray-9-opacity)' }),
-                ],
+                utilities: {
+                  '--prefix-colors-gray': 'var(--prefix-colors-gray-9)',
+                  '--prefix-colors-gray-opacity': 'var(--prefix-colors-gray-9-opacity)',
+                },
               },
             }),
           }),
@@ -55,13 +59,13 @@ describe('build/generate-config-theme', () => {
           minWidth: expect.objectContaining({
             'unit-1': {
               value: 'var(--prefix-spacing-unit-1)',
-              utilities: [],
+              utilities: {},
             },
           }),
           minHeight: expect.objectContaining({
             'unit-1': {
               value: 'var(--prefix-spacing-unit-1)',
-              utilities: [],
+              utilities: {},
             },
           }),
         })

@@ -1,7 +1,7 @@
 import { buildThemedUtilities, isColorMode, isColorModeRecord, normalizeColorModeValue, resolveColorValue, resolveThemeColors } from '../theme';
 import { myraColors } from '../../colors';
 import { unwrapRE } from '@myraui/shared-utils';
-import { colorVariable } from '../css-variables';
+import { buildCSSVariables, colorVariable } from '../css-variables';
 import { ThemeEnv } from '../../theme.types';
 
 const env: ThemeEnv = { defaultExtendTheme: 'light', prefix: 'prefix' };
@@ -50,12 +50,12 @@ describe('utils/theme', () => {
     });
   });
 
-  describe('buildThemedCSSVariables', () => {
+  describe('buildThemedUtilities', () => {
     it('should build themed css variables', () => {
       const lightVariables = unwrapRE(colorVariable('background', { color: { value: 'blue' }, opacity: { value: 'green' } }), env);
       const darkVariables = unwrapRE(colorVariable('background', { color: { value: 'red' }, opacity: { value: 'pink' } }), env);
 
-      const result = buildThemedUtilities({ light: lightVariables, dark: darkVariables });
+      const result = buildThemedUtilities({ light: buildCSSVariables(lightVariables), dark: buildCSSVariables(darkVariables) });
 
       expect(result).toEqual({
         '--prefix-colors-background': 'blue',

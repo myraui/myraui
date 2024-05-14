@@ -85,33 +85,16 @@ describe('generators/color-palette-generator', () => {
         expect.objectContaining({
           DEFAULT: {
             value: expect.any(Function),
-            utilities: [
-              {
-                name: '--prefix-colors-blue',
-                value: 'var(--prefix-colors-blue-9)',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-blue-opacity',
-                value: 'var(--prefix-colors-blue-9-opacity)',
-                reference: expect.any(Function),
-              },
-            ],
+            utilities: {
+              '--prefix-colors-blue': 'var(--prefix-colors-blue-9)',
+              '--prefix-colors-blue-opacity': 'var(--prefix-colors-blue-9-opacity)',
+            },
           },
           '9': {
             value: expect.any(Function),
-            utilities: [
-              {
-                name: '--prefix-colors-blue-9',
-                value: '206 100% 50%',
-                reference: expect.any(Function),
-              },
-              {
-                name: '--prefix-colors-blue-9-opacity',
-                value: '',
-                reference: expect.any(Function),
-              },
-            ],
+            utilities: {
+              '--prefix-colors-blue-9': '206 100% 50%',
+            },
           },
         })
       );
@@ -127,18 +110,10 @@ describe('generators/color-palette-generator', () => {
           blue: expect.objectContaining({
             DEFAULT: expect.objectContaining({
               value: expect.any(Function),
-              utilities: expect.arrayContaining([
-                {
-                  name: '--prefix-colors-blue',
-                  value: 'var(--prefix-colors-blue-9)',
-                  reference: expect.any(Function),
-                },
-                {
-                  name: '--prefix-colors-blue-opacity',
-                  value: 'var(--prefix-colors-blue-9-opacity)',
-                  reference: expect.any(Function),
-                },
-              ]),
+              utilities: {
+                '--prefix-colors-blue': 'var(--prefix-colors-blue-9)',
+                '--prefix-colors-blue-opacity': 'var(--prefix-colors-blue-9-opacity)',
+              },
             }),
           }),
           primary: 'blue',

@@ -11,7 +11,9 @@ describe('resolvers/font-size-resolver', () => {
 
       expect(result).toEqual({
         value: ['var(--prefix-font-size-medium)', 'var(--prefix-line-height-medium)'],
-        utilities: [expect.objectContaining({ value: '2px', name: '--prefix-font-size-medium' })],
+        utilities: {
+          '--prefix-font-size-medium': '2px',
+        },
       });
     });
   });

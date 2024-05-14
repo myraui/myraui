@@ -10,13 +10,17 @@ describe('utils/create-theme-tokens', () => {
         lineHeight: {},
         width: {},
         height: {},
-        radius: {},
+        borderRadius: {},
         boxShadow: {},
         borderWidth: {},
         opacity: {},
         spacing: {},
         minWidth: {},
         minHeight: {},
+        colorScheme: {},
+        animation: {},
+        keyframes: {},
+        grayscale: {},
       });
     });
 
@@ -28,13 +32,17 @@ describe('utils/create-theme-tokens', () => {
         lineHeight: {},
         width: {},
         height: {},
-        radius: {},
+        borderRadius: {},
         boxShadow: {},
         spacing: {},
         borderWidth: {},
         opacity: {},
         minWidth: {},
         minHeight: {},
+        colorScheme: {},
+        animation: {},
+        keyframes: {},
+        grayscale: {},
       });
     });
 
@@ -46,13 +54,17 @@ describe('utils/create-theme-tokens', () => {
         lineHeight: {},
         width: {},
         height: {},
-        radius: {},
+        borderRadius: {},
         boxShadow: {},
         borderWidth: {},
         opacity: {},
         spacing: {},
         minWidth: {},
         minHeight: {},
+        colorScheme: {},
+        animation: {},
+        keyframes: {},
+        grayscale: {},
       });
     });
   });

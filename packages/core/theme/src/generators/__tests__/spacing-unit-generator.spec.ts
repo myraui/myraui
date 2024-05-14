@@ -13,7 +13,7 @@ describe('generators/spacing-unit-generator', () => {
         expect.objectContaining({
           'unit-1': {
             value: 'var(--prefix-spacing-unit-1)',
-            utilities: [],
+            utilities: {},
           },
         })
       );
@@ -37,13 +37,13 @@ describe('generators/spacing-unit-generator', () => {
         minWidth: expect.objectContaining({
           'unit-1': expect.objectContaining({
             value: 'var(--prefix-spacing-unit-1)',
-            utilities: [],
+            utilities: {},
           }),
         }),
         minHeight: expect.objectContaining({
           'unit-1': expect.objectContaining({
             value: 'var(--prefix-spacing-unit-1)',
-            utilities: [],
+            utilities: {},
           }),
         }),
       });

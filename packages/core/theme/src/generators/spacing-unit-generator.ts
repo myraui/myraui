@@ -52,7 +52,7 @@ export function createMinSizes(): RE.ReaderEither<ThemeEnv, Exception, ResolvedV
         spacingUnitVariable(value as SpacingScaleKeys, { value: '' }),
         RE.map((variable) => ({
           value: variable.reference(),
-          utilities: [],
+          utilities: {},
         }))
       ),
     ]),

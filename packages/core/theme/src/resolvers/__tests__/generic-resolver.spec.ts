@@ -11,7 +11,7 @@ describe('resolvers/generic-resolver', () => {
 
       expect(result).toEqual({
         value: 'var(--prefix-colors-key)',
-        utilities: [expect.objectContaining({})],
+        utilities: expect.objectContaining({}),
       });
     });
 
@@ -21,7 +21,9 @@ describe('resolvers/generic-resolver', () => {
 
       expect(result).toEqual({
         value: 'var(--prefix-colors-2_5)',
-        utilities: [expect.objectContaining({ value: 'value', name: '--prefix-colors-2_5' })],
+        utilities: {
+          '--prefix-colors-2_5': 'value',
+        },
       });
     });
   });
