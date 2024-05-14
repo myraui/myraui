@@ -14,7 +14,7 @@ type CSSRuleObject = RecursiveKeyValuePair<string, null | string | string[]>;
 export type Utilities = CSSRuleObject;
 
 export interface ResolvedValue<Value> {
-  value?: Value;
+  value: Value;
   utilities?: Utilities;
 }
 

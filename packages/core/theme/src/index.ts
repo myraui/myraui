@@ -6,3 +6,4 @@ export * from './utils/css-variables';
 export * from './utils';
 export * from './components';
 export * from './generators';
+export * from './resolvers';

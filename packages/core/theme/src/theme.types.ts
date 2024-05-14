@@ -9,6 +9,7 @@ import { ThemeGrayscale } from './theme/grayscale';
 import { ThemeAnimation } from './theme/animation';
 import { ThemeKeyframes } from './theme/keyframes';
 import { Utilities } from './resolvers/resolvers';
+import { ThemeColorScheme } from './theme/color-scheme';
 
 export type ThemeEnv = {
   prefix: string;
@@ -29,7 +30,10 @@ export type ThemeTokenRecord<K extends RecordKey, V = StringOrNumber> = Partial<
 
 export type ThemeUnits = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 
+export type ColorSchemeValue = FlatMyraColor | ThemeColors | MyraColor | string;
+
 export type ThemeTokens = {
+  colorScheme: Omit<ThemeTokenRecord<ThemeColorScheme, ColorSchemeValue>, 'DEFAULT'>;
   colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
   fontSize: ThemeTokenRecord<ThemeUnits>;
   lineHeight: ThemeTokenRecord<ThemeUnits>;
@@ -49,7 +53,10 @@ export type ThemeTokens = {
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
-export type ComponentColorScheme = ColorModeValue<Required<ConfigTheme>['colorScheme']>;
+export interface ComponentColorScheme {
+  colorScheme?: ColorModeValue<ColorSchemeValue>;
+  textColorScheme?: ColorModeValue<ColorSchemeValue>;
+}
 
 export type DefaultThemeTokens<Key extends keyof ThemeTokens> = ColorModeValue<ThemeTokens[Key]>;
 
@@ -62,10 +69,6 @@ export type ResolvedThemeToken<D = unknown> = Record<D extends Record<infer K, a
 
 export type BuiltThemeToken<D = unknown> = Record<D extends Record<infer K, any> ? K : string, any>;
 
-export type ColorSchemeValue = FlatMyraColor | MyraColor | ThemeColors | string;
-
-export type ColorScheme = { background: ColorSchemeValue; text: ColorSchemeValue };
-
 export interface ConfigTheme extends PartialThemeTokens {
   extend?: ColorMode;
   /**
@@ -73,11 +76,6 @@ export interface ConfigTheme extends PartialThemeTokens {
    * @default 4 (px)
    */
   spacingUnit?: number;
-
-  /**
-   * The default color mode for the theme
-   */
-  colorScheme?: ColorScheme | ColorSchemeValue;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {

@@ -17,6 +17,7 @@ import { keyframes } from './keyframes';
 import { animation } from './animation';
 import deepMerge from 'deepmerge';
 import { normalizeColorModeValue } from '../utils';
+import { colorScheme } from './color-scheme';
 
 type Tokens = {
   [K in keyof ThemeTokens]: DefaultThemeTokens<K>;
@@ -36,8 +37,9 @@ const tokens: Tokens = {
   minWidth: {},
   spacing: {},
   grayscale,
-  animation: animation,
+  animation,
   keyframes,
+  colorScheme,
 };
 
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;
@@ -49,7 +51,7 @@ export const defaultThemes = pipe(
   swapKeys
 ) as DefaultThemes;
 
-export const colorSchemes = [
+export const colorSchemeOptions = [
   'background',
   'foreground',
   'focus',

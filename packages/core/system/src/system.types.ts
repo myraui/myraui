@@ -56,12 +56,7 @@ export type HTMLMyraComponents = {
   [Tag in DOMElements]: MyraComponent<Tag>;
 };
 
-export interface MyraProps {
-  /**
-   * The color scheme of the component. This is based on the `colors` provided in the theme
-   */
-  colorScheme?: ComponentColorScheme;
-}
+export interface MyraProps extends ComponentColorScheme {}
 
 export type HTMLMyraProps<T extends As = 'div'> = PropsOf<T> & PolymorphicProps & MyraProps;
 

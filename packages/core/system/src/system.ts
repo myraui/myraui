@@ -9,9 +9,8 @@ import { As, MyraComponent, MyraProps, MyraUIStyledOptions } from './system.type
 
 export function applyComponentTheme(prefix: string) {
   return (props: MyraProps) => {
-    if (!props.colorScheme) return {};
     return pipe(
-      buildComponentColorScheme(props.colorScheme),
+      buildComponentColorScheme(props),
       RE.getOrElse(() => Reader.of({}))
     )({ prefix, defaultExtendTheme: 'light' });
   };

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../src';
 import React from 'react';
-import { button, colorSchemes, myraColors } from '@myraui/theme';
+import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
 import { ArrowDownTrayIcon, PhotoIcon } from '@myraui/icons';
 
 const meta: Meta<typeof Button> = {
@@ -19,7 +19,7 @@ const meta: Meta<typeof Button> = {
       control: {
         type: 'select',
       },
-      options: colorSchemes,
+      options: colorSchemeOptions,
     },
     size: {
       control: {

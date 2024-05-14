@@ -1,4 +1,4 @@
-import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from './plugin';
+import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from '../src/plugin';
 import { getBaseStyles, MYRA_UI_PREFIX, myraColors } from '@myraui/theme';
 import { unwrapRE } from '@myraui/shared-utils';
 
@@ -11,7 +11,7 @@ describe('plugin', () => {
       const result = combineBuiltThemes({
         midnight: {
           colorMode: 'dark',
-          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock }, colorScheme: { DEFAULT: [functionMock, functionMock] } } as any,
           utilities: {
             '--prefix-colors-red-1': '0 19% 8%',
             '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
@@ -20,7 +20,7 @@ describe('plugin', () => {
         },
         dawn: {
           colorMode: 'light',
-          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock }, colorScheme: { DEFAULT: [functionMock, functionMock] } } as any,
           utilities: {
             '--prefix-colors-red-1': '0 19% 99%',
             '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
@@ -35,6 +35,7 @@ describe('plugin', () => {
         },
         tokens: {
           colors: { primary: functionMock, 'red-1': functionMock },
+          colorScheme: { DEFAULT: [expect.any(Function), expect.any(Function)] },
         },
         utilities: {
           ':root,.dawn,[data-theme="dawn"]': {
@@ -89,11 +90,11 @@ describe('plugin', () => {
         }),
         utilities: {
           ':root,.dawn,[data-theme="dawn"]': expect.objectContaining({
-            '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
+            '--prefix-colors-primary': 'var(--prefix-colors-red)',
             '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
             '--prefix-colors-primary-1-opacity': 'var(--prefix-colors-red-1-opacity)',
             '--prefix-colors-primary-10': 'var(--prefix-colors-red-10)',
-            '--prefix-colors-primary-opacity': 'var(--prefix-colors-red-9-opacity)',
+            '--prefix-colors-primary-opacity': 'var(--prefix-colors-red-opacity)',
             '--prefix-colors-red-1': '0 100% 99%',
             '--prefix-colors-red-10': '358 69% 55%',
             '--prefix-colors-red-11': '358 65% 49%',
@@ -101,7 +102,7 @@ describe('plugin', () => {
             'color-scheme': 'light',
           }),
           ':root,.midnight,[data-theme="midnight"]': expect.objectContaining({
-            '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
+            '--prefix-colors-primary': 'var(--prefix-colors-red)',
             '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
             '--prefix-colors-primary-1-opacity': 'var(--prefix-colors-red-1-opacity)',
             '--prefix-colors-primary-10': 'var(--prefix-colors-red-10)',
@@ -110,7 +111,7 @@ describe('plugin', () => {
             '--prefix-colors-primary-11-opacity': 'var(--prefix-colors-red-11-opacity)',
             '--prefix-colors-primary-12': 'var(--prefix-colors-red-12)',
             '--prefix-colors-primary-12-opacity': 'var(--prefix-colors-red-12-opacity)',
-            '--prefix-colors-primary-opacity': 'var(--prefix-colors-red-9-opacity)',
+            '--prefix-colors-primary-opacity': 'var(--prefix-colors-red-opacity)',
             '--prefix-colors-red-1': '0 19% 8%',
             '--prefix-colors-red-10': '0 79% 65%',
             '--prefix-colors-red-11': '2 100% 79%',
@@ -164,8 +165,10 @@ describe('plugin', () => {
       const addBase = jest.fn();
       const addUtilities = jest.fn();
       const addVariant = jest.fn();
+      const matchUtilities = jest.fn();
+      const theme = jest.fn();
 
-      plugin.handler({ addBase, addUtilities, addVariant });
+      plugin.handler({ addBase, addUtilities, addVariant, matchUtilities, theme });
 
       expect(addBase).toHaveBeenCalledWith({ ':root, [data-theme]': getBaseStyles(MYRA_UI_PREFIX) });
 
@@ -178,6 +181,16 @@ describe('plugin', () => {
       expect(addVariant).toHaveBeenCalledWith('dark', ['&.dark', '&[data-theme="dark"]']);
       expect(addVariant).toHaveBeenCalledWith('light', ['&.light', '&[data-theme="light"]']);
       expect(addVariant).toHaveBeenCalledWith('midnight', ['&.midnight', '&[data-theme="midnight"]']);
+
+      expect(matchUtilities).toHaveBeenCalledWith(
+        {
+          'bg-color-scheme': expect.any(Function),
+          'text-color-scheme': expect.any(Function),
+          'bg-inverted-color-scheme': expect.any(Function),
+          'text-inverted-color-scheme': expect.any(Function),
+        },
+        { values: theme('colorScheme'), type: 'color' }
+      );
 
       expect(plugin.config).toEqual({
         theme: {

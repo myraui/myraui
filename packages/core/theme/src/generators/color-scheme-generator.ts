@@ -3,32 +3,33 @@ import { pipe } from 'fp-ts/function';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 import * as R from 'fp-ts/Record';
-import { ColorScheme, ColorSchemeValue } from '../theme.types';
-import { mapKeys } from '@myraui/shared-utils';
+import { Dict } from '@myraui/shared-utils';
+import { ResolvedValue } from '../resolvers';
 
-export function isColorScheme(value: any): value is ColorScheme {
-  if (typeof value === 'object') {
-    return 'background' in value && 'text' in value && Object.keys(value).length === 2;
-  }
-  return false;
-}
-
-export function createColorScheme(value: ColorScheme | ColorSchemeValue): ColorScheme {
-  if (isColorScheme(value)) {
-    return value;
+export function updateColorScheme(background?: Dict<ResolvedValue<any>>, foreground?: Dict<ResolvedValue<any>>) {
+  if (!background || !foreground) {
+    return background || foreground || {};
   }
 
-  return { background: value, text: value };
-}
-
-export const colorSchemeGenerator: ConfigThemeGenerator<'colorScheme'> = (colorScheme: ColorScheme | ColorSchemeValue) => {
   return pipe(
-    createColorScheme(colorScheme),
-    mapKeys((key) => `color-scheme${key === 'background' ? '' : '-text'}`),
-    R.mapWithIndex((key, value) => colorResolver(key, value)),
+    background,
+    R.mapWithIndex((key, value) => {
+      const foregroundValue = foreground[key];
+      return {
+        value: [value.value, foregroundValue.value],
+        utilities: { ...value?.utilities, ...foregroundValue?.utilities },
+      };
+    })
+  );
+}
+
+export const colorSchemeGenerator: ConfigThemeGenerator<'colorScheme'> = (colorScheme) => {
+  return pipe(
+    { 'color-scheme': colorScheme.background, 'color-scheme-text': colorScheme.text },
+    R.mapWithIndex((key, value) => (value ? colorResolver(key, value) : RE.right(undefined))),
     R.sequence(RE.Applicative),
     RE.map((result) => ({
-      colors: pipe(),
+      colorScheme: updateColorScheme(result['color-scheme'] as any, result['color-scheme-text'] as any),
     }))
   );
 };

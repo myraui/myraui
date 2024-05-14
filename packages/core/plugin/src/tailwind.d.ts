@@ -3,5 +3,5 @@ declare module 'tailwindcss/lib/util/flattenColorPalette' {
 }
 
 declare module 'tailwindcss/lib/util/withAlphaVariable' {
-  export default function withAlphaVariable(value: { color: string; property: string; variable: string }): Record<string, string>;
+  export default function withAlphaVariable(value: { color: any; property: string; variable: string }): Record<string, string>;
 }
