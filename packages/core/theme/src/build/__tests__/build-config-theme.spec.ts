@@ -103,6 +103,9 @@ describe('build/build-config-theme', () => {
             primary: expect.objectContaining({
               DEFAULT: expect.any(Function),
             }),
+            'color-scheme': expect.objectContaining({
+              DEFAULT: expect.any(Function),
+            }),
           }),
           spacing: expect.objectContaining({ unit: `var(--prefix-spacing-unit)` }),
           borderWidth: expect.objectContaining({

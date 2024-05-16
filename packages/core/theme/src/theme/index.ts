@@ -13,11 +13,10 @@ import { pipe } from 'fp-ts/lib/function';
 import { swapKeys } from '@myraui/shared-utils';
 import * as R from 'fp-ts/Record';
 import { grayscale } from './grayscale';
-import { keyframes } from './keyframes';
-import { animation } from './animation';
 import deepMerge from 'deepmerge';
 import { normalizeColorModeValue } from '../utils';
-import { colorScheme } from './color-scheme';
+import { animation } from './animation';
+import { keyframes } from './keyframes';
 
 type Tokens = {
   [K in keyof ThemeTokens]: DefaultThemeTokens<K>;
@@ -39,7 +38,6 @@ const tokens: Tokens = {
   grayscale,
   animation,
   keyframes,
-  colorScheme,
 };
 
 export type DefaultThemes = Record<ColorMode, ThemeTokens>;

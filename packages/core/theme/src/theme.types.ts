@@ -9,7 +9,6 @@ import { ThemeGrayscale } from './theme/grayscale';
 import { ThemeAnimation } from './theme/animation';
 import { ThemeKeyframes } from './theme/keyframes';
 import { Utilities } from './resolvers/resolvers';
-import { ThemeColorScheme } from './theme/color-scheme';
 
 export type ThemeEnv = {
   prefix: string;
@@ -33,7 +32,6 @@ export type ThemeUnits = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 export type ColorSchemeValue = FlatMyraColor | ThemeColors | MyraColor | string;
 
 export type ThemeTokens = {
-  colorScheme: Omit<ThemeTokenRecord<ThemeColorScheme, ColorSchemeValue>, 'DEFAULT'>;
   colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
   fontSize: ThemeTokenRecord<ThemeUnits>;
   lineHeight: ThemeTokenRecord<ThemeUnits>;
@@ -53,10 +51,7 @@ export type ThemeTokens = {
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
-export interface ComponentColorScheme {
-  colorScheme?: ColorModeValue<ColorSchemeValue>;
-  textColorScheme?: ColorModeValue<ColorSchemeValue>;
-}
+export type ComponentColorScheme = ColorModeValue<ColorSchemeValue>;
 
 export type DefaultThemeTokens<Key extends keyof ThemeTokens> = ColorModeValue<ThemeTokens[Key]>;
 
@@ -76,6 +71,11 @@ export interface ConfigTheme extends PartialThemeTokens {
    * @default 4 (px)
    */
   spacingUnit?: number;
+
+  /**
+   * The color scheme token that defines the color scheme for the components.
+   */
+  colorScheme?: ColorSchemeValue;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {

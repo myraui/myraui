@@ -8,7 +8,6 @@ import * as RA from 'fp-ts/ReadonlyArray';
 import deepmerge from 'deepmerge';
 
 import { Dict, Exception } from '@myraui/shared-utils';
-import { colorSchemeMatchers } from './utilities';
 
 export function createThemeSelector(themeName: string): string {
   const rootSelector = themeName === BASE_THEME ? '' : `:root,`;
@@ -61,10 +60,9 @@ export function resolveThemes(themes: ConfigThemes): RE.ReaderEither<PluginEnv, 
 
 function createPlugin(resolved: ResolvedThemes) {
   return plugin(
-    ({ addBase, addUtilities, addVariant, matchUtilities, theme }) => {
+    ({ addBase, addUtilities, addVariant }) => {
       addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
       addUtilities({ ...resolved?.utilities });
-      matchUtilities<any>(colorSchemeMatchers(), { values: theme('colorScheme'), type: 'color' });
       resolved?.variants.forEach((variant) => {
         addVariant(variant.name, variant.definition);
       });

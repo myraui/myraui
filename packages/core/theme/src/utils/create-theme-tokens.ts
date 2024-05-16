@@ -17,6 +17,5 @@ export function createThemeTokens(partialThemeTokens: PartialThemeTokens = {}): 
     grayscale: partialThemeTokens.grayscale || {},
     keyframes: partialThemeTokens.keyframes || {},
     animation: partialThemeTokens.animation || {},
-    colorScheme: partialThemeTokens.colorScheme || {},
   };
 }
