@@ -5,10 +5,10 @@ import { buildThemedUtilities, normalizeColorModeValue } from './theme';
 import * as R from 'fp-ts/Record';
 import { flow } from 'fp-ts/function';
 import { DeepRecord, Dict, Exception, mergeObjects, toValues } from '@myraui/shared-utils';
-import { extractUtilities } from '../build';
 import { colorSchemeGenerator } from '../generators/color-scheme-generator';
 import { ResolvedValue } from '../resolvers';
 import { Utilities } from '../resolvers/resolvers';
+import { extractUtilities } from '../build/utils';
 
 export function buildComponentColorScheme(colorScheme: ComponentColorScheme): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Utilities>> {
   return pipe(

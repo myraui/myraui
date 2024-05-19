@@ -1,8 +1,17 @@
-import { BASE_THEME, buildConfigTheme, BuiltConfigTheme, ConfigThemes, defaultThemes, getBaseStyles, MYRA_UI_PREFIX } from '@myraui/theme';
+import {
+  BASE_THEME,
+  buildConfigTheme,
+  BuiltConfigTheme,
+  ConfigThemes,
+  defaultThemes,
+  getBaseStyles,
+  MYRA_UI_PREFIX,
+  ThemeVariant,
+} from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import plugin from 'tailwindcss/plugin.js';
-import { MyraUIPluginConfig, PluginEnv, ResolvedThemes, ResolvedVariant } from './plugin.types';
+import { MyraUIPluginConfig, PluginEnv, ResolvedThemes } from './plugin.types';
 import * as R from 'fp-ts/Record';
 import * as RA from 'fp-ts/ReadonlyArray';
 import deepmerge from 'deepmerge';
@@ -29,13 +38,18 @@ export function combineBuiltThemes(themes: Record<string, BuiltConfigTheme<any>>
       themes,
       R.toEntries,
       RA.reduceWithIndex(
-        { tokens: {}, utilities: {}, baseStyles, variants: new Array<ResolvedVariant>() } as ResolvedThemes,
-        (index, acc, [themeName, { utilities, tokens, colorMode }]) => {
+        { tokens: {}, utilities: {}, baseStyles, variants: new Array<ThemeVariant>() } as ResolvedThemes,
+        (index, acc, [themeName, { utilities, tokens, colorMode, variants }]) => {
           const selector = createThemeSelector(themeName);
+          const variantUtilities = pipe(
+            variants,
+            RA.map((variant) => variant.utilities || {}),
+            RA.reduce({}, deepmerge)
+          );
           return {
             ...acc,
-            variants: [...acc.variants, { name: themeName, definition: [`&.${themeName}`, `&[data-theme="${themeName}"]`] }],
-            utilities: { ...acc.utilities, [selector]: { 'color-scheme': colorMode, ...utilities } },
+            variants: [...acc.variants, ...variants, { name: themeName, definition: [`&.${themeName}`, `&[data-theme="${themeName}"]`] }],
+            utilities: { ...acc.utilities, [selector]: { 'color-scheme': colorMode, ...utilities }, ...variantUtilities },
             baseStyles,
             tokens: index === 0 ? deepmerge(acc.tokens, tokens) : acc.tokens, // Only use the base theme for the tokens
           };

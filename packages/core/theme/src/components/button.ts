@@ -21,9 +21,10 @@ const button = tv({
   ],
   variants: {
     variant: {
-      filled: 'bg-color-scheme-9 text-color-scheme-foreground-1 hover:bg-color-scheme-9/90',
+      default: 'bg-default-2 border-tiny border-default-4 text-default-11 hover:bg-default-3/90',
+      filled: 'bg-color-scheme-9 text-foreground-1 hover:bg-color-scheme-9/90',
       light: 'bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme',
-      outline: 'border-color-scheme border-small text-color-scheme hover:bg-color-scheme-2/90',
+      outline: 'border-color-scheme border-tiny text-color-scheme hover:bg-color-scheme-2/90',
       subtle: 'text-color-scheme hover:bg-color-scheme-2/90',
       link: 'text-color-scheme hover:underline',
     },
@@ -55,7 +56,7 @@ const button = tv({
     },
   },
   defaultVariants: {
-    variant: 'filled',
+    variant: 'default',
     size: 'medium',
     radius: 'small',
     fullWidth: false,

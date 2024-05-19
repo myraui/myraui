@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { icon } from '@myraui/theme';
+import { colorSchemeOptions, icon } from '@myraui/theme';
 import { MdSettings } from 'react-icons/md';
 
 import { Icon, IconProps } from '../src';
@@ -9,7 +9,26 @@ export default {
   title: 'Components/Icon',
   component: Icon,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    size: {
+      control: {
+        type: 'select',
+      },
+      options: Object.keys(icon.variants.size),
+    },
+    colorScheme: {
+      control: {
+        type: 'select',
+      },
+      options: colorSchemeOptions,
+    },
+    variant: {
+      control: {
+        type: 'select',
+      },
+      options: ['outline', 'solid'],
+    },
+  },
 } as Meta<typeof Icon>;
 type Story = StoryObj<typeof Icon>;
 

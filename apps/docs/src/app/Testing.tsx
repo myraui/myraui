@@ -13,14 +13,14 @@ export const Testing: React.FC<TestingProps> = (props) => {
         </div>
       )}
       <div className="p-4">
-        <myra.button colorScheme="red.4" textColorScheme="blue">
+        <myra.div className="bg-color-scheme color-scheme-color-scheme">
           <div className="w-40 h-40 flex items-center justify-center">
             <div>
               <div className="text-inverted-color-scheme">Inverted Hello World</div>
               <div className="text-color-scheme">Hello World</div>
             </div>
           </div>
-        </myra.button>
+        </myra.div>
 
         <p className="text-foreground">What is going on?</p>
       </div>

@@ -59,11 +59,17 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
 
   const styles = useMemo(() => componentVariants({ ...variantProps }), [...Object.values(variantProps)]);
 
-  const hasSlots = typeof styles === 'object';
+  const hasSlots = useMemo(() => {
+    return typeof styles === 'object';
+  }, [styles]);
 
-  const baseStyles = useMemo(() => (hasSlots ? clsx(styles?.base, className) : clsx(className, styles)), [className, classNames, hasSlots]);
+  const baseStyles = useMemo(() => {
+    return hasSlots ? clsx(styles?.base, className) : clsx(className, styles);
+  }, [className, hasSlots, styles]);
 
-  const finalClassName = useMemo(() => (hasSlots ? styles.base({ class: baseStyles }) : baseStyles), [styles, baseStyles, hasSlots]);
+  const finalClassName = useMemo(() => {
+    return hasSlots ? styles.base({ class: baseStyles }) : baseStyles;
+  }, [styles, baseStyles, hasSlots]);
 
   const Component = useMemo(() => {
     return (props: any) => <myra.div as={as || defaultAs} colorScheme={colorScheme} className={finalClassName} {...props} ref={ref} />;

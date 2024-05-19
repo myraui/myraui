@@ -1,4 +1,4 @@
-import { Theme, ThemeEnv, ThemeTokens } from '../theme.types';
+import { Theme, ThemeEnv } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception } from '@myraui/shared-utils';
 import { pipe } from 'fp-ts/lib/function';
@@ -49,6 +49,10 @@ function dashCase(string: string) {
   return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
 }
 
+function join(...parts: any[]) {
+  return dashCase(parts.filter(Boolean).join('-'));
+}
+
 export function cssVariable(
   name: string | CSSVariable,
   { fallback, value }: CSSVariableOptions = {}
@@ -78,12 +82,8 @@ export function cssVariable(
  * @param valueKey the key of the value
  * @param options
  */
-export function themeTokenVariable(
-  token: keyof ThemeTokens,
-  valueKey: string,
-  options?: CSSVariableOptions
-): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
-  return cssVariable(`${token}${valueKey === '' ? '' : `-${valueKey}`}`, options);
+export function themeTokenVariable(token: string, valueKey: string, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+  return cssVariable(join(token, valueKey), options);
 }
 
 /**
@@ -134,7 +134,7 @@ export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
 }
 
 export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K, options?: CSSVariableOptions) {
-  const key = (spacingScaleKey ? `-${spacingScaleKey}` : '').replace('.', '_');
+  const key = join('spacing-unit', spacingScaleKey).replace('.', '_');
 
   return cssVariable(`spacing-unit${key}`, options);
 }

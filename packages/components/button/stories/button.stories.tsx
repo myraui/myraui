@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '../src';
 import React from 'react';
 import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
-import { ArrowDownTrayIcon, PhotoIcon } from '@myraui/icons';
+import { ArrowDownTrayIcon, ArrowRightIcon, PhotoIcon } from '@myraui/icons';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -63,12 +63,14 @@ export const Default: Story = {
 export const Variants: Story = {
   args: {
     colorScheme: 'primary',
-    variant: 'filled',
     children: 'Button',
   },
   render: (args) => (
     <div className="flex gap-4 items-center">
-      <Button {...args}>Filled</Button>
+      <Button {...args}>Default</Button>
+      <Button {...args} variant="filled">
+        Filled
+      </Button>
       <Button {...args} variant="outline">
         Outline
       </Button>
@@ -212,9 +214,14 @@ export const Sections: Story = {
   },
   render: (args) => (
     <div className="flex gap-4 items-center">
-      <Button startSection={<PhotoIcon />}>Start Section</Button>
+      <Button {...args} variant="default" startSection={<PhotoIcon />}>
+        Gallery
+      </Button>
       <Button {...args} endSection={<ArrowDownTrayIcon />}>
-        End Section
+        Download
+      </Button>
+      <Button {...args} variant="light" startSection={<PhotoIcon />} endSection={<ArrowRightIcon />}>
+        Visit Gallery
       </Button>
     </div>
   ),
