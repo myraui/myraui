@@ -8,7 +8,6 @@ import { Icon, IconProps } from '../src';
 export default {
   title: 'Components/Icon',
   component: Icon,
-  tags: ['autodocs'],
   argTypes: {
     size: {
       control: {
@@ -52,6 +51,9 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Update the icon color
+ */
 export const IconColor: Story = {
   render: Template,
   args: {

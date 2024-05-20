@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@myraui/icons": "workspace:^",
+    "@myraui/loader": "workspace:^",
     "@myraui/react-utils": "workspace:*",
     "@myraui/shared-utils": "workspace:*"
   },

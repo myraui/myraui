@@ -277,6 +277,9 @@ importers:
       '@myraui/icons':
         specifier: workspace:^
         version: link:../icons
+      '@myraui/loader':
+        specifier: workspace:^
+        version: link:../loader
       '@myraui/react-utils':
         specifier: workspace:*
         version: link:../../utilities/react-utils

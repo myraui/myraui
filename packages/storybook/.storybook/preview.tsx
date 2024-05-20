@@ -3,7 +3,7 @@ import { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
 
 import './style.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MyraUIProvider } from '@myraui/system';
 import { DocsContainer, DocsContainerProps } from '@storybook/blocks';
 
@@ -11,15 +11,22 @@ const decorators: Preview['decorators'] = [
   (Story) => {
     return (
       <MyraUIProvider>
-        <div className="bg-dark w-72">
-          <Story />
-        </div>
+        <Story />
       </MyraUIProvider>
     );
   },
 ];
 
 const Container = (props: DocsContainerProps) => {
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      // scroll to bottom
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight + 100);
+      }, 100);
+    }
+  }, []);
+
   return (
     <MyraUIProvider>
       <DocsContainer {...props} />
@@ -36,7 +43,12 @@ const commonTheme = {
 const preview: Preview = {
   parameters: {
     layout: 'centered',
-    controls: { hideNoControlsWarning: true },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
     docs: {
       theme,
       container: Container,

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../src';
+import { Button, ButtonProps } from '../src';
 import React from 'react';
 import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
 import { ArrowDownTrayIcon, ArrowRightIcon, PhotoIcon } from '@myraui/icons';
@@ -7,7 +7,6 @@ import { ArrowDownTrayIcon, ArrowRightIcon, PhotoIcon } from '@myraui/icons';
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: {
@@ -43,50 +42,49 @@ const meta: Meta<typeof Button> = {
         type: 'boolean',
       },
     },
-    isDisabled: {
-      control: {
-        type: 'boolean',
-      },
-    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+const VariantsTemplate = (args: ButtonProps) => {
+  return (
+    <div className="flex gap-4 ">
+      {Object.keys(button.variants.variant).map((variant: any) => (
+        <div className="flex gap-2 flex-col items-center">
+          {Object.keys(button.variants.size).map((size: any) => (
+            <Button key={size} {...args} variant={variant} size={size}>
+              {variant}
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const Default: Story = {
   args: {
     children: 'Button',
+    variant: 'filled',
   },
 };
 
+/**
+ * Use the `variant` prop to change the visual style of the Button. You can set the value to `filled`, `outline`, `light`, `subtle`, or `link`.
+ */
 export const Variants: Story = {
   args: {
     colorScheme: 'primary',
     children: 'Button',
   },
-  render: (args) => (
-    <div className="flex gap-4 items-center">
-      <Button {...args}>Default</Button>
-      <Button {...args} variant="filled">
-        Filled
-      </Button>
-      <Button {...args} variant="outline">
-        Outline
-      </Button>
-      <Button {...args} variant="light">
-        Light
-      </Button>
-      <Button {...args} variant="subtle">
-        Subtle
-      </Button>
-      <Button {...args} variant="link">
-        Link
-      </Button>
-    </div>
-  ),
+  render: VariantsTemplate,
 };
 
+/**
+ * Use the `size` prop to change the size of the Button. You can set the value to `tiny`, `small`, `medium`, `large`, or `huge`.
+ */
 export const Sizes: Story = {
   args: {
     colorScheme: 'primary',
@@ -114,18 +112,22 @@ export const Sizes: Story = {
   ),
 };
 
+/**
+ * If you want the Button to take the full width of its container, you can set the `fullWidth` prop to `true`.
+ */
 export const FullWidth: Story = {
   args: {
     ...Default.args,
     fullWidth: true,
   },
-  render: (args) => (
-    <div className="w-80 p-2 border-tiny border-divider">
-      <Button {...args}>Full Width</Button>
-    </div>
-  ),
+  parameters: {
+    layout: 'padded',
+  },
 };
 
+/**
+ * Use the `radius` prop to change the border-radius of the Button. You can set the value to `tiny`, `small`, `medium`, `large`, or `huge`.
+ */
 export const Radius: Story = {
   args: {
     colorScheme: 'primary',
@@ -153,6 +155,9 @@ export const Radius: Story = {
   ),
 };
 
+/**
+ * If you want the Button to be compact, you can set the `compact` prop to `true`. This will reduce the padding of the Button.
+ */
 export const CompactSize: Story = {
   args: {
     colorScheme: 'primary',
@@ -170,13 +175,20 @@ export const CompactSize: Story = {
   ),
 };
 
+/**
+ * A disabled Button is not interactive and has a different visual style. You can set the `isDisabled` prop to `true` to disable the Button.
+ */
 export const Disabled: Story = {
   args: {
     ...Default.args,
     isDisabled: true,
   },
+  render: VariantsTemplate,
 };
 
+/**
+ * Apply a color scheme to the Button by setting the `colorScheme` prop from the colors defined in the theme.
+ */
 export const Colors: Story = {
   args: {
     variant: 'filled',
@@ -207,6 +219,9 @@ export const Colors: Story = {
   },
 };
 
+/**
+ * `startSection` and `endSection` props allow you to add icons or other elements to the start or end of the Button.
+ */
 export const Sections: Story = {
   args: {
     variant: 'filled',
@@ -225,4 +240,11 @@ export const Sections: Story = {
       </Button>
     </div>
   ),
+};
+
+export const LoadingState: Story = {
+  args: {
+    isLoading: true,
+  },
+  render: VariantsTemplate,
 };

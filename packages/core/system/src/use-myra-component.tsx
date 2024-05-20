@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ClassValue, TVReturnType, VariantProps } from 'tailwind-variants';
 import { mapPropsVariants } from '@myraui/react-utils';
-import { Assign, clsx, Dict } from '@myraui/shared-utils';
+import { Assign, clsx } from '@myraui/shared-utils';
 import { As, HTMLMyraProps, MyraComponent } from './system.types';
 import { myra } from './factory';
 
@@ -23,7 +23,7 @@ type SlotsComponentProps<TV> = InferSlots<TV> extends Record<any, any>
        */
       classNames?: InferSlotClasses<TV>;
     }
-  : Dict;
+  : object;
 
 export type MyraComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
   InferVariantProps<TV> &
@@ -48,7 +48,7 @@ export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProp
 };
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(
-  originalProps: Props & Dict,
+  originalProps: Props & { colorSchemeAsColor?: boolean },
   componentVariants: TV,
   as?: A
 ): UseMyraComponentReturn<A, Props, TV>;
@@ -59,13 +59,20 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
 
   const styles = useMemo(() => componentVariants({ ...variantProps }), [...Object.values(variantProps)]);
 
+  const colorSchemeClassName = useMemo(() => {
+    if (colorScheme) {
+      return clsx(className, 'text-color-scheme');
+    }
+    return className;
+  }, [colorScheme, className]);
+
   const hasSlots = useMemo(() => {
     return typeof styles === 'object';
   }, [styles]);
 
   const baseStyles = useMemo(() => {
-    return hasSlots ? clsx(styles?.base, className) : clsx(className, styles);
-  }, [className, hasSlots, styles]);
+    return hasSlots ? clsx(styles?.base, colorSchemeClassName) : clsx(colorSchemeClassName, styles);
+  }, [colorSchemeClassName, hasSlots, styles]);
 
   const finalClassName = useMemo(() => {
     return hasSlots ? styles.base({ class: baseStyles }) : baseStyles;

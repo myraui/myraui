@@ -11,20 +11,22 @@ export type OmitCommonProps<Target, OmitAdditionalProps extends keyof any = neve
   'transition' | 'as' | 'color' | OmitAdditionalProps
 >;
 
-export type RightJoinProps<SourceProps extends object = Dict, OverrideProps extends object = Dict> = OmitCommonProps<
+export type RightJoinProps<SourceProps extends object = object, OverrideProps extends object = object> = OmitCommonProps<
   SourceProps,
   keyof OverrideProps
 > &
   OverrideProps;
 
-export type MergeWithAs<ComponentProps extends object, AsProps extends object, AdditionalProps extends object = Dict, AsComponent extends As = As> = (
-  | RightJoinProps<ComponentProps, AdditionalProps>
-  | RightJoinProps<AsProps, AdditionalProps>
-) & {
+export type MergeWithAs<
+  ComponentProps extends object,
+  AsProps extends object,
+  AdditionalProps extends object = object,
+  AsComponent extends As = As
+> = (RightJoinProps<ComponentProps, AdditionalProps> | RightJoinProps<AsProps, AdditionalProps>) & {
   as?: AsComponent;
 };
 
-export type InternalForwardRefRenderFunction<Component extends As, Props extends object = Dict, OmitKeys extends keyof any = never> = {
+export type InternalForwardRefRenderFunction<Component extends As, Props extends object = object, OmitKeys extends keyof any = never> = {
   <AsComponent extends As = Component>(
     props: MergeWithAs<React.ComponentPropsWithoutRef<Component>, Omit<React.ComponentPropsWithoutRef<AsComponent>, OmitKeys>, Props, AsComponent>
   ): React.ReactElement | null;
