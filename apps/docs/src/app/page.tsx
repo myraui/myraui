@@ -5,7 +5,7 @@ import { Testing } from './Testing';
 
 export default function Index() {
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <Testing colorScheme="blue" />
     </ThemeProvider>
   );

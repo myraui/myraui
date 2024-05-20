@@ -1,4 +1,4 @@
-import { buildComponentColorScheme, createComponentColorScheme } from '../component-theme';
+import { buildColorSchemeClasses, createComponentColorScheme } from '../component-theme';
 import { unwrapRE } from '@myraui/shared-utils';
 
 describe('utils/component-theme', () => {
@@ -21,7 +21,7 @@ describe('utils/component-theme', () => {
 
   describe('buildComponentTheme', () => {
     it('should generate CSS Variables from a component color scheme', () => {
-      const result = unwrapRE(buildComponentColorScheme({ background: 'blue', foreground: 'white' }), {
+      const result = unwrapRE(buildColorSchemeClasses({ background: 'blue', foreground: 'white' }), {
         prefix: 'prefix',
         defaultExtendTheme: 'light',
       });
@@ -37,7 +37,7 @@ describe('utils/component-theme', () => {
     });
 
     it('should resolve a themed color scheme', () => {
-      const result = unwrapRE(buildComponentColorScheme({ dark: 'green', light: 'blue.8' }), {
+      const result = unwrapRE(buildColorSchemeClasses({ dark: 'green', light: 'blue.8' }), {
         prefix: 'prefix',
         defaultExtendTheme: 'light',
       });

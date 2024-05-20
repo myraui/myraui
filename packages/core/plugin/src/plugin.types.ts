@@ -14,4 +14,5 @@ export interface ResolvedThemes {
   baseStyles: Dict;
   utilities: Dict;
   tokens: ResolvedTokenValues<any>;
+  themes: Array<string>;
 }

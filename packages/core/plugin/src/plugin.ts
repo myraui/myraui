@@ -38,7 +38,7 @@ export function combineBuiltThemes(themes: Record<string, BuiltConfigTheme<any>>
       themes,
       R.toEntries,
       RA.reduceWithIndex(
-        { tokens: {}, utilities: {}, baseStyles, variants: new Array<ThemeVariant>() } as ResolvedThemes,
+        { tokens: {}, utilities: {}, baseStyles, variants: new Array<ThemeVariant>(), themes: new Array<string>() } as ResolvedThemes,
         (index, acc, [themeName, { utilities, tokens, colorMode, variants }]) => {
           const selector = createThemeSelector(themeName);
           const variantUtilities = pipe(
@@ -52,6 +52,7 @@ export function combineBuiltThemes(themes: Record<string, BuiltConfigTheme<any>>
             utilities: { ...acc.utilities, [selector]: { 'color-scheme': colorMode, ...utilities }, ...variantUtilities },
             baseStyles,
             tokens: index === 0 ? deepmerge(acc.tokens, tokens) : acc.tokens, // Only use the base theme for the tokens
+            themes: [...acc.themes, themeName],
           };
         }
       )
@@ -82,6 +83,7 @@ function createPlugin(resolved: ResolvedThemes) {
       });
     },
     {
+      darkMode: 'class',
       theme: {
         extend: resolved.tokens,
       },

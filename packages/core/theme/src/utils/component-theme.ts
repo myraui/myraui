@@ -1,29 +1,17 @@
 import { pipe } from 'fp-ts/lib/function';
-import * as RE from 'fp-ts/ReaderEither';
-import { ComponentColorScheme, ThemeEnv } from '../theme.types';
-import { buildThemedUtilities, normalizeColorModeValue } from './theme';
+import { ComponentColorScheme } from '../theme.types';
+import { normalizeColorModeValue } from './theme';
 import * as R from 'fp-ts/Record';
-import { flow } from 'fp-ts/function';
-import { DeepRecord, Dict, Exception, mergeObjects, toValues } from '@myraui/shared-utils';
-import { colorSchemeGenerator } from '../generators/color-scheme-generator';
-import { ResolvedValue } from '../resolvers';
-import { Utilities } from '../resolvers/resolvers';
-import { extractUtilities } from '../build/utils';
+import { dashCase, Dict, toValues } from '@myraui/shared-utils';
+import { BASE_THEME } from './constants';
 
-export function buildComponentColorScheme(colorScheme: ComponentColorScheme): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Utilities>> {
+export function buildColorSchemeClasses(colorScheme: ComponentColorScheme): string {
   return pipe(
     normalizeColorModeValue(colorScheme) as Dict,
     R.mapWithIndex((theme, value) => {
-      return pipe(
-        value,
-        colorSchemeGenerator,
-        RE.map((result) => result.colors as DeepRecord<ResolvedValue<any>>),
-        RE.chain(extractUtilities),
-        RE.map((variables) => ({ [theme]: variables }))
-      );
+      return `${theme === BASE_THEME ? '' : `${theme}:`}color-scheme-${dashCase(value)}`;
     }),
-    R.sequence(RE.Applicative),
-    RE.map(flow(toValues, mergeObjects)),
-    RE.map(buildThemedUtilities)
+    toValues,
+    (values) => values.join(' ')
   );
 }

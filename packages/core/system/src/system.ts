@@ -1,21 +1,10 @@
-import styled from '@emotion/styled';
-import { buildComponentColorScheme } from '@myraui/theme';
+import { buildColorSchemeClasses } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
-import * as Reader from 'fp-ts/Reader';
-import * as RE from 'fp-ts/ReaderEither';
 import React, { createElement, useMemo } from 'react';
 import { useMyraUIContext } from './context';
 import { As, MyraComponent, MyraProps, MyraUIStyledOptions } from './system.types';
-
-export function applyComponentTheme(prefix: string) {
-  return (props: MyraProps) => {
-    if (!props.colorScheme) return {};
-    return pipe(
-      buildComponentColorScheme(props.colorScheme),
-      RE.getOrElse(() => Reader.of({}))
-    )({ prefix, defaultExtendTheme: 'light' });
-  };
-}
+import { forwardRef } from './forwardRef';
+import { clsx } from '@myraui/shared-utils';
 
 export function getDisplayName(Component: any) {
   if (typeof Component === 'string') return Component;
@@ -32,16 +21,27 @@ export function assignDisplayName(Component: any) {
   };
 }
 
+export function colorSchemed<T extends MyraProps>(Component: React.ComponentType<T>) {
+  return forwardRef<any, any>(({ colorScheme, ...props }, ref) => {
+    const colorSchemeClass = useMemo(() => {
+      if (!colorScheme) return '';
+      return buildColorSchemeClasses(colorScheme);
+    }, [colorScheme]);
+
+    return createElement(Component, { ...props, ref, className: clsx(colorSchemeClass, props.className) });
+  });
+}
+
 export function useCreateStyledComponent(Component: any, _options: MyraUIStyledOptions = {}) {
   const { prefix } = useMyraUIContext();
 
   return useMemo(() => {
-    return pipe(applyComponentTheme(prefix), styled(Component as React.ComponentType<any>), assignDisplayName(Component));
+    return pipe(colorSchemed(Component), assignDisplayName(Component));
   }, [Component, prefix]);
 }
 
 export function styledFn<T extends As, P extends object = object>(Component: any, options: MyraUIStyledOptions = {}) {
-  const Comp = React.forwardRef<any, any>(function Comp(props, ref) {
+  const Comp = forwardRef<any, any>(function Comp(props, ref) {
     const { as: Element = Component.__el || Component, children, ...restProps } = props;
 
     const element = useCreateStyledComponent(Element, options);

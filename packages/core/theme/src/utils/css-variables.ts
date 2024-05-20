@@ -1,6 +1,6 @@
 import { Theme, ThemeEnv } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
-import { Dict, Exception } from '@myraui/shared-utils';
+import { dashCase, Dict, Exception } from '@myraui/shared-utils';
 import { pipe } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import { SpacingScaleKeys } from '../generators/spacing-unit-generator';
@@ -42,11 +42,6 @@ export type ThemedUtilities = Partial<ScopedUtilities<Theme>>;
 const escRegex = /[^a-zA-Z0-9_\u0081-\uffff-]/g;
 function esc(string: string) {
   return `${string}`.replace(escRegex, (s) => `\\${s}`);
-}
-
-const dashCaseRegex = /[A-Z]/g;
-function dashCase(string: string) {
-  return string.replace(dashCaseRegex, (match) => `-${match.toLowerCase()}`);
 }
 
 function join(...parts: any[]) {

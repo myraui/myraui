@@ -31,7 +31,7 @@ export function buildColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T
     flattenObject,
     mapKeys((key) => (key.endsWith('-DEFAULT') ? key.replace('-DEFAULT', '') : key)),
     R.mapWithIndex((colorName) => {
-      return pipe(colorResolver(false)('color-scheme', colorName.replace('-', '.')), RE.map(applyColorSchemeUtilities(colorName)));
+      return pipe(colorResolver(!colorName.includes('-'))('color-scheme', colorName.replace('-', '.')), RE.map(applyColorSchemeUtilities(colorName)));
     }),
     R.sequence(RE.Applicative)
   );

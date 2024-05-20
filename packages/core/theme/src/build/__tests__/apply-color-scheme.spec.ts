@@ -38,21 +38,21 @@ describe('build/apply-color-scheme', () => {
 
       expect(result).toEqual({
         test: {
-          '.color-scheme-test,[data-color-scheme="test"]': {
-            '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
-            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-          },
+          '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
+            '--prefix-color-scheme': 'var(--prefix-colors-test)',
+            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+          }),
         },
         'test-1': {
           '.color-scheme-test-1,[data-color-scheme="test-1"]': {
-            '--prefix-colors-color-scheme': 'var(--prefix-colors-test-1)',
-            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
+            '--prefix-color-scheme': 'var(--prefix-colors-test-1)',
+            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
           },
         },
         'test-2': {
           '.color-scheme-test-2,[data-color-scheme="test-2"]': {
-            '--prefix-colors-color-scheme': 'var(--prefix-colors-test-2)',
-            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-2-opacity)',
+            '--prefix-color-scheme': 'var(--prefix-colors-test-2)',
+            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-2-opacity)',
           },
         },
       });
@@ -107,7 +107,7 @@ describe('build/apply-color-scheme', () => {
             definition: ['&.color-scheme-primary', '&[data-color-scheme="primary"]'],
             utilities: {
               '.color-scheme-primary,[data-color-scheme="primary"]': expect.objectContaining({
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary)',
+                '--prefix-color-scheme': 'var(--prefix-colors-primary)',
               }),
             },
           },
@@ -116,8 +116,8 @@ describe('build/apply-color-scheme', () => {
             definition: ['&.color-scheme-primary-1', '&[data-color-scheme="primary-1"]'],
             utilities: {
               '.color-scheme-primary-1,[data-color-scheme="primary-1"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary-1)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-1-opacity)',
+                '--prefix-color-scheme': 'var(--prefix-colors-primary-1)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-1-opacity)',
               },
             },
           },
@@ -126,8 +126,8 @@ describe('build/apply-color-scheme', () => {
             definition: ['&.color-scheme-primary-12', '&[data-color-scheme="primary-12"]'],
             utilities: {
               '.color-scheme-primary-12,[data-color-scheme="primary-12"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary-12)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-12-opacity)',
+                '--prefix-color-scheme': 'var(--prefix-colors-primary-12)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-12-opacity)',
               },
             },
           },
@@ -135,10 +135,10 @@ describe('build/apply-color-scheme', () => {
             name: 'color-scheme-test',
             definition: ['&.color-scheme-test', '&[data-color-scheme="test"]'],
             utilities: {
-              '.color-scheme-test,[data-color-scheme="test"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-              },
+              '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
+                '--prefix-color-scheme': 'var(--prefix-colors-test)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+              }),
             },
           },
           {
@@ -146,8 +146,8 @@ describe('build/apply-color-scheme', () => {
             definition: ['&.color-scheme-test-1', '&[data-color-scheme="test-1"]'],
             utilities: {
               '.color-scheme-test-1,[data-color-scheme="test-1"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-test-1)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
+                '--prefix-color-scheme': 'var(--prefix-colors-test-1)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
               },
             },
           },
@@ -156,8 +156,8 @@ describe('build/apply-color-scheme', () => {
             definition: ['&.color-scheme-test-12', '&[data-color-scheme="test-12"]'],
             utilities: {
               '.color-scheme-test-12,[data-color-scheme="test-12"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-test-12)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-12-opacity)',
+                '--prefix-color-scheme': 'var(--prefix-colors-test-12)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-12-opacity)',
               },
             },
           },
@@ -193,10 +193,12 @@ describe('build/apply-color-scheme', () => {
             name: 'color-scheme-test',
             definition: ['&.color-scheme-test', '&[data-color-scheme="test"]'],
             utilities: {
-              '.color-scheme-test,[data-color-scheme="test"]': {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-              },
+              '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
+                '--prefix-color-scheme': 'var(--prefix-colors-test)',
+                '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+                '--prefix-color-scheme-1': 'var(--prefix-colors-test-1)',
+                '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-test-1-opacity)',
+              }),
             },
           },
           {
