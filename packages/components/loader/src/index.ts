@@ -1,0 +1,10 @@
+import Loader from "./loader";
+
+// export types
+export type { LoaderProps } from "./loader";
+
+// export hooks
+export { useLoader } from "./use-loader";
+
+// export component
+export { Loader };

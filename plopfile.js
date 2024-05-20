@@ -15,6 +15,15 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
+const workspaces = ['components', 'core', 'hooks', 'utilities'];
+const generators = ['component', 'package', 'hook'];
+
+const defaultOutDirs = {
+  component: 'components',
+  hook: 'hooks',
+  package: 'utilities',
+};
+
 /**
  * @param {import("plop").NodePlopAPI} plop
  */
@@ -26,70 +35,104 @@ module.exports = function main(plop) {
     return camelCase(text);
   });
 
-  plop.setGenerator('package', {
-    description: `Generates a package`,
-    prompts: [
-      {
-        type: 'input',
-        name: `packageName`,
-        message: `Enter package name:`,
+  generators.forEach((generator) => {
+    plop.setGenerator(generator, {
+      description: `Generates a ${generator}`,
+      prompts: [
+        {
+          type: 'input',
+          name: `packageName`,
+          message: `Enter ${generator} name:`,
 
-        validate: (value) => {
-          if (!value) {
-            return `Package name is required`;
-          }
+          validate: (value) => {
+            if (!value) {
+              return `${generator} name is required`;
+            }
 
-          // check is case is correct
-          if (value !== value.toLowerCase()) {
-            return `Package name must be in lowercase`;
-          }
+            // check is has a valid hook name "use-something"
+            if (generator === 'hook' && !value.startsWith('use-')) {
+              return "Hook name must start with 'use-'";
+            }
 
-          // cannot have spaces
-          if (value.includes(' ')) {
-            return `Package name cannot have spaces`;
-          }
+            // check is case is correct
+            if (value !== value.toLowerCase()) {
+              return `${generator} name must be in lowercase`;
+            }
 
-          return true;
+            // cannot have spaces
+            if (value.includes(' ')) {
+              return `${generator} name cannot have spaces`;
+            }
+
+            return true;
+          },
         },
+        {
+          type: 'input',
+          name: 'description',
+          message: `The description of this ${generator}:`,
+        },
+        {
+          type: 'list',
+          name: 'outDir',
+          message: `where should this ${generator} live?`,
+          default: defaultOutDirs[generator],
+          choices: workspaces,
+          validate: (value) => {
+            if (!value) {
+              return `outDir is required`;
+            }
+
+            return true;
+          },
+        },
+      ],
+      actions(answers) {
+        const actions = [];
+
+        if (!answers) return actions;
+
+        const { description, outDir, packageName } = answers;
+
+        const destination = `packages/${outDir}/${dashCase(packageName)}`;
+
+        const data = {
+          packageName,
+          description,
+          outDir,
+          destination,
+        };
+
+        actions.push({
+          type: 'addMany',
+          templateFiles: `plop/${generator}/**`,
+          destination: `{{destination}}`,
+          base: `plop/${generator}`,
+          data,
+          abortOnFail: true,
+        });
+
+        if (generator === 'component') {
+          actions.push({
+            type: 'add',
+            templateFile: `plop/component-theme/theme.ts.hbs`,
+            path: `packages/core/theme/src/components/{{packageName}}.ts`,
+            data,
+          });
+
+          // update index.ts
+          actions.push({
+            type: 'append',
+            path: `packages/core/theme/src/components/index.ts`,
+            pattern: /^/,
+            template: `export * from './{{packageName}}';\n`,
+            separator: '',
+            data,
+          });
+        }
+
+        return actions;
       },
-      {
-        type: 'input',
-        name: 'description',
-        message: `The description of this package:`,
-      },
-      {
-        type: 'confirm',
-        name: 'isReact',
-        message: `Is this a React package?`,
-        default: true,
-      },
-    ],
-    actions(answers) {
-      const actions = [];
-
-      if (!answers) return actions;
-
-      const { description, outDir, packageName, isReact } = answers;
-
-      const destination = `packages/${dashCase(packageName)}`;
-
-      const data = {
-        packageName,
-        description,
-        outDir,
-        destination,
-      };
-
-      actions.push({
-        type: 'addMany',
-        templateFiles: `plop/${isReact ? 'react-package' : 'package'}/**`,
-        destination: `{{destination}}`,
-        base: `plop/${isReact ? 'react-package' : 'package'}`,
-        data,
-        abortOnFail: true,
-      });
-
-      return actions;
-    },
+    });
   });
 };

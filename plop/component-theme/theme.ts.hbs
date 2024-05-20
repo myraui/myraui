@@ -1,0 +1,14 @@
+import { VariantProps } from 'tailwind-variants';
+import { tv } from '../utils';
+
+const {{packageName}} = tv({
+   base: '',
+   variants: {
+     // Add your variants here
+   }
+});
+
+
+export type {{capitalize packageName}}VariantProps = VariantProps<typeof {{packageName}}>;
+
+export { {{packageName}} };

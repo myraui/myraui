@@ -1,0 +1,30 @@
+{
+  "name": "@myraui/shared-utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/utilities/shared-utils/src",
+  "projectType": "library",
+  "tags": ["scope:common"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/utilities/shared-utils/dist",
+        "rootDir": "packages/utilities/shared-utils/src",
+        "main": "packages/utilities/shared-utils/src/index.ts",
+        "tsConfig": "packages/utilities/shared-utils/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/utilities/shared-utils/jest.config.ts"
+      }
+    }
+  }
+}

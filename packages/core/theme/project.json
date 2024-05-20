@@ -1,0 +1,30 @@
+{
+  "name": "@myraui/theme",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/core/theme/src",
+  "projectType": "library",
+  "tags": ["scope:common"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/core/theme/dist",
+        "rootDir": "packages/core/theme/src",
+        "main": "packages/core/theme/src/index.ts",
+        "tsConfig": "packages/core/theme/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/core/theme/jest.config.ts"
+      }
+    }
+  }
+}

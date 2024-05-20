@@ -32,6 +32,7 @@
   },
   "clean-package": "../../../clean-package.config.json",
   "dependencies": {
-    "@myraui/plugin": "workspace:^"
+    "@myraui/plugin": "workspace:^",
+    "@myraui/system": "workspace:^"
   }
 }

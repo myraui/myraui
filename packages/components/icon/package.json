@@ -1,0 +1,49 @@
+{
+  "name": "@myraui/icon",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "An icon component to display an action",
+  "keywords": [
+    "icon"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/components/icon"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "peerDependencies": {
+    "@myraui/system": ">=1.0.0",
+    "@myraui/theme": ">=1.0.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/system": "workspace:*",
+    "@myraui/test-utils": "workspace:^",
+    "@myraui/theme": "workspace:*",
+    "clean-package": "2.2.0",
+    "react-icons": "^5.2.1"
+  },
+  "dependencies": {
+    "@myraui/react-utils": "workspace:*",
+    "@myraui/shared-utils": "workspace:*"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

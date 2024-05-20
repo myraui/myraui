@@ -1,0 +1,36 @@
+{
+  "name": "@myraui/test-utils",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Common test utils for all packages",
+  "keywords": [
+    "test-utils"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/assertion.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/utilities/test-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+  },
+  "clean-package": "../../../clean-package.config.json"
+}
