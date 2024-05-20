@@ -1,5 +1,11 @@
 import { unwrapRE } from '@myraui/shared-utils';
-import { applyColorScheme, applyColorSchemeUtilities, buildColorSchemeVariants, createColorSchemeSelector } from '../apply-color-scheme';
+import {
+  applyColorScheme,
+  applyColorSchemeUtilities,
+  buildColorScheme,
+  buildColorSchemeVariants,
+  createColorSchemeSelector,
+} from '../apply-color-scheme';
 import { ThemeEnv } from '../../theme.types';
 
 const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };
@@ -9,7 +15,47 @@ describe('build/apply-color-scheme', () => {
     it('should return the correct value', () => {
       const selector = createColorSchemeSelector('test');
 
-      expect(selector).toBe('color-scheme-test,[data-color-scheme="test"]');
+      expect(selector).toBe('.color-scheme-test,[data-color-scheme="test"]');
+    });
+  });
+
+  describe('buildColorScheme', () => {
+    it('should build the correct selector and utilities', () => {
+      const result = unwrapRE(
+        buildColorScheme({
+          tokens: {
+            colors: {
+              test: {
+                1: 'red',
+                2: 'blue',
+                DEFAULT: 'green',
+              },
+            },
+          },
+        } as any) as any,
+        env
+      );
+
+      expect(result).toEqual({
+        test: {
+          '.color-scheme-test,[data-color-scheme="test"]': {
+            '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
+            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+          },
+        },
+        'test-1': {
+          '.color-scheme-test-1,[data-color-scheme="test-1"]': {
+            '--prefix-colors-color-scheme': 'var(--prefix-colors-test-1)',
+            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
+          },
+        },
+        'test-2': {
+          '.color-scheme-test-2,[data-color-scheme="test-2"]': {
+            '--prefix-colors-color-scheme': 'var(--prefix-colors-test-2)',
+            '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-2-opacity)',
+          },
+        },
+      });
     });
   });
 
@@ -26,7 +72,7 @@ describe('build/apply-color-scheme', () => {
       const result = applyColorSchemeUtilities('test')(resolved);
 
       expect(result).toEqual({
-        'color-scheme-test,[data-color-scheme="test"]': {
+        '.color-scheme-test,[data-color-scheme="test"]': {
           color: 'red',
         },
       });
@@ -38,8 +84,16 @@ describe('build/apply-color-scheme', () => {
       const configTheme = {
         tokens: {
           colors: {
-            test: 'red',
-            primary: 'blue',
+            test: {
+              DEFAULT: 'red',
+              1: 'green',
+              12: 'blue',
+            },
+            primary: {
+              DEFAULT: 'blue',
+              1: 'blue-1',
+              12: 'blue-12',
+            },
           },
         },
       } as any;
@@ -52,18 +106,59 @@ describe('build/apply-color-scheme', () => {
             name: 'color-scheme-primary',
             definition: ['&.color-scheme-primary', '&[data-color-scheme="primary"]'],
             utilities: {
-              'color-scheme-primary,[data-color-scheme="primary"]': expect.objectContaining({
+              '.color-scheme-primary,[data-color-scheme="primary"]': expect.objectContaining({
                 '--prefix-colors-color-scheme': 'var(--prefix-colors-primary)',
               }),
+            },
+          },
+          {
+            name: 'color-scheme-primary-1',
+            definition: ['&.color-scheme-primary-1', '&[data-color-scheme="primary-1"]'],
+            utilities: {
+              '.color-scheme-primary-1,[data-color-scheme="primary-1"]': {
+                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary-1)',
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-1-opacity)',
+              },
+            },
+          },
+          {
+            name: 'color-scheme-primary-12',
+            definition: ['&.color-scheme-primary-12', '&[data-color-scheme="primary-12"]'],
+            utilities: {
+              '.color-scheme-primary-12,[data-color-scheme="primary-12"]': {
+                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary-12)',
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-12-opacity)',
+              },
             },
           },
           {
             name: 'color-scheme-test',
             definition: ['&.color-scheme-test', '&[data-color-scheme="test"]'],
             utilities: {
-              'color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
+              '.color-scheme-test,[data-color-scheme="test"]': {
                 '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
-              }),
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+              },
+            },
+          },
+          {
+            name: 'color-scheme-test-1',
+            definition: ['&.color-scheme-test-1', '&[data-color-scheme="test-1"]'],
+            utilities: {
+              '.color-scheme-test-1,[data-color-scheme="test-1"]': {
+                '--prefix-colors-color-scheme': 'var(--prefix-colors-test-1)',
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
+              },
+            },
+          },
+          {
+            name: 'color-scheme-test-12',
+            definition: ['&.color-scheme-test-12', '&[data-color-scheme="test-12"]'],
+            utilities: {
+              '.color-scheme-test-12,[data-color-scheme="test-12"]': {
+                '--prefix-colors-color-scheme': 'var(--prefix-colors-test-12)',
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-12-opacity)',
+              },
             },
           },
         ])
@@ -76,7 +171,9 @@ describe('build/apply-color-scheme', () => {
       const configTheme = {
         tokens: {
           colors: {
-            test: 'red',
+            test: {
+              DEFAULT: 'red',
+            },
           },
         },
         variants: [
@@ -96,9 +193,10 @@ describe('build/apply-color-scheme', () => {
             name: 'color-scheme-test',
             definition: ['&.color-scheme-test', '&[data-color-scheme="test"]'],
             utilities: {
-              'color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
+              '.color-scheme-test,[data-color-scheme="test"]': {
                 '--prefix-colors-color-scheme': 'var(--prefix-colors-test)',
-              }),
+                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+              },
             },
           },
           {

@@ -13,10 +13,10 @@ export const Testing: React.FC<TestingProps> = (props) => {
         </div>
       )}
       <div className="p-4">
-        <myra.div className="bg-color-scheme color-scheme-color-scheme">
+        <myra.div className="color-scheme-amber-3">
           <div className="w-40 h-40 flex items-center justify-center">
-            <div>
-              <div className="text-inverted-color-scheme">Inverted Hello World</div>
+            <div className="color-scheme-blue-3">
+              <div className="bg-color-scheme">Inverted Hello World</div>
               <div className="text-color-scheme">Hello World</div>
             </div>
           </div>

@@ -1,14 +1,14 @@
 import { BuiltConfigTheme } from '../theme.types';
-import { pipe } from 'fp-ts/function';
+import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
 import * as A from 'fp-ts/Array';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
-import { Dict, mergeObjects, toValues } from '@myraui/shared-utils';
+import { Dict, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
 import { ResolvedValues } from '../resolvers/resolvers';
 
 export function createColorSchemeSelector(colorScheme: string): string {
-  return `color-scheme-${colorScheme},[data-color-scheme="${colorScheme}"]`;
+  return `.color-scheme-${colorScheme},[data-color-scheme="${colorScheme}"]`;
 }
 
 export function applyColorSchemeUtilities(colorName: string) {
@@ -25,16 +25,24 @@ export function applyColorSchemeUtilities(colorName: string) {
   };
 }
 
-export function buildColorSchemeVariants<T extends BuiltConfigTheme<any>>(configTheme: T) {
+export function buildColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T) {
   return pipe(
     configTheme.tokens.colors,
-    R.mapWithIndex((colorName) => pipe(colorResolver('color-scheme', colorName), RE.map(applyColorSchemeUtilities(colorName)))),
-    R.sequence(RE.Applicative),
-    RE.map((utilities) => {
-      return pipe(
-        utilities,
+    flattenObject,
+    mapKeys((key) => (key.endsWith('-DEFAULT') ? key.replace('-DEFAULT', '') : key)),
+    R.mapWithIndex((colorName) => {
+      return pipe(colorResolver(false)('color-scheme', colorName.replace('-', '.')), RE.map(applyColorSchemeUtilities(colorName)));
+    }),
+    R.sequence(RE.Applicative)
+  );
+}
+
+export function buildColorSchemeVariants<T extends BuiltConfigTheme<any>>(configTheme: T) {
+  return pipe(
+    buildColorScheme(configTheme),
+    RE.map(
+      flow(
         R.toEntries,
-        A.filter(([colorName]) => colorName !== 'color-scheme'),
         A.map(([colorName, value]) => {
           return {
             name: `color-scheme-${colorName}`,
@@ -42,8 +50,8 @@ export function buildColorSchemeVariants<T extends BuiltConfigTheme<any>>(config
             utilities: value,
           };
         })
-      );
-    })
+      )
+    )
   );
 }
 

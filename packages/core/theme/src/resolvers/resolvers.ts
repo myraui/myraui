@@ -28,7 +28,7 @@ export type Resolver<Value = any, Env extends ThemeEnv = ThemeEnv> = (
 type Resolvers = Partial<Record<keyof ThemeTokens, Resolver>>;
 
 export const resolvers: Resolvers = {
-  colors: colorResolver,
+  colors: colorResolver(),
   fontSize: fontSizeResolver,
   keyframes: rawValueResolver,
   animation: rawValueResolver,

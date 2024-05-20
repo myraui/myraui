@@ -98,8 +98,10 @@ export function colorVariable(
   colorKey: string,
   options: ColorCSSVariableOptions = {}
 ): RE.ReaderEither<ThemeEnv, Exception, [CSSVariable, CSSVariable]> {
+  const token = colorKey.includes('color-scheme') ? '' : 'colors';
+
   return pipe(
-    RE.sequenceArray([themeTokenVariable('colors', colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
+    RE.sequenceArray([themeTokenVariable(token, colorKey, options.color), opacityVariable(colorKey, options.opacity)]),
     RE.map(([color, opacity]) => [color, opacity])
   );
 }
@@ -111,8 +113,10 @@ export function colorVariable(
  * @param options the options
  */
 export function opacityVariable(colorKey: string | CSSVariable, options?: CSSVariableOptions): RE.ReaderEither<ThemeEnv, Exception, CSSVariable> {
+  const token = typeof colorKey === 'string' && colorKey.includes('color-scheme') ? '' : 'colors';
+
   return pipe(
-    typeof colorKey === 'string' ? themeTokenVariable('colors', colorKey, options) : cssVariable(colorKey, options),
+    typeof colorKey === 'string' ? themeTokenVariable(token, colorKey, options) : cssVariable(colorKey, options),
     RE.map((variable) => ({ ...variable, name: `${variable.name}-opacity` }))
   );
 }

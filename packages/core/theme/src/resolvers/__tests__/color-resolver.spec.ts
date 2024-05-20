@@ -89,7 +89,7 @@ describe('resolvers/color-resolver', () => {
 
   describe('colorResolver', () => {
     it('should map default shades', () => {
-      const result = unwrapRE(colorResolver('primary', 'blue.1'), env) as any;
+      const result = unwrapRE(colorResolver()('primary', 'blue.1'), env) as any;
 
       expect(result.DEFAULT).toEqual({
         value: expect.any(Function),
@@ -101,7 +101,7 @@ describe('resolvers/color-resolver', () => {
     });
 
     it('should resolve color values to css variables', () => {
-      const result = unwrapRE(colorResolver('primary', 'blue'), env);
+      const result = unwrapRE(colorResolver()('primary', 'blue'), env);
 
       expect(Object.keys(result).length).toEqual(13);
       expect(result).toEqual(
@@ -125,6 +125,23 @@ describe('resolvers/color-resolver', () => {
             utilities: {
               '--prefix-colors-primary-12': 'var(--prefix-colors-blue-12)',
               '--prefix-colors-primary-12-opacity': 'var(--prefix-colors-blue-12-opacity)',
+            },
+          },
+        })
+      );
+    });
+
+    it('should not create shades', () => {
+      const result = unwrapRE(colorResolver(false)('primary', 'blue'), env);
+
+      expect(Object.keys(result).length).toEqual(1);
+      expect(result).toEqual(
+        expect.objectContaining({
+          DEFAULT: {
+            value: expect.any(Function),
+            utilities: {
+              '--prefix-colors-primary': 'var(--prefix-colors-blue)',
+              '--prefix-colors-primary-opacity': 'var(--prefix-colors-blue-opacity)',
             },
           },
         })

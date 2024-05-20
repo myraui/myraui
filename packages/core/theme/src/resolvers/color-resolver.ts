@@ -55,16 +55,20 @@ export function createColorValue(
   );
 }
 
-export const colorResolver: Resolver<ColorValueFunction> = (key: string, value: StringOrNumber) => {
-  return pipe(
-    createColorValue(key, String(value)),
-    RE.chain((colorVariables) =>
-      pipe(
-        shades,
-        RE.traverseArray((shade) => createColorValue(key, String(value), shade)),
-        RE.map(mergeObjects),
-        RE.map((shadeVariables) => ({ ...shadeVariables, ...colorVariables }))
-      )
-    )
-  );
+export const colorResolver = (createShades = true): Resolver<ColorValueFunction> => {
+  return (key: string, value: StringOrNumber) =>
+    pipe(
+      createColorValue(key, String(value)),
+      RE.chain((colorVariables) => {
+        if (!createShades) {
+          return RE.of(colorVariables);
+        }
+        return pipe(
+          shades,
+          RE.traverseArray((shade) => createColorValue(key, String(value), shade)),
+          RE.map(mergeObjects),
+          RE.map((shadeVariables) => ({ ...shadeVariables, ...colorVariables }))
+        );
+      })
+    );
 };
