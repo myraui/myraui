@@ -97,7 +97,6 @@ export type ResolvedTokenValues<T extends ResolvedConfigTheme> = {
 export type ThemeVariant = {
   name: string;
   definition: string[];
-  utilities?: Utilities;
 };
 
 export interface BuiltConfigTheme<T extends ResolvedConfigTheme> {

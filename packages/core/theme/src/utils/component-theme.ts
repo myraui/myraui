@@ -9,7 +9,7 @@ export function buildColorSchemeClasses(colorScheme: ComponentColorScheme): stri
   return pipe(
     normalizeColorModeValue(colorScheme) as Dict,
     R.mapWithIndex((theme, value) => {
-      return `${theme === BASE_THEME ? '' : `${theme}:`}color-scheme-${dashCase(value)}`;
+      return `${theme === BASE_THEME ? '' : `${theme}:`}color-scheme-${dashCase(value.replace('.', '-'))}`;
     }),
     toValues,
     (values) => values.join(' ')

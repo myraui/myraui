@@ -11,21 +11,23 @@ describe('plugin', () => {
       const result = combineBuiltThemes({
         midnight: {
           colorMode: 'dark',
-          tokens: { colors: { primary: functionMock, 'red-1': functionMock }, colorScheme: { DEFAULT: [functionMock, functionMock] } } as any,
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
           utilities: {
             '--prefix-colors-red-1': '0 19% 8%',
             '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
             '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
           },
+          variants: [],
         },
         dawn: {
           colorMode: 'light',
-          tokens: { colors: { primary: functionMock, 'red-1': functionMock }, colorScheme: { DEFAULT: [functionMock, functionMock] } } as any,
+          tokens: { colors: { primary: functionMock, 'red-1': functionMock } } as any,
           utilities: {
             '--prefix-colors-red-1': '0 19% 99%',
             '--prefix-colors-primary': 'var(--prefix-colors-red-9)',
             '--prefix-colors-primary-1': 'var(--prefix-colors-red-1)',
           },
+          variants: [],
         },
       })({ '--base-colors-primary': 'red' });
 
@@ -33,9 +35,9 @@ describe('plugin', () => {
         baseStyles: {
           '--base-colors-primary': 'red',
         },
+        themes: ['dawn', 'midnight'],
         tokens: {
           colors: { primary: functionMock, 'red-1': functionMock },
-          colorScheme: { DEFAULT: [expect.any(Function), expect.any(Function)] },
         },
         utilities: {
           ':root,.dawn,[data-theme="dawn"]': {
@@ -130,6 +132,7 @@ describe('plugin', () => {
             name: 'midnight',
           },
         ],
+        themes: ['dawn', 'midnight'],
       });
     });
   });
@@ -181,16 +184,6 @@ describe('plugin', () => {
       expect(addVariant).toHaveBeenCalledWith('dark', ['&.dark', '&[data-theme="dark"]']);
       expect(addVariant).toHaveBeenCalledWith('light', ['&.light', '&[data-theme="light"]']);
       expect(addVariant).toHaveBeenCalledWith('midnight', ['&.midnight', '&[data-theme="midnight"]']);
-
-      expect(matchUtilities).toHaveBeenCalledWith(
-        {
-          'bg-color-scheme': expect.any(Function),
-          'text-color-scheme': expect.any(Function),
-          'bg-inverted-color-scheme': expect.any(Function),
-          'text-inverted-color-scheme': expect.any(Function),
-        },
-        { values: theme('colorScheme'), type: 'color' }
-      );
 
       expect(plugin.config).toEqual({
         theme: {

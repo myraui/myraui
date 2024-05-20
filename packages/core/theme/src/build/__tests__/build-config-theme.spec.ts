@@ -24,6 +24,7 @@ describe('build/build-config-theme', () => {
         tokens: { colors: { primary: 'primary', secondary: 'secondary' } },
         utilities: buildCSSVariables([...primary, ...secondary]),
         colorMode: 'light',
+        variants: [],
       });
     });
   });
@@ -40,17 +41,7 @@ describe('build/build-config-theme', () => {
       );
 
       expect(result).toEqual({
-        variants: expect.arrayContaining([
-          {
-            name: 'color-scheme-white',
-            definition: ['&.color-scheme-white', '&[data-color-scheme="white"]'],
-            utilities: expect.objectContaining({
-              'color-scheme-white,[data-color-scheme="white"]': expect.objectContaining({
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-white)',
-              }),
-            }),
-          },
-        ]),
+        variants: [],
         tokens: expect.objectContaining({
           colors: expect.objectContaining({
             primary: expect.objectContaining({
@@ -69,6 +60,9 @@ describe('build/build-config-theme', () => {
           '--prefix-colors-primary': 'var(--prefix-colors-blue-2)',
           '--prefix-colors-primary-opacity': 'var(--prefix-colors-blue-2-opacity)',
           '--prefix-border-width-medium': '3px',
+          '.color-scheme-white,[data-color-scheme="white"]': expect.objectContaining({
+            '--prefix-color-scheme': 'var(--prefix-colors-white)',
+          }),
         }),
         colorMode: 'light',
       });

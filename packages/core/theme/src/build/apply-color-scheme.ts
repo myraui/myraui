@@ -1,11 +1,11 @@
 import { BuiltConfigTheme } from '../theme.types';
 import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
-import * as A from 'fp-ts/Array';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 import { Dict, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
 import { ResolvedValues } from '../resolvers/resolvers';
+import deepmerge from 'deepmerge';
 
 export function createColorSchemeSelector(colorScheme: string): string {
   return `.color-scheme-${colorScheme},[data-color-scheme="${colorScheme}"]`;
@@ -37,31 +37,17 @@ export function buildColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T
   );
 }
 
-export function buildColorSchemeVariants<T extends BuiltConfigTheme<any>>(configTheme: T) {
-  return pipe(
-    buildColorScheme(configTheme),
-    RE.map(
-      flow(
-        R.toEntries,
-        A.map(([colorName, value]) => {
-          return {
-            name: `color-scheme-${colorName}`,
-            definition: [`&.color-scheme-${colorName}`, `&[data-color-scheme="${colorName}"]`],
-            utilities: value,
-          };
-        })
-      )
-    )
-  );
+export function buildColorSchemeUtilities<T extends BuiltConfigTheme<any>>(configTheme: T) {
+  return pipe(buildColorScheme(configTheme), RE.map(flow(toValues, mergeObjects)));
 }
 
 export function applyColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T) {
   return pipe(
-    buildColorSchemeVariants(configTheme),
-    RE.map((variants) => {
+    buildColorSchemeUtilities(configTheme),
+    RE.map((utilities) => {
       return {
         ...configTheme,
-        variants: [...variants, ...configTheme.variants],
+        utilities: deepmerge(configTheme.utilities, utilities),
       };
     })
   );

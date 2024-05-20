@@ -13,29 +13,24 @@ describe('build/generate-config-theme', () => {
           spacingUnit: 4,
           colors: { gray: myraColors.gray.light, primary: 'gray.1' },
           spacing: {},
-          colorScheme: {
-            background: 'primary',
-            text: 'gray',
-          },
+          colorScheme: 'primary',
         } as unknown as FullConfigTheme),
         env
       );
 
       expect(theme).toEqual(
         expect.objectContaining({
-          colorScheme: expect.objectContaining({
-            DEFAULT: {
-              value: [expect.any(Function), expect.any(Function)],
-              utilities: {
-                '--prefix-colors-color-scheme': 'var(--prefix-colors-primary)',
-                '--prefix-colors-color-scheme-opacity': 'var(--prefix-colors-primary-opacity)',
-                '--prefix-colors-color-scheme-text': 'var(--prefix-colors-gray)',
-                '--prefix-colors-color-scheme-text-opacity': 'var(--prefix-colors-gray-opacity)',
-              },
-            },
-          }),
           colors: expect.objectContaining({
             primary: 'gray.1',
+            'color-scheme': expect.objectContaining({
+              DEFAULT: {
+                value: expect.any(Function),
+                utilities: {
+                  '--prefix-color-scheme': 'var(--prefix-colors-primary)',
+                  '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-opacity)',
+                },
+              },
+            }),
             gray: expect.objectContaining({
               1: {
                 value: expect.any(Function),

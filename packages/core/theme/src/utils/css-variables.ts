@@ -135,7 +135,7 @@ export function buildCSSVariables(cssVariables: CSSVariable[]): Dict<string> {
 export function spacingUnitVariable<K extends SpacingScaleKeys>(spacingScaleKey?: K, options?: CSSVariableOptions) {
   const key = join('spacing-unit', spacingScaleKey).replace('.', '_');
 
-  return cssVariable(`spacing-unit${key}`, options);
+  return cssVariable(key, options);
 }
 
 export function fontSizeVariable(fontSizeKey?: string, options?: FontSizeVariableOptions) {

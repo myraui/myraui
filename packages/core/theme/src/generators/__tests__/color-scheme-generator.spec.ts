@@ -10,15 +10,17 @@ describe('generators/color-scheme-generator', () => {
       const result = unwrapRE(colorSchemeGenerator('primary'), env) as any;
 
       expect(result).toEqual({
-        colorScheme: expect.objectContaining({
-          DEFAULT: {
-            value: [expect.any(Function), expect.any(Function)],
-            utilities: {
-              '--prefix-colors-color-scheme-1': 'var(--prefix-colors-primary-1)',
-              '--prefix-colors-color-scheme-1-opacity': 'var(--prefix-colors-primary-1-opacity)',
+        colors: {
+          'color-scheme': expect.objectContaining({
+            1: {
+              value: expect.any(Function),
+              utilities: {
+                '--prefix-color-scheme-1': 'var(--prefix-colors-primary-1)',
+                '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-primary-1-opacity)',
+              },
             },
-          },
-        }),
+          }),
+        },
       });
     });
   });

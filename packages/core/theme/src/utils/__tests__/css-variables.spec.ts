@@ -71,6 +71,15 @@ describe('utils/css-variables', () => {
         { name: '--prefix-colors-background-opacity', reference: expect.any(Function), value: '' },
       ]);
     });
+
+    it('should generate a color scheme variable', () => {
+      const result = unwrapRE(colorVariable('color-scheme-background'), env);
+
+      expect(result).toEqual([
+        { name: '--prefix-color-scheme-background', reference: expect.any(Function), value: '' },
+        { name: '--prefix-color-scheme-background-opacity', reference: expect.any(Function), value: '' },
+      ]);
+    });
   });
 
   describe('opacityVariable', () => {
@@ -78,6 +87,12 @@ describe('utils/css-variables', () => {
       const result = unwrapRE(opacityVariable('background'), env);
 
       expect(result).toEqual({ name: '--prefix-colors-background-opacity', reference: expect.any(Function), value: '' });
+    });
+
+    it('should generate a color scheme opacity variable', () => {
+      const result = unwrapRE(opacityVariable('color-scheme-background'), env);
+
+      expect(result).toEqual({ name: '--prefix-color-scheme-background-opacity', reference: expect.any(Function), value: '' });
     });
   });
 
