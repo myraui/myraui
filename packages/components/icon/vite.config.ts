@@ -23,7 +23,7 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: 'src/assertion.ts',
+      entry: 'src/index.ts',
       name: '@myraui/icon',
       fileName: 'index',
       formats: ['es', 'cjs'],

@@ -186,6 +186,7 @@ describe('plugin', () => {
       expect(addVariant).toHaveBeenCalledWith('midnight', ['&.midnight', '&[data-theme="midnight"]']);
 
       expect(plugin.config).toEqual({
+        darkMode: 'class',
         theme: {
           extend: expect.objectContaining({
             colors: expect.objectContaining({ red: expect.objectContaining({ DEFAULT: expect.any(Function) }) }),

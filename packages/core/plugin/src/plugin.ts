@@ -78,6 +78,7 @@ function createPlugin(resolved: ResolvedThemes) {
       });
     },
     {
+      darkMode: 'class',
       theme: {
         extend: resolved.tokens,
       },

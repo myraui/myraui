@@ -8,5 +8,5 @@ import * as RE from 'fp-ts/ReaderEither';
  * @param value
  */
 export const rawValueResolver: Resolver = (_key: string, value: StringOrNumber) => {
-  return RE.right({ value: value, utilities: [] });
+  return RE.right({ value: value, utilities: {} });
 };

@@ -21,14 +21,28 @@ export function assignDisplayName(Component: any) {
   };
 }
 
-export function colorSchemed<T extends MyraProps>(Component: React.ComponentType<T>) {
+export function withColorScheme<T extends MyraProps>(Component: React.ComponentType<T> | As) {
   return forwardRef<any, any>(({ colorScheme, ...props }, ref) => {
     const colorSchemeClass = useMemo(() => {
       if (!colorScheme) return '';
       return buildColorSchemeClasses(colorScheme);
     }, [colorScheme]);
 
-    return createElement(Component, { ...props, ref, className: clsx(colorSchemeClass, props.className) });
+    const elementProps = useMemo(() => {
+      const baseProps = {
+        ...props,
+        ref,
+        className: clsx(colorSchemeClass, props.className),
+      };
+
+      if (typeof Component === 'string') {
+        return baseProps;
+      }
+
+      return { ...baseProps, colorScheme };
+    }, [props, ref, colorSchemeClass, colorScheme]);
+
+    return createElement(Component, { ...elementProps });
   });
 }
 
@@ -36,7 +50,7 @@ export function useCreateStyledComponent(Component: any, _options: MyraUIStyledO
   const { prefix } = useMyraUIContext();
 
   return useMemo(() => {
-    return pipe(colorSchemed(Component), assignDisplayName(Component));
+    return pipe(withColorScheme(Component), assignDisplayName(Component));
   }, [Component, prefix]);
 }
 

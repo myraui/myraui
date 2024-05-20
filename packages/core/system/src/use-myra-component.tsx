@@ -23,7 +23,7 @@ type SlotsComponentProps<TV> = InferSlots<TV> extends Record<any, any>
        */
       classNames?: InferSlotClasses<TV>;
     }
-  : {};
+  : Dict;
 
 export type MyraComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
   InferVariantProps<TV> &

@@ -1,15 +1,15 @@
-import { renderWithTheme } from '@myraui/react-test-utils';
 import { myra } from '../src';
 import React from 'react';
+import { render } from '@testing-library/react';
 
 describe('factory', () => {
   it('should create a styled component from a DOM element', () => {
     const Div = myra('div');
-    const { container } = renderWithTheme(<Div colorScheme="red" />);
+    const { container } = render(<Div colorScheme="red" />);
 
     expect(container.firstChild).toBeInTheDocument();
 
-    expect(container.firstChild).toHaveClass(/css-.*/);
+    expect(container.firstChild).toHaveClass('color-scheme-red');
   });
 
   it('should create a styled component from a custom component', () => {
@@ -18,7 +18,7 @@ describe('factory', () => {
     };
 
     const Custom = myra(CustomComponent);
-    const { container } = renderWithTheme(<Custom colorScheme="red" />);
+    const { container } = render(<Custom colorScheme="red" />);
 
     expect(container.firstChild).toBeInTheDocument();
 

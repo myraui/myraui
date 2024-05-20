@@ -1,4 +1,5 @@
 const nxPreset = require('@nx/jest/preset').default;
+const path = require('path');
 
 module.exports = {
   ...nxPreset,
@@ -28,7 +29,7 @@ module.exports = {
       },
     ],
   },
-  setupFilesAfterEnv: ['@testing-library/jest-dom', '../../../tools/scripts/setup-tests.ts'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom', path.join(__dirname, 'tools/scripts/setup-tests.ts')],
   transformIgnorePatterns: ['!(src/.+)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   globals: {

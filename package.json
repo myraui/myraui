@@ -12,7 +12,7 @@
     "lint:all": "nx run-many --target=lint --all --parallel",
     "test:all": "nx run-many --target=test --all --parallel",
     "build:all": "nx run-many --target=build --all --parallel",
-    "build-storybook": "nx storybook build @myraui/storybook",
+    "build-storybook": "nx build-storybook @myraui/storybook",
     "coverage-merge": "node tools/scripts/coverageMerger.js",
     "create:package": "plop package && pnpm install",
     "create:component": "plop component && pnpm install",
