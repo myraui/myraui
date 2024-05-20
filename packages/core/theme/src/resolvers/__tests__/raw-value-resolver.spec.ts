@@ -9,7 +9,7 @@ describe('resolvers/raw-value-resolver', () => {
     it('should return the raw value', () => {
       const result = unwrapRE(rawValueResolver('keyframe', 'value'), env);
 
-      expect(result).toEqual({ value: 'value', utilities: [] });
+      expect(result).toEqual({ value: 'value', utilities: {} });
     });
   });
 });
