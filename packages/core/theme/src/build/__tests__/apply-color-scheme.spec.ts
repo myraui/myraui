@@ -1,166 +1,115 @@
 import { unwrapRE } from '@myraui/shared-utils';
-import {
-  applyColorScheme,
-  applyColorSchemeUtilities,
-  buildColorScheme,
-  buildColorSchemeUtilities,
-  createColorSchemeSelector,
-} from '../apply-color-scheme';
+import { applyColorSchemeUtilities, buildForegroundValues, colorSchemeMatcher, colorSchemeMatcherValues } from '../apply-color-scheme';
 import { ThemeEnv } from '../../theme.types';
 
 const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };
 
 describe('build/apply-color-scheme', () => {
-  describe('createColorSchemeSelector', () => {
-    it('should return the correct value', () => {
-      const selector = createColorSchemeSelector('test');
-
-      expect(selector).toBe('.color-scheme-test,[data-color-scheme="test"]');
-    });
-  });
-
-  describe('buildColorScheme', () => {
-    it('should build the correct selector and utilities', () => {
-      const result = unwrapRE(
-        buildColorScheme({
-          tokens: {
-            colors: {
-              test: {
-                1: 'red',
-                2: 'blue',
-                DEFAULT: 'green',
-              },
-            },
-          },
-        } as any) as any,
-        env
-      );
-
-      expect(result).toEqual({
-        test: {
-          '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
-            '--prefix-color-scheme': 'var(--prefix-colors-test)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-          }),
-        },
-        'test-1': {
-          '.color-scheme-test-1,[data-color-scheme="test-1"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-test-1)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
-          },
-        },
-        'test-2': {
-          '.color-scheme-test-2,[data-color-scheme="test-2"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-test-2)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-2-opacity)',
-          },
-        },
-      });
-    });
-  });
-
   describe('applyColorSchemeUtilities', () => {
-    it('should return the correct value', () => {
-      const resolved = {
-        test: {
-          utilities: {
-            color: 'red',
-          },
-        },
-      } as any;
-
-      const result = applyColorSchemeUtilities('test')(resolved);
-
-      expect(result).toEqual({
-        '.color-scheme-test,[data-color-scheme="test"]': {
-          color: 'red',
-        },
-      });
-    });
-  });
-
-  describe('buildColorSchemeVariants', () => {
-    it('should create the correct variants', () => {
-      const configTheme = {
-        tokens: {
-          colors: {
-            test: {
-              DEFAULT: 'red',
-              1: 'green',
-              12: 'blue',
-            },
-            primary: {
-              DEFAULT: 'blue',
-              1: 'blue-1',
-              12: 'blue-12',
-            },
-          },
-        },
-      } as any;
-
-      const result = unwrapRE(buildColorSchemeUtilities(configTheme), env);
+    it('should return the correct value for default shade', () => {
+      const result = unwrapRE(applyColorSchemeUtilities('color-scheme', 'test'), env);
 
       expect(result).toEqual(
         expect.objectContaining({
-          '.color-scheme-primary,[data-color-scheme="primary"]': expect.objectContaining({
-            '--prefix-color-scheme': 'var(--prefix-colors-primary)',
-          }),
-          '.color-scheme-primary-1,[data-color-scheme="primary-1"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-primary-1)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-1-opacity)',
-          },
-          '.color-scheme-primary-12,[data-color-scheme="primary-12"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-primary-12)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-12-opacity)',
-          },
-          '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
-            '--prefix-color-scheme': 'var(--prefix-colors-test)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-          }),
-          '.color-scheme-test-1,[data-color-scheme="test-1"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-test-1)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
-          },
-          '.color-scheme-test-12,[data-color-scheme="test-12"]': {
-            '--prefix-color-scheme': 'var(--prefix-colors-test-12)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-12-opacity)',
-          },
+          '--prefix-color-scheme': 'var(--prefix-colors-test)',
+          '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
+          '--prefix-color-scheme-1': 'var(--prefix-colors-test-1)',
+          '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-test-1-opacity)',
+        })
+      );
+    });
+
+    it('should return the correct value for other shades', () => {
+      const result = unwrapRE(applyColorSchemeUtilities('color-scheme', 'test-1'), env);
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          '--prefix-color-scheme': 'var(--prefix-colors-test-1)',
+          '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-1-opacity)',
         })
       );
     });
   });
 
-  describe('applyColorScheme', () => {
-    it('should apply the color scheme', () => {
-      const configTheme = {
-        tokens: {
-          colors: {
-            test: {
-              DEFAULT: 'red',
-            },
-          },
-        },
-        variants: [
-          {
-            name: 'test',
-            definition: ['&.test', '&[data-test="test"]'],
-          },
-        ],
-      } as any;
+  describe('buildForegroundValues', () => {
+    it('should return the correct values', () => {
+      const colors = {
+        primary: 'primary',
+        secondary: 'secondary',
+      };
 
-      const result = unwrapRE(applyColorScheme(configTheme), env);
+      const result = buildForegroundValues(colors);
 
       expect(result).toEqual({
-        ...configTheme,
-        utilities: expect.objectContaining({
-          '.color-scheme-test,[data-color-scheme="test"]': expect.objectContaining({
-            '--prefix-color-scheme': 'var(--prefix-colors-test)',
-            '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-            '--prefix-color-scheme-1': 'var(--prefix-colors-test-1)',
-            '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-test-1-opacity)',
-          }),
-        }),
+        '/primary': '/primary',
+        '/secondary': '/secondary',
+        'primary/primary': 'primary/primary',
+        'primary/secondary': 'primary/secondary',
+        'secondary/primary': 'secondary/primary',
+        'secondary/secondary': 'secondary/secondary',
       });
+    });
+  });
+
+  describe('colorSchemeMatcherValues', () => {
+    it('should build both background and foreground values', () => {
+      const colors = {
+        primary: {
+          DEFAULT: 'primary',
+          1: 'primary-1',
+        },
+        secondary: {
+          DEFAULT: 'secondary',
+          1: 'secondary-1',
+        },
+      };
+
+      const result = colorSchemeMatcherValues(colors);
+
+      expect(result).toEqual({
+        '/primary': '/primary',
+        '/primary-1': '/primary-1',
+        '/secondary': '/secondary',
+        '/secondary-1': '/secondary-1',
+        primary: 'primary',
+        'primary-1': 'primary-1',
+        secondary: 'secondary',
+        'secondary-1': 'secondary-1',
+        'primary/primary-1': 'primary/primary-1',
+        'primary/primary': 'primary/primary',
+        'primary/secondary-1': 'primary/secondary-1',
+        'primary/secondary': 'primary/secondary',
+        'primary-1/primary-1': 'primary-1/primary-1',
+        'primary-1/primary': 'primary-1/primary',
+        'primary-1/secondary-1': 'primary-1/secondary-1',
+        'primary-1/secondary': 'primary-1/secondary',
+        'secondary/primary-1': 'secondary/primary-1',
+        'secondary/primary': 'secondary/primary',
+        'secondary/secondary-1': 'secondary/secondary-1',
+        'secondary/secondary': 'secondary/secondary',
+        'secondary-1/primary-1': 'secondary-1/primary-1',
+        'secondary-1/primary': 'secondary-1/primary',
+        'secondary-1/secondary-1': 'secondary-1/secondary-1',
+        'secondary-1/secondary': 'secondary-1/secondary',
+      });
+    });
+  });
+
+  describe('colorSchemeMatcher', () => {
+    it('should return the correct values', () => {
+      const result = colorSchemeMatcher(env)('primary/secondary');
+      expect(result).toEqual(
+        expect.objectContaining({
+          '--prefix-color-scheme': 'var(--prefix-colors-primary)',
+          '--prefix-color-scheme-opacity': 'var(--prefix-colors-primary-opacity)',
+          '--prefix-color-scheme-1': 'var(--prefix-colors-primary-1)',
+          '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-primary-1-opacity)',
+          '--prefix-color-scheme-foreground': 'var(--prefix-colors-secondary)',
+          '--prefix-color-scheme-foreground-opacity': 'var(--prefix-colors-secondary-opacity)',
+          '--prefix-color-scheme-foreground-1': 'var(--prefix-colors-secondary-1)',
+          '--prefix-color-scheme-foreground-1-opacity': 'var(--prefix-colors-secondary-1-opacity)',
+        })
+      );
     });
   });
 });

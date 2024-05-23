@@ -60,6 +60,7 @@ export type HTMLMyraComponents = {
 
 export interface MyraProps {
   colorScheme?: ComponentColorScheme;
+  colorSchemeForeground?: ComponentColorScheme;
 }
 
 export type HTMLMyraProps<T extends As = 'div'> = PropsOf<T> & PolymorphicProps & MyraProps;

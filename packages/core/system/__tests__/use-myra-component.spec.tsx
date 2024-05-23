@@ -46,11 +46,7 @@ describe('useMyraComponent', () => {
     const ref = React.createRef<HTMLDivElement>();
 
     const { result } = renderHook(() =>
-      useMyraComponent(
-        { size: 'sm', isDisabled: true, colorScheme: 'primary', ref, classNames: { base: 'base-class', other: 'other-class' } },
-        slotStyles,
-        'span'
-      )
+      useMyraComponent({ size: 'sm', colorScheme: 'primary', ref, classNames: { base: 'base-class', other: 'other-class' } }, slotStyles, 'span')
     );
 
     it('it should create the slots and classNames', () => {

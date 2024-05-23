@@ -1,54 +1,67 @@
-import { BuiltConfigTheme } from '../theme.types';
+import { ThemeEnv } from '../theme.types';
 import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
-import { Dict, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
-import { ResolvedValues } from '../resolvers/resolvers';
-import deepmerge from 'deepmerge';
+import * as Reader from 'fp-ts/Reader';
+import { Dict, Exception, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
+import { extractUtilities } from './utils';
+import { Utilities } from '../resolvers/resolvers';
 
-export function createColorSchemeSelector(colorScheme: string): string {
-  return `.color-scheme-${colorScheme},[data-color-scheme="${colorScheme}"]`;
-}
-
-export function applyColorSchemeUtilities(colorName: string) {
-  return (resolved: ResolvedValues<any>) => {
-    return pipe(
-      resolved as Dict,
-      R.map((item) => item.utilities),
-      toValues,
-      mergeObjects,
-      (result) => {
-        return { [createColorSchemeSelector(colorName)]: result };
-      }
-    );
-  };
-}
-
-export function buildColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T) {
+export function applyColorSchemeUtilities(key: string, colorValue: string) {
+  if (!colorValue) return RE.of<ThemeEnv, Exception, Utilities>({});
   return pipe(
-    configTheme.tokens.colors,
+    colorResolver(!colorValue.includes('-'))(key, colorValue.replace('-', '.')),
+    RE.chain((resolved) => extractUtilities(resolved as Dict))
+  );
+}
+
+export function buildForegroundValues(colors: Dict) {
+  const textOnly = pipe(
+    colors,
+    mapKeys((key) => `/${key}`),
+    R.mapWithIndex((colorName) => colorName)
+  );
+
+  return pipe(
+    colors,
+    R.map((colorName) =>
+      pipe(
+        colors,
+        R.mapWithIndex((textColorName) => `${colorName}/${textColorName}`)
+      )
+    ),
+    (result) => flattenObject(result, { delimiter: '/' }),
+    (values) => ({ ...values, ...textOnly })
+  );
+}
+
+export function colorSchemeMatcherValues(colors: Dict) {
+  return pipe(
+    colors,
     flattenObject,
     mapKeys((key) => (key.endsWith('-DEFAULT') ? key.replace('-DEFAULT', '') : key)),
-    R.mapWithIndex((colorName) => {
-      return pipe(colorResolver(!colorName.includes('-'))('color-scheme', colorName.replace('-', '.')), RE.map(applyColorSchemeUtilities(colorName)));
-    }),
-    R.sequence(RE.Applicative)
+    R.mapWithIndex((colorName) => colorName),
+    (values) => ({ ...values, ...buildForegroundValues(values) })
   );
 }
 
-export function buildColorSchemeUtilities<T extends BuiltConfigTheme<any>>(configTheme: T) {
-  return pipe(buildColorScheme(configTheme), RE.map(flow(toValues, mergeObjects)));
+export function extractColorSchemeColors(value: string) {
+  return value.split('/');
 }
 
-export function applyColorScheme<T extends BuiltConfigTheme<any>>(configTheme: T) {
-  return pipe(
-    buildColorSchemeUtilities(configTheme),
-    RE.map((utilities) => {
-      return {
-        ...configTheme,
-        utilities: deepmerge(configTheme.utilities, utilities),
-      };
-    })
-  );
+export function colorSchemeMatcher(env: ThemeEnv) {
+  return (value: any) => {
+    const [colorName, textColorName] = extractColorSchemeColors(value);
+    return pipe(
+      env,
+      pipe(
+        { 'color-scheme': colorName, 'color-scheme-foreground': textColorName },
+        R.mapWithIndex(applyColorSchemeUtilities),
+        R.sequence(RE.Applicative),
+        RE.map(flow(toValues, mergeObjects)),
+        RE.getOrElse(() => Reader.of({}))
+      )
+    );
+  };
 }

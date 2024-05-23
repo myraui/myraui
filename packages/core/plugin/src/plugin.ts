@@ -2,10 +2,13 @@ import {
   BASE_THEME,
   buildConfigTheme,
   BuiltConfigTheme,
+  colorSchemeMatcher,
+  colorSchemeMatcherValues,
   ConfigThemes,
   defaultThemes,
   getBaseStyles,
   MYRA_UI_PREFIX,
+  ThemeEnv,
   ThemeVariant,
 } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
@@ -69,20 +72,25 @@ export function resolveThemes(themes: ConfigThemes): RE.ReaderEither<PluginEnv, 
 }
 
 function createPlugin(resolved: ResolvedThemes) {
-  return plugin(
-    ({ addBase, addUtilities, addVariant }) => {
-      addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
-      addUtilities({ ...resolved?.utilities });
-      resolved?.variants.forEach((variant) => {
-        addVariant(variant.name, variant.definition);
-      });
-    },
-    {
-      darkMode: 'class',
-      theme: {
-        extend: resolved.tokens,
-      },
-    }
+  return pipe(
+    RE.asks((env: ThemeEnv) =>
+      plugin(
+        ({ addBase, addUtilities, addVariant, matchUtilities }) => {
+          addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
+          addUtilities({ ...resolved?.utilities });
+          matchUtilities({ 'color-scheme': colorSchemeMatcher(env) }, { values: colorSchemeMatcherValues(resolved.tokens.colors) });
+          resolved?.variants.forEach((variant) => {
+            addVariant(variant.name, variant.definition);
+          });
+        },
+        {
+          darkMode: 'class',
+          theme: {
+            extend: resolved.tokens,
+          },
+        }
+      )
+    )
   );
 }
 
@@ -92,7 +100,7 @@ const myrauiPlugin = (config: MyraUIPluginConfig = {}): ReturnType<typeof plugin
     themes,
     addBaseThemes,
     resolveThemes,
-    RE.map(createPlugin),
+    RE.chainW(createPlugin),
     RE.getOrElse((e) => {
       throw e;
     })

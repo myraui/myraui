@@ -17,6 +17,7 @@ export function applyBaseTheme(themeName: string, configTheme: ConfigTheme): RE.
       return {
         spacingUnit: 4,
         colorScheme: 'primary',
+        colorSchemeForeground: 'foreground',
         ...deepMerge(defaultThemes[baseTheme], configTheme),
         extend: baseTheme,
       };

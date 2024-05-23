@@ -8,7 +8,6 @@ import { resolveConfigTheme } from './resolve-config-theme';
 import { applyBaseTheme } from './apply-base-theme';
 import { ColorMode } from '../colors';
 import { extractResolvedTokens, extractUtilities } from './utils';
-import { applyColorScheme } from './apply-color-scheme';
 
 export function createBuiltConfigTheme(colorMode: ColorMode) {
   return <T extends ResolvedConfigTheme>(configTheme: T): RE.ReaderEither<ThemeEnv, Exception, BuiltConfigTheme<T>> => {
@@ -33,10 +32,7 @@ export function buildConfigTheme<T extends ConfigTheme>(themeName: string, confi
   return pipe(
     applyBaseTheme(themeName, configTheme),
     RE.chain((fullConfigTheme) => {
-      return pipe(
-        generateConfigTheme(fullConfigTheme),
-        RE.chain(flow(resolveConfigTheme, RE.chain(createBuiltConfigTheme(fullConfigTheme.extend)), RE.chain(applyColorScheme)))
-      );
+      return pipe(generateConfigTheme(fullConfigTheme), RE.chain(flow(resolveConfigTheme, RE.chain(createBuiltConfigTheme(fullConfigTheme.extend)))));
     })
   );
 }

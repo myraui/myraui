@@ -3,8 +3,10 @@ import { pipe } from 'fp-ts/function';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
 
-export const colorSchemeGenerator: ConfigThemeGenerator<'colorScheme'> = (colorScheme) =>
-  pipe(
-    colorResolver()('color-scheme', colorScheme),
-    RE.map((result) => ({ colors: { 'color-scheme': result } }))
-  );
+export function colorSchemeGenerator(key: string): ConfigThemeGenerator<'colorScheme' | 'colorSchemeForeground'> {
+  return (colorScheme) =>
+    pipe(
+      colorResolver()(key, colorScheme),
+      RE.map((result) => ({ colors: { [key]: result } }))
+    );
+}

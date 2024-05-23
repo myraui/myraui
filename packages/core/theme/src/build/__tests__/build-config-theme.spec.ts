@@ -60,9 +60,7 @@ describe('build/build-config-theme', () => {
           '--prefix-colors-primary': 'var(--prefix-colors-blue-2)',
           '--prefix-colors-primary-opacity': 'var(--prefix-colors-blue-2-opacity)',
           '--prefix-border-width-medium': '3px',
-          '.color-scheme-white,[data-color-scheme="white"]': expect.objectContaining({
-            '--prefix-color-scheme': 'var(--prefix-colors-white)',
-          }),
+          '--prefix-color-scheme': 'var(--prefix-colors-primary)',
         }),
         colorMode: 'light',
       });
