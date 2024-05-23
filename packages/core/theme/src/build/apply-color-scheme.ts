@@ -7,12 +7,12 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Dict, Exception, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
 import { extractUtilities } from './utils';
 import { Utilities } from '../resolvers/resolvers';
-import { extractColorSchemeColors } from '../utils/theme';
+import { extractColorSchemeColors, hasShade, updateShadeSeparator } from '../utils/theme';
 
 export function applyColorSchemeUtilities(key: string, colorValue: string) {
   if (!colorValue) return RE.of<ThemeEnv, Exception, Utilities>({});
   return pipe(
-    colorResolver(!colorValue.includes('-'))(key, colorValue.replace('-', '.')),
+    colorResolver(!hasShade(colorValue))(key, updateShadeSeparator(colorValue)),
     RE.chain((resolved) => extractUtilities(resolved as Dict))
   );
 }

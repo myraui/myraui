@@ -1,5 +1,5 @@
 import { MyraComponentProps, useMyraComponent } from '@myraui/system';
-import type { TextOnlyColorScheme, LoaderVariantProps } from '@myraui/theme';
+import type { LoaderVariantProps } from '@myraui/theme';
 import { loader } from '@myraui/theme';
 import { useMemo } from 'react';
 

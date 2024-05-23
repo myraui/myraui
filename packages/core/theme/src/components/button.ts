@@ -23,11 +23,11 @@ const button = tv({
   variants: {
     variant: {
       default: 'bg-default-2 border-tiny border-default-4 text-default-11 hover:bg-default-3/90',
-      filled: 'bg-color-scheme-9 text-foreground-1 hover:bg-color-scheme-9/90',
-      light: 'bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme',
-      outline: 'border-color-scheme border-tiny text-color-scheme hover:bg-color-scheme-2/90',
-      subtle: 'text-color-scheme hover:bg-color-scheme-2/90',
-      link: 'text-color-scheme hover:underline',
+      filled: 'color-scheme/color-scheme-1 bg-color-scheme-9 text-color-scheme-foreground hover:bg-color-scheme-9/90',
+      light: 'color-scheme/color-scheme bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme-foreground',
+      outline: 'color-scheme/color-scheme border-color-scheme-foreground border-tiny text-color-scheme-foreground hover:bg-color-scheme-2/90',
+      subtle: 'color-scheme/color-scheme text-color-scheme-foreground hover:bg-color-scheme-2/90',
+      link: 'color-scheme/color-scheme text-color-scheme-foreground hover:underline',
     },
     size: {
       tiny: 'px-unit-2 min-w-unit-12 h-unit-6 text-tiny gap-unit-1',

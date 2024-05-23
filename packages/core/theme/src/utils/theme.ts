@@ -56,3 +56,11 @@ export function normalizeColorModeValue<Value>(colorModeValue: ColorModeValue<Va
 export function extractColorSchemeColors(value: string) {
   return value.split('/');
 }
+
+export function hasShade(color: string) {
+  return color.match(/-\d[1,2]$/);
+}
+
+export function updateShadeSeparator(color: string) {
+  return color.replace(/-([1,2])$/, '.$1');
+}

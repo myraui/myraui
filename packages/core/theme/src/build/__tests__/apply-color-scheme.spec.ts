@@ -7,14 +7,14 @@ const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };
 describe('build/apply-color-scheme', () => {
   describe('applyColorSchemeUtilities', () => {
     it('should return the correct value for default shade', () => {
-      const result = unwrapRE(applyColorSchemeUtilities('color-scheme', 'test'), env);
+      const result = unwrapRE(applyColorSchemeUtilities('color-scheme', 'color-scheme-foreground'), env);
 
       expect(result).toEqual(
         expect.objectContaining({
-          '--prefix-color-scheme': 'var(--prefix-colors-test)',
-          '--prefix-color-scheme-opacity': 'var(--prefix-colors-test-opacity)',
-          '--prefix-color-scheme-1': 'var(--prefix-colors-test-1)',
-          '--prefix-color-scheme-1-opacity': 'var(--prefix-colors-test-1-opacity)',
+          '--prefix-color-scheme': 'var(--prefix-color-scheme-foreground)',
+          '--prefix-color-scheme-opacity': 'var(--prefix-color-scheme-foreground-opacity)',
+          '--prefix-color-scheme-1': 'var(--prefix-color-scheme-foreground-1)',
+          '--prefix-color-scheme-1-opacity': 'var(--prefix-color-scheme-foreground-1-opacity)',
         })
       );
     });
