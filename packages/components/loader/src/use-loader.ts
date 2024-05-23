@@ -16,7 +16,7 @@ export function useLoader(originalProps: UseLoaderProps) {
   const {
     componentProps: { label, ...props },
     ...rest
-  } = useMyraComponent(originalProps, loader);
+  } = useMyraComponent({ ...originalProps, colorSchemeIsText: true }, loader);
 
   const ariaLabel = useMemo(() => {
     if (label || props.children) return label || props.children;

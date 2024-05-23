@@ -51,15 +51,24 @@ type Story = StoryObj<typeof Button>;
 const VariantsTemplate = (args: ButtonProps) => {
   return (
     <div className="flex gap-4 ">
-      {Object.keys(button.variants.variant).map((variant: any) => (
-        <div className="flex gap-2 flex-col items-center">
-          {Object.keys(button.variants.size).map((size: any) => (
-            <Button key={size} {...args} variant={variant} size={size}>
-              {variant}
-            </Button>
-          ))}
-        </div>
-      ))}
+      <Button {...args} variant="default">
+        Default
+      </Button>
+      <Button {...args} variant="filled">
+        Filled
+      </Button>
+      <Button {...args} variant="light">
+        Light
+      </Button>
+      <Button {...args} variant="outline">
+        Outline
+      </Button>
+      <Button {...args} variant="subtle">
+        Subtle
+      </Button>
+      <Button {...args} variant="link">
+        Link
+      </Button>
     </div>
   );
 };

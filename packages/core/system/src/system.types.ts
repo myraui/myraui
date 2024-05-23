@@ -3,7 +3,7 @@
  */
 
 import { Assign, Dict } from '@myraui/shared-utils';
-import { ComponentColorScheme } from '@myraui/theme';
+import { ComponentColorScheme, TextOnlyColorScheme } from '@myraui/theme';
 import React, { ElementType, FunctionComponent } from 'react';
 
 export type OmitCommonProps<Target, OmitAdditionalProps extends keyof any = never> = Omit<
@@ -59,8 +59,8 @@ export type HTMLMyraComponents = {
 };
 
 export interface MyraProps {
+  colorSchemeIsText?: boolean;
   colorScheme?: ComponentColorScheme;
-  colorSchemeForeground?: ComponentColorScheme;
 }
 
 export type HTMLMyraProps<T extends As = 'div'> = PropsOf<T> & PolymorphicProps & MyraProps;

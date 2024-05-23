@@ -1,17 +1,18 @@
 import { ThemeEnv } from '../theme.types';
 import { flow, pipe } from 'fp-ts/function';
 import * as R from 'fp-ts/Record';
+import * as Reader from 'fp-ts/Reader';
 import { colorResolver } from '../resolvers/color-resolver';
 import * as RE from 'fp-ts/ReaderEither';
-import * as Reader from 'fp-ts/Reader';
 import { Dict, Exception, flattenObject, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
 import { extractUtilities } from './utils';
 import { Utilities } from '../resolvers/resolvers';
+import { extractColorSchemeColors, hasShade, updateShadeSeparator } from '../utils/theme';
 
 export function applyColorSchemeUtilities(key: string, colorValue: string) {
   if (!colorValue) return RE.of<ThemeEnv, Exception, Utilities>({});
   return pipe(
-    colorResolver(!colorValue.includes('-'))(key, colorValue.replace('-', '.')),
+    colorResolver(!hasShade(colorValue))(key, updateShadeSeparator(colorValue)),
     RE.chain((resolved) => extractUtilities(resolved as Dict))
   );
 }
@@ -46,22 +47,23 @@ export function colorSchemeMatcherValues(colors: Dict) {
   );
 }
 
-export function extractColorSchemeColors(value: string) {
-  return value.split('/');
+export function buildColorScheme(value?: string) {
+  if (!value) return RE.of({} as Utilities);
+  const [colorName, textColorName] = extractColorSchemeColors(value);
+
+  return pipe(
+    { 'color-scheme': colorName, 'color-scheme-foreground': textColorName },
+    R.filter((value) => !!value),
+    R.mapWithIndex(applyColorSchemeUtilities),
+    R.sequence(RE.Applicative),
+    RE.map(flow(toValues, mergeObjects))
+  );
 }
 
 export function colorSchemeMatcher(env: ThemeEnv) {
-  return (value: any) => {
-    const [colorName, textColorName] = extractColorSchemeColors(value);
-    return pipe(
-      env,
-      pipe(
-        { 'color-scheme': colorName, 'color-scheme-foreground': textColorName },
-        R.mapWithIndex(applyColorSchemeUtilities),
-        R.sequence(RE.Applicative),
-        RE.map(flow(toValues, mergeObjects)),
-        RE.getOrElse(() => Reader.of({}))
-      )
-    );
-  };
+  return (value: any) =>
+    pipe(
+      buildColorScheme(value),
+      RE.getOrElse(() => Reader.of({} as Utilities))
+    )(env);
 }

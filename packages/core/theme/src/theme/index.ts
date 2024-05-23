@@ -14,9 +14,9 @@ import { swapKeys } from '@myraui/shared-utils';
 import * as R from 'fp-ts/Record';
 import { grayscale } from './grayscale';
 import deepMerge from 'deepmerge';
-import { normalizeColorModeValue } from '../utils';
 import { animation } from './animation';
 import { keyframes } from './keyframes';
+import { normalizeColorModeValue } from '../utils/theme';
 
 type Tokens = {
   [K in keyof ThemeTokens]: DefaultThemeTokens<K>;

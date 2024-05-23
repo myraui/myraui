@@ -1,8 +1,8 @@
 import { VariantProps } from 'tailwind-variants';
-import { tv } from '../utils';
+import { tv } from '../utils/tv';
 
 const icon = tv({
-  base: 'w-4 h-4 leading inline-block',
+  base: 'w-4 h-4 leading inline-block text-color-scheme-foreground',
   variants: {
     size: {
       tiny: 'w-2 h-2',

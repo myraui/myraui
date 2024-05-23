@@ -44,7 +44,7 @@ export function useButton(originalProps: UseButtonProps) {
     domRef,
     componentProps: { autoFocus, isDisabled, startSection, endSection, loader, loaderPlacement = 'start', isLoading = false, ...otherProps },
     variantProps: { size },
-  } = useMyraComponent(originalProps, button, 'button');
+  } = useMyraComponent({ ...originalProps }, button, 'button');
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
