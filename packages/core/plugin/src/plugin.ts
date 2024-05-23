@@ -78,14 +78,7 @@ function createPlugin(resolved: ResolvedThemes) {
         ({ addBase, addUtilities, addVariant, matchUtilities }) => {
           addBase({ ':root, [data-theme]': { ...resolved.baseStyles } });
           addUtilities({ ...resolved?.utilities });
-          matchUtilities(
-            {
-              'color-scheme': colorSchemeMatcher(env),
-            },
-            {
-              values: colorSchemeMatcherValues(resolved.tokens.colors),
-            }
-          );
+          matchUtilities({ 'color-scheme': colorSchemeMatcher(env) }, { values: colorSchemeMatcherValues(resolved.tokens.colors) });
           resolved?.variants.forEach((variant) => {
             addVariant(variant.name, variant.definition);
           });

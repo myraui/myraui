@@ -1,4 +1,4 @@
-import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from '../src/plugin';
+import myrauiPlugin, { combineBuiltThemes, createThemeSelector, resolveThemes } from '../plugin';
 import { getBaseStyles, MYRA_UI_PREFIX, myraColors } from '@myraui/theme';
 import { unwrapRE } from '@myraui/shared-utils';
 
@@ -179,6 +179,15 @@ describe('plugin', () => {
         expect.objectContaining({
           ':root,.midnight,[data-theme="midnight"]': expect.objectContaining({ '--myraui-colors-ruby-6': expect.any(String) }),
         })
+      );
+
+      expect(matchUtilities).toHaveBeenCalledWith(
+        { 'color-scheme': expect.any(Function) },
+        {
+          values: expect.objectContaining({
+            red: 'red',
+          }),
+        }
       );
 
       expect(addVariant).toHaveBeenCalledWith('dark', ['&.dark', '&[data-theme="dark"]']);

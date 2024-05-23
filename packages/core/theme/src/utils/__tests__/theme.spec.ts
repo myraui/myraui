@@ -87,8 +87,8 @@ describe('utils/theme', () => {
       expect(isColorModeRecord({})).toBeFalsy();
     });
 
-    it('should return false if the value has one color mode', () => {
-      expect(isColorModeRecord({ light: {} })).toBeFalsy();
+    it('should return true if it has the base theme only', () => {
+      expect(isColorModeRecord({ light: {} })).toBeTruthy();
     });
   });
 });
