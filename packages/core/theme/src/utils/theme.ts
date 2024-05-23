@@ -1,15 +1,13 @@
-import { DeepRecord, DeepRecordCopy, Dict, Exception, mapKeys, mergeObjects, toValues } from '@myraui/shared-utils';
+import { Dict, mapKeys } from '@myraui/shared-utils';
 import * as R from 'fp-ts/Record';
 import * as A from 'fp-ts/Array';
-import { flow, pipe } from 'fp-ts/function';
+import { pipe } from 'fp-ts/function';
 import { ColorPalette, ColorScale, myraColors } from '../colors';
-import { ColorModeRecord, ColorModeValue, ColorValue, ResolvedConfigTheme, ResolvedTokenValues, ThemeEnv } from '../theme.types';
+import { ColorModeRecord, ColorModeValue, ColorValue } from '../theme.types';
 import { BASE_THEME } from './constants';
 import { ThemedUtilities } from './css-variables';
 import { isColorScale } from '../colors/utils';
-import { ResolvedValue, Utilities } from '../resolvers/resolvers';
-import * as RE from 'fp-ts/ReaderEither';
-import { isResolvedValue } from '../resolvers/utils/is-resolved-value';
+import { Utilities } from '../resolvers/resolvers';
 
 export const isColorMode = (theme: string) => theme === 'light' || theme === 'dark';
 
@@ -44,7 +42,7 @@ export function buildThemedUtilities(variables: ThemedUtilities): Dict<string | 
 }
 
 export function isColorModeRecord(record: any): record is ColorModeRecord<any> {
-  return 'light' in record && 'dark' in record && Object.keys(record).length === 2;
+  return 'light' in record;
 }
 
 export function normalizeColorModeValue<Value>(colorModeValue: ColorModeValue<Value>): ColorModeRecord<Value> {

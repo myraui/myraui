@@ -7,7 +7,7 @@ const env: ThemeEnv = { prefix: 'prefix', defaultExtendTheme: 'light' };
 describe('generators/color-scheme-generator', () => {
   describe('colorSchemeGenerator', () => {
     it('should generate the default color scheme', () => {
-      const result = unwrapRE(colorSchemeGenerator('primary'), env) as any;
+      const result = unwrapRE(colorSchemeGenerator('color-scheme')('primary'), env) as any;
 
       expect(result).toEqual({
         colors: {

@@ -18,5 +18,6 @@ export type ConfigThemeGenerators = {
 export const generators: ConfigThemeGenerators = {
   spacingUnit: spacingUnitGenerator,
   colors: colorGenerator,
-  colorScheme: colorSchemeGenerator,
+  colorScheme: colorSchemeGenerator('color-scheme'),
+  colorSchemeForeground: colorSchemeGenerator('color-scheme-foreground'),
 };

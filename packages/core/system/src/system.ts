@@ -22,13 +22,10 @@ export function assignDisplayName(Component: any) {
 }
 
 export function withColorScheme<T extends MyraProps>(Component: React.ComponentType<T> | As) {
-  return forwardRef<any, any>(({ colorScheme, ...props }, ref) => {
-    const colorSchemeClass = useMemo(() => {
-      if (!colorScheme) return '';
-      return buildColorSchemeClasses(colorScheme);
-    }, [colorScheme]);
-
+  return forwardRef<any, any>(({ colorScheme, textColorScheme, ...props }, ref) => {
     const elementProps = useMemo(() => {
+      const colorSchemeClass = buildColorSchemeClasses(colorScheme, textColorScheme);
+
       const baseProps = {
         ...props,
         ref,
@@ -39,8 +36,8 @@ export function withColorScheme<T extends MyraProps>(Component: React.ComponentT
         return baseProps;
       }
 
-      return { ...baseProps, colorScheme };
-    }, [props, ref, colorSchemeClass, colorScheme]);
+      return { ...baseProps, colorScheme, textColorScheme };
+    }, [props, ref, colorScheme, textColorScheme]);
 
     return createElement(Component, { ...elementProps });
   });

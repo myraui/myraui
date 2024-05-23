@@ -48,7 +48,7 @@ export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProp
 };
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(
-  originalProps: Props & { colorSchemeAsColor?: boolean },
+  originalProps: Props,
   componentVariants: TV,
   as?: A
 ): UseMyraComponentReturn<A, Props, TV>;
@@ -59,20 +59,13 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
 
   const styles = useMemo(() => componentVariants({ ...variantProps }), [...Object.values(variantProps)]);
 
-  const colorSchemeClassName = useMemo(() => {
-    if (colorScheme) {
-      return clsx(className, 'text-color-scheme');
-    }
-    return className;
-  }, [colorScheme, className]);
-
   const hasSlots = useMemo(() => {
     return typeof styles === 'object';
   }, [styles]);
 
   const baseStyles = useMemo(() => {
-    return hasSlots ? clsx(styles?.base, colorSchemeClassName) : clsx(colorSchemeClassName, styles);
-  }, [colorSchemeClassName, hasSlots, styles]);
+    return clsx(hasSlots ? styles?.base : styles, className);
+  }, [className, hasSlots, styles]);
 
   const finalClassName = useMemo(() => {
     return hasSlots ? styles.base({ class: baseStyles }) : baseStyles;

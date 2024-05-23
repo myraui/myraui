@@ -76,6 +76,11 @@ export interface ConfigTheme extends PartialThemeTokens {
    * The color scheme token that defines the color scheme for the components.
    */
   colorScheme?: ColorSchemeValue;
+
+  /**
+   * The color scheme token that defines the foreground color scheme for the components.
+   */
+  colorSchemeForeground?: ColorSchemeValue;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {
