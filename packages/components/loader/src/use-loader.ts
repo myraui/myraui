@@ -1,5 +1,5 @@
 import { MyraComponentProps, useMyraComponent } from '@myraui/system';
-import type { LoaderVariantProps } from '@myraui/theme';
+import type { TextOnlyColorScheme, LoaderVariantProps } from '@myraui/theme';
 import { loader } from '@myraui/theme';
 import { useMemo } from 'react';
 
@@ -16,7 +16,7 @@ export function useLoader(originalProps: UseLoaderProps) {
   const {
     componentProps: { label, ...props },
     ...rest
-  } = useMyraComponent(originalProps, loader);
+  } = useMyraComponent({ ...originalProps, colorSchemeIsText: true }, loader);
 
   const ariaLabel = useMemo(() => {
     if (label || props.children) return label || props.children;

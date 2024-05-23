@@ -52,3 +52,7 @@ export function normalizeColorModeValue<Value>(colorModeValue: ColorModeValue<Va
 
   return { [BASE_THEME]: colorModeValue } as ColorModeRecord<Value>;
 }
+
+export function extractColorSchemeColors(value: string) {
+  return value.split('/');
+}

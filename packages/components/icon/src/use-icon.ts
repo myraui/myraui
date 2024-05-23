@@ -17,7 +17,7 @@ export function useIcon(originalProps: UseIconProps) {
   const {
     componentProps: { children, viewBox, ...props },
     ...rest
-  } = useMyraComponent({ ...originalProps, colorSchemeAsColor: true }, icon, 'svg');
+  } = useMyraComponent({ ...originalProps, colorSchemeIsText: true }, icon, 'svg');
 
   const _path = (children ?? fallbackIcon.path) as React.ReactNode;
   const _viewBox = viewBox ?? fallbackIcon.viewBox;

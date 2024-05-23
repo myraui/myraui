@@ -1,4 +1,4 @@
-import { myra } from '../src';
+import { myra } from '../';
 import React from 'react';
 import { render } from '@testing-library/react';
 
@@ -9,7 +9,7 @@ describe('factory', () => {
 
     expect(container.firstChild).toBeInTheDocument();
 
-    expect(container.firstChild).toHaveClass('color-scheme-red');
+    expect(container.firstChild).toHaveClass(/css-*/);
   });
 
   it('should create a styled component from a custom component', () => {

@@ -1,11 +1,11 @@
 import { ConfigTheme, FullConfigTheme, ThemeEnv } from '../theme.types';
 import * as RE from 'fp-ts/ReaderEither';
 import { pipe } from 'fp-ts/function';
-import { isColorMode } from '../utils';
 import { ColorMode } from '../colors';
 import deepMerge from 'deepmerge';
 import { defaultThemes } from '../theme';
 import { Exception } from '@myraui/shared-utils';
+import { isColorMode } from '../utils/theme';
 
 export function applyBaseTheme(themeName: string, configTheme: ConfigTheme): RE.ReaderEither<ThemeEnv, Exception, FullConfigTheme> {
   return pipe(
@@ -16,8 +16,7 @@ export function applyBaseTheme(themeName: string, configTheme: ConfigTheme): RE.
       ) as ColorMode;
       return {
         spacingUnit: 4,
-        colorScheme: 'primary',
-        colorSchemeForeground: 'foreground',
+        colorScheme: 'primary/foreground',
         ...deepMerge(defaultThemes[baseTheme], configTheme),
         extend: baseTheme,
       };

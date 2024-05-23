@@ -1,10 +1,21 @@
-import { buildColorSchemeClasses } from '@myraui/theme';
+import styled from '@emotion/styled';
+import { buildComponentColorScheme } from '@myraui/theme';
 import { pipe } from 'fp-ts/function';
+import * as Reader from 'fp-ts/Reader';
+import * as RE from 'fp-ts/ReaderEither';
 import React, { createElement, useMemo } from 'react';
 import { useMyraUIContext } from './context';
 import { As, MyraComponent, MyraProps, MyraUIStyledOptions } from './system.types';
-import { forwardRef } from './forwardRef';
-import { clsx } from '@myraui/shared-utils';
+
+export function applyComponentTheme(prefix: string) {
+  return (props: MyraProps) => {
+    if (!props.colorScheme) return {};
+    return pipe(
+      buildComponentColorScheme(props.colorScheme, props.colorSchemeIsText),
+      RE.getOrElse(() => Reader.of({}))
+    )({ prefix, defaultExtendTheme: 'light' });
+  };
+}
 
 export function getDisplayName(Component: any) {
   if (typeof Component === 'string') return Component;
@@ -21,38 +32,16 @@ export function assignDisplayName(Component: any) {
   };
 }
 
-export function withColorScheme<T extends MyraProps>(Component: React.ComponentType<T> | As) {
-  return forwardRef<any, any>(({ colorScheme, textColorScheme, ...props }, ref) => {
-    const elementProps = useMemo(() => {
-      const colorSchemeClass = buildColorSchemeClasses(colorScheme, textColorScheme);
-
-      const baseProps = {
-        ...props,
-        ref,
-        className: clsx(colorSchemeClass, props.className),
-      };
-
-      if (typeof Component === 'string') {
-        return baseProps;
-      }
-
-      return { ...baseProps, colorScheme, textColorScheme };
-    }, [props, ref, colorScheme, textColorScheme]);
-
-    return createElement(Component, { ...elementProps });
-  });
-}
-
 export function useCreateStyledComponent(Component: any, _options: MyraUIStyledOptions = {}) {
   const { prefix } = useMyraUIContext();
 
   return useMemo(() => {
-    return pipe(withColorScheme(Component), assignDisplayName(Component));
+    return pipe(applyComponentTheme(prefix), styled(Component as React.ComponentType<any>), assignDisplayName(Component));
   }, [Component, prefix]);
 }
 
 export function styledFn<T extends As, P extends object = object>(Component: any, options: MyraUIStyledOptions = {}) {
-  const Comp = forwardRef<any, any>(function Comp(props, ref) {
+  const Comp = React.forwardRef<any, any>(function Comp(props, ref) {
     const { as: Element = Component.__el || Component, children, ...restProps } = props;
 
     const element = useCreateStyledComponent(Element, options);

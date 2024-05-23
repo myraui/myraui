@@ -1,5 +1,5 @@
 import { render, renderHook } from '@testing-library/react';
-import { useMyraComponent } from '../src';
+import { useMyraComponent } from '../';
 import { tv } from 'tailwind-variants';
 import React from 'react';
 
@@ -20,7 +20,7 @@ describe('useMyraComponent', () => {
 
       expect(container.firstChild).toHaveClass('bg-red');
       expect(container.firstChild).toHaveClass('h-2');
-      expect(container.firstChild).toHaveClass('color-scheme-primary'); // verify the styled component classname
+      expect(container.firstChild).toHaveClass(/css-*/);
 
       expect(ref.current).toEqual(container.firstChild);
 

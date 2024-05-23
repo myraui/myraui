@@ -1,4 +1,4 @@
-import { forwardRef } from '../src';
+import { forwardRef } from '../';
 import React from 'react';
 import { render } from '@testing-library/react';
 

@@ -1,8 +1,21 @@
-import { assignDisplayName, getDisplayName, styledFn, useCreateStyledComponent, withColorScheme } from '../src';
+import { applyComponentTheme, assignDisplayName, getDisplayName, styledFn, useCreateStyledComponent } from '../';
+
 import React from 'react';
 import { render, renderHook } from '@testing-library/react';
 
 describe('system', () => {
+  describe('applyComponentTheme', () => {
+    it('should generate the styles for a component', () => {
+      const styles = applyComponentTheme('prefix')({ colorScheme: 'red' });
+
+      expect(styles).toEqual(
+        expect.objectContaining({
+          '--prefix-color-scheme': 'var(--prefix-colors-red)',
+        })
+      );
+    });
+  });
+
   describe('getDisplayName', () => {
     it('should return the display name of a HTML element', () => {
       expect(getDisplayName('div')).toEqual('div');
@@ -54,23 +67,8 @@ describe('system', () => {
 
       expect(container.firstChild).toBeInTheDocument();
 
-      expect(container.firstChild).toHaveClass('color-scheme-red'); // verify the styled component classname
+      expect(container.firstChild).toHaveClass(/css-.*/); // verify the styled component classname
       expect(container.firstChild).toHaveTextContent('red'); // verify the colorscheme
-    });
-  });
-
-  describe('withColorScheme', () => {
-    it('should add a color scheme to a component', () => {
-      const CustomComponent = (props: any) => {
-        return <span className={props.className}></span>;
-      };
-
-      const WithColorScheme = withColorScheme(CustomComponent);
-
-      const { container } = render(<WithColorScheme colorScheme="red" />);
-
-      expect(container.firstChild).toHaveClass('color-scheme-red');
-      expect(container.firstChild).not.toHaveProperty('colorScheme');
     });
   });
 

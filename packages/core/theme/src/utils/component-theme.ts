@@ -1,27 +1,27 @@
 import { pipe } from 'fp-ts/lib/function';
-import { ComponentColorScheme } from '../theme.types';
-import { normalizeColorModeValue } from './theme';
+import { ComponentColorScheme, ThemeEnv } from '../theme.types';
+import { buildThemedUtilities, extractColorSchemeColors, normalizeColorModeValue } from './theme';
 import * as R from 'fp-ts/Record';
-import { dashCase, swapKeys, toValues } from '@myraui/shared-utils';
-import { BASE_THEME } from './constants';
+import { Dict, Exception } from '@myraui/shared-utils';
+import { buildColorScheme } from '../build/apply-color-scheme';
+import * as RE from 'fp-ts/ReaderEither';
+import { Utilities } from '../resolvers/resolvers';
 
-export function buildColorSchemeClasses(colorScheme?: ComponentColorScheme, foreground?: ComponentColorScheme): string {
+export function buildComponentColorScheme(
+  colorSchemeValue?: ComponentColorScheme,
+  isText = false
+): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Utilities>> {
   return pipe(
-    { background: normalizeColorModeValue(colorScheme), foreground: normalizeColorModeValue(foreground) },
-    swapKeys,
-    R.mapWithIndex((theme, value) => {
-      const background = value.background?.replace('.', '-') || '';
-      const foreground = value.foreground?.replace('.', '-') || '';
+    normalizeColorModeValue(colorSchemeValue),
+    R.map((colorScheme) => {
+      if (!colorScheme) return colorScheme;
 
-      const prefix = theme === BASE_THEME ? '' : `${theme}:`;
+      const [background, foreground] = extractColorSchemeColors(colorScheme);
 
-      if (!background && !foreground) {
-        return '';
-      }
-
-      return `${prefix}color-scheme${background ? `-${dashCase(background.replace('.', '-'))}` : ''}${foreground ? `/${dashCase(foreground)}` : ''}`;
+      return isText && !foreground ? `/${background}` : colorScheme;
     }),
-    toValues,
-    (values) => values.join(' ')
+    R.map(buildColorScheme),
+    R.sequence(RE.Applicative),
+    RE.map(buildThemedUtilities)
   );
 }

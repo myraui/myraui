@@ -14,15 +14,14 @@ describe('build/apply-base-theme', () => {
         ...defaultThemes.light,
         spacingUnit: 4,
         extend: 'light',
-        colorScheme: 'primary',
-        colorSchemeForeground: 'foreground',
+        colorScheme: 'primary/foreground',
       });
     });
 
     it('should use the theme.extend value', () => {
       const result = unwrapRE(applyBaseTheme('midnight', { extend: 'dark' }), env);
 
-      expect(result).toEqual({ ...defaultThemes.dark, spacingUnit: 4, extend: 'dark', colorScheme: 'primary', colorSchemeForeground: 'foreground' });
+      expect(result).toEqual({ ...defaultThemes.dark, spacingUnit: 4, extend: 'dark', colorScheme: 'primary/foreground' });
     });
 
     it('should ignore the theme.extend and defaultExtendTheme for base themes', () => {
@@ -32,8 +31,7 @@ describe('build/apply-base-theme', () => {
         ...defaultThemes.light,
         spacingUnit: 4,
         extend: 'light',
-        colorScheme: 'primary',
-        colorSchemeForeground: 'foreground',
+        colorScheme: 'primary/foreground',
       });
     });
   });
