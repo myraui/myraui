@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/lib/function';
-import { ComponentColorScheme, ThemeEnv } from '../theme.types';
+import { ThemedColorScheme, ThemeEnv } from '../theme.types';
 import { buildThemedUtilities, extractColorSchemeColors, normalizeColorModeValue } from './theme';
 import * as R from 'fp-ts/Record';
 import { Dict, Exception } from '@myraui/shared-utils';
@@ -8,7 +8,7 @@ import * as RE from 'fp-ts/ReaderEither';
 import { Utilities } from '../resolvers/resolvers';
 
 export function buildComponentColorScheme(
-  colorSchemeValue?: ComponentColorScheme,
+  colorSchemeValue?: ThemedColorScheme,
   isText = false
 ): RE.ReaderEither<ThemeEnv, Exception, Dict<string | Utilities>> {
   return pipe(

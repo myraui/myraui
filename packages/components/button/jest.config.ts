@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: '@myraui/button',
   preset: '../../../jest.preset.js',

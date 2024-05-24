@@ -3,6 +3,7 @@ import { MyraComponentProps, useMyraComponent } from '@myraui/system';
 import { button } from '@myraui/theme';
 import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
 import { cloneElement, isValidElement, ReactNode, useMemo } from 'react';
+import { LoaderProps } from '@myraui/loader';
 
 interface Props {
   /**
@@ -20,10 +21,9 @@ interface Props {
   loader?: ReactNode;
 
   /**
-   * The loader placement.
-   * @default start
+   * The loader props.
    */
-  loaderPlacement?: 'start' | 'end';
+  loaderProps?: LoaderProps;
 
   /**
    * Whether the button should display a loading spinner.
@@ -41,23 +41,17 @@ const getElementClone = (element: ReactNode) => {
 export function useButton(originalProps: UseButtonProps) {
   const {
     Component,
-    domRef,
-    componentProps: { autoFocus, isDisabled, startSection, endSection, loader, loaderPlacement = 'start', isLoading = false, ...otherProps },
-    variantProps: { size },
+    slots,
+    classNames,
+    componentProps: { autoFocus, startSection, endSection, loader, ref, loaderProps, ...otherProps },
+    variantProps: { size, isLoading, isDisabled: isDisabledProp },
   } = useMyraComponent({ ...originalProps }, button, 'button');
 
-  const { isFocusVisible, isFocused, focusProps } = useFocusRing({
-    autoFocus,
-  });
+  const isDisabled = isDisabledProp || isLoading;
 
-  const { buttonProps: ariaButtonProps, isPressed } = useAriaButton(
-    {
-      elementType: Component,
-      isDisabled,
-      ...otherProps,
-    },
-    domRef
-  );
+  const { isFocusVisible, isFocused, focusProps } = useFocusRing({ autoFocus });
+
+  const { buttonProps: ariaButtonProps, isPressed } = useAriaButton({ elementType: Component, isDisabled, ...otherProps }, ref);
 
   const startSectionClone = getElementClone(startSection);
   const endSectionClone = getElementClone(endSection);
@@ -69,9 +63,11 @@ export function useButton(originalProps: UseButtonProps) {
       'data-focused': dataAttr(isFocused),
       'data-focus-visible': dataAttr(isFocusVisible),
       'data-loading': dataAttr(isLoading),
+      ref,
       ...mergeProps(ariaButtonProps, focusProps),
+      ...otherProps,
     };
-  }, [ariaButtonProps, isPressed]);
+  }, [ariaButtonProps, isPressed, otherProps, isDisabled, isFocused, isFocusVisible, isLoading, focusProps]);
 
   const loaderSize = useMemo(() => {
     return {
@@ -89,9 +85,11 @@ export function useButton(originalProps: UseButtonProps) {
     startSection: startSectionClone,
     endSection: endSectionClone,
     isLoading,
+    slots,
+    classNames,
     loader,
-    loaderPlacement,
     loaderSize,
+    loaderProps,
   };
 }
 

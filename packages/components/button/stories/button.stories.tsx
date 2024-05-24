@@ -2,7 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonProps } from '../src';
 import React from 'react';
 import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
-import { ArrowDownTrayIcon, ArrowRightIcon, PhotoIcon } from '@myraui/icons';
+import { ArrowDownTrayIcon, ArrowRightIcon, CameraIcon, PhotoIcon } from '@myraui/icons';
+import { IconButton } from '../src/icon-button';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -160,6 +161,9 @@ export const Radius: Story = {
       <Button {...args} radius="huge">
         Huge
       </Button>
+      <Button {...args} radius="full">
+        Full
+      </Button>
     </div>
   ),
 };
@@ -209,11 +213,14 @@ export const Colors: Story = {
       <div className="flex flex-col gap-2">
         <h2>Base Colors</h2>
         <div className="flex flex-wrap gap-4 items-center max-w-6xl">
-          {Object.keys(myraColors).map((color) => (
-            <Button key={color} {...args} colorScheme={color}>
-              {color}
-            </Button>
-          ))}
+          {Object.keys(myraColors).map((color) => {
+            const colorScheme = color === 'white' ? 'white/black' : color === 'black' ? 'black/white' : color;
+            return (
+              <Button key={color} {...args} colorScheme={colorScheme}>
+                {color}
+              </Button>
+            );
+          })}
         </div>
         <h2>Semantic Colors</h2>
         <div className="flex flex-wrap gap-4 items-center max-w-2xl">
@@ -231,7 +238,7 @@ export const Colors: Story = {
 /**
  * `startSection` and `endSection` props allow you to add icons or other elements to the start or end of the Button.
  */
-export const Sections: Story = {
+export const WithIcons: Story = {
   args: {
     variant: 'filled',
     children: 'Button',
@@ -251,9 +258,56 @@ export const Sections: Story = {
   ),
 };
 
+export const IconOnly: Story = {
+  args: {
+    variant: 'filled',
+  },
+  render: (args) => (
+    <div className="flex gap-4 ">
+      <IconButton {...args} icon={CameraIcon.solid} variant="default" />
+      <IconButton {...args} icon={CameraIcon.solid} variant="filled" />
+      <IconButton {...args} icon={CameraIcon.solid} variant="light" />
+      <IconButton {...args} icon={CameraIcon.solid} variant="outline" />
+      <IconButton {...args} icon={CameraIcon.solid} variant="subtle" />
+      <IconButton {...args} icon={CameraIcon.solid} variant="link" />
+    </div>
+  ),
+};
+
+/**
+ * The `isLoading` prop allows you to show a loading spinner inside the Button. This is useful when the Button triggers an action that takes some time to complete.
+ */
 export const LoadingState: Story = {
   args: {
     isLoading: true,
   },
   render: VariantsTemplate,
+};
+
+/**
+ * You can change properties of the loader by passing a `loaderProps` object to the Button.
+ */
+export const LoaderProps: Story = {
+  args: {
+    isLoading: true,
+    loaderProps: {
+      variant: 'dots',
+    },
+  },
+};
+
+export const CustomStyles = {
+  args: {},
+  render: () => (
+    <Button
+      variant="filled"
+      colorScheme="blue/foreground-12"
+      size="large"
+      startSection={<span className="rounded-full bg-foreground-1 text-foreground-12 w-8 h-8 flex items-center justify-center">12</span>}
+      endSection={<ArrowRightIcon />}
+      className="rounded-l-[50px] rounded-r-medium"
+    >
+      Send Files
+    </Button>
+  ),
 };

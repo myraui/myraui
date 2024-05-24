@@ -12,6 +12,6 @@
     "src/**/*.test.js",
     "src/**/*.spec.js",
     "src/**/*.d.ts",
-    "test"
+    "../../../tools/scripts/setup-tests.ts"
   ]
 }

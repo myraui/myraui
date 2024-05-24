@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import { ClassValue, TVReturnType, VariantProps } from 'tailwind-variants';
 import { mapPropsVariants } from '@myraui/react-utils';
-import { Assign, clsx } from '@myraui/shared-utils';
+import { Assign, clsx, Dict } from '@myraui/shared-utils';
 import { As, HTMLMyraProps, MyraComponent } from './system.types';
-import { myra } from './factory';
 
 type InferTV<TV> = TV extends TVReturnType<infer V, infer S, infer B, infer C, infer EV, infer ES, infer E>
   ? TVReturnType<V, S, B, C, EV, ES, E>
@@ -40,12 +39,27 @@ export type MyraComponentProps<TV, A extends As = 'div'> = HTMLMyraProps<A> &
 export type UseMyraComponentReturn<A extends As, Props extends MyraComponentProps<TV, A>, TV> = {
   Component: MyraComponent;
   variantProps: InferVariantProps<TV>;
-  colorScheme?: Props['colorScheme'];
-  componentProps: Omit<Props, 'colorScheme' | 'ref'>;
+  componentProps: Omit<Props, keyof InferVariantProps<TV>> & { ref: React.RefObject<Element> };
   slots: InferSlots<TV> extends Record<any, any> ? InferSlots<TV> : undefined;
   classNames?: Props['classNames'];
-  domRef: React.RefObject<Element>;
 };
+
+function useSlots<TV extends (args: InferVariantProps<TV>) => any>(styles: TV, variantProps: InferVariantProps<TV>, classNames: Dict) {
+  return useMemo(() => {
+    const slots = styles({ ...variantProps });
+
+    if (typeof slots === 'object') {
+      return Object.entries(slots).reduce((acc, [key, value]: any) => {
+        return {
+          ...acc,
+          [key]: ({ class: className, ...otherArgs }: any = {}) => value({ class: clsx(classNames?.[key], className), ...otherArgs }),
+        };
+      }, {});
+    }
+
+    return slots;
+  }, [...Object.values(variantProps)]);
+}
 
 export function useMyraComponent<A extends As, TV, Props extends MyraComponentProps<TV, A>>(
   originalProps: Props,
@@ -57,31 +71,17 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
 
   const { ref, as, className, classNames, colorScheme, ...otherProps } = props;
 
-  const styles = useMemo(() => componentVariants({ ...variantProps }), [...Object.values(variantProps)]);
-
-  const hasSlots = useMemo(() => {
-    return typeof styles === 'object';
-  }, [styles]);
-
-  const baseStyles = useMemo(() => {
-    return clsx(hasSlots ? styles?.base : styles, className);
-  }, [className, hasSlots, styles]);
+  const slots = useSlots(componentVariants, variantProps, classNames);
 
   const finalClassName = useMemo(() => {
-    return hasSlots ? styles.base({ class: baseStyles }) : baseStyles;
-  }, [styles, baseStyles, hasSlots]);
-
-  const Component = useMemo(() => {
-    return (props: any) => <myra.div as={as || defaultAs} colorScheme={colorScheme} className={finalClassName} {...props} ref={ref} />;
-  }, [as, defaultAs, colorScheme, finalClassName]);
+    return typeof slots === 'object' ? slots.base({ class: className }) : clsx(className, slots);
+  }, [slots, className]);
 
   return {
-    componentProps: { ...otherProps, className: finalClassName },
-    Component,
-    slots: hasSlots ? styles : undefined,
+    componentProps: { ...otherProps, className: finalClassName, colorScheme, ref },
+    Component: as || defaultAs,
+    slots,
     variantProps,
-    classNames: hasSlots ? classNames : undefined,
-    colorScheme,
-    domRef: ref,
+    classNames,
   };
 }

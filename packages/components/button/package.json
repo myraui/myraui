@@ -41,6 +41,7 @@
     "clean-package": "2.2.0"
   },
   "dependencies": {
+    "@myraui/icon": "workspace:^",
     "@myraui/icons": "workspace:^",
     "@myraui/loader": "workspace:^",
     "@myraui/react-utils": "workspace:*",
