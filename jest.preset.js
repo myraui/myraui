@@ -37,4 +37,5 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  coverageReporters: ['text', 'lcov'],
 };
