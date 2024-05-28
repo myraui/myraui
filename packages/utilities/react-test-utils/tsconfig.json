@@ -5,5 +5,5 @@
     "types": ["jest", "node"]
   },
   "files": [],
-  "include": ["src", "../../../tools/scripts/setup-tests.ts"]
+  "include": ["src"]
 }

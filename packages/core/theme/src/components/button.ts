@@ -23,10 +23,27 @@ const button = tv({
   },
   variants: {
     variant: {
-      filled: 'color-scheme/color-scheme-1 bg-color-scheme text-color-scheme-foreground hover:bg-color-scheme/90',
-      light: 'color-scheme/color-scheme bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme-foreground',
-      outline: 'color-scheme/color-scheme border-color-scheme-foreground border-tiny text-color-scheme-foreground hover:bg-color-scheme-2/90',
-      subtle: 'color-scheme/color-scheme text-color-scheme-foreground hover:bg-color-scheme-2/90',
+      filled: {
+        base: [
+          'color-scheme/color-scheme-1 bg-color-scheme text-color-scheme-foreground hover:bg-color-scheme/90',
+          'data-[pressed=true]:bg-color-scheme/80',
+        ],
+      },
+      light: {
+        base: [
+          'color-scheme/color-scheme bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme-foreground',
+          'data-[pressed=true]:bg-color-scheme-5',
+        ],
+      },
+      outline: {
+        base: [
+          'color-scheme/color-scheme border-color-scheme-foreground border-tiny text-color-scheme-foreground hover:bg-color-scheme-2/90',
+          'data-[pressed=true]:bg-color-scheme-2',
+        ],
+      },
+      subtle: {
+        base: ['color-scheme/color-scheme text-color-scheme-foreground hover:bg-color-scheme-2/90', 'data-[pressed=true]:bg-color-scheme-2'],
+      },
       link: 'color-scheme/color-scheme text-color-scheme-foreground hover:underline',
     },
     size: {
@@ -91,6 +108,7 @@ const button = tv({
     disableTransition: {
       true: 'transition-none',
       false: {
+        base: 'transition-colors',
         content: 'transition-transform',
         loader: 'transition-transform',
       },

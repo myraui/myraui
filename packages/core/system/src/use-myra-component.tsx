@@ -80,7 +80,7 @@ export function useMyraComponent(originalProps: any, componentVariants: any, def
   return {
     componentProps: { ...otherProps, className: finalClassName, colorScheme, ref },
     Component: as || defaultAs,
-    slots,
+    slots: typeof slots === 'object' ? slots : undefined,
     variantProps,
     classNames,
   };
