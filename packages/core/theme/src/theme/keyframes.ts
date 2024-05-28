@@ -1,16 +1,16 @@
 import { DefaultThemeTokens } from '../theme.types';
 
-export type ThemeKeyframes = 'spin' | 'dots-loader' | 'bars-loader';
+export type ThemeKeyframes = 'spin' | 'pulse' | 'bars-loader';
 
 export const keyframes: DefaultThemeTokens<'keyframes'> = {
   spin: {
     '0%': { transform: 'rotate(0deg)' },
     '100%': { transform: 'rotate(360deg)' },
   },
-  'dots-loader': {
-    '0%': { transform: 'scale(0)' },
-    '50%': { transform: 'scale(1)' },
-    '100%': { transform: 'scale(0)' },
+  pulse: {
+    '0%': { opacity: '0.3' },
+    '50%': { opacity: '1' },
+    '100%': { opacity: '0.3' },
   },
   'bars-loader': {
     '0%': { transform: 'scaleY(1)' },

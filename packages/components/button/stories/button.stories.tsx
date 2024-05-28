@@ -14,34 +14,66 @@ const meta: Meta<typeof Button> = {
         type: 'select',
       },
       options: Object.keys(button.variants.variant),
+      description:
+        'Use the `variant` prop to change the visual style of the Button. You can set the value to `filled`, `outline`, `light`, `subtle`, or `link`.',
     },
     colorScheme: {
       control: {
         type: 'select',
       },
       options: colorSchemeOptions,
+      description: 'Apply a color scheme to the Button by setting the `colorScheme` prop from the colors defined in the theme.',
     },
     size: {
       control: {
         type: 'select',
       },
       options: Object.keys(button.variants.size),
+      description: 'Use the `size` prop to change the size of the Button. You can set the value to `tiny`, `small`, `medium`, `large`, or `huge`.',
     },
     radius: {
       control: {
         type: 'select',
       },
       options: Object.keys(button.variants.radius),
+      description:
+        'Use the `radius` prop to change the border-radius of the Button. You can set the value to `tiny`, `small`, `medium`, `large`, or `huge`.',
     },
     fullWidth: {
       control: {
         type: 'boolean',
       },
+      description: 'If you want the Button to take the full width of its container, you can set the `fullWidth` prop to `true`.',
     },
     compact: {
       control: {
         type: 'boolean',
       },
+      description: 'Creates a compact button with reduced padding.',
+    },
+    isLoading: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'To show a loader on the button',
+    },
+    isDisabled: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Control the disabled state of the button',
+    },
+    isIconOnly: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'If the button only contains an icon, set this prop to `true` to reduce the padding and make the button square.',
+    },
+    disableTransition: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'Disable the transition on the button',
     },
   },
 };
@@ -52,9 +84,6 @@ type Story = StoryObj<typeof Button>;
 const VariantsTemplate = (args: ButtonProps) => {
   return (
     <div className="flex gap-4 ">
-      <Button {...args} variant="default">
-        Default
-      </Button>
       <Button {...args} variant="filled">
         Filled
       </Button>
@@ -70,6 +99,123 @@ const VariantsTemplate = (args: ButtonProps) => {
       <Button {...args} variant="link">
         Link
       </Button>
+    </div>
+  );
+};
+
+const IconsTemplate = (args: ButtonProps) => (
+  <div className="flex gap-4 ">
+    <IconButton {...args} icon={CameraIcon.solid} variant="filled" />
+    <IconButton {...args} icon={CameraIcon.solid} variant="light" />
+    <IconButton {...args} icon={CameraIcon.solid} variant="outline" />
+    <IconButton {...args} icon={CameraIcon.solid} variant="subtle" />
+    <IconButton {...args} icon={CameraIcon.solid} variant="link" />
+  </div>
+);
+
+const SizesTemplate = (args: ButtonProps) => (
+  <div className="flex gap-4 items-center">
+    <Button {...args} size="tiny">
+      Tiny
+    </Button>
+    <Button {...args} size="small">
+      Small
+    </Button>
+    <Button {...args} size="medium">
+      Medium
+    </Button>
+    <Button {...args} size="large">
+      Large
+    </Button>
+    <Button {...args} size="huge">
+      Huge
+    </Button>
+  </div>
+);
+
+const RadiusTemplate = (args: ButtonProps) => (
+  <div className="flex gap-4 items-center">
+    <Button {...args} radius="tiny">
+      Tiny
+    </Button>
+    <Button {...args} radius="small">
+      Small
+    </Button>
+    <Button {...args} radius="medium">
+      Medium
+    </Button>
+    <Button {...args} radius="large">
+      Large
+    </Button>
+    <Button {...args} radius="huge">
+      Huge
+    </Button>
+    <Button {...args} radius="full">
+      Full
+    </Button>
+  </div>
+);
+
+const WithIconsTemplate = (args: ButtonProps) => (
+  <div className="flex gap-4 items-center">
+    <Button {...args} startSection={<PhotoIcon />}>
+      Gallery
+    </Button>
+    <Button {...args} endSection={<ArrowDownTrayIcon />}>
+      Download
+    </Button>
+    <Button {...args} variant="light" startSection={<PhotoIcon />} endSection={<ArrowRightIcon />}>
+      Visit Gallery
+    </Button>
+  </div>
+);
+
+const CustomStylesTemplate = () => (
+  <div className="flex gap-4">
+    <Button
+      variant="filled"
+      colorScheme="teal/foreground-12"
+      startSection={<span className="rounded-full bg-foreground-1 text-foreground-12 w-8 h-8 flex items-center justify-center">12</span>}
+      endSection={<ArrowRightIcon />}
+      className="rounded-l-[50px] rounded-r-medium px-unit-2"
+    >
+      Send Files
+    </Button>
+  </div>
+);
+
+const CompactTemplate = (args: ButtonProps) => (
+  <div className="flex gap-4 items-center">
+    <Button {...args}>Regular {args.size}</Button>
+    <Button {...args} compact={true}>
+      Compact {args.size}
+    </Button>
+  </div>
+);
+
+const ColorsTemplate = (args: ButtonProps) => {
+  const semantic = ['primary', 'secondary', 'success', 'danger', 'warning'];
+  return (
+    <div className="flex flex-col gap-2">
+      <h2>Base Colors</h2>
+      <div className="flex flex-wrap gap-4 items-center max-w-6xl">
+        {Object.keys(myraColors).map((color) => {
+          const colorScheme = color === 'white' ? 'white/black' : color === 'black' ? 'black/white' : color;
+          return (
+            <Button key={color} {...args} colorScheme={colorScheme}>
+              {color}
+            </Button>
+          );
+        })}
+      </div>
+      <h2>Semantic Colors</h2>
+      <div className="flex flex-wrap gap-4 items-center max-w-2xl">
+        {semantic.map((color) => (
+          <Button key={color} {...args} colorScheme={color}>
+            {color}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 };
@@ -101,25 +247,7 @@ export const Sizes: Story = {
     variant: 'filled',
     children: 'Button',
   },
-  render: (args) => (
-    <div className="flex gap-4 items-center">
-      <Button {...args} size="tiny">
-        Tiny
-      </Button>
-      <Button {...args} size="small">
-        Small
-      </Button>
-      <Button {...args} size="medium">
-        Medium
-      </Button>
-      <Button {...args} size="large">
-        Large
-      </Button>
-      <Button {...args} size="huge">
-        Huge
-      </Button>
-    </div>
-  ),
+  render: SizesTemplate,
 };
 
 /**
@@ -144,28 +272,7 @@ export const Radius: Story = {
     variant: 'filled',
     children: 'Button',
   },
-  render: (args) => (
-    <div className="flex gap-4 items-center">
-      <Button {...args} radius="tiny">
-        Tiny
-      </Button>
-      <Button {...args} radius="small">
-        Small
-      </Button>
-      <Button {...args} radius="medium">
-        Medium
-      </Button>
-      <Button {...args} radius="large">
-        Large
-      </Button>
-      <Button {...args} radius="huge">
-        Huge
-      </Button>
-      <Button {...args} radius="full">
-        Full
-      </Button>
-    </div>
-  ),
+  render: RadiusTemplate,
 };
 
 /**
@@ -178,14 +285,7 @@ export const CompactSize: Story = {
     children: 'Button',
     size: 'medium',
   },
-  render: (args) => (
-    <div className="flex gap-4 items-center">
-      <Button {...args}>Regular {args.size}</Button>
-      <Button {...args} compact={true}>
-        Compact {args.size}
-      </Button>
-    </div>
-  ),
+  render: CompactTemplate,
 };
 
 /**
@@ -207,32 +307,7 @@ export const Colors: Story = {
     variant: 'filled',
     children: 'Button',
   },
-  render: (args) => {
-    const semantic = ['primary', 'secondary', 'success', 'danger', 'warning'];
-    return (
-      <div className="flex flex-col gap-2">
-        <h2>Base Colors</h2>
-        <div className="flex flex-wrap gap-4 items-center max-w-6xl">
-          {Object.keys(myraColors).map((color) => {
-            const colorScheme = color === 'white' ? 'white/black' : color === 'black' ? 'black/white' : color;
-            return (
-              <Button key={color} {...args} colorScheme={colorScheme}>
-                {color}
-              </Button>
-            );
-          })}
-        </div>
-        <h2>Semantic Colors</h2>
-        <div className="flex flex-wrap gap-4 items-center max-w-2xl">
-          {semantic.map((color) => (
-            <Button key={color} {...args} colorScheme={color}>
-              {color}
-            </Button>
-          ))}
-        </div>
-      </div>
-    );
-  },
+  render: ColorsTemplate,
 };
 
 /**
@@ -243,35 +318,14 @@ export const WithIcons: Story = {
     variant: 'filled',
     children: 'Button',
   },
-  render: (args) => (
-    <div className="flex gap-4 items-center">
-      <Button {...args} variant="default" startSection={<PhotoIcon />}>
-        Gallery
-      </Button>
-      <Button {...args} endSection={<ArrowDownTrayIcon />}>
-        Download
-      </Button>
-      <Button {...args} variant="light" startSection={<PhotoIcon />} endSection={<ArrowRightIcon />}>
-        Visit Gallery
-      </Button>
-    </div>
-  ),
+  render: WithIconsTemplate,
 };
 
 export const IconOnly: Story = {
   args: {
     variant: 'filled',
   },
-  render: (args) => (
-    <div className="flex gap-4 ">
-      <IconButton {...args} icon={CameraIcon.solid} variant="default" />
-      <IconButton {...args} icon={CameraIcon.solid} variant="filled" />
-      <IconButton {...args} icon={CameraIcon.solid} variant="light" />
-      <IconButton {...args} icon={CameraIcon.solid} variant="outline" />
-      <IconButton {...args} icon={CameraIcon.solid} variant="subtle" />
-      <IconButton {...args} icon={CameraIcon.solid} variant="link" />
-    </div>
-  ),
+  render: IconsTemplate,
 };
 
 /**
@@ -298,16 +352,5 @@ export const LoaderProps: Story = {
 
 export const CustomStyles = {
   args: {},
-  render: () => (
-    <Button
-      variant="filled"
-      colorScheme="blue/foreground-12"
-      size="large"
-      startSection={<span className="rounded-full bg-foreground-1 text-foreground-12 w-8 h-8 flex items-center justify-center">12</span>}
-      endSection={<ArrowRightIcon />}
-      className="rounded-l-[50px] rounded-r-medium"
-    >
-      Send Files
-    </Button>
-  ),
+  render: CustomStylesTemplate,
 };

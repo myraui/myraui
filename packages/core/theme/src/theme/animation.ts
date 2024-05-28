@@ -15,9 +15,9 @@ export type ThemeAnimation =
 export const animation: DefaultThemeTokens<'animation'> = {
   'spin-linear': 'spin 1.2s linear infinite',
   'spin-ease': 'spin 1.2s ease infinite',
-  'dots-loader-1': 'dots-loader 1s linear infinite both',
-  'dots-loader-2': 'dots-loader 1s linear 0.3s infinite both',
-  'dots-loader-3': 'dots-loader 1s linear 0.6s infinite both',
+  'dots-loader-1': 'pulse 1s linear infinite both',
+  'dots-loader-2': 'pulse 1s linear 0.3s infinite both',
+  'dots-loader-3': 'pulse 1s linear 0.6s infinite both',
   'bars-loader-1': 'bars-loader 0.7s linear infinite both',
   'bars-loader-2': 'bars-loader 0.7s linear 0.2s infinite both',
   'bars-loader-3': 'bars-loader 0.7s linear 0.3s infinite both',

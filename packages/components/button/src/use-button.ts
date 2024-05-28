@@ -1,9 +1,10 @@
 import { dataAttr } from '@myraui/shared-utils';
 import { MyraComponentProps, useMyraComponent } from '@myraui/system';
 import { button } from '@myraui/theme';
-import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing } from 'react-aria';
+import { AriaButtonProps, mergeProps, useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
 import { cloneElement, isValidElement, ReactNode, useMemo } from 'react';
 import { LoaderProps } from '@myraui/loader';
+import { useButtonGroupContext } from './button-group-context';
 
 interface Props {
   /**
@@ -39,13 +40,15 @@ const getElementClone = (element: ReactNode) => {
 };
 
 export function useButton(originalProps: UseButtonProps) {
+  const groupContext = useButtonGroupContext();
+
   const {
     Component,
     slots,
     classNames,
     componentProps: { autoFocus, startSection, endSection, loader, ref, loaderProps, ...otherProps },
     variantProps: { size, isLoading, isDisabled: isDisabledProp },
-  } = useMyraComponent({ ...originalProps }, button, 'button');
+  } = useMyraComponent({ ...(groupContext || {}), ...originalProps, isInGroup: !!groupContext }, button, 'button');
 
   const isDisabled = isDisabledProp || isLoading;
 
@@ -56,6 +59,8 @@ export function useButton(originalProps: UseButtonProps) {
   const startSectionClone = getElementClone(startSection);
   const endSectionClone = getElementClone(endSection);
 
+  const { isHovered, hoverProps } = useHover({ isDisabled });
+
   const buttonProps = useMemo(() => {
     return {
       'data-disabled': dataAttr(isDisabled),
@@ -63,9 +68,9 @@ export function useButton(originalProps: UseButtonProps) {
       'data-focused': dataAttr(isFocused),
       'data-focus-visible': dataAttr(isFocusVisible),
       'data-loading': dataAttr(isLoading),
+      'data-hover': dataAttr(isHovered),
       ref,
-      ...mergeProps(ariaButtonProps, focusProps),
-      ...otherProps,
+      ...mergeProps(ariaButtonProps, focusProps, hoverProps, otherProps),
     };
   }, [ariaButtonProps, isPressed, otherProps, isDisabled, isFocused, isFocusVisible, isLoading, focusProps]);
 

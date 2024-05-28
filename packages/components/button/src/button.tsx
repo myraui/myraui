@@ -5,15 +5,6 @@ import { Loader } from '@myraui/loader';
 
 export interface ButtonProps extends UseButtonProps {}
 
-const labelColorScheme = {
-  default: 'foreground',
-  filled: 'foreground.1',
-  light: 'primary',
-  outline: 'primary',
-  subtle: 'primary',
-  link: 'primary',
-};
-
 /**
  * Button component is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
  */
@@ -26,7 +17,7 @@ const Button: React.FC<ButtonProps> = forwardRef<'button', ButtonProps>((props, 
     slots,
     loaderSize,
     loaderProps,
-    loader = <Loader size={loaderSize} colorScheme={labelColorScheme[props.variant || 'default']} {...loaderProps} />,
+    loader = <Loader size={loaderSize} colorScheme="color-scheme/color-scheme" {...loaderProps} />,
   } = useButton({ ...props, ref: baseRef });
 
   return (

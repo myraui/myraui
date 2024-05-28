@@ -23,7 +23,6 @@ const button = tv({
   },
   variants: {
     variant: {
-      default: 'bg-default-2 border-tiny border-default-4 text-default-11 hover:bg-default-3/90',
       filled: 'color-scheme/color-scheme-1 bg-color-scheme text-color-scheme-foreground hover:bg-color-scheme/90',
       light: 'color-scheme/color-scheme bg-color-scheme-3 hover:bg-color-scheme-4 text-color-scheme-foreground',
       outline: 'color-scheme/color-scheme border-color-scheme-foreground border-tiny text-color-scheme-foreground hover:bg-color-scheme-2/90',
@@ -96,9 +95,12 @@ const button = tv({
         loader: 'transition-transform',
       },
     },
+    isInGroup: {
+      true: '[&:not(:first-child):not(:last-child)]:rounded-none [&:first-child]:rounded-r-none [&:last-child]:rounded-l-none',
+    },
   },
   defaultVariants: {
-    variant: 'default',
+    variant: 'filled',
     size: 'medium',
     radius: 'small',
     fullWidth: false,
@@ -107,6 +109,7 @@ const button = tv({
     isLoading: false,
     disableTransition: false,
     isIconOnly: false,
+    isInGroup: false,
   },
   compoundVariants: [
     /** Compact Variant Sizes */
@@ -135,9 +138,27 @@ const button = tv({
       compact: true,
       className: 'px-unit-3 h-unit-9',
     },
+    {
+      isInGroup: true,
+      variant: 'outline',
+      className: '[&+.border-tiny]:border-l-0',
+    },
   ],
 });
 
-export type ButtonVariantProps = VariantProps<typeof button>;
+const buttonGroup = tv({
+  base: 'inline-flex items-center justify-center h-auto',
+  variants: {
+    fullWidth: {
+      true: 'w-full',
+    },
+  },
+  defaultVariants: {
+    fullWidth: false,
+  },
+});
 
-export { button };
+export type ButtonVariantProps = VariantProps<typeof button>;
+export type ButtonGroupVariantProps = VariantProps<typeof buttonGroup>;
+
+export { button, buttonGroup };

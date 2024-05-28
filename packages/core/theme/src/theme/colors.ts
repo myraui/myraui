@@ -6,12 +6,12 @@ export type ThemeColors = 'background' | 'foreground' | 'focus' | 'divider' | 'd
 export const colors: DefaultThemeTokens<'colors'> = {
   light: {
     ...getByColorMode('light'),
-    default: 'gray.12',
+    default: 'slate',
     background: 'gray.1',
     foreground: 'gray.12',
     focus: 'blue.8',
     divider: 'black.2',
-    primary: 'cyan',
+    primary: 'blue',
     secondary: 'purple',
     success: 'green',
     warning: 'yellow',
