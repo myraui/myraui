@@ -13,3 +13,4 @@ export * from './utils/classes';
 export * from './utils/constants';
 export * from './utils/component-theme';
 export * from './utils/tv';
+export { extractColorSchemeColors } from './utils/theme';

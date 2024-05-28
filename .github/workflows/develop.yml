@@ -41,7 +41,7 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
         with:
           coverageCommand: pnpm run coverage-merge
-          coverageLocation: |
+          coverageLocations: |
             ${{ github.workspace }}/coverage/lcov.info:lcov
   build:
     name: Build

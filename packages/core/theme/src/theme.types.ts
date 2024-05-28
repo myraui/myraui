@@ -35,7 +35,7 @@ export type ColorSchemeWithForeground = `${ColorOptions}/${ColorOptions}`;
 
 export type ColorSchemeForeground = `/${ColorOptions}`;
 
-export type ColorSchemeValue = ColorOptions | ColorSchemeWithForeground | ColorSchemeForeground;
+export type ColorScheme = ColorOptions | ColorSchemeWithForeground | ColorSchemeForeground;
 
 export type ThemeTokens = {
   colors: ThemeTokenRecord<ThemeColors | MyraColor | string, FlatMyraColor | MyraColor | string | ColorScale>;
@@ -57,9 +57,9 @@ export type ThemeTokens = {
 
 export type PartialThemeTokens = Partial<ThemeTokens>;
 
-export type TextOnlyColorScheme = ColorModeValue<ColorOptions>;
+export type ThemedTextColorScheme = ColorModeValue<ColorOptions>;
 
-export type ComponentColorScheme = ColorModeValue<ColorSchemeValue>;
+export type ThemedColorScheme = ColorModeValue<ColorScheme>;
 
 export type DefaultThemeTokens<Key extends keyof ThemeTokens> = ColorModeValue<ThemeTokens[Key]>;
 
@@ -83,7 +83,7 @@ export interface ConfigTheme extends PartialThemeTokens {
   /**
    * The color scheme token that defines the color scheme for the components.
    */
-  colorScheme?: ColorSchemeValue;
+  colorScheme?: ColorScheme;
 }
 
 export type FullConfigTheme<C extends ConfigTheme = ConfigTheme> = {

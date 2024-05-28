@@ -1,5 +1,5 @@
 import React from 'react';
-import { forwardRef } from '@myraui/system';
+import { forwardRef, myra } from '@myraui/system';
 import { useButton, UseButtonProps } from './use-button';
 import { Loader } from '@myraui/loader';
 
@@ -14,20 +14,23 @@ const Button: React.FC<ButtonProps> = forwardRef<'button', ButtonProps>((props, 
     buttonProps,
     startSection,
     endSection,
-    isLoading,
-    loaderPlacement,
+    slots,
     loaderSize,
-    loader = <Loader size={loaderSize} />,
+    loaderProps,
+    loader = <Loader size={loaderSize} colorScheme="color-scheme/color-scheme" {...loaderProps} />,
   } = useButton({ ...props, ref: baseRef });
 
   return (
-    <Component {...buttonProps}>
-      {startSection}
-      {isLoading && loaderPlacement === 'start' && loader}
-      {props.children}
-      {isLoading && loaderPlacement === 'end' && loader}
-      {endSection}
-    </Component>
+    <myra.button role="button" as={Component} {...buttonProps}>
+      <span className={slots?.content()}>
+        {startSection}
+        {props.children}
+        {endSection}
+      </span>
+      <span data-testid="button-loader" className={slots?.loader()}>
+        {loader}
+      </span>
+    </myra.button>
   );
 });
 

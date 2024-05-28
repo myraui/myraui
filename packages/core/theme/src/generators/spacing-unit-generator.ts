@@ -38,7 +38,7 @@ export const MIN_SIZES = [1, 2, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 20, 24
 
 export function createSpacingScale(): Array<[string, number]> {
   return pipe(
-    Array(...SPACING_SCALE),
+    Array(...[0, ...SPACING_SCALE]),
     A.map((value) => [`${value}`, value])
   );
 }

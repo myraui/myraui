@@ -1,4 +1,13 @@
-import { buildThemedUtilities, isColorMode, isColorModeRecord, normalizeColorModeValue, resolveColorValue, resolveThemeColors } from '../theme';
+import {
+  buildThemedUtilities,
+  hasShade,
+  isColorMode,
+  isColorModeRecord,
+  normalizeColorModeValue,
+  resolveColorValue,
+  resolveThemeColors,
+  updateShadeSeparator,
+} from '../theme';
 import { myraColors } from '../../colors';
 import { unwrapRE } from '@myraui/shared-utils';
 import { buildCSSVariables, colorVariable } from '../css-variables';
@@ -89,6 +98,26 @@ describe('utils/theme', () => {
 
     it('should return true if it has the base theme only', () => {
       expect(isColorModeRecord({ light: {} })).toBeTruthy();
+    });
+  });
+
+  describe('hasShade', () => {
+    it('should return true if the color has a shade', () => {
+      expect(hasShade('blue')).toBeFalsy();
+      expect(hasShade('blue-100')).toBeTruthy();
+      expect(hasShade('blue-DEFAULT')).toBeFalsy();
+      expect(hasShade('color-scheme-1-blue')).toBeFalsy();
+      expect(hasShade('color-scheme-1-blue-100')).toBeTruthy();
+    });
+  });
+
+  describe('updateShadeSeparator', () => {
+    it('should update the shade separator', () => {
+      expect(updateShadeSeparator('blue')).toBe('blue');
+      expect(updateShadeSeparator('blue-100')).toBe('blue.100');
+      expect(updateShadeSeparator('blue-DEFAULT')).toBe('blue-DEFAULT');
+      expect(updateShadeSeparator('color-scheme-1-blue')).toBe('color-scheme-1-blue');
+      expect(updateShadeSeparator('color-scheme-1-blue-100')).toBe('color-scheme-1-blue.100');
     });
   });
 });

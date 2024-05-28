@@ -1,6 +1,7 @@
-import React, { Children, useMemo } from 'react';
+import React, { Children } from 'react';
 import Icon, { IconProps } from './icon';
 import { forwardRef } from '@myraui/system';
+import { RecordKey } from '@myraui/shared-utils';
 
 export interface CreateIconOptions {
   /**
@@ -50,18 +51,30 @@ export function createIcon(options: CreateIconOptions) {
 
 type DefaultIconVariants = 'outline' | 'solid';
 
+type VariantIcon<T extends RecordKey> = React.ComponentType<IconProps> & {
+  [key in T]: React.ComponentType<IconProps>;
+};
+
 /**
  * Create an icon with multiple variants
  */
 export function createVariantIcon<T extends Record<string, CreateIconOptions> = Record<DefaultIconVariants, CreateIconOptions>>(
   options: T,
   defaultVariant: keyof T
-) {
-  return ({ variant = defaultVariant, ...props }: IconProps & { variant?: keyof T }) => {
-    const Icon = useMemo(() => {
-      return createIcon(options[variant]);
-    }, [variant]);
+): VariantIcon<keyof T> {
+  const Components = Object.keys(options).reduce((acc, variant) => {
+    acc[variant as keyof T] = createIcon(options[variant]);
+    return acc;
+  }, {} as Record<keyof T, React.ComponentType<IconProps>>);
 
-    return <Icon {...props} />;
-  };
+  const Comp: any = React.memo(({ variant = defaultVariant, ...props }: IconProps & { variant?: keyof T }) => {
+    const Component = Components[variant] as any;
+    return <Component {...props} />;
+  });
+
+  for (const variant in Components) {
+    Comp[variant] = Components[variant];
+  }
+
+  return Comp;
 }

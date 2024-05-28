@@ -7,7 +7,7 @@ const icon = tv({
     size: {
       tiny: 'w-2 h-2',
       small: 'w-3 h-3',
-      medium: 'w-4 h-4',
+      medium: 'w-5 h-5',
       large: 'w-6 h-6',
       huge: 'w-8 h-8',
     },
