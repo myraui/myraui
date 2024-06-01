@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonProps } from '../src';
 import React from 'react';
 import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
-import { ArrowDownTrayIcon, ArrowRightIcon, CameraIcon, PhotoIcon } from '@myraui/icons';
+import { IconArrowRight, IconCamera, IconDownload, IconPhoto } from '@myraui/icons';
 import { IconButton } from '../src/icon-button';
 
 const meta: Meta<typeof Button> = {
@@ -105,11 +105,11 @@ const VariantsTemplate = (args: ButtonProps) => {
 
 const IconsTemplate = (args: ButtonProps) => (
   <div className="flex gap-4 ">
-    <IconButton {...args} icon={CameraIcon.solid} variant="filled" />
-    <IconButton {...args} icon={CameraIcon.solid} variant="light" />
-    <IconButton {...args} icon={CameraIcon.solid} variant="outline" />
-    <IconButton {...args} icon={CameraIcon.solid} variant="subtle" />
-    <IconButton {...args} icon={CameraIcon.solid} variant="link" />
+    <IconButton {...args} icon={IconCamera} variant="filled" />
+    <IconButton {...args} icon={IconCamera} variant="light" />
+    <IconButton {...args} icon={IconCamera} variant="outline" />
+    <IconButton {...args} icon={IconCamera} variant="subtle" />
+    <IconButton {...args} icon={IconCamera} variant="link" />
   </div>
 );
 
@@ -158,13 +158,13 @@ const RadiusTemplate = (args: ButtonProps) => (
 
 const WithIconsTemplate = (args: ButtonProps) => (
   <div className="flex gap-4 items-center">
-    <Button {...args} startSection={<PhotoIcon />}>
+    <Button {...args} startSection={<IconPhoto />}>
       Gallery
     </Button>
-    <Button {...args} endSection={<ArrowDownTrayIcon />}>
+    <Button {...args} endSection={<IconDownload />}>
       Download
     </Button>
-    <Button {...args} variant="light" startSection={<PhotoIcon />} endSection={<ArrowRightIcon />}>
+    <Button {...args} variant="light" startSection={<IconPhoto />} endSection={<IconArrowRight />}>
       Visit Gallery
     </Button>
   </div>
@@ -176,7 +176,7 @@ const CustomStylesTemplate = () => (
       variant="filled"
       colorScheme="teal/foreground-12"
       startSection={<span className="rounded-full bg-foreground-1 text-foreground-12 w-8 h-8 flex items-center justify-center">12</span>}
-      endSection={<ArrowRightIcon />}
+      endSection={<IconArrowRight />}
       className="rounded-l-[50px] rounded-r-medium px-unit-2"
     >
       Send Files

@@ -526,6 +526,37 @@ importers:
         specifier: 2.2.0
         version: 2.2.0
 
+  packages/hooks/use-icon-name:
+    dependencies:
+      '@myraui/react-utils':
+        specifier: workspace:*
+        version: link:../../utilities/react-utils
+      '@myraui/shared-utils':
+        specifier: workspace:*
+        version: link:../../utilities/shared-utils
+      react:
+        specifier: '>=18'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=18'
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@myraui/react-test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/react-test-utils
+      '@myraui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@myraui/test-utils':
+        specifier: workspace:^
+        version: link:../../utilities/test-utils
+      '@myraui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+
   packages/storybook:
     dependencies:
       '@myraui/plugin':

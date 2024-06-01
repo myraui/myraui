@@ -14,12 +14,6 @@ export default {
         options: ['tiny', 'small', 'medium', 'large', 'huge'],
       },
     },
-    variant: {
-      control: {
-        type: 'select',
-        options: ['outline', 'solid'],
-      },
-    },
   },
 } as Meta<typeof Icon>;
 type Story = StoryObj<typeof Icon>;
@@ -35,14 +29,14 @@ function pascalCaseToTitleCase(str: string) {
 
 const Template = (props: IconProps) => {
   return (
-    <div className="grid xl:grid-cols-5 grid-cols-4 gap-4">
+    <div className="grid xl:grid-cols-10 grid-cols-8 gap-4">
       {Object.entries(icons).map(([name, Icon]) => {
         return (
           <div key={name} className="flex gap-4 flex-col items-center border-tiny border-divider rounded-medium py-4 px-8 text-center justify-center">
             <div className="flex gap-4">
               <Icon {...props} />
             </div>
-            <span className="!text-small">{pascalCaseToTitleCase(name.replace('Icon', ''))}</span>
+            <span className="!text-tiny">{pascalCaseToTitleCase(name.replace('Icon', ''))}</span>
           </div>
         );
       })}
@@ -50,18 +44,9 @@ const Template = (props: IconProps) => {
   );
 };
 
-export const Outline: Story = {
+export const Icons: Story = {
   render: Template,
   args: {
     ...defaultProps,
-    variant: 'outline',
-  },
-};
-
-export const Solid: Story = {
-  render: Template,
-  args: {
-    ...defaultProps,
-    variant: 'solid',
   },
 };
