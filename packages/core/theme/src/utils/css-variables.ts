@@ -55,7 +55,7 @@ export function cssVariable(
   return RE.asks(({ prefix }) => {
     let variableName = '';
     if (typeof name === 'string') {
-      variableName = dashCase(['-', prefix, esc(name)].filter(Boolean).join('-'));
+      variableName = dashCase(['--', prefix, esc(name)].filter(Boolean).join('-'));
     } else {
       variableName = name.name;
     }

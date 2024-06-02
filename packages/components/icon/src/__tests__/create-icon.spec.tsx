@@ -1,4 +1,4 @@
-import { createIcon, createVariantIcon } from '../src';
+import { createIcon, createVariantIcon } from '../';
 import React from 'react';
 import { render } from '@testing-library/react';
 
@@ -42,32 +42,33 @@ describe('create-icon', () => {
   });
 
   describe('createIconVariants', () => {
-    it('should crete an icon with variants', () => {
-      const VariantComponent = createVariantIcon(
-        {
-          solid: {
-            displayName: 'TestIconSolid',
-            d: 'm0 0v24h24v-24h-24z',
-            defaultProps: {
-              role: 'solid',
-            },
-          },
-          outline: {
-            d: 'M0 0h24v24H0z',
-            displayName: 'TestIconOutline',
-            defaultProps: {
-              role: 'outline',
-            },
+    const TestIcon = createVariantIcon(
+      {
+        solid: {
+          displayName: 'TestIconSolid',
+          d: 'm0 0v24h24v-24h-24z',
+          defaultProps: {
+            role: 'solid',
           },
         },
-        'outline'
-      );
+        outline: {
+          d: 'M0 0h24v24H0z',
+          displayName: 'TestIconOutline',
+          defaultProps: {
+            role: 'outline',
+          },
+        },
+      },
+      'outline'
+    );
+    it('should create an icon variant from props', () => {
+      expect(render(<TestIcon variant="outline" />).getByRole('outline')).toBeInTheDocument();
+      expect(render(<TestIcon variant="solid" />).getByRole('solid')).toBeInTheDocument();
+    });
 
-      const result = render(<VariantComponent />);
-      expect(result.getByRole('outline')).toBeInTheDocument();
-
-      const solidResult = render(<VariantComponent variant="solid" />);
-      expect(solidResult.getByRole('solid')).toBeInTheDocument();
+    it('should create an icon variant from icon component', () => {
+      expect(render(<TestIcon.Solid />).getByRole('solid')).toBeInTheDocument();
+      expect(render(<TestIcon.Outline />).getByRole('outline')).toBeInTheDocument();
     });
   });
 });

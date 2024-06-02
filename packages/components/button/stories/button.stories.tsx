@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonProps } from '../src';
 import React from 'react';
 import { button, colorSchemeOptions, myraColors } from '@myraui/theme';
-import { IconArrowRight, IconCamera, IconDownload, IconPhoto } from '@myraui/icons';
+import { IconArrowRight, IconCamera, IconCameraFilled, IconDownload, IconPhoto } from '@myraui/icons';
 import { IconButton } from '../src/icon-button';
 
 const meta: Meta<typeof Button> = {
@@ -105,11 +105,11 @@ const VariantsTemplate = (args: ButtonProps) => {
 
 const IconsTemplate = (args: ButtonProps) => (
   <div className="flex gap-4 ">
-    <IconButton {...args} icon={IconCamera} variant="filled" />
-    <IconButton {...args} icon={IconCamera} variant="light" />
-    <IconButton {...args} icon={IconCamera} variant="outline" />
-    <IconButton {...args} icon={IconCamera} variant="subtle" />
-    <IconButton {...args} icon={IconCamera} variant="link" />
+    <IconButton {...args} icon={IconCameraFilled} variant="filled" />
+    <IconButton {...args} icon={IconCameraFilled} variant="light" />
+    <IconButton {...args} icon={IconCameraFilled} variant="outline" />
+    <IconButton {...args} icon={IconCameraFilled} variant="subtle" />
+    <IconButton {...args} icon={IconCameraFilled} variant="link" />
   </div>
 );
 
