@@ -113,13 +113,6 @@ module.exports = function main(plop) {
         });
 
         if (generator === 'component') {
-          actions.push({
-            type: 'add',
-            templateFile: `plop/component-theme/theme.ts.hbs`,
-            path: `packages/core/theme/src/components/{{packageName}}.ts`,
-            data,
-          });
-
           // update index.ts
           actions.push({
             type: 'append',

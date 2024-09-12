@@ -33,11 +33,8 @@
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/plugin": "workspace:^",
     "@myraui/react-utils": "workspace:^",
-    "@myraui/shared-utils": "workspace:^",
-    "@myraui/system": "workspace:^",
-    "@myraui/theme": "workspace:^"
+    "@myraui/shared-utils": "workspace:^"
   },
   "clean-package": "../../../clean-package.config.json"
 }

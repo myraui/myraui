@@ -4,16 +4,11 @@ import { themes } from '@storybook/theming';
 
 import './style.scss';
 import React, { useEffect } from 'react';
-import { MyraUIProvider } from '@myraui/system';
 import { DocsContainer, DocsContainerProps } from '@storybook/blocks';
 
 const decorators: Preview['decorators'] = [
   (Story) => {
-    return (
-      <MyraUIProvider>
-        <Story />
-      </MyraUIProvider>
-    );
+    return <Story />;
   },
 ];
 
@@ -27,11 +22,7 @@ const Container = (props: DocsContainerProps) => {
     }
   }, []);
 
-  return (
-    <MyraUIProvider>
-      <DocsContainer {...props} />
-    </MyraUIProvider>
-  );
+  return <DocsContainer {...props} />;
 };
 
 const commonTheme = {
