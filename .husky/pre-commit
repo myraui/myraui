@@ -5,3 +5,4 @@ prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') -
 npx --no-install commitlint --edit $1
 
 git update-index --again
+
