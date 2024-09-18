@@ -1,2 +1,9 @@
 type Booleanish = boolean | 'true' | 'false';
-export const dataAttr = (condition: boolean | undefined) => (condition ? 'true' : undefined) as Booleanish;
+
+/**
+ * Returns a boolean attribute value based on the condition
+ * @param condition
+ */
+export function dataAttr(condition: boolean | undefined) {
+  return (condition ? 'true' : undefined) as Booleanish;
+}

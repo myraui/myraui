@@ -5,10 +5,15 @@ import { themes } from '@storybook/theming';
 import './style.scss';
 import React, { useEffect } from 'react';
 import { DocsContainer, DocsContainerProps } from '@storybook/blocks';
+import { ThemeProvider } from 'next-themes';
 
 const decorators: Preview['decorators'] = [
   (Story) => {
-    return <Story />;
+    return (
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Story />
+      </ThemeProvider>
+    );
   },
 ];
 
@@ -22,7 +27,11 @@ const Container = (props: DocsContainerProps) => {
     }
   }, []);
 
-  return <DocsContainer {...props} />;
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <DocsContainer {...props} />
+    </ThemeProvider>
+  );
 };
 
 const commonTheme = {

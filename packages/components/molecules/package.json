@@ -1,0 +1,46 @@
+{
+  "name": "@myraui/molecules",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Small components made up of atoms e.g. form input, search bar",
+  "keywords": [
+    "molecules"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/components/molecules"
+  },
+  "bugs": {
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "peerDependencies": {
+    "@myraui/atoms": ">=1.0.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@myraui/atoms": "workspace:^",
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "@myraui/react-utils": "workspace:*",
+    "@myraui/shared-utils": "workspace:*"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

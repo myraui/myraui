@@ -1,0 +1,36 @@
+{
+  "name": "@myraui/fonts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/fonts/src",
+  "projectType": "library",
+  "tags": ["scope:server"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/fonts/dist",
+        "rootDir": "packages/fonts/src",
+        "main": "packages/fonts/src/index.ts",
+        "tsConfig": "packages/fonts/tsconfig.lib.json",
+        "assets": [
+          {
+            "input": "packages/fonts/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/fonts/jest.config.ts"
+      }
+    }
+  }
+}

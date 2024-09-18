@@ -15,13 +15,24 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
-const workspaces = ['components', 'core', 'hooks', 'utilities'];
-const generators = ['component', 'package', 'hook'];
+const generators = ['package', 'hook', 'component'];
+
+const outDirs = {
+  package: ['utilities', 'services', 'server'],
+  hook: ['hooks'],
+  component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
+};
 
 const defaultOutDirs = {
-  component: 'components',
+  component: 'atoms',
   hook: 'hooks',
   package: 'utilities',
+};
+
+const rootDirs = {
+  package: 'packages',
+  hook: 'packages',
+  component: 'packages/components',
 };
 
 /**
@@ -41,7 +52,7 @@ module.exports = function main(plop) {
       prompts: [
         {
           type: 'input',
-          name: `packageName`,
+          name: `${generator}Name`,
           message: `Enter ${generator} name:`,
 
           validate: (value) => {
@@ -71,13 +82,14 @@ module.exports = function main(plop) {
           type: 'input',
           name: 'description',
           message: `The description of this ${generator}:`,
+          when: () => generator !== 'component',
         },
         {
           type: 'list',
           name: 'outDir',
           message: `where should this ${generator} live?`,
           default: defaultOutDirs[generator],
-          choices: workspaces,
+          choices: outDirs[generator],
           validate: (value) => {
             if (!value) {
               return `outDir is required`;
@@ -92,15 +104,22 @@ module.exports = function main(plop) {
 
         if (!answers) return actions;
 
-        const { description, outDir, packageName } = answers;
+        const { description, outDir } = answers;
+        const packageName = answers[`${generator}Name`];
 
-        const destination = `packages/${outDir}/${dashCase(packageName)}`;
+        const rootDir = rootDirs[generator];
+
+        let destination = `${rootDir}/${outDir}/${dashCase(packageName)}`;
+
+        if (generator === 'component') {
+          destination = `${rootDir}/${outDir}`;
+        }
 
         const data = {
-          packageName,
           description,
           outDir,
           destination,
+          [`${generator}Name`]: packageName,
         };
 
         actions.push({
@@ -113,12 +132,17 @@ module.exports = function main(plop) {
         });
 
         if (generator === 'component') {
-          // update index.ts
+          const indexFile = `${rootDir}/${outDir}/src/index.ts`;
+
+          if (fs.readFileSync(indexFile, 'utf-8') === '') {
+            fs.writeFileSync(indexFile, `\n`);
+          }
+
           actions.push({
             type: 'append',
-            path: `packages/core/theme/src/components/index.ts`,
+            path: `${rootDir}/${outDir}/src/index.ts`,
             pattern: /^/,
-            template: `export * from './{{packageName}}';\n`,
+            template: `export * from './{{dashCase componentName}}';\n`,
             separator: '',
             data,
           });
