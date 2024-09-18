@@ -123,5 +123,10 @@
   },
   "overrides": {
     "conventional-changelog-conventionalcommits": ">= 8.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=20.x",
+    "pnpm": ">=8.x"
+  },
+  "packageManager": "pnpm@8.9.0"
 }
