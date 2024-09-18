@@ -23,7 +23,8 @@
     "release": "changeset publish",
     "version:main": "changeset version --snapshot main",
     "release:main": "changeset publish --snapshot --no-git-tag --tag main",
-    "prepare": "husky"
+    "prepare": "husky",
+    "commit": "commit"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -31,6 +32,7 @@
     "@chromatic-com/storybook": "^1",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/prompt-cli": "^19.5.0",
     "@nx/eslint": "18.0.4",
     "@nx/eslint-plugin": "18.0.4",
     "@nx/jest": "18.0.4",
@@ -74,6 +76,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "babel-jest": "^29.4.1",
     "clean-package": "2.2.0",
+    "commitlint-plugin-function-rules": "^4.0.0",
     "eslint": "~8.48.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.0.0",
