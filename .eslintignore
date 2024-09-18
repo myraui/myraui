@@ -13,7 +13,7 @@ node_modules
 coverage
 .next
 build
-!.commitlintrc.cjs
-!.lintstagedrc.cjs
+!.commitlintrc.mjs
+!.lintstagedrc.mjs
 !jest.config.js
 !plopfile.js
