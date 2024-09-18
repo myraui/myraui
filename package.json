@@ -18,7 +18,11 @@
     "create:component": "plop component && pnpm install",
     "create:hook": "plop hook && pnpm install",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./packages/**/node_modules && npx rimraf ./node_modules",
-    "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist"
+    "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist",
+    "version": "changeset version",
+    "release": "changeset publish",
+    "version:main": "changeset version --snapshot main",
+    "release:main": "changeset publish --snapshot --no-git-tag --tag main"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
@@ -96,6 +100,7 @@
     "framer-motion": "^11.5.4",
     "next": "14.0.4",
     "next-themes": "^0.2.1",
+    "nx-release": "^3.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"

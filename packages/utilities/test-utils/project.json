@@ -12,7 +12,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/utilities/test-utils/dist",
+        "outputPath": "dist/packages/utilities/test-utils",
         "rootDir": "packages/utilities/test-utils/src",
         "main": "packages/utilities/test-utils/src/index.ts",
         "tsConfig": "packages/utilities/test-utils/tsconfig.lib.json",
@@ -24,6 +24,12 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/utilities/test-utils/jest.config.ts"
+      }
+    },
+    "release": {
+      "executor": "nx-release:build-update-publish",
+      "options": {
+        "libName": "@myraui/test-utils"
       }
     }
   }

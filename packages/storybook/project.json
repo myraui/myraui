@@ -27,7 +27,7 @@
       "executor": "@nx/storybook:build",
       "outputs": ["{options.outputDir}"],
       "options": {
-        "outputDir": "packages/storybook/dist",
+        "outputDir": "dist/packages/storybook",
         "configDir": "packages/storybook/.storybook"
       },
       "configurations": {
@@ -46,7 +46,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "@myraui/storybook:build-storybook",
-        "staticFilePath": "packages/storybook/dist"
+        "staticFilePath": "dist/packages/storybook"
       },
       "configurations": {
         "ci": {

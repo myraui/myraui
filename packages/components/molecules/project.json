@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "packages/components/molecules/dist"
+        "outputPath": "dist/packages/components/molecules"
       },
       "configurations": {
         "development": {
@@ -29,6 +29,12 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/components/molecules/jest.config.ts"
+      }
+    },
+    "release": {
+      "executor": "nx-release:build-update-publish",
+      "options": {
+        "libName": "@myraui/molecules"
       }
     }
   }
