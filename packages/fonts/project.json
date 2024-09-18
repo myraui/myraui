@@ -1,7 +1,7 @@
 {
   "name": "@myraui/fonts",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/core/fonts/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/fonts/src",
   "projectType": "library",
   "tags": ["scope:server"],
   "targets": {
@@ -12,13 +12,13 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/core/fonts/dist",
-        "rootDir": "packages/core/fonts/src",
-        "main": "packages/core/fonts/src/index.ts",
-        "tsConfig": "packages/core/fonts/tsconfig.lib.json",
+        "outputPath": "packages/fonts/dist",
+        "rootDir": "packages/fonts/src",
+        "main": "packages/fonts/src/index.ts",
+        "tsConfig": "packages/fonts/tsconfig.lib.json",
         "assets": [
           {
-            "input": "packages/core/fonts/src/assets",
+            "input": "packages/fonts/src/assets",
             "glob": "**/*",
             "output": "assets"
           }
@@ -29,7 +29,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/core/fonts/jest.config.ts"
+        "jestConfig": "packages/fonts/jest.config.ts"
       }
     }
   }
