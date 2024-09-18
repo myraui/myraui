@@ -18,8 +18,8 @@ export const MdxLayout: React.FC<PropsWithChildren<MdxLayoutProps>> = (props) =>
 };
 
 export function Layout(meta: FrontMatter) {
-  return ({ children }: { children: React.ReactNode }) => {
-    return <MdxLayout meta={meta} >{children}</MdxLayout>;
+  return function LayoutComponent({ children }: { children: React.ReactNode }) {
+    return <MdxLayout meta={meta}>{children}</MdxLayout>;
   };
 }
 

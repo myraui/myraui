@@ -2,20 +2,9 @@ const glob = require('glob').glob;
 const fs = require('fs');
 const path = require('path');
 
-const getLcovFiles = function (src) {
-  return new Promise((resolve, reject) => {
-    glob(`${src}/**/lcov.info`, (error, result) => {
-      if (error) return reject(error);
-      resolve(result);
-    });
-  });
-};
+const files = glob.sync(`coverage/**/lcov.info`);
+const mergedReport = files.reduce((mergedReport, currFile) => {
+  return mergedReport + '\n' + fs.readFileSync(currFile);
+}, '');
 
-(async function () {
-  const files = await getLcovFiles('coverage');
-  const mergedReport = files.reduce((mergedReport, currFile) => (mergedReport += fs.readFileSync(currFile)), '');
-  await fs.writeFile(path.resolve('./coverage/lcov.info'), mergedReport, (err) => {
-    if (err) throw err;
-    console.log('The file has been saved!');
-  });
-})();
+fs.writeFileSync(path.resolve('./coverage/lcov.info'), mergedReport, 'utf-8');

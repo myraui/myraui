@@ -1,4 +1,4 @@
-# @myra-ui/shared-utils
+# @myraui/shared-utils
 
 A Quick description of the component
 
@@ -7,12 +7,12 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myra-ui/shared-utils
+yarn add @myraui/shared-utils
 # or
-npm i @myra-ui/shared-utils
+npm i @myraui/shared-utils
 ```
 
 ## Licence
 
 This project is licensed under the terms of the
-[MIT license](https://github.com/gitaumoses4@gmail.com/myra-ui/blob/master/LICENSE).
+[MIT license](https://github.com/gitaumoses4@gmail.com/myraui/blob/master/LICENSE).

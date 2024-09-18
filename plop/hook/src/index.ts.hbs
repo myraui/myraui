@@ -1,9 +1,9 @@
-export interface {{capitalize packageName}}Props {}
+export interface {{capitalize hookName}}Props {}
 
-export function {{camelCase packageName}}(props: {{capitalize packageName}}Props = {}) {
-  const {...otherProps} = props;
+export function {{camelCase hookName}}(props: {{capitalize hookName}}Props = {}) {
+const {...otherProps} = props;
 
-  return {...otherProps};
+return {...otherProps};
 }
 
-export type {{capitalize packageName}}Return = ReturnType<typeof {{camelCase packageName}}>;
+export type {{capitalize hookName}}Return = ReturnType<typeof {{camelCase hookName}}>;

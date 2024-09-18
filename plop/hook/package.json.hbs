@@ -1,10 +1,10 @@
 {
-  "name": "@myra-ui/{{packageName}}",
+  "name": "@myraui/{{hookName}}",
   "version": "1.0.0",
   "type": "commonjs",
   "description": "{{description}}",
   "keywords": [
-    "{{packageName}}"
+    "{{hookName}}"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -13,26 +13,32 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "dist"
-  ],
+  "files": ["."],
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitaumoses4/myra-ui.git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
     "directory": "{{destination}}"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myra-ui/issues"
+    "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@myraui/theme": ">=1.0.0",
+    "@myraui/system": ">=1.0.0"
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "react": "^18.0.0"
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^"
   },
-  "peerDependencies": {
-    "react": ">=18"
+  "dependencies": {
+    "@myraui/shared-utils": "workspace:*",
+    "@myraui/react-utils": "workspace:*"
   },
   "clean-package": "../../../clean-package.config.json"
 }

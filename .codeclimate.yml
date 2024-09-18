@@ -1,0 +1,49 @@
+version: '2'
+plugins:
+  eslint:
+    enabled: true
+    channel: '5'
+checks:
+  method-lines:
+    config:
+      threshold: 50
+  file-lines:
+    config:
+      threshold: 350
+  similar-code:
+    config:
+      threshold: 250
+  identical-code:
+    config:
+      threshold: 200
+  complex-logic:
+    config:
+      threshold: 10
+  method-complexity:
+    config:
+      threshold: 10
+  function-complexity:
+    config:
+      threshold: 10
+exclude_patterns:
+  - '**/build'
+  - '**/node_modules/'
+  - '**/generated/'
+  - 'dist/'
+  - '**/*.d.ts'
+  - '**/__tests__/**'
+  - 'coverage/'
+  - '**/*.spec.ts'
+  - '**/tsconfig*.json'
+  - '**/jest.config.js'
+  - '**/jest.setup.js'
+  - '**/jest.teardown.js'
+  - '**/project.json'
+  - '**/.eslintrc.json'
+  - '.prettierrc'
+  - 'workspace.json'
+  - 'nx.json'
+  - 'jest.preset.js'
+  - '.circleci/'
+  - 'plopfile.js'
+  - 'plop/'

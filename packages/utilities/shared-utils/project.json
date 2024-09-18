@@ -1,27 +1,22 @@
 {
-  "name": "@myra-ui/shared-utils",
+  "name": "@myraui/shared-utils",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/utilities/shared-utils/src",
   "projectType": "library",
-  "tags": ["scope:utils"],
+  "tags": ["scope:common"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/vite:build",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/utilities/shared-utils"
-      },
-      "configurations": {
-        "development": {
-          "mode": "development"
-        },
-        "production": {
-          "mode": "production"
-        }
+        "outputPath": "dist/packages/utilities/shared-utils",
+        "rootDir": "packages/utilities/shared-utils/src",
+        "main": "packages/utilities/shared-utils/src/index.ts",
+        "tsConfig": "packages/utilities/shared-utils/tsconfig.lib.json",
+        "assets": []
       }
     },
     "test": {
@@ -29,6 +24,12 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/utilities/shared-utils/jest.config.ts"
+      }
+    },
+    "release": {
+      "executor": "nx-release:build-update-publish",
+      "options": {
+        "libName": "@myraui/shared-utils"
       }
     }
   }

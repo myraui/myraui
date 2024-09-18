@@ -1,8 +1,8 @@
 {
-  "name": "@myra-ui/react-utils",
+  "name": "@myraui/react-utils",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "A set of utilities for React",
+  "description": "Common react utilities for Myra UI packages",
   "keywords": [
     "react-utils"
   ],
@@ -14,29 +14,28 @@
   "main": "./src/index.ts",
   "sideEffects": false,
   "files": [
-    "dist"
+    "."
   ],
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitaumoses4/myra-ui.git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
     "directory": "packages/utilities/react-utils"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myra-ui/issues"
+    "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
-    "clean-package": "2.2.0",
-    "react": "18.2.0"
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
+    "clean-package": "2.2.0"
   },
   "dependencies": {
+    "@myraui/shared-utils": "workspace:^",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.2"
   },
-  "clean-package": "../../../clean-package.config.json",
-  "peerDependencies": {
-    "react": "18.2.0"
-  }
+  "clean-package": "../../../clean-package.config.json"
 }

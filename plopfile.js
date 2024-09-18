@@ -1,6 +1,7 @@
 /**
  * Part of this code is taken from @chakra-ui/react package ❤️
  */
+const fs = require('fs');
 
 const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -14,21 +15,24 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
-const workspaces = ['components', 'core', 'hooks', 'utilities'];
-const generators = ['component', 'react-package', 'package', 'hook'];
+const generators = ['package', 'hook', 'component'];
 
-const defaultOutDirs = {
-  component: 'components',
-  hook: 'hooks',
-  package: 'utilities',
-  'react-package': 'utilities',
+const outDirs = {
+  package: ['utilities', 'services', 'server'],
+  hook: ['hooks'],
+  component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
 };
 
-const defaultTags = {
-  component: 'scope:client',
-  hook: 'scope:client',
-  package: 'scope:common',
-  'react-package': 'scope:client',
+const defaultOutDirs = {
+  component: 'atoms',
+  hook: 'hooks',
+  package: 'utilities',
+};
+
+const rootDirs = {
+  package: 'packages',
+  hook: 'packages',
+  component: 'packages/components',
 };
 
 /**
@@ -42,33 +46,33 @@ module.exports = function main(plop) {
     return camelCase(text);
   });
 
-  generators.forEach((gen) => {
-    plop.setGenerator(gen, {
-      description: `Generates a ${gen}`,
+  generators.forEach((generator) => {
+    plop.setGenerator(generator, {
+      description: `Generates a ${generator}`,
       prompts: [
         {
           type: 'input',
-          name: `${gen}Name`,
-          message: `Enter ${gen} name:`,
+          name: `${generator}Name`,
+          message: `Enter ${generator} name:`,
 
           validate: (value) => {
             if (!value) {
-              return `${gen} name is required`;
+              return `${generator} name is required`;
             }
 
             // check is has a valid hook name "use-something"
-            if (gen === 'hook' && !value.startsWith('use-')) {
+            if (generator === 'hook' && !value.startsWith('use-')) {
               return "Hook name must start with 'use-'";
             }
 
             // check is case is correct
             if (value !== value.toLowerCase()) {
-              return `${gen} name must be in lowercase`;
+              return `${generator} name must be in lowercase`;
             }
 
             // cannot have spaces
             if (value.includes(' ')) {
-              return `${gen} name cannot have spaces`;
+              return `${generator} name cannot have spaces`;
             }
 
             return true;
@@ -77,14 +81,15 @@ module.exports = function main(plop) {
         {
           type: 'input',
           name: 'description',
-          message: `The description of this ${gen}:`,
+          message: `The description of this ${generator}:`,
+          when: () => generator !== 'component',
         },
         {
           type: 'list',
           name: 'outDir',
-          message: `where should this ${gen} live?`,
-          default: defaultOutDirs[gen],
-          choices: workspaces,
+          message: `where should this ${generator} live?`,
+          default: defaultOutDirs[generator],
+          choices: outDirs[generator],
           validate: (value) => {
             if (!value) {
               return `outDir is required`;
@@ -100,33 +105,48 @@ module.exports = function main(plop) {
         if (!answers) return actions;
 
         const { description, outDir } = answers;
-        const generatorName = answers[`${gen}Name`] ?? '';
+        const packageName = answers[`${generator}Name`];
 
-        const destination = `packages/${outDir}/${dashCase(generatorName)}`;
+        const rootDir = rootDirs[generator];
+
+        let destination = `${rootDir}/${outDir}/${dashCase(packageName)}`;
+
+        if (generator === 'component') {
+          destination = `${rootDir}/${outDir}`;
+        }
 
         const data = {
-          packageName: generatorName,
           description,
           outDir,
           destination,
-          tags: defaultTags[gen],
+          [`${generator}Name`]: packageName,
         };
 
         actions.push({
           type: 'addMany',
-          templateFiles: `plop/${gen}/**`,
+          templateFiles: `plop/${generator}/**`,
           destination: `{{destination}}`,
-          base: `plop/${gen}`,
+          base: `plop/${generator}`,
           data,
           abortOnFail: true,
         });
 
-        actions.push({
-          type: 'modify',
-          template: `$1\n\t  "@myra-ui/${generatorName}": ["${destination}/src/index.ts"],`,
-          path: './tsconfig.base.json',
-          pattern: /("paths": {)/,
-        });
+        if (generator === 'component') {
+          const indexFile = `${rootDir}/${outDir}/src/index.ts`;
+
+          if (fs.readFileSync(indexFile, 'utf-8') === '') {
+            fs.writeFileSync(indexFile, `\n`);
+          }
+
+          actions.push({
+            type: 'append',
+            path: `${rootDir}/${outDir}/src/index.ts`,
+            pattern: /^/,
+            template: `export * from './{{dashCase componentName}}';\n`,
+            separator: '',
+            data,
+          });
+        }
 
         return actions;
       },

@@ -28,18 +28,14 @@
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
+          "codeCoverage": true,
+          "coverageReporters": ["lcov"]
         }
       }
     },
     "@nx/eslint:lint": {
       "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.js"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore", "{workspaceRoot}/eslint.config.js"]
     },
     "@nx/rollup:rollup": {
       "cache": true,
@@ -54,6 +50,10 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["default", "^default"]
+    },
+    "build-storybook": {
+      "cache": true,
+      "inputs": ["default", "^default", "{projectRoot}/.storybook/**/*", "{projectRoot}/tsconfig.storybook.json"]
     }
   },
   "nxCloudAccessToken": "ZDgxOTUyYjMtMTc2Ni00ZDkzLWJjMTMtYzg2ZGVmOTc5NzA4fHJlYWQtd3JpdGU=",
@@ -67,6 +67,13 @@
     "@nx/react": {
       "library": {
         "unitTestRunner": "jest"
+      }
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "cacheableOperations": ["build-storybook"]
       }
     }
   }

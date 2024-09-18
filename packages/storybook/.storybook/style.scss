@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  h1 {
+    @apply text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl border-none;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply text-default;
+  }
+}
+
+.light {
+  .sbdocs-wrapper,
+  .sbdocs-preview {
+    background-color: #ffffff;
+    color: #000;
+  }
+}

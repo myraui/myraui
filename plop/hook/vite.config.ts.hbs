@@ -17,19 +17,19 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/{{destination}}',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myra-ui/{{packageName}}',
+      name: '@myraui/{{hookName}}',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', /@myra-ui\/.*/],
+      external: ['react', 'react-dom', 'react/jsx-runtime', /@myraui\/.*/],
     },
   },
 });

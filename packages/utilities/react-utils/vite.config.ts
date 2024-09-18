@@ -6,7 +6,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/packages/utilities/react-utils',
+  cacheDir: '../../../node_modules/.vite/packages/react-utils',
 
   plugins: [
     react(),
@@ -17,19 +17,19 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/packages/utilities/react-utils',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myra-ui/react-utils',
+      name: '@myraui/react-utils',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', /@myra-ui\/.*/],
+      external: ['react', 'react-dom', 'react/jsx-runtime', /@myraui\/.*/],
     },
   },
 });

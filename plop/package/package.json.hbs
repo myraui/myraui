@@ -1,5 +1,5 @@
 {
-  "name": "@myra-ui/{{packageName}}",
+  "name": "@myraui/{{packageName}}",
   "version": "1.0.0",
   "type": "commonjs",
   "description": "{{description}}",
@@ -13,22 +13,21 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "dist"
-  ],
+  "files": ["."],
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitaumoses4/myra-ui.git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
     "directory": "{{destination}}"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myra-ui/issues"
+    "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "devDependencies": {
-    "clean-package": "2.2.0"
+    "clean-package": "2.2.0",
+    "@myraui/test-utils": "workspace:^",
   },
   "dependencies": {
   },

@@ -1,7 +1,6 @@
 import React from 'react';
 import './global.css';
-import { eudoxusSans } from '@myra-ui/fonts';
-import { MyraUIProvider } from '@myra-ui/react';
+import { eudoxusSans } from '@myraui/fonts';
 
 export const metadata = {
   title: 'Myra UI',
@@ -11,9 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={eudoxusSans.className} suppressHydrationWarning>
       <head></head>
-      <body>
-        <MyraUIProvider>{children}</MyraUIProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
