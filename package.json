@@ -21,10 +21,7 @@
     "create:hook": "plop hook && pnpm install",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./packages/**/node_modules && npx rimraf ./node_modules",
     "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist",
-    "version": "changeset version",
-    "release": "changeset publish",
-    "version:main": "changeset version --snapshot main",
-    "release:main": "changeset publish --snapshot --no-git-tag --tag main",
+    "release": "semantic-release",
     "prepare": "husky",
     "commit": "commit"
   },
@@ -97,7 +94,7 @@
     "prettier": "^2.8.8",
     "rimraf": "^5.0.5",
     "sass": "1.62.1",
-    "semantic-release": "^24.1.1",
+    "semantic-release": "^23.1.1",
     "storybook": "^8.0.9",
     "storybook-dark-mode": "^4.0.1",
     "tailwindcss": "^3.4.1",
@@ -123,5 +120,8 @@
   },
   "nx": {
     "includedScripts": []
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
   }
 }
