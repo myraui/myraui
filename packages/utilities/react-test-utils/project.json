@@ -12,11 +12,17 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/utilities/react-test-utils/dist",
+        "outputPath": "dist/packages/utilities/react-test-utils",
         "rootDir": "packages/utilities/react-test-utils/src",
         "main": "packages/utilities/react-test-utils/src/index.ts",
         "tsConfig": "packages/utilities/react-test-utils/tsconfig.json",
         "assets": []
+      }
+    },
+    "release": {
+      "executor": "nx-release:build-update-publish",
+      "options": {
+        "libName": "@myraui/react-test-utils"
       }
     }
   }

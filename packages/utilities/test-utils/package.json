@@ -14,7 +14,7 @@
   "main": "./src/assertion.ts",
   "sideEffects": false,
   "files": [
-    "dist"
+    "."
   ],
   "publishConfig": {
     "access": "public"
@@ -30,7 +30,6 @@
   "devDependencies": {
     "clean-package": "2.2.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "clean-package": "../../../clean-package.config.json"
 }
