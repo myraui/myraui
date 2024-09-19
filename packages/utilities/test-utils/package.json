@@ -27,6 +27,13 @@
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {},
+  "clean-package": "../../../clean-package.config.json"
 }

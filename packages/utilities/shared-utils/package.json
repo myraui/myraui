@@ -27,11 +27,17 @@
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
   "devDependencies": {
+    "clean-package": "2.2.0",
     "@myraui/test-utils": "workspace:^"
   },
   "dependencies": {
     "clsx": "^2.1.0",
     "flat": "^6.0.1"
-  }
+  },
+  "clean-package": "../../../clean-package.config.json"
 }

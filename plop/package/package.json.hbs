@@ -1,6 +1,6 @@
 {
   "name": "@myraui/{{packageName}}",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "{{description}}",
   "keywords": [
@@ -27,9 +27,15 @@
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
   "devDependencies": {
+    "clean-package": "2.2.0",
     "@myraui/test-utils": "workspace:^"
   },
   "dependencies": {
-  }
+  },
+  "clean-package": "../../../clean-package.config.json"
 }
