@@ -78,27 +78,11 @@
     }
   },
   "release": {
-    "projects": ["packages/*", "packages/*/*", "!packages/storybook"],
+    "projects": ["*", "packages/*", "packages/*/*", "!packages/storybook"],
     "releaseTagPattern": "{version}",
     "version": {
       "preVersionCommand": "pnpm run clean:pkg",
       "conventionalCommits": true
-    },
-    "conventionalCommits": {
-      "types": {
-        "feat": {
-          "changelog": true
-        },
-        "feature": {
-          "changelog": true
-        },
-        "fix": {
-          "changelog": true
-        },
-        "chore": {
-          "changelog": false
-        }
-      }
     },
     "changelog": {
       "workspaceChangelog": {
