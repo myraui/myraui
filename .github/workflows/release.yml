@@ -1,5 +1,10 @@
-name: RELEASE
-on: [workflow_dispatch]
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   main:
     runs-on: ubuntu-latest
