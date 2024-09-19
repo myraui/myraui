@@ -56,7 +56,6 @@
       "inputs": ["default", "^default", "{projectRoot}/.storybook/**/*", "{projectRoot}/tsconfig.storybook.json"]
     }
   },
-  "nxCloudAccessToken": "ZDgxOTUyYjMtMTc2Ni00ZDkzLWJjMTMtYzg2ZGVmOTc5NzA4fHJlYWQtd3JpdGU=",
   "generators": {
     "@nx/next": {
       "application": {
