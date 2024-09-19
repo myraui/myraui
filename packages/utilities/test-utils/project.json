@@ -12,7 +12,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/utilities/test-utils",
+        "outputPath": "packages/utilities/test-utils/dist",
         "rootDir": "packages/utilities/test-utils/src",
         "main": "packages/utilities/test-utils/src/index.ts",
         "tsConfig": "packages/utilities/test-utils/tsconfig.lib.json",

@@ -6,7 +6,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/{{destination}}',
+  cacheDir: '../../node_modules/.vite/packages/hooks',
 
   plugins: [
     react(),
@@ -17,14 +17,14 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/{{destination}}',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myraui/{{hookName}}',
+      name: '@myraui/hooks',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },

@@ -12,7 +12,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/utilities/react-test-utils",
+        "outputPath": "packages/utilities/react-test-utils/dist",
         "rootDir": "packages/utilities/react-test-utils/src",
         "main": "packages/utilities/react-test-utils/src/index.ts",
         "tsConfig": "packages/utilities/react-test-utils/tsconfig.json",

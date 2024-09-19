@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/utilities/react-utils"
+        "outputPath": "packages/utilities/react-utils/dist"
       },
       "configurations": {
         "development": {

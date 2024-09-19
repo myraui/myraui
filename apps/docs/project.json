@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/docs"
+        "outputPath": "apps/docs/dist"
       },
       "configurations": {
         "development": {

@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/components/atoms"
+        "outputPath": "packages/components/atoms/dist"
       },
       "configurations": {
         "development": {

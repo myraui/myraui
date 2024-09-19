@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -26,8 +29,7 @@
   },
   "devDependencies": {
     "@myraui/react-test-utils": "workspace:^",
-    "@myraui/test-utils": "workspace:^",
-    "clean-package": "2.2.0"
+    "@myraui/test-utils": "workspace:^"
   },
   "dependencies": {
     "@myraui/shared-utils": "workspace:^",

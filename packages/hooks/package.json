@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/{{hookName}}",
+  "name": "@myraui/hooks",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "{{description}}",
+  "description": "A collection of re-usable hooks for react components",
   "keywords": [
-    "{{hookName}}"
+    "hooks"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -19,19 +22,16 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
-    "directory": "{{destination}}"
+    "directory": "packages/hooks"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18",
-    "@myraui/theme": ">=1.0.0",
-    "@myraui/system": ">=1.0.0"
+    "react-dom": ">=18"
   },
   "devDependencies": {
-    "clean-package": "2.2.0",
     "@myraui/react-test-utils": "workspace:^",
     "@myraui/test-utils": "workspace:^"
   },

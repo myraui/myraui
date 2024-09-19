@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/components/organisms"
+        "outputPath": "packages/components/organisms/dist"
       },
       "configurations": {
         "development": {

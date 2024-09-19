@@ -1,4 +1,4 @@
-# @myraui/{{hookName}}
+# @myraui/hooks
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @myraui/{{hookName}}
+yarn add @myraui/hooks
 # or
-npm i @myraui/{{hookName}}
+npm i @myraui/hooks
 ```
 
 ## Licence

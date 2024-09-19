@@ -16,6 +16,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
@@ -32,7 +35,6 @@
     "@myraui/atoms": ">=1.0.0"
   },
   "devDependencies": {
-    "clean-package": "2.2.0",
     "@myraui/react-test-utils": "workspace:^",
     "@myraui/test-utils": "workspace:^",
     "@myraui/organisms": "workspace:^",

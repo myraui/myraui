@@ -12,7 +12,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/fonts",
+        "outputPath": "packages/fonts/dist",
         "rootDir": "packages/fonts/src",
         "main": "packages/fonts/src/index.ts",
         "tsConfig": "packages/fonts/tsconfig.lib.json",

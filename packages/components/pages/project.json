@@ -13,7 +13,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/components/pages"
+        "outputPath": "packages/components/pages/dist"
       },
       "configurations": {
         "development": {
