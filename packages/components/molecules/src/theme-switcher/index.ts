@@ -1,7 +1,7 @@
-import ThemeSwitcher from './theme-switcher';
+import ThemeSwitcher from "./theme-switcher";
 
 // export types
-export type { ThemeSwitcherProps } from './theme-switcher';
+export type { ThemeSwitcherProps } from "./theme-switcher";
 
 // export component
 export { ThemeSwitcher };
