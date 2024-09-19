@@ -82,9 +82,22 @@
     "releaseTagPattern": "{version}",
     "version": {
       "preVersionCommand": "pnpm run clean:pkg",
-      "generatorOptions": {
-        "currentVersionResolver": "git-tag",
-        "specifierSource": "conventional-commits"
+      "conventionalCommits": true
+    },
+    "conventionalCommits": {
+      "types": {
+        "feat": {
+          "changelog": true
+        },
+        "feature": {
+          "changelog": true
+        },
+        "fix": {
+          "changelog": true
+        },
+        "chore": {
+          "changelog": false
+        }
       }
     },
     "changelog": {
