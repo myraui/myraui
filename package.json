@@ -1,6 +1,6 @@
 {
   "name": "myraui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -23,7 +23,7 @@
     "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist",
     "clean:pkg": "npx -y rimraf ./packages/**/dist/package.json && npx -y rimraf ./packages/**/**/dist/package.json",
     "prerelease": "pnpm run build:all",
-    "release": "nx release publish",
+    "release": "nx release",
     "prepare": "husky",
     "commit": "commit"
   },
