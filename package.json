@@ -1,8 +1,8 @@
 {
   "name": "myraui",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "docs": "nx serve docs",
     "dev": "nx storybook @myraui/storybook",
