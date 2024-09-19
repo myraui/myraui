@@ -84,6 +84,9 @@
       "preVersionCommand": "pnpm run clean:pkg",
       "conventionalCommits": true
     },
+    "git": {
+      "commitMessage": "chore(#release#): publish {version}"
+    },
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github"

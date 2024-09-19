@@ -60,6 +60,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head.commit.message, 'chore(#release#)')"
     needs: [lint, test, build_storybook]
     steps:
       - name: Checkout
