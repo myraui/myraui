@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react-test-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "commonjs",
   "description": "Utilities for testing react components",
   "keywords": [

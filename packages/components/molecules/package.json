@@ -1,6 +1,6 @@
 {
   "name": "@myraui/molecules",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "commonjs",
   "description": "Small components made up of atoms e.g. form input, search bar",
   "keywords": [

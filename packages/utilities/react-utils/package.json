@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "commonjs",
   "description": "Common react utilities for Myra UI packages",
   "keywords": [
