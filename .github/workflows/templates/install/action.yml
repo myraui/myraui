@@ -19,7 +19,7 @@ runs:
       shell: bash
       run: pnpm install --frozen-lockfile
 
-    - uses: nrwl/nx-set-shas@v4
+#    - uses: nrwl/nx-set-shas@v4
 
     - if: github.ref != 'refs/heads/main'
       shell: bash
