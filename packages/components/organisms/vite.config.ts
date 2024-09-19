@@ -17,7 +17,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: './dist',
+    outDir: '../../../dist/packages/components/organisms',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
