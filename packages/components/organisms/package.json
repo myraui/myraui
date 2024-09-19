@@ -1,6 +1,6 @@
 {
   "name": "@myraui/organisms",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Larger components made up of molecules and atoms e.g. header, footer, product card",
   "keywords": [
@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -23,6 +26,10 @@
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -40,5 +47,6 @@
   "dependencies": {
     "@myraui/shared-utils": "workspace:*",
     "@myraui/react-utils": "workspace:*"
-  }
+  },
+  "clean-package": "../../../clean-package.config.json"
 }

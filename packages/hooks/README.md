@@ -1,15 +1,13 @@
-# @myraui/{{hookName}}
+# @myraui/hooks
 
 A Quick description of the component
-
-> This is an internal utility, not intended for public usage.
 
 ## Installation
 
 ```sh
-yarn add @myraui/{{hookName}}
+yarn add @myraui/hooks
 # or
-npm i @myraui/{{hookName}}
+npm i @myraui/hooks
 ```
 
 ## Licence

@@ -16,7 +16,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/packages/components/atoms',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,

@@ -90,6 +90,7 @@ module.exports = function main(plop) {
           message: `where should this ${generator} live?`,
           default: defaultOutDirs[generator],
           choices: outDirs[generator],
+          when: () => outDirs[generator].length > 1,
           validate: (value) => {
             if (!value) {
               return `outDir is required`;
@@ -131,7 +132,7 @@ module.exports = function main(plop) {
           abortOnFail: true,
         });
 
-        if (generator === 'component') {
+        if (generator === 'component' || generator === 'hook') {
           const indexFile = `${rootDir}/${outDir}/src/index.ts`;
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
@@ -142,7 +143,7 @@ module.exports = function main(plop) {
             type: 'append',
             path: `${rootDir}/${outDir}/src/index.ts`,
             pattern: /^/,
-            template: `export * from './{{dashCase componentName}}';\n`,
+            template: `export * from './{{${generator}Name}}';\n`,
             separator: '',
             data,
           });

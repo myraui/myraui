@@ -17,13 +17,26 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"],
+    "types": [
+      "jest",
+      "node"
+    ],
     "paths": {
-      "@/*": ["apps/docs/src/*"],
-      "@/layout": ["apps/docs/src/components/mdx-layout/index.ts"],
-      "@myraui/react": ["packages/core/react/src/index.ts"],
-      "@myraui/fonts": ["packages/core/fonts/src/index.ts"],
-      "@myraui/theme/plugin": ["packages/core/theme/src/plugin.ts"]
+      "@/*": [
+        "apps/docs/src/*"
+      ],
+      "@/layout": [
+        "apps/docs/src/components/mdx-layout/index.ts"
+      ],
+      "@myraui/react": [
+        "packages/core/react/src/index.ts"
+      ],
+      "@myraui/fonts": [
+        "packages/core/fonts/src/index.ts"
+      ],
+      "@myraui/theme/plugin": [
+        "packages/core/theme/src/plugin.ts"
+      ]
     }
   },
   "include": [
@@ -35,7 +48,13 @@
     "../../dist/apps/docs/.next/types/**/*.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "../../apps/docs/dist/.next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ]
 }

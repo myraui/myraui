@@ -1,6 +1,6 @@
 {
   "name": "@myraui/templates",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Layouts that define structure but don&#x27;t have actual content (e.g. login page layout)",
   "keywords": [
@@ -16,6 +16,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
@@ -23,6 +26,10 @@
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
+  },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -42,5 +49,6 @@
   "dependencies": {
     "@myraui/shared-utils": "workspace:*",
     "@myraui/react-utils": "workspace:*"
-  }
+  },
+  "clean-package": "../../../clean-package.config.json"
 }

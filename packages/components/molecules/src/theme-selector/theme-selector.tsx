@@ -3,7 +3,7 @@ import { Select, Selection, SelectItem, SelectProps } from '@nextui-org/react';
 import { themes } from '@myraui/react-utils';
 import { useTheme } from 'next-themes';
 
-export interface ThemeSelectorProps extends Omit<SelectProps, 'items' | 'selectionMode' | 'onSelectionChange' | 'selectedKeys'> {}
+export interface ThemeSelectorProps extends Omit<SelectProps, 'items' | 'selectionMode' | 'onSelectionChange' | 'selectedKeys' | 'children'> {}
 
 export const ThemeSelector: React.FC<ThemeSelectorProps> = (props) => {
   const [mounted, setMounted] = useState(false);

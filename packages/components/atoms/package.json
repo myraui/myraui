@@ -1,6 +1,6 @@
 {
   "name": "@myraui/atoms",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Basic building blocks (buttons, inputs, icons).",
   "keywords": [
@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -24,18 +27,23 @@
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "clean-package": "2.2.0",
     "@myraui/react-test-utils": "workspace:^",
-    "@myraui/test-utils": "workspace:^",
-    "clean-package": "2.2.0"
+    "@myraui/test-utils": "workspace:^"
   },
   "dependencies": {
     "@myraui/react-utils": "workspace:*",
     "@myraui/shared-utils": "workspace:*",
     "clsx": "^2.1.0"
-  }
+  },
+  "clean-package": "../../../clean-package.config.json"
 }

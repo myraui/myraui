@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/{{hookName}}",
-  "version": "1.0.0",
+  "name": "@myraui/hooks",
+  "version": "0.0.0",
   "type": "commonjs",
-  "description": "{{description}}",
+  "description": "A collection of re-usable hooks for react components",
   "keywords": [
-    "{{hookName}}"
+    "hooks"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -19,16 +22,18 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
-    "directory": "{{destination}}"
+    "directory": "packages/hooks"
+  },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18",
-    "@myraui/theme": ">=1.0.0",
-    "@myraui/system": ">=1.0.0"
+    "react-dom": ">=18"
   },
   "devDependencies": {
     "clean-package": "2.2.0",
@@ -38,5 +43,6 @@
   "dependencies": {
     "@myraui/shared-utils": "workspace:*",
     "@myraui/react-utils": "workspace:*"
-  }
+  },
+  "clean-package": "../../clean-package.config.json"
 }

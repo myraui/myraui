@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react-test-utils",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Utilities for testing react components",
   "keywords": [
@@ -12,6 +12,9 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -21,6 +24,10 @@
     "url": "git+https://github.com/gitaumoses4/myraui.git",
     "directory": "packages/utilities/react-test-utils"
   },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
@@ -28,5 +35,6 @@
     "clean-package": "2.2.0",
     "@myraui/test-utils": "workspace:^"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "clean-package": "../../../clean-package.config.json"
 }

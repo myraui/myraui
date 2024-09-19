@@ -76,7 +76,9 @@ const preview: Preview = {
       storySort: {},
     },
   },
+
   decorators,
+  tags: ['autodocs']
 };
 
 export default preview;

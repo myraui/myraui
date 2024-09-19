@@ -17,7 +17,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../../../dist/packages/components/templates',
+    outDir: './dist',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,

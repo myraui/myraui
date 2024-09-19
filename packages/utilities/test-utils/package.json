@@ -1,6 +1,6 @@
 {
   "name": "@myraui/test-utils",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Common test utils for all packages",
   "keywords": [
@@ -11,7 +11,10 @@
     "email": "gitaumoses4@gmail.com"
   },
   "license": "MIT",
-  "main": "./src/assertion.ts",
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -24,8 +27,13 @@
   "bugs": {
     "url": "https://github.com/gitaumoses4/myraui/issues"
   },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
   "devDependencies": {
     "clean-package": "2.2.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "clean-package": "../../../clean-package.config.json"
 }
