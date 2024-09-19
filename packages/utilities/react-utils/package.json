@@ -11,7 +11,15 @@
     "email": "gitaumoses4@gmail.com"
   },
   "license": "MIT",
-  "main": "./src/index.ts",
+    "main": "./index.js",
+  "types": "./index.d.ts",
+  "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    }
+  },
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
