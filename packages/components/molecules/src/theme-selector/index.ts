@@ -1,7 +1,7 @@
-import ThemeSelector from './theme-selector';
+import ThemeSelector from "./theme-selector";
 
 // export types
-export type { ThemeSelectorProps } from './theme-selector';
+export type { ThemeSelectorProps } from "./theme-selector";
 
 // export component
 export { ThemeSelector };
