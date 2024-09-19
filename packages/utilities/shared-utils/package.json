@@ -1,6 +1,6 @@
 {
   "name": "@myraui/shared-utils",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "A set of utilities for Myra UI packages",
   "keywords": [

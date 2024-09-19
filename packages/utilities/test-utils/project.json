@@ -25,12 +25,6 @@
       "options": {
         "jestConfig": "packages/utilities/test-utils/jest.config.ts"
       }
-    },
-    "release": {
-      "executor": "nx-release:build-update-publish",
-      "options": {
-        "libName": "@myraui/test-utils"
-      }
     }
   }
 }

@@ -11,11 +11,26 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              { "sourceTag": "scope:storybook", "onlyDependOnLibsWithTags": [] },
-              { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": ["scope:common"] },
-              { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:server", "scope:common"] },
-              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client", "scope:common"] },
-              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:common", "scope:server", "scope:client"] }
+              {
+                "sourceTag": "scope:storybook",
+                "onlyDependOnLibsWithTags": []
+              },
+              {
+                "sourceTag": "scope:common",
+                "onlyDependOnLibsWithTags": ["scope:common"]
+              },
+              {
+                "sourceTag": "scope:server",
+                "onlyDependOnLibsWithTags": ["scope:server", "scope:common"]
+              },
+              {
+                "sourceTag": "scope:client",
+                "onlyDependOnLibsWithTags": ["scope:client", "scope:common"]
+              },
+              {
+                "sourceTag": "scope:app",
+                "onlyDependOnLibsWithTags": ["scope:common", "scope:server", "scope:client"]
+              }
             ]
           }
         ]
@@ -25,13 +40,18 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nx/typescript"],
       "rules": {
-        "@typescript-eslint/no-empty-interface": "off"
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
       }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],

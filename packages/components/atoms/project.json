@@ -30,12 +30,6 @@
       "options": {
         "jestConfig": "packages/components/atoms/jest.config.ts"
       }
-    },
-    "release": {
-      "executor": "nx-release:build-update-publish",
-      "options": {
-        "libName": "@myraui/atoms"
-      }
     }
   }
 }

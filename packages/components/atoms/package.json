@@ -1,6 +1,6 @@
 {
   "name": "@myraui/atoms",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "commonjs",
   "description": "Basic building blocks (buttons, inputs, icons).",
   "keywords": [

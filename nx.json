@@ -76,5 +76,20 @@
         "cacheableOperations": ["build-storybook"]
       }
     }
+  },
+  "release": {
+    "projects": [
+      "packages/*",
+      "packages/*/*",
+      "!packages/storybook"
+    ],
+    "version": {
+      "conventionalCommits": true
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "createRelease": "github"
+      }
+    }
   }
 }

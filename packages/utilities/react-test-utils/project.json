@@ -18,12 +18,6 @@
         "tsConfig": "packages/utilities/react-test-utils/tsconfig.json",
         "assets": []
       }
-    },
-    "release": {
-      "executor": "nx-release:build-update-publish",
-      "options": {
-        "libName": "@myraui/react-test-utils"
-      }
     }
   }
 }
