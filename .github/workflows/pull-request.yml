@@ -3,7 +3,7 @@ name: Pull Request
 on:
   pull_request:
     branches:
-      - develop
+      - main
 
 permissions:
   actions: read
@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/workflows/templates/install
 
       - name: Lint check
-        run: pnpm exec nx affected -t=lint --base=develop --head=HEAD --parallel --configuration=ci
+        run: pnpm exec nx affected -t=lint --base=main --head=HEAD --parallel --configuration=ci
   test:
     name: Tests
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
         uses: ./.github/workflows/templates/install
 
       - name: Build
-        run: pnpm exec nx run-many --target=build --all --parallel --configuration=ci
+        run: pnpm exec nx affected -t=build --base=main --head=HEAD --parallel --configuration=ci
   build_storybook:
     name: Build Storybook
     runs-on: ubuntu-latest

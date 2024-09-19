@@ -21,6 +21,6 @@ runs:
 
     - uses: nrwl/nx-set-shas@v4
 
-    - if: github.ref != 'refs/heads/develop'
+    - if: github.ref != 'refs/heads/main'
       shell: bash
-      run: git rev-parse --verify develop || git remote set-branches origin develop && git fetch --depth 1 origin develop && git branch develop origin/develop
+      run: git rev-parse --verify main || git remote set-branches origin main && git fetch --depth 1 origin main && git branch main origin/main
