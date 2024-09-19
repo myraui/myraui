@@ -13,9 +13,6 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "."
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -31,6 +28,5 @@
     "clean-package": "2.2.0",
     "@myraui/test-utils": "workspace:^"
   },
-  "dependencies": {},
-  "clean-package": "../../../clean-package.config.json"
+  "dependencies": {}
 }

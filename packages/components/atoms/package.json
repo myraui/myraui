@@ -13,9 +13,6 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "."
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -40,6 +37,5 @@
     "@myraui/react-utils": "workspace:*",
     "@myraui/shared-utils": "workspace:*",
     "clsx": "^2.1.0"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  }
 }

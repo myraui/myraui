@@ -13,9 +13,6 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "sideEffects": false,
-  "files": [
-    "."
-  ],
   "publishConfig": {
     "access": "public"
   },
@@ -36,6 +33,5 @@
     "@myraui/shared-utils": "workspace:^",
     "clsx": "^2.1.0",
     "tailwind-merge": "^2.2.2"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  }
 }
