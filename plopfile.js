@@ -15,24 +15,27 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
-const generators = ['package', 'hook', 'component'];
+const generators = ['package', 'hook', 'component', 'react-package'];
 
 const outDirs = {
-  package: ['utilities', 'services', 'server'],
+  package: ['utilities', 'services', 'server', 'core'],
   hook: ['hooks'],
   component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
+  'react-package': ['core'],
 };
 
 const defaultOutDirs = {
   component: 'atoms',
   hook: 'hooks',
   package: 'utilities',
+  'react-package': 'core',
 };
 
 const rootDirs = {
   package: 'packages',
   hook: 'packages',
   component: 'packages/components',
+  'react-package': 'packages',
 };
 
 /**
@@ -108,12 +111,12 @@ module.exports = function main(plop) {
         const { description, outDir } = answers;
         const packageName = answers[`${generator}Name`];
 
-        const rootDir = rootDirs[generator];
+        answers.outDir = rootDirs[generator] + '/' + outDir;
 
-        let destination = `${rootDir}/${outDir}/${dashCase(packageName)}`;
+        let destination = `${outDir}/${dashCase(packageName)}`;
 
         if (generator === 'component') {
-          destination = `${rootDir}/${outDir}`;
+          destination = outDir;
         }
 
         const data = {
@@ -133,7 +136,7 @@ module.exports = function main(plop) {
         });
 
         if (generator === 'component' || generator === 'hook') {
-          const indexFile = `${rootDir}/${outDir}/src/index.ts`;
+          const indexFile = `${outDir}/src/index.ts`;
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
             fs.writeFileSync(indexFile, `\n`);
@@ -141,7 +144,7 @@ module.exports = function main(plop) {
 
           actions.push({
             type: 'append',
-            path: `${rootDir}/${outDir}/src/index.ts`,
+            path: `${outDir}/src/index.ts`,
             pattern: /^/,
             template: `export * from './{{${generator}Name}}';\n`,
             separator: '',

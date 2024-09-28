@@ -25,7 +25,7 @@
     "directory": "packages/components/pages"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myraui/issues"
+    "url": "https://github.com/myraui/myraui/issues"
   },
   "scripts": {
     "prepack": "clean-package",
