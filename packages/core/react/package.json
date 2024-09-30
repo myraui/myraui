@@ -1,0 +1,51 @@
+{
+  "name": "@myraui/react",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "A modern React UI library to elevate your UI experience",
+  "keywords": [
+    "react"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "packages/core/react"
+  },
+  "bugs": {
+    "url": "https://github.com/myraui/myraui/issues"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^",
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "@myraui/atoms": "workspace:1.3.1",
+    "@myraui/hooks": "workspace:^",
+    "@myraui/molecules": "workspace:1.3.1",
+    "@myraui/organisms": "workspace:1.3.1",
+    "@myraui/pages": "workspace:^",
+    "@myraui/react-utils": "workspace:*",
+    "@myraui/shared-utils": "workspace:*",
+    "@myraui/templates": "workspace:1.3.1",
+    "@myraui/theme": "workspace:^"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

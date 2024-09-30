@@ -15,7 +15,7 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
-const generators = ['package', 'hook', 'component', 'react-package'];
+const generators = ['package', 'hook', 'component'];
 
 const outDirs = {
   package: ['utilities', 'services', 'server', 'core'],
@@ -27,15 +27,20 @@ const outDirs = {
 const defaultOutDirs = {
   component: 'atoms',
   hook: 'hooks',
-  package: 'utilities',
-  'react-package': 'core',
+  package: 'core',
 };
 
 const rootDirs = {
   package: 'packages',
   hook: 'packages',
   component: 'packages/components',
-  'react-package': 'packages',
+};
+
+const templateDirs = {
+  package: 'package',
+  hook: 'hook',
+  component: 'component',
+  'react-package': 'react-package',
 };
 
 /**
@@ -82,6 +87,13 @@ module.exports = function main(plop) {
           },
         },
         {
+          type: 'confirm',
+          name: 'isReact',
+          message: 'Is this a react package?',
+          default: false,
+          when: () => generator === 'package',
+        },
+        {
           type: 'input',
           name: 'description',
           message: `The description of this ${generator}:`,
@@ -92,7 +104,12 @@ module.exports = function main(plop) {
           name: 'outDir',
           message: `where should this ${generator} live?`,
           default: defaultOutDirs[generator],
-          choices: outDirs[generator],
+          choices: (answers) => {
+            if (answers.isReact) {
+              return outDirs['react-package'];
+            }
+            return outDirs[generator];
+          },
           when: () => outDirs[generator].length > 1,
           validate: (value) => {
             if (!value) {
@@ -108,10 +125,10 @@ module.exports = function main(plop) {
 
         if (!answers) return actions;
 
-        const { description, outDir } = answers;
-        const packageName = answers[`${generator}Name`];
+        answers.outDir = rootDirs[generator] + '/' + answers.outDir;
 
-        answers.outDir = rootDirs[generator] + '/' + outDir;
+        const { description, outDir, isReact } = answers;
+        const packageName = answers[`${generator}Name`];
 
         let destination = `${outDir}/${dashCase(packageName)}`;
 
@@ -126,11 +143,13 @@ module.exports = function main(plop) {
           [`${generator}Name`]: packageName,
         };
 
+        const templateDirName = isReact ? templateDirs['react-package'] : templateDirs[generator];
+
         actions.push({
           type: 'addMany',
-          templateFiles: `plop/${generator}/**`,
+          templateFiles: `plop/${templateDirName}/**`,
           destination: `{{destination}}`,
-          base: `plop/${generator}`,
+          base: `plop/${templateDirName}`,
           data,
           abortOnFail: true,
         });
