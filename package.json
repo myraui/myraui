@@ -118,9 +118,6 @@
       "react": "18.3.1",
       "react-dom": "18.3.1",
       "next": "14.2.3"
-    },
-    "patchedDependencies": {
-      "@nx/js@19.8.2": "patches/@nx__js@19.8.2.patch"
     }
   },
   "engines": {
