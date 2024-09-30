@@ -76,7 +76,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name myraui-release-app[bot]
+          git config user.name myraui-release-app
           git config user.email 1011736+myraui-release-app[bot]@users.noreply.github.com
 
       - name: Install
