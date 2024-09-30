@@ -65,8 +65,8 @@ jobs:
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
-          app_id: ${{ vars.MYRA_UI_RELEASE_APP_ID }}
-          private_key: ${{ secrets.MYRA_UI_RELEASE_APP_SECRET }}
+          app-id: ${{ vars.MYRA_UI_RELEASE_APP_ID }}
+          private-key: ${{ secrets.MYRA_UI_RELEASE_APP_SECRET }}
 
       - name: Checkout
         uses: actions/checkout@v4
