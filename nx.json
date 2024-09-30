@@ -80,6 +80,7 @@
     "projects": ["*", "packages/*", "packages/*/*", "!packages/storybook"],
     "releaseTagPattern": "{version}",
     "version": {
+      "preVersionCommand": "pnpm run clean:pkg",
       "conventionalCommits": true
     },
     "git": {
