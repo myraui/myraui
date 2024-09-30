@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "type": "commonjs",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
@@ -32,20 +32,20 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "workspace:^",
-    "@myraui/test-utils": "workspace:^",
+    "@myraui/react-test-utils": "1.4.0",
+    "@myraui/test-utils": "1.4.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/atoms": "workspace:1.3.1",
-    "@myraui/hooks": "workspace:^",
-    "@myraui/molecules": "workspace:1.3.1",
-    "@myraui/organisms": "workspace:1.3.1",
-    "@myraui/pages": "workspace:^",
-    "@myraui/react-utils": "workspace:*",
-    "@myraui/shared-utils": "workspace:*",
-    "@myraui/templates": "workspace:1.3.1",
-    "@myraui/theme": "workspace:^"
+    "@myraui/atoms": "1.4.0",
+    "@myraui/hooks": "1.4.0",
+    "@myraui/molecules": "1.4.0",
+    "@myraui/organisms": "1.4.0",
+    "@myraui/pages": "1.4.0",
+    "@myraui/react-utils": "1.4.0",
+    "@myraui/shared-utils": "1.4.0",
+    "@myraui/templates": "1.4.0",
+    "@myraui/theme": "1.4.0"
   },
   "clean-package": "../../../clean-package.config.json"
 }
