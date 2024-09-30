@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "type": "commonjs",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
@@ -32,20 +32,20 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "1.5.0",
-    "@myraui/test-utils": "1.5.0",
+    "@myraui/react-test-utils": "1.6.0",
+    "@myraui/test-utils": "1.6.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/atoms": "1.5.0",
-    "@myraui/hooks": "1.5.0",
-    "@myraui/molecules": "1.5.0",
-    "@myraui/organisms": "1.5.0",
-    "@myraui/pages": "1.5.0",
-    "@myraui/react-utils": "1.5.0",
-    "@myraui/shared-utils": "1.5.0",
-    "@myraui/templates": "1.5.0",
-    "@myraui/theme": "1.5.0"
+    "@myraui/atoms": "1.6.0",
+    "@myraui/hooks": "1.6.0",
+    "@myraui/molecules": "1.6.0",
+    "@myraui/organisms": "1.6.0",
+    "@myraui/pages": "1.6.0",
+    "@myraui/react-utils": "1.6.0",
+    "@myraui/shared-utils": "1.6.0",
+    "@myraui/templates": "1.6.0",
+    "@myraui/theme": "1.6.0"
   },
   "clean-package": "../../../clean-package.config.json"
 }

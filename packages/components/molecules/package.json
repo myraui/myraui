@@ -1,6 +1,6 @@
 {
   "name": "@myraui/molecules",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "type": "commonjs",
   "description": "Small components made up of atoms e.g. form input, search bar",
   "keywords": [
@@ -38,13 +38,13 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/atoms": "1.5.0",
-    "@myraui/react-test-utils": "1.5.0",
-    "@myraui/test-utils": "1.5.0"
+    "@myraui/atoms": "1.6.0",
+    "@myraui/react-test-utils": "1.6.0",
+    "@myraui/test-utils": "1.6.0"
   },
   "dependencies": {
-    "@myraui/react-utils": "1.5.0",
-    "@myraui/shared-utils": "1.5.0"
+    "@myraui/react-utils": "1.6.0",
+    "@myraui/shared-utils": "1.6.0"
   },
   "clean-package": "../../../clean-package.config.json"
 }
