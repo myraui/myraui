@@ -1,0 +1,44 @@
+{
+  "name": "@myraui/{{packageName}}",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "{{description}}",
+  "keywords": [
+    "{{packageName}}"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaumoses4/myraui.git",
+    "directory": "{{destination}}"
+  },
+  "bugs": {
+    "url": "https://github.com/myraui/myraui/issues"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "clean-package": "2.2.0",
+    "@myraui/react-test-utils": "workspace:^",
+    "@myraui/test-utils": "workspace:^"
+  },
+  "dependencies": {
+    "@myraui/shared-utils": "workspace:*",
+    "@myraui/react-utils": "workspace:*"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

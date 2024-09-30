@@ -22,10 +22,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gitaumoses4/myraui.git",
-    "directory": "packages/fonts"
+    "directory": "packages/core/fonts"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myraui/issues"
+    "url": "https://github.com/myraui/myraui/issues"
   },
   "scripts": {
     "prepack": "clean-package",
@@ -39,5 +39,5 @@
   "peerDependencies": {
     "next": "14.0.4"
   },
-  "clean-package": "../../clean-package.config.json"
+  "clean-package": "../../../clean-package.config.json"
 }

@@ -10,28 +10,7 @@
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "scope:storybook",
-                "onlyDependOnLibsWithTags": []
-              },
-              {
-                "sourceTag": "scope:common",
-                "onlyDependOnLibsWithTags": ["scope:common"]
-              },
-              {
-                "sourceTag": "scope:server",
-                "onlyDependOnLibsWithTags": ["scope:server", "scope:common"]
-              },
-              {
-                "sourceTag": "scope:client",
-                "onlyDependOnLibsWithTags": ["scope:client", "scope:common"]
-              },
-              {
-                "sourceTag": "scope:app",
-                "onlyDependOnLibsWithTags": ["scope:common", "scope:server", "scope:client"]
-              }
-            ]
+            "depConstraints": []
           }
         ]
       }

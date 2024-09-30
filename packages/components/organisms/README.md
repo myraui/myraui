@@ -13,4 +13,4 @@ npm i @myraui/organisms
 ## Licence
 
 This project is licensed under the terms of the
-[MIT license](https://github.com/gitaumoses4@gmail.com/myraui/blob/master/LICENSE).
+[MIT license](https://github.com/myraui/myraui/blob/main/LICENSE).

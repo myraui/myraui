@@ -29,7 +29,6 @@
     "@chromatic-com/storybook": "^1",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@commitlint/prompt-cli": "^19.5.0",
     "@nx/eslint": "19.7.4",
     "@nx/eslint-plugin": "19.7.4",
     "@nx/jest": "19.7.4",

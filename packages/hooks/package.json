@@ -29,7 +29,7 @@
     "postpack": "clean-package restore"
   },
   "bugs": {
-    "url": "https://github.com/gitaumoses4/myraui/issues"
+    "url": "https://github.com/myraui/myraui/issues"
   },
   "peerDependencies": {
     "react": ">=18",

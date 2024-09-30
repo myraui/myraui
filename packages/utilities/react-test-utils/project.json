@@ -3,7 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/utilities/react-test-utils/src",
   "projectType": "library",
-  "tags": ["scope:common"],
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
