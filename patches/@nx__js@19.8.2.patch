@@ -92,7 +92,7 @@ index a5bd82714ecdcf63b74f07a54674602816783f82..9fd47ac5a92f944a54ae27b12374ac14
 +        for (const depName in deps) {
 +          if ((0, is_locally_linked_package_version_1.isLocallyLinkedPackageVersion)(deps[depName])) {
 +            console.error(`Error: Cannot publish package "${packageName}" because it contains a local dependency protocol in its "${depType}", and your package manager is ${pm}.
- 
+
  Please update the local dependency on "${depName}" to be a valid semantic version (e.g. using \`nx release\`) before publishing, or switch to pnpm as a package manager, which supports dynamically replacing these protocols during publishing.`);
 -                        return {
 -                            success: false,
@@ -494,7 +494,7 @@ index a5bd82714ecdcf63b74f07a54674602816783f82..9fd47ac5a92f944a54ae27b12374ac14
 -                success: false,
 -            };
 -        }
-+      console.error(error.stdout);
++      console.error(err.stdout);
 +      const stdoutData = JSON.parse(err.stdout?.toString() || '{}');
 +      console.error(`${pm} publish error:`);
 +      if (stdoutData.error?.summary) {
