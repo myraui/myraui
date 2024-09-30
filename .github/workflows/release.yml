@@ -76,8 +76,8 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name github-actions 
-          git config user.email github-actions@github.com
+          git config user.name myraui-release-app[bot]
+          git config user.email 1011736+myraui-release-app[bot]@users.noreply.github.com
 
       - name: Install
         uses: ./.github/workflows/templates/install
