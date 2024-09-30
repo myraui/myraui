@@ -1,6 +1,6 @@
 {
   "name": "@myraui/pages",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "type": "commonjs",
   "description": "Complete pages filled with content (e.g. login page with user inputs).",
   "keywords": [
@@ -41,16 +41,16 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/react-test-utils": "1.4.0",
-    "@myraui/test-utils": "1.4.0",
-    "@myraui/templates": "1.4.0",
-    "@myraui/organisms": "1.4.0",
-    "@myraui/molecules": "1.4.0",
-    "@myraui/atoms": "1.4.0"
+    "@myraui/react-test-utils": "1.5.0",
+    "@myraui/test-utils": "1.5.0",
+    "@myraui/templates": "1.5.0",
+    "@myraui/organisms": "1.5.0",
+    "@myraui/molecules": "1.5.0",
+    "@myraui/atoms": "1.5.0"
   },
   "dependencies": {
-    "@myraui/shared-utils": "1.4.0",
-    "@myraui/react-utils": "1.4.0"
+    "@myraui/shared-utils": "1.5.0",
+    "@myraui/react-utils": "1.5.0"
   },
   "clean-package": "../../../clean-package.config.json"
 }
