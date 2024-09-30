@@ -9,6 +9,7 @@
     "lint": "nx run-many --target=lint --all --parallel",
     "test": "nx run-many --target=test --all --parallel",
     "build": "nx run-many --target=build --all --parallel",
+    "postbuild": "npx -y rimraf ./packages/**/dist/package.json && npx -y rimraf ./packages/**/**/dist/package.json",
     "format:check": "prettier --check packages/**/**/src --cache",
     "format:write": "prettier --write packages/**/**/src",
     "build-storybook": "nx build-storybook @myraui/storybook",
@@ -18,7 +19,6 @@
     "create:hook": "plop hook && pnpm install",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./packages/**/node_modules && npx rimraf ./node_modules",
     "clean": "npx -y rimraf ./packages/**/**/dist && npx -y rimraf ./packages/**/dist && npx -y rimraf ./dist && npx -y rimraf ./apps/**/dist",
-    "clean:pkg": "npx -y rimraf ./packages/**/dist/package.json && npx -y rimraf ./packages/**/**/dist/package.json",
     "release": "nx release --yes",
     "prepare": "husky",
     "commit": "commit"
