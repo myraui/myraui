@@ -62,15 +62,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lint, test, build_storybook]
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app_id: ${{ vars.MYRA_UI_RELEASE_APP_ID }}
+          private_key: ${{ secrets.MYRA_UI_RELEASE_APP_SECRET }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Git
         run: |
-          git config user.name "gitaumoses4"
-          git config user.email "gitaumoses4@gmail.com"
+          git config user.name github-actions 
+          git config user.email github-actions@github.com
 
       - name: Install
         uses: ./.github/workflows/templates/install
