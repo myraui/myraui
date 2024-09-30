@@ -1,6 +1,6 @@
 {
   "name": "@myraui/templates",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "type": "commonjs",
   "description": "Layouts that define structure but don&#x27;t have actual content (e.g. login page layout)",
   "keywords": [
@@ -40,15 +40,15 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/react-test-utils": "1.5.1",
-    "@myraui/test-utils": "1.5.1",
-    "@myraui/organisms": "1.5.1",
-    "@myraui/molecules": "1.5.1",
-    "@myraui/atoms": "1.5.1"
+    "@myraui/react-test-utils": "1.5.2",
+    "@myraui/test-utils": "1.5.2",
+    "@myraui/organisms": "1.5.2",
+    "@myraui/molecules": "1.5.2",
+    "@myraui/atoms": "1.5.2"
   },
   "dependencies": {
-    "@myraui/shared-utils": "1.5.1",
-    "@myraui/react-utils": "1.5.1"
+    "@myraui/shared-utils": "1.5.2",
+    "@myraui/react-utils": "1.5.2"
   },
   "clean-package": "../../../clean-package.config.json"
 }
