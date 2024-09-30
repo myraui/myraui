@@ -267,10 +267,10 @@ importers:
   packages/components/atoms:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       clsx:
         specifier: ^2.1.0
@@ -283,10 +283,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -295,10 +295,10 @@ importers:
   packages/components/molecules:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -308,13 +308,13 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/atoms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../atoms
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -323,10 +323,10 @@ importers:
   packages/components/organisms:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -336,16 +336,16 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/atoms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../atoms
       '@myraui/molecules':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../molecules
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -354,10 +354,10 @@ importers:
   packages/components/pages:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -367,22 +367,22 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/atoms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../atoms
       '@myraui/molecules':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../molecules
       '@myraui/organisms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../organisms
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/templates':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../templates
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -391,10 +391,10 @@ importers:
   packages/components/templates:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -404,19 +404,19 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/atoms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../atoms
       '@myraui/molecules':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../molecules
       '@myraui/organisms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../organisms
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -425,7 +425,7 @@ importers:
   packages/core/fonts:
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -437,31 +437,31 @@ importers:
   packages/core/react:
     dependencies:
       '@myraui/atoms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../components/atoms
       '@myraui/hooks':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../hooks
       '@myraui/molecules':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../components/molecules
       '@myraui/organisms':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../components/organisms
       '@myraui/pages':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../components/pages
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       '@myraui/templates':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../components/templates
       '@myraui/theme':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../theme
       react:
         specifier: 18.3.1
@@ -471,10 +471,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -483,10 +483,10 @@ importers:
   packages/core/theme:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -496,10 +496,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -508,10 +508,10 @@ importers:
   packages/hooks:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -521,10 +521,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -535,7 +535,7 @@ importers:
   packages/utilities/react-test-utils:
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../test-utils
       clean-package:
         specifier: 2.2.0
@@ -544,7 +544,7 @@ importers:
   packages/utilities/react-utils:
     dependencies:
       '@myraui/shared-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../shared-utils
       clsx:
         specifier: ^2.1.0
@@ -554,10 +554,10 @@ importers:
         version: 2.2.2
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../test-utils
       clean-package:
         specifier: 2.2.0
@@ -573,7 +573,7 @@ importers:
         version: 6.0.1
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.0
+        specifier: 1.5.1
         version: link:../test-utils
       clean-package:
         specifier: 2.2.0
@@ -17433,8 +17433,6 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
-        optional: true
-      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.7)(esbuild@0.20.2)
