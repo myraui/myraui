@@ -125,19 +125,20 @@ module.exports = function main(plop) {
 
         if (!answers) return actions;
 
-        answers.outDir = rootDirs[generator] + '/' + answers.outDir;
+        const rootDir = rootDirs[generator] + '/' + answers.outDir;
 
-        const { description, outDir, isReact } = answers;
+        const { description, isReact, outDir } = answers;
         const packageName = answers[`${generator}Name`];
 
-        let destination = `${outDir}/${dashCase(packageName)}`;
+        let destination = `${rootDir}/${dashCase(packageName)}`;
 
         if (generator === 'component') {
-          destination = outDir;
+          destination = rootDir;
         }
 
         const data = {
           description,
+          rootDir,
           outDir,
           destination,
           [`${generator}Name`]: packageName,
@@ -155,7 +156,7 @@ module.exports = function main(plop) {
         });
 
         if (generator === 'component' || generator === 'hook') {
-          const indexFile = `${outDir}/src/index.ts`;
+          const indexFile = `${rootDir}/src/index.ts`;
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
             fs.writeFileSync(indexFile, `\n`);
@@ -163,7 +164,7 @@ module.exports = function main(plop) {
 
           actions.push({
             type: 'append',
-            path: `${outDir}/src/index.ts`,
+            path: `${rootDir}/src/index.ts`,
             pattern: /^/,
             template: `export * from './{{${generator}Name}}';\n`,
             separator: '',
