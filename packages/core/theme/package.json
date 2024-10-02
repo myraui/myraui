@@ -36,13 +36,14 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "clean-package": "2.2.0",
     "@myraui/react-test-utils": "1.5.2",
-    "@myraui/test-utils": "1.5.2"
+    "@myraui/test-utils": "1.5.2",
+    "clean-package": "2.2.0"
   },
   "dependencies": {
+    "@myraui/react-utils": "1.5.2",
     "@myraui/shared-utils": "1.5.2",
-    "@myraui/react-utils": "1.5.2"
+    "deepmerge": "^4.3.1"
   },
   "clean-package": "../../../clean-package.config.json"
 }

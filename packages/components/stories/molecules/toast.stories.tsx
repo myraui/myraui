@@ -28,7 +28,7 @@ const Template = () => {
   }, []);
 
   return (
-    <div className="bg-crimson">
+    <div>
       <Button
         onClick={() => {
           toast({
