@@ -7,14 +7,6 @@ const meta: Meta<typeof Breakpoint> = {
   component: Breakpoint,
   tags: ['autodocs'],
   argTypes: {
-    on: {
-      control: {
-        type: 'select',
-      },
-      defaultValue: 'md',
-      options: ['sm', 'md', 'lg', 'xl', '2xl'],
-      description: 'The breakpoint to show or hide a component',
-    },
     above: {
       table: {
         disable: true,

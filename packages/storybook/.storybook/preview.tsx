@@ -39,7 +39,7 @@ const Container = (props: DocsContainerProps) => {
 
 const commonTheme = {
   brandTitle: 'MyraUI',
-  brandUrl: 'https://github.com/gitaumoses4/myraui',
+  brandUrl: 'https://github.com/myraui/myraui',
   brandTarget: '_self',
 };
 
