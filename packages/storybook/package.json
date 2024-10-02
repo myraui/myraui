@@ -27,6 +27,11 @@
   "bugs": {
     "url": "https://github.com/myraui/myraui/issues"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "next-themes": "^0.3.0"
+  },
+  "devDependencies": {
+    "@myraui/components": "workspace:^",
+    "@myraui/theme": "workspace:1.5.2"
+  }
 }

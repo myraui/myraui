@@ -1,6 +1,6 @@
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
 const { join } = require('path');
-const { nextui } = require('@nextui-org/react');
+const { myraui } = require('@myraui/theme/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -12,11 +12,7 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {
-      gridTemplateColumns: {
-        13: 'repeat(13, minmax(0, 1fr))',
-      },
-    },
+    extend: {},
   },
-  plugins: [nextui()],
+  plugins: [myraui()],
 };
