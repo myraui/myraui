@@ -133,7 +133,7 @@ module.exports = function main(plop) {
         let destination = `${rootDir}/${dashCase(packageName)}`;
 
         if (generator === 'component') {
-          destination = rootDir;
+          destination = rootDir + '/src';
         }
 
         const data = {
@@ -156,7 +156,11 @@ module.exports = function main(plop) {
         });
 
         if (generator === 'component' || generator === 'hook') {
-          const indexFile = `${rootDir}/src/index.ts`;
+          let indexFile = `${rootDir}/src/index.ts`;
+
+          if (generator === 'component') {
+            indexFile = `${rootDir}/src/${outDir}/index.ts`;
+          }
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
             fs.writeFileSync(indexFile, `\n`);
@@ -164,7 +168,7 @@ module.exports = function main(plop) {
 
           actions.push({
             type: 'append',
-            path: `${rootDir}/src/index.ts`,
+            path: indexFile,
             pattern: /^/,
             template: `export * from './{{${generator}Name}}';\n`,
             separator: '',
