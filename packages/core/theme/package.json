@@ -33,17 +33,18 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@myraui/react-test-utils": "1.5.2",
     "@myraui/test-utils": "1.5.2",
-    "clean-package": "2.2.0"
+    "clean-package": "2.2.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "dependencies": {
     "@myraui/react-utils": "1.5.2",
     "@myraui/shared-utils": "1.5.2",
     "deepmerge": "^4.3.1"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  }
 }

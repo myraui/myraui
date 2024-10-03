@@ -23,9 +23,12 @@ export default defineConfig({
       transformMixedEsModules: true,
     },
     lib: {
-      entry: 'src/index.ts',
+      entry: {
+        index: 'src/index.ts',
+        plugin: 'src/plugin.ts',
+      },
       name: '@myraui/theme',
-      fileName: 'index',
+      fileName: (format, entryName) => `${entryName}.${format === 'cjs' ? 'js' : 'mjs'}`,
       formats: ['es', 'cjs'],
     },
     rollupOptions: {

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Toast, useToast } from '../../src';
+import { Toast, ToastAction, useToast } from '../../src';
 import { Button } from '@nextui-org/react';
-import { ToastAction } from '@radix-ui/react-toast';
 
 export default {
   title: 'Components/Molecules/Toast',
