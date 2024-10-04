@@ -18,3 +18,6 @@ export { useToast } from './use-toast';
 
 // export component
 export { Toast, ToastClose, ToastDescription, ToastTitle, ToastViewport, ToastAction, Toaster };
+
+// export side effects
+export { toast } from './use-toast';

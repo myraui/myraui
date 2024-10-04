@@ -69,9 +69,12 @@ export const WithAction: Story = {
 export const Colors: Story = {
   render: (props) => {
     const { toast } = useToast();
+
+    const colors = ['default', 'primary', 'secondary', 'success', 'warning', 'danger'] as const;
+
     return (
       <div className="flex gap-2">
-        {['default', 'primary', 'secondary', 'success', 'warning', 'danger'].map((color) => (
+        {colors.map((color) => (
           <Button key={color} onClick={() => toast({ ...props, color })} color={color}>
             {color}
           </Button>

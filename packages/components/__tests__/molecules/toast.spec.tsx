@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import { Toast } from '../../src/molecules';
-import { ToastProvider } from '@radix-ui/react-toast';
+import { toast, Toaster } from '../../src';
 
 describe('Toast', () => {
   it('should render correctly', () => {
-    const wrapper = render(
-      <ToastProvider>
-        <Toast />
-      </ToastProvider>
-    );
+    toast({ title: 'Something went wrong' });
+
+    const wrapper = render(<Toaster />);
+    expect(wrapper.container).toMatchSnapshot();
 
     expect(() => wrapper.unmount()).not.toThrow();
   });

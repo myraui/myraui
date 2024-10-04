@@ -10,8 +10,6 @@ const Toast = React.forwardRef<
 >(({ className, color, disableAnimation, ...props }, ref) => {
   const slots = useMemo(() => toastTheme({ color, disableAnimation }), [color, disableAnimation]);
 
-  console.log(slots.base());
-
   return (
     <ToastContextProvider value={{ slots }}>
       <ToastPrimitives.Root ref={ref} className={slots.base({ className })} {...props} />
