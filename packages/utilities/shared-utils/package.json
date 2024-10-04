@@ -1,6 +1,6 @@
 {
   "name": "@myraui/shared-utils",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "type": "commonjs",
   "description": "A set of utilities for Myra UI packages",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@myraui/test-utils": "1.5.2",
+    "@myraui/test-utils": "2.0.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {

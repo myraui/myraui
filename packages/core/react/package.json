@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "type": "commonjs",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
@@ -38,18 +38,18 @@
     "@tabler/icons-react": ">=3.17.0"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "1.5.2",
-    "@myraui/test-utils": "1.5.2",
+    "@myraui/react-test-utils": "2.0.0",
+    "@myraui/test-utils": "2.0.0",
     "@nextui-org/react": "^2.4.8",
     "@tabler/icons-react": "^3.17.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/components": "workspace:*",
-    "@myraui/hooks": "1.5.2",
-    "@myraui/react-utils": "1.5.2",
-    "@myraui/shared-utils": "1.5.2",
-    "@myraui/theme": "1.5.2"
+    "@myraui/components": "2.0.0",
+    "@myraui/hooks": "2.0.0",
+    "@myraui/react-utils": "2.0.0",
+    "@myraui/shared-utils": "2.0.0",
+    "@myraui/theme": "2.0.0"
   },
   "clean-package": "../../../clean-package.config.json"
 }

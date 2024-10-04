@@ -267,10 +267,10 @@ importers:
   packages/components:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/shared-utils
       '@radix-ui/react-toast':
         specifier: ^1.2.1
@@ -292,13 +292,13 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/test-utils
       '@myraui/theme':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../core/theme
       '@nextui-org/react':
         specifier: ^2.4.8
@@ -313,7 +313,7 @@ importers:
   packages/core/fonts:
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -325,19 +325,19 @@ importers:
   packages/core/react:
     dependencies:
       '@myraui/components':
-        specifier: workspace:*
+        specifier: 2.0.0
         version: link:../../components
       '@myraui/hooks':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../hooks
       '@myraui/react-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/shared-utils
       '@myraui/theme':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../theme
       react:
         specifier: 18.3.1
@@ -347,10 +347,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/test-utils
       '@nextui-org/react':
         specifier: ^2.4.8
@@ -365,10 +365,10 @@ importers:
   packages/core/theme:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/shared-utils
       deepmerge:
         specifier: ^4.3.1
@@ -381,10 +381,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../../utilities/test-utils
       '@nextui-org/react':
         specifier: ^2.4.8
@@ -399,10 +399,10 @@ importers:
   packages/hooks:
     dependencies:
       '@myraui/react-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/react-utils
       '@myraui/shared-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/shared-utils
       react:
         specifier: 18.3.1
@@ -412,10 +412,10 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../utilities/test-utils
       clean-package:
         specifier: 2.2.0
@@ -437,7 +437,7 @@ importers:
   packages/utilities/react-test-utils:
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../test-utils
       clean-package:
         specifier: 2.2.0
@@ -446,7 +446,7 @@ importers:
   packages/utilities/react-utils:
     dependencies:
       '@myraui/shared-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../shared-utils
       clsx:
         specifier: ^2.1.0
@@ -462,10 +462,10 @@ importers:
         version: 2.2.2
     devDependencies:
       '@myraui/react-test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../react-test-utils
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../test-utils
       '@nextui-org/react':
         specifier: ^2.4.8
@@ -490,7 +490,7 @@ importers:
         version: 2.16.9
     devDependencies:
       '@myraui/test-utils':
-        specifier: 1.5.2
+        specifier: 2.0.0
         version: link:../test-utils
       clean-package:
         specifier: 2.2.0
@@ -17525,8 +17525,6 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
-        optional: true
-      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.7)(esbuild@0.21.5)
