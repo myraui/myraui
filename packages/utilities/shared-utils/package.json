@@ -31,13 +31,15 @@
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
+  "peerDependencies": {},
   "devDependencies": {
-    "clean-package": "2.2.0",
-    "@myraui/test-utils": "1.5.2"
+    "@myraui/test-utils": "1.5.2",
+    "clean-package": "2.2.0"
   },
   "dependencies": {
     "clsx": "^2.1.0",
-    "flat": "^6.0.1"
+    "flat": "^6.0.1",
+    "fp-ts": "^2.16.9"
   },
   "clean-package": "../../../clean-package.config.json"
 }

@@ -1,0 +1,24 @@
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import { {{capitalize componentName }}, {{capitalize componentName}}Props } from "../../src";
+
+export default {
+  title: "Components/{{capitalize outDir}}/{{capitalize componentName}}",
+  component: {{capitalize componentName}},
+  tags: ['autodocs'],
+  argTypes: {},
+} as Meta<typeof {{capitalize componentName}}>;
+type Story = StoryObj<typeof {{capitalize componentName}}>;
+
+const defaultProps = {
+}
+
+const Template = (args: {{capitalize componentName}}Props) => <{{capitalize componentName}} {...args} />;
+
+export const Default: Story = {
+  render: Template,
+  args: {
+    ...defaultProps,
+  }
+}

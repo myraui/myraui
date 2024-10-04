@@ -34,7 +34,7 @@
   "devDependencies": {
     "clean-package": "2.2.0",
     "@myraui/test-utils": "1.5.2",
-    "next": "14.0.4"
+    "next": ">=14.0.4"
   },
   "peerDependencies": {
     "next": "14.0.4"

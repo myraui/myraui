@@ -10,7 +10,11 @@
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
-            "depConstraints": []
+            "depConstraints": [
+              { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client", "scope:common"] },
+              { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:server", "scope:common"] },
+              { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": ["scope:common"] }
+            ]
           }
         ]
       }

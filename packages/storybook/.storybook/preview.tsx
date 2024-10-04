@@ -1,6 +1,7 @@
 import theme from './theme';
 import { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import { Toaster } from '@myraui/components';
 
 import './style.scss';
 import React, { useEffect } from 'react';
@@ -8,10 +9,11 @@ import { DocsContainer, DocsContainerProps } from '@storybook/blocks';
 import { ThemeProvider } from 'next-themes';
 
 const decorators: Preview['decorators'] = [
-  (Story) => {
+  (Story, { viewMode }) => {
     return (
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <Story />
+        {viewMode === 'story' && <Toaster />}
       </ThemeProvider>
     );
   },
@@ -30,13 +32,14 @@ const Container = (props: DocsContainerProps) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <DocsContainer {...props} />
+      <Toaster />
     </ThemeProvider>
   );
 };
 
 const commonTheme = {
   brandTitle: 'MyraUI',
-  brandUrl: 'https://github.com/gitaumoses4/myraui',
+  brandUrl: 'https://github.com/myraui/myraui',
   brandTarget: '_self',
 };
 
@@ -78,7 +81,7 @@ const preview: Preview = {
   },
 
   decorators,
-  tags: ['autodocs']
+  tags: ['autodocs'],
 };
 
 export default preview;
