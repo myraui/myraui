@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "@myraui/components": "workspace:^",
-    "@myraui/theme": "workspace:1.5.2"
+    "@myraui/theme": "workspace:^"
   }
 }
