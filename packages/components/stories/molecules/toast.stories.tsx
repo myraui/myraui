@@ -26,6 +26,11 @@ export default {
         type: 'boolean',
       },
     },
+    description: {
+      control: {
+        type: 'text',
+      },
+    },
   },
 } as Meta<typeof Toast>;
 type Story = StoryObj<typeof Toast>;

@@ -15,24 +15,29 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
+function generateParentPath(path) {
+  const parts = path.split('/');
+
+  return '../'.repeat(parts.length - 1);
+}
+
 const generators = ['package', 'hook', 'component'];
 
-const outDirs = {
+const types = {
   package: ['utilities', 'services', 'server', 'core'],
-  hook: ['hooks'],
+  hook: [],
   component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
   'react-package': ['core'],
 };
 
 const defaultOutDirs = {
   component: 'atoms',
-  hook: 'hooks',
   package: 'core',
 };
 
 const rootDirs = {
   package: 'packages',
-  hook: 'packages',
+  hook: 'packages/hooks',
   component: 'packages/components',
 };
 
@@ -101,19 +106,19 @@ module.exports = function main(plop) {
         },
         {
           type: 'list',
-          name: 'outDir',
-          message: `where should this ${generator} live?`,
+          name: 'type',
+          message: `Select the type of ${generator}:`,
           default: defaultOutDirs[generator],
           choices: (answers) => {
             if (answers.isReact) {
-              return outDirs['react-package'];
+              return types['react-package'];
             }
-            return outDirs[generator];
+            return types[generator];
           },
-          when: () => outDirs[generator].length > 1,
+          when: () => types[generator].length > 1,
           validate: (value) => {
             if (!value) {
-              return `outDir is required`;
+              return `type is required`;
             }
 
             return true;
@@ -125,41 +130,72 @@ module.exports = function main(plop) {
 
         if (!answers) return actions;
 
-        const rootDir = rootDirs[generator] + '/' + answers.outDir;
+        let rootDir = rootDirs[generator];
 
-        const { description, isReact, outDir } = answers;
-        const packageName = answers[`${generator}Name`];
+        if (answers.type) {
+          rootDir = rootDirs[generator] + '/' + answers.type;
 
-        let destination = `${rootDir}/${dashCase(packageName)}`;
+          if (generator === 'component') {
+            rootDir = rootDirs[generator];
+          }
+        }
+
+        const { description, isReact, type } = answers;
+
+        const fullPackageName = answers[`${generator}Name`].split('/');
+
+        const packageName = fullPackageName[fullPackageName.length - 1];
+        const packageDestination = fullPackageName.slice(0, fullPackageName.length - 1).join('/');
+
+        let destination = `${rootDir}/${packageDestination ? `${packageDestination}/` : ''}${dashCase(packageName)}`;
 
         if (generator === 'component') {
-          destination = rootDir + '/src';
+          destination = rootDir;
         }
+
+        const parentPath = generateParentPath();
 
         const data = {
           description,
           rootDir,
-          outDir,
+          type,
           destination,
+          parentPath,
+          [`${generator}Destination`]: packageDestination,
           [`${generator}Name`]: packageName,
         };
 
         const templateDirName = isReact ? templateDirs['react-package'] : templateDirs[generator];
 
-        actions.push({
-          type: 'addMany',
-          templateFiles: `plop/${templateDirName}/**`,
-          destination: `{{destination}}`,
-          base: `plop/${templateDirName}`,
-          data,
-          abortOnFail: true,
-        });
+        if (generator === 'component') {
+          const templates = ['__tests__', 'src', 'stories'];
+
+          templates.forEach((template) => {
+            actions.push({
+              type: 'addMany',
+              templateFiles: `plop/${templateDirName}/${template}/**`,
+              destination: `{{destination}}/${template}/${packageDestination}`,
+              base: `plop/${templateDirName}/${template}`,
+              data,
+              abortOnFail: true,
+            });
+          });
+        } else {
+          actions.push({
+            type: 'addMany',
+            templateFiles: `plop/${templateDirName}/**`,
+            destination: `{{destination}}`,
+            base: `plop/${templateDirName}`,
+            data,
+            abortOnFail: true,
+          });
+        }
 
         if (generator === 'component' || generator === 'hook') {
           let indexFile = `${rootDir}/src/index.ts`;
 
           if (generator === 'component') {
-            indexFile = `${rootDir}/src/${outDir}/index.ts`;
+            indexFile = `${rootDir}/src/${type}/index.ts`;
           }
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
