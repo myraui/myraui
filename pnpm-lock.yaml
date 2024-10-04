@@ -431,7 +431,7 @@ importers:
         specifier: workspace:^
         version: link:../components
       '@myraui/theme':
-        specifier: workspace:1.5.2
+        specifier: workspace:^
         version: link:../core/theme
 
   packages/utilities/react-test-utils:
