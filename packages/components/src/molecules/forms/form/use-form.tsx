@@ -17,7 +17,7 @@ export function useForm<
   TFieldValues extends FieldValues = FieldValues,
   TContext = unknown,
   TTransformedValues extends FieldValues | undefined = undefined,
->({ mode = 'all', ...props }: UseFormProps<TFieldValues, TContext>): UseFormReturn<TFieldValues, TContext, TTransformedValues> {
+>({ mode = 'all', ...props }: UseFormProps<TFieldValues, TContext> = {}): UseFormReturn<TFieldValues, TContext, TTransformedValues> {
   return useBaseForm({
     mode,
     resolver: props.schema ? zodResolver(props.schema) : undefined,

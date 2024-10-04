@@ -1,0 +1,13 @@
+{
+  "name": "docs",
+  "version": "2.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "@myraui/react": "workspace:^"
+  },
+  "devDependencies": {
+    "@myraui/theme": "workspace:^"
+  }
+}

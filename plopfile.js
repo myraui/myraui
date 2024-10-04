@@ -148,8 +148,6 @@ module.exports = function main(plop) {
 
         const { description, isReact, type } = answers;
 
-        console.log(answers);
-
         const packageName = answers[`${generator}Name`];
         const packageDestination = answers[`${generator}Destination`] || '';
 
@@ -170,15 +168,20 @@ module.exports = function main(plop) {
           const templates = ['__tests__', 'src', 'stories'];
 
           templates.forEach((template) => {
-            const destination = `${template}/${type}${packageDestination ? `${packageDestination}/` : ''}`;
+            const destination = `${template}/${type}${packageDestination ? `/${packageDestination}` : ''}`;
             const relativeRootDir = generateRelativeRootDir(destination);
+
+            const storiesFolder = `${type}${packageDestination ? `/${packageDestination}` : ''}`
+              .split('/')
+              .map((folder) => capitalize(camelCase(folder)))
+              .join('/');
 
             actions.push({
               type: 'addMany',
               templateFiles: `plop/${templateDirName}/${template}/**`,
               destination: `{{rootDir}}/{{destination}}`,
               base: `plop/${templateDirName}/${template}`,
-              data: { ...data, destination, relativeRootDir },
+              data: { ...data, destination, relativeRootDir, storiesFolder },
               abortOnFail: true,
             });
           });

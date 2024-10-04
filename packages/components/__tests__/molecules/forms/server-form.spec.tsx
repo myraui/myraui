@@ -1,10 +1,10 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { Form } from "../../src";
+import { ServerForm } from "../../../src";
 
-describe("Form", () => {
+describe("ServerForm", () => {
   it("should render correctly", () => {
-    const wrapper = render(<Form />);
+    const wrapper = render(<ServerForm />);
 
     expect(() => wrapper.unmount()).not.toThrow();
   });
