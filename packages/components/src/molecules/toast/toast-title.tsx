@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { cn } from '@nextui-org/react';
 import * as ToastPrimitives from '@radix-ui/react-toast';
+import { useToastContext } from './context';
 
 const ToastTitle = React.forwardRef<React.ElementRef<typeof ToastPrimitives.Title>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>>(
-  ({ className, ...props }, ref) => <ToastPrimitives.Title ref={ref} className={cn('text-sm font-semibold [&+div]:text-xs', className)} {...props} />
+  ({ className, ...props }, ref) => {
+    const { slots } = useToastContext();
+    return <ToastPrimitives.Title ref={ref} className={slots.title({ className })} {...props} />;
+  }
 );
 
 ToastTitle.displayName = 'MyraUI.' + ToastPrimitives.Title.displayName;

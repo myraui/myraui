@@ -21,9 +21,20 @@ const toastTheme = tv({
       'data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)]',
       'data-[swipe=move]:transition-none ',
     ],
+    close: [
+      'absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 ',
+      'group-[.danger]:text-danger-300 group-[.danger]:hover:text-danger-50 group-[.danger]:focus:ring-danger-400 group-[.danger]:focus:ring-offset-danger-600',
+      'group-[.success]:text-success-300 group-[.success]:hover:text-success-50 group-[.success]:focus:ring-success-400 group-[.success]:focus:ring-offset-success-600',
+      'group-[.warning]:text-warning-300 group-[.warning]:hover:text-warning-50 group-[.warning]:focus:ring-warning-400 group-[.warning]:focus:ring-offset-warning-600',
+      'group-[.primary]:text-primary-300 group-[.primary]:hover:text-primary-50 group-[.primary]:focus:ring-primary-400 group-[.primary]:focus:ring-offset-primary-600',
+      'group-[.secondary]:text-secondary-300 group-[.secondary]:hover:text-secondary-50 group-[.secondary]:focus:ring-secondary-400 group-[.secondary]:focus:ring-offset-secondary-600',
+    ],
+    closeIcon: 'h-4 w-4',
+    description: 'text-sm opacity-90',
+    title: 'text-sm font-semibold [&+div]:text-xs',
   },
   variants: {
-    variant: {
+    color: {
       default: 'border border-default-100 bg-default text-default-foreground',
       primary: 'primary group border-primary bg-primary-400 text-primary-foreground',
       secondary: 'secondary group border-secondary bg-secondary-400 text-secondary-foreground',
@@ -32,20 +43,22 @@ const toastTheme = tv({
       warning: 'warning group border-warning bg-warning-400 text-warning-foreground',
     },
     disableAnimation: {
-      false: [
-        'transition-all',
-        'data-[state=open]:animate-in ',
-        'data-[state=closed]:animate-out ',
-        'data-[swipe=end]:animate-out ',
-        'data-[state=closed]:fade-out-80 ',
-        'data-[state=closed]:slide-out-to-right-full ',
-        'data-[state=open]:slide-in-from-top-full ',
-        'data-[state=open]:sm:slide-in-from-bottom-full',
-      ],
+      false: {
+        base: [
+          'transition-all',
+          'data-[state=open]:animate-in ',
+          'data-[state=closed]:animate-out ',
+          'data-[swipe=end]:animate-out ',
+          'data-[state=closed]:fade-out-80 ',
+          'data-[state=closed]:slide-out-to-right-full ',
+          'data-[state=open]:slide-in-from-top-full ',
+          'data-[state=open]:sm:slide-in-from-bottom-full',
+        ],
+      },
     },
   },
   defaultVariants: {
-    variant: 'default',
+    color: 'default',
     disableAnimation: false,
   },
 });
@@ -53,5 +66,7 @@ const toastTheme = tv({
 export type ToastActionVariantProps = VariantProps<typeof toastActionTheme>;
 
 export type ToastVariantProps = VariantProps<typeof toastTheme>;
+
+export type ToastReturnType = ReturnType<typeof toastTheme>;
 
 export { toastActionTheme, toastTheme };
