@@ -15,16 +15,17 @@ type Story = StoryObj<typeof FormInput>;
 const defaultProps = {};
 
 const Template = (args: FormInputProps) => {
-  const form = useForm({ values: { firstName: 'John' } });
+  const form = useForm();
 
   return (
     <Form
       form={form}
-      onSubmit={(values: { firstName: string }) => {
-        console.log(values);
+      onSubmit={(values) => {
+        alert('Submitted: ' + JSON.stringify(values));
       }}
+      className="flex items-center gap-2"
     >
-      <FormInput name="firstName" label="First name: " {...args} />
+      <FormInput {...args} name="firstName" label="First name: " />
       <Button type="submit">Submit</Button>
     </Form>
   );

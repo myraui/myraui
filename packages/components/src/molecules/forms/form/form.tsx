@@ -2,9 +2,9 @@ import React, { HTMLProps, PropsWithChildren } from 'react';
 import { FieldValues, FormProvider, SubmitHandler } from 'react-hook-form';
 import { UseFormReturn } from './use-form';
 
-export interface FormProps<TFieldValues extends FieldValues, TContext, TTransformedValues extends FieldValues | undefined>
+export interface FormProps<TFieldValues extends FieldValues, TContext = never, TTransformedValues extends FieldValues | undefined = undefined>
   extends Omit<HTMLProps<HTMLFormElement>, 'onSubmit' | 'form'> {
-  form: UseFormReturn<TFieldValues, TContext, TTransformedValues>;
+  form: UseFormReturn<TFieldValues, TContext, TTransformedValues | undefined>;
   onSubmit?: TTransformedValues extends undefined
     ? SubmitHandler<TFieldValues>
     : TTransformedValues extends FieldValues
@@ -12,7 +12,7 @@ export interface FormProps<TFieldValues extends FieldValues, TContext, TTransfor
       : never;
 }
 
-function Form<TFieldValues extends FieldValues, TContext, TTransformedValues extends FieldValues | undefined>({
+function Form<TFieldValues extends FieldValues, TContext = never, TTransformedValues extends FieldValues | undefined = undefined>({
   form,
   ...props
 }: PropsWithChildren<FormProps<TFieldValues, TContext, TTransformedValues>>) {

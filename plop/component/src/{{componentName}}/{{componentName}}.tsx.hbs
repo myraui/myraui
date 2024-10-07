@@ -1,10 +1,11 @@
 import React from 'react';
+import { forwardRef } from '@nextui-org/react';
 
 export interface {{capitalize componentName}}Props  {}
 
-const {{capitalize componentName}}: React.FC<{{capitalize componentName}}Props> = (props) => {
-  return <div></div>;
-};
+const {{capitalize componentName}} = forwardRef<"div", {{capitalize componentName}}Props>((props, ref) => {
+  return <div ref={ref}></div>;
+});
 
 {{capitalize componentName}}.displayName = "MyraUI.{{capitalize componentName}}";
 
