@@ -68,6 +68,7 @@ export const WithAction: Story = {
   args: {
     ...defaultProps,
     title: 'Uh oh! Something went wrong',
+    // @ts-expect-error
     description: 'We couldn’t process your payment. Please try again.',
     action: <ToastAction altText="Try again">Try again</ToastAction>,
   },
@@ -92,6 +93,7 @@ export const Colors: Story = {
   args: {
     ...defaultProps,
     title: 'Scheduled: Catch up',
+    // @ts-expect-error
     description: 'Friday, February 10, 2024 at 5:57 PM',
     color: 'primary',
   },
