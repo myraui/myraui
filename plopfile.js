@@ -165,25 +165,21 @@ module.exports = function main(plop) {
         const templateDirName = isReact ? templateDirs['react-package'] : templateDirs[generator];
 
         if (generator === 'component') {
-          const templates = ['__tests__', 'src', 'stories'];
+          const destination = `src/${type}${packageDestination ? `/${packageDestination}` : ''}`;
+          const relativeRootDir = generateRelativeRootDir(destination);
 
-          templates.forEach((template) => {
-            const destination = `${template}/${type}${packageDestination ? `/${packageDestination}` : ''}`;
-            const relativeRootDir = generateRelativeRootDir(destination);
+          const storiesFolder = `${type}${packageDestination ? `/${packageDestination}` : ''}`
+            .split('/')
+            .map((folder) => capitalize(camelCase(folder)))
+            .join('/');
 
-            const storiesFolder = `${type}${packageDestination ? `/${packageDestination}` : ''}`
-              .split('/')
-              .map((folder) => capitalize(camelCase(folder)))
-              .join('/');
-
-            actions.push({
-              type: 'addMany',
-              templateFiles: `plop/${templateDirName}/${template}/**`,
-              destination: `{{rootDir}}/{{destination}}`,
-              base: `plop/${templateDirName}/${template}`,
-              data: { ...data, destination, relativeRootDir, storiesFolder },
-              abortOnFail: true,
-            });
+          actions.push({
+            type: 'addMany',
+            templateFiles: `plop/${templateDirName}/**`,
+            destination: `{{rootDir}}/{{destination}}`,
+            base: `plop/${templateDirName}`,
+            data: { ...data, destination, relativeRootDir, storiesFolder },
+            abortOnFail: true,
           });
 
           // update the index files
