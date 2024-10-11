@@ -3,8 +3,14 @@ import type { StorybookConfig } from '@storybook/react-vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { mergeConfig } from 'vite';
 
+const depth = 10;
+
+const stories = Array.from({ length: depth }, (_, i) => `../../components/src${'/**'.repeat(i)}/*.@(mdx|stories.@(js|jsx|ts|tsx))`);
+
+console.log(stories);
+
 const config: StorybookConfig = {
-  stories: ['../../components/stories/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+  stories: [...stories, '../../components/stories/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
   addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', 'storybook-dark-mode', '@chromatic-com/storybook'],
 
   framework: {
