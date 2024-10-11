@@ -16,7 +16,7 @@ module.exports = {
     '!src/**/*.spec.ts',
   ],
   transform: {
-    '^.+\\.(t|j)sx?$': [
+    '^.+\\.m?(t|j)sx?$': [
       '@swc/jest',
       {
         jsc: {

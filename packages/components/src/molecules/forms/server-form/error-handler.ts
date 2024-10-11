@@ -11,20 +11,11 @@ export function errorHandler<
   TTransformedValues extends FieldValues | undefined = undefined,
 >(error: TZSAError<Schema>, form: UseFormReturn<TFieldValues, TContext, TTransformedValues>, toast: ToastFunction, showToast = true) {
   if (error?.code === 'INPUT_PARSE_ERROR') {
-    if (error.fieldErrors) {
-      for (const [field, fieldErrors] of Object.entries(error.fieldErrors)) {
-        form.setError(field as never, { message: (fieldErrors as never)[0] });
-      }
+    for (const [field, fieldErrors] of Object.entries(error.fieldErrors || {})) {
+      form.setError(field as never, { message: (fieldErrors as never)[0] });
     }
-
-    if (error.formErrors?.length) {
-      if (showToast) {
-        toast({ description: error.formErrors[0], color: 'danger' });
-      }
-    }
+    toast({ description: error.formErrors?.[0], color: 'danger' }, Boolean(showToast && error.formErrors?.length));
   } else {
-    if (showToast) {
-      toast({ description: error.message, color: 'danger' });
-    }
+    toast({ description: error.message, color: 'danger' }, showToast);
   }
 }

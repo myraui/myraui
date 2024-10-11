@@ -21,6 +21,8 @@ const actionTypes = {
   REMOVE_TOAST: 'REMOVE_TOAST',
 } as const;
 
+const { ADD_TOAST, UPDATE_TOAST, DISMISS_TOAST, REMOVE_TOAST } = actionTypes;
+
 let count = 0;
 
 function genId() {
@@ -61,7 +63,7 @@ const addToRemoveQueue = (toastId: string) => {
 
   const timeout = setTimeout(() => {
     toastTimeouts.delete(toastId);
-    dispatch({ type: 'REMOVE_TOAST', toastId: toastId });
+    dispatch({ type: REMOVE_TOAST, toastId: toastId });
   }, TOAST_REMOVE_DELAY);
 
   toastTimeouts.set(toastId, timeout);
@@ -69,19 +71,19 @@ const addToRemoveQueue = (toastId: string) => {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'ADD_TOAST':
+    case ADD_TOAST:
       return {
         ...state,
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       };
 
-    case 'UPDATE_TOAST':
+    case UPDATE_TOAST:
       return {
         ...state,
         toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
       };
 
-    case 'DISMISS_TOAST': {
+    case DISMISS_TOAST: {
       const { toastId } = action;
 
       // ! Side effects ! - This could be extracted into a dismissToast() action,
@@ -97,7 +99,7 @@ export const reducer = (state: State, action: Action): State => {
         toasts: state.toasts.map((toast) => (toast.id === toastId || toastId === undefined ? { ...toast, open: false } : toast)),
       };
     }
-    case 'REMOVE_TOAST':
+    case REMOVE_TOAST:
       if (action.toastId === undefined) {
         return {
           ...state,
@@ -124,24 +126,24 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, 'id'>;
 
-export type ToastFunction = (props: Toast) => { id: string; dismiss: () => void; update: (props: ToasterToast) => void };
+export type ToastFunction = (props: Toast, open?: boolean) => { id: string; dismiss: () => void; update: (props: ToasterToast) => void };
 
-function toast({ ...props }: Toast) {
+function toast({ ...props }: Toast, open = true) {
   const id = genId();
 
   const update = (props: ToasterToast) =>
     dispatch({
-      type: 'UPDATE_TOAST',
+      type: UPDATE_TOAST,
       toast: { ...props, id },
     });
-  const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });
+  const dismiss = () => dispatch({ type: DISMISS_TOAST, toastId: id });
 
   dispatch({
-    type: 'ADD_TOAST',
+    type: ADD_TOAST,
     toast: {
       ...props,
       id,
-      open: true,
+      open,
       onOpenChange: (open: boolean) => {
         if (!open) dismiss();
       },
@@ -171,7 +173,7 @@ function useToast() {
   return {
     ...state,
     toast,
-    dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
+    dismiss: (toastId?: string) => dispatch({ type: DISMISS_TOAST, toastId }),
   };
 }
 
