@@ -14,6 +14,10 @@ module.exports = {
     '!src/**/*.test.ts',
     '!src/**/*.spec.tsx',
     '!src/**/*.spec.ts',
+    '!src/**/*.stories.tsx',
+    '!src/**/*.stories.ts',
+    '!src/**/*.stories.tsx',
+    '!src/**/*.stories.ts',
   ],
   transform: {
     '^.+\\.m?(t|j)sx?$': [
