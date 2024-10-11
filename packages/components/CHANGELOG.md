@@ -1,3 +1,19 @@
+## 2.1.0 (2024-10-11)
+
+
+### 🚀 Features
+
+- **form:** initialize form component ([e5236d6](https://github.com/myraui/myraui/commit/e5236d6))
+
+- **docs:** create docs app ([0418796](https://github.com/myraui/myraui/commit/0418796))
+
+- **form:** complete form setup ([3f0f1bf](https://github.com/myraui/myraui/commit/3f0f1bf))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 # 2.0.0 (2024-10-04)
 
 

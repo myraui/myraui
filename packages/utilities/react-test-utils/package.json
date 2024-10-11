@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react-test-utils",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "commonjs",
   "description": "Utilities for testing react components",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/test-utils": "2.0.0"
+    "@myraui/test-utils": "2.1.0"
   },
   "dependencies": {},
   "clean-package": "../../../clean-package.config.json"
