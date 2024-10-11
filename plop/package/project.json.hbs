@@ -12,10 +12,10 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/{{destination}}",
-        "rootDir": "{{destination}}/src",
-        "main": "{{destination}}/src/index.ts",
-        "tsConfig": "{{destination}}/tsconfig.lib.json",
+        "outputPath": "{{rootDir}}/{{destination}}/dist",
+        "rootDir": "{{rootDir}}/{{destination}}/src",
+        "main": "{{rootDir}}/{{destination}}/src/index.ts",
+        "tsConfig": "{{rootDir}}/{{destination}}/tsconfig.lib.json",
         "assets": []
       }
     },
@@ -23,7 +23,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "{{destination}}/jest.config.ts"
+        "jestConfig": "{{rootDir}}/{{destination}}/jest.config.ts"
       }
     }
   }

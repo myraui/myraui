@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Form, FormCheckbox, FormCheckboxProps, useForm } from '../../../../src';
+import { Form, FormCheckbox, FormCheckboxProps, SubmitButton, useForm } from '../../../../src';
 
 export default {
   title: 'Components/Molecules/Forms/Inputs/FormCheckbox',
@@ -17,10 +17,17 @@ const Template = (args: FormCheckboxProps) => {
   const form = useForm();
 
   return (
-    <Form form={form}>
-      <FormCheckbox name="subscribe" {...args}>
+    <Form
+      form={form}
+      className="flex items-center gap-2"
+      onSubmit={(values) => {
+        alert('Submitted: ' + JSON.stringify(values));
+      }}
+    >
+      <FormCheckbox {...args} name="subscribe">
         Subscribe to our newsletter
       </FormCheckbox>
+      <SubmitButton>Submit</SubmitButton>
     </Form>
   );
 };

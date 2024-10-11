@@ -8,7 +8,7 @@ const config: StorybookConfig = {
   addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', 'storybook-dark-mode', '@chromatic-com/storybook'],
 
   framework: {
-    name: '@storybook/react-vite',
+    name: '@storybook/experimental-nextjs-vite',
     options: {},
   },
 

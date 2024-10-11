@@ -24,7 +24,7 @@ function generateRelativeRootDir(path) {
 const generators = ['package', 'hook', 'component'];
 
 const types = {
-  package: ['utilities', 'services', 'server', 'core'],
+  package: ['utilities', 'core'],
   hook: [],
   component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
   'react-package': ['core'],

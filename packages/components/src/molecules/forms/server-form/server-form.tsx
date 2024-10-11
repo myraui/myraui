@@ -4,14 +4,42 @@ import Form, { FormProps } from '../form/form';
 import { TAnyZodSafeFunctionHandler } from 'zsa';
 import { useServerAction } from 'zsa-react';
 import React from 'react';
+import { errorHandler } from './error-handler';
 
-export interface ServerFormProps<TFieldValues extends FieldValues, TContext, TTransformedValues extends FieldValues | undefined>
-  extends Omit<FormProps<TFieldValues, TContext, TTransformedValues>, 'action'> {
-  action: TAnyZodSafeFunctionHandler;
+export interface ServerFormProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = never,
+  TTransformedValues extends FieldValues | undefined = undefined,
+  A extends TAnyZodSafeFunctionHandler = TAnyZodSafeFunctionHandler,
+> extends Omit<FormProps<TFieldValues, TContext, TTransformedValues | undefined>, 'action'> {
+  /**
+   * Server action to execute on form submission
+   */
+  action: A;
+  /**
+   * @default true
+   * Show success toast on successful form submission
+   */
+  showSuccessToast?: boolean;
+
+  /**
+   * @default true
+   * Show error toast on form submission error
+   */
+  showErrorToast?: boolean;
+
+  /**
+   * @default true
+   * Reset form after successful submission
+   */
+  resetForm?: boolean;
 }
 
-function ServerForm<TFieldValues extends FieldValues, TContext, TTransformedValues extends FieldValues | undefined>({
+function ServerForm<TFieldValues extends FieldValues, TContext = never, TTransformedValues extends FieldValues | undefined = undefined>({
   action,
+  showSuccessToast = true,
+  showErrorToast = true,
+  resetForm = true,
   ...props
 }: ServerFormProps<TFieldValues, TContext, TTransformedValues>) {
   const { execute } = useServerAction(action);
@@ -21,20 +49,17 @@ function ServerForm<TFieldValues extends FieldValues, TContext, TTransformedValu
     const [data, error] = await execute(values);
 
     if (error) {
-      if (error.fieldErrors) {
-        for (const [field, fieldErrors] of Object.entries(error.fieldErrors)) {
-          props.form.setError(field as never, { message: (fieldErrors as never)[0] });
-        }
-      }
-
-      if (error.message) {
-        toast({ description: error.message, color: 'danger' });
-      }
+      errorHandler(error, props.form, toast, showErrorToast);
       return;
     }
     if (data?.message) {
-      toast({ description: data.message, color: 'success' });
-      props.form.reset();
+      if (showSuccessToast) {
+        toast({ description: data.message, color: 'success' });
+      }
+
+      if (resetForm) {
+        props.form.reset();
+      }
     }
   }
 
