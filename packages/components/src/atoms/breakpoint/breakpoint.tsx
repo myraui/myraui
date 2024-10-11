@@ -11,7 +11,7 @@ const breakpoints = {
   '2xl': { below: '2xl:hidden', above: 'hidden 2xl:block' },
 };
 
-export const Breakpoint: React.FC<BreakpointProps> = ({ on = 'md', below, above }) => {
+const Breakpoint: React.FC<BreakpointProps> = ({ on = 'md', below, above }) => {
   return (
     <>
       {below &&
@@ -33,6 +33,14 @@ export interface BreakpointProps {
    * The screen size at which the children will be hidden or shown.
    */
   on?: Breakpoint;
+  /**
+   * The element to be shown when the screen size is below the breakpoint.
+   */
   below?: React.ReactElement<{ className?: string }>;
+  /**
+   * The element to be shown when the screen size is above the breakpoint.
+   */
   above?: React.ReactElement<{ className?: string }>;
 }
+
+export default Breakpoint;

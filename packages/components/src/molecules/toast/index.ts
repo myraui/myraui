@@ -9,6 +9,7 @@ import Toaster from './toaster';
 // export types
 export type { ToastProps } from './toast';
 export type { ToastActionElement } from './toast-action';
+export type { ToastFunction } from './use-toast';
 
 // export providers
 export { ToastProvider } from './toast-provider';

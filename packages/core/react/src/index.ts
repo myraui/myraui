@@ -1,3 +1,4 @@
+'use client';
 export * from '@myraui/components';
 // export * from '@myraui/hooks';
 export * from '@myraui/react-utils';

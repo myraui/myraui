@@ -14,9 +14,13 @@ module.exports = {
     '!src/**/*.test.ts',
     '!src/**/*.spec.tsx',
     '!src/**/*.spec.ts',
+    '!src/**/*.stories.tsx',
+    '!src/**/*.stories.ts',
+    '!src/**/*.stories.tsx',
+    '!src/**/*.stories.ts',
   ],
   transform: {
-    '^.+\\.(t|j)sx?$': [
+    '^.+\\.m?(t|j)sx?$': [
       '@swc/jest',
       {
         jsc: {

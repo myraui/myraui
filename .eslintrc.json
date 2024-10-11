@@ -11,6 +11,7 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
+              { "sourceTag": "scope:app", "onlyDependOnLibsWithTags": ["scope:client", "scope:common", "scope:server"] },
               { "sourceTag": "scope:client", "onlyDependOnLibsWithTags": ["scope:client", "scope:common"] },
               { "sourceTag": "scope:server", "onlyDependOnLibsWithTags": ["scope:server", "scope:common"] },
               { "sourceTag": "scope:common", "onlyDependOnLibsWithTags": ["scope:common"] }
@@ -25,7 +26,8 @@
       "rules": {
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-extra-semi": "error",
-        "no-extra-semi": "off"
+        "no-extra-semi": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
       }
     },
     {

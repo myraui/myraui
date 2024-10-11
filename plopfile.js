@@ -15,24 +15,29 @@ const camelCase = (str) => {
   return str.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
 };
 
+function generateRelativeRootDir(path) {
+  const parts = path.split('/');
+
+  return Array(parts.length).fill('..').join('/');
+}
+
 const generators = ['package', 'hook', 'component'];
 
-const outDirs = {
-  package: ['utilities', 'services', 'server', 'core'],
-  hook: ['hooks'],
+const types = {
+  package: ['utilities', 'core'],
+  hook: [],
   component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
   'react-package': ['core'],
 };
 
 const defaultOutDirs = {
   component: 'atoms',
-  hook: 'hooks',
   package: 'core',
 };
 
 const rootDirs = {
   package: 'packages',
-  hook: 'packages',
+  hook: 'packages/hooks',
   component: 'packages/components',
 };
 
@@ -87,6 +92,12 @@ module.exports = function main(plop) {
           },
         },
         {
+          type: 'input',
+          name: `${generator}Destination`,
+          message: `Enter ${generator} destination (optional):`,
+          when: () => generator === 'component',
+        },
+        {
           type: 'confirm',
           name: 'isReact',
           message: 'Is this a react package?',
@@ -101,19 +112,19 @@ module.exports = function main(plop) {
         },
         {
           type: 'list',
-          name: 'outDir',
-          message: `where should this ${generator} live?`,
+          name: 'type',
+          message: `Select the type of ${generator}:`,
           default: defaultOutDirs[generator],
           choices: (answers) => {
             if (answers.isReact) {
-              return outDirs['react-package'];
+              return types['react-package'];
             }
-            return outDirs[generator];
+            return types[generator];
           },
-          when: () => outDirs[generator].length > 1,
+          when: () => types[generator].length > 1,
           validate: (value) => {
             if (!value) {
-              return `outDir is required`;
+              return `type is required`;
             }
 
             return true;
@@ -125,42 +136,93 @@ module.exports = function main(plop) {
 
         if (!answers) return actions;
 
-        const rootDir = rootDirs[generator] + '/' + answers.outDir;
+        let rootDir = rootDirs[generator];
 
-        const { description, isReact, outDir } = answers;
-        const packageName = answers[`${generator}Name`];
+        if (answers.type) {
+          rootDir = rootDirs[generator] + '/' + answers.type;
 
-        let destination = `${rootDir}/${dashCase(packageName)}`;
-
-        if (generator === 'component') {
-          destination = rootDir + '/src';
+          if (generator === 'component') {
+            rootDir = rootDirs[generator];
+          }
         }
+
+        const { description, isReact, type } = answers;
+
+        const packageName = answers[`${generator}Name`];
+        const packageDestination = answers[`${generator}Destination`] || '';
+
+        const destination = `${packageDestination ? `${packageDestination}/` : ''}${dashCase(packageName)}`;
 
         const data = {
           description,
           rootDir,
-          outDir,
+          type,
           destination,
+          [`${generator}Destination`]: packageDestination,
           [`${generator}Name`]: packageName,
         };
 
         const templateDirName = isReact ? templateDirs['react-package'] : templateDirs[generator];
 
-        actions.push({
-          type: 'addMany',
-          templateFiles: `plop/${templateDirName}/**`,
-          destination: `{{destination}}`,
-          base: `plop/${templateDirName}`,
-          data,
-          abortOnFail: true,
-        });
+        if (generator === 'component') {
+          const destination = `src/${type}${packageDestination ? `/${packageDestination}` : ''}`;
+          const relativeRootDir = generateRelativeRootDir(destination);
 
-        if (generator === 'component' || generator === 'hook') {
+          const storiesFolder = `${type}${packageDestination ? `/${packageDestination}` : ''}`
+            .split('/')
+            .map((folder) => capitalize(camelCase(folder)))
+            .join('/');
+
+          actions.push({
+            type: 'addMany',
+            templateFiles: `plop/${templateDirName}/**`,
+            destination: `{{rootDir}}/{{destination}}`,
+            base: `plop/${templateDirName}`,
+            data: { ...data, destination, relativeRootDir, storiesFolder },
+            abortOnFail: true,
+          });
+
+          // update the index files
+          const indexDirectories = ['', ...(packageDestination ? packageDestination.split('/') : []).concat(packageName)];
+
+          indexDirectories.forEach((dir, index) => {
+            if (dir === packageName) {
+              return;
+            }
+
+            const indexFile = `${rootDir}/src/${type}/${dir === '' ? '' : `${indexDirectories.slice(0, index + 1).join('/')}/`}index.ts`;
+
+            if (!fs.existsSync(indexFile) || fs.readFileSync(indexFile, 'utf-8') === '') {
+              fs.mkdirSync(indexFile.replace('/index.ts', ''), { recursive: true });
+              fs.writeFileSync(indexFile, `\n`);
+            }
+
+            const contents = fs.readFileSync(indexFile, 'utf-8');
+
+            if (!contents.includes(`export * from './${indexDirectories[index + 1] || ''}';`)) {
+              actions.push({
+                type: 'append',
+                path: indexFile,
+                pattern: /^/,
+                template: `export * from './${indexDirectories[index + 1]}';\n`,
+                separator: '',
+                data,
+              });
+            }
+          });
+        } else {
+          actions.push({
+            type: 'addMany',
+            templateFiles: `plop/${templateDirName}/**`,
+            destination: `{{rootDir}}/{{destination}}`,
+            base: `plop/${templateDirName}`,
+            data,
+            abortOnFail: true,
+          });
+        }
+
+        if (generator === 'hook') {
           let indexFile = `${rootDir}/src/index.ts`;
-
-          if (generator === 'component') {
-            indexFile = `${rootDir}/src/${outDir}/index.ts`;
-          }
 
           if (fs.readFileSync(indexFile, 'utf-8') === '') {
             fs.writeFileSync(indexFile, `\n`);

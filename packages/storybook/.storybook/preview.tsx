@@ -55,6 +55,9 @@ const preview: Preview = {
     docs: {
       theme,
       container: Container,
+      source: {
+        type: 'code',
+      },
     },
     darkMode: {
       current: 'dark',

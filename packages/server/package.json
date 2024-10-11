@@ -1,0 +1,42 @@
+{
+  "name": "@myraui/server",
+  "version": "0.0.0",
+  "type": "commonjs",
+  "description": "A collection of all server related tools",
+  "keywords": [
+    "server"
+  ],
+  "author": {
+    "name": "Moses Gitau",
+    "email": "gitaumoses4@gmail.com"
+  },
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myraui/myraui.git",
+    "directory": "packages/server"
+  },
+  "bugs": {
+    "url": "https://github.com/myraui/myraui/issues"
+  },
+  "scripts": {
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "devDependencies": {
+    "@myraui/test-utils": "workspace:^",
+    "clean-package": "2.2.0"
+  },
+  "dependencies": {
+    "zsa": "^0.6.0"
+  },
+  "clean-package": "../../clean-package.config.json"
+}
