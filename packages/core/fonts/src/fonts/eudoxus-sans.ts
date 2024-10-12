@@ -1,4 +1,5 @@
-import localFont from 'next/font/local';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const localFont = require('next/font/local').default;
 
 export const eudoxusSans = localFont({
   src: [
