@@ -29,7 +29,7 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@nextui-org/react', '@tabler/icons-react', 'framer-motion', 'next'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@nextui-org/react', '@tabler/icons-react', 'framer-motion', 'next', /@myraui\/.*/],
     },
   },
 });
