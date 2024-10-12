@@ -34,17 +34,16 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
-    "tailwindcss-animate": "^1.0.7",
     "@nextui-org/react": ">=2.4.8"
   },
   "devDependencies": {
     "@myraui/react-test-utils": "2.1.0",
     "@myraui/test-utils": "2.1.0",
     "clean-package": "2.2.0",
-    "tailwindcss-animate": "^1.0.7",
     "@nextui-org/react": "^2.4.8"
   },
   "dependencies": {
+    "tailwindcss-animate": "^1.0.7",
     "@myraui/react-utils": "2.1.0",
     "@myraui/shared-utils": "2.1.0",
     "deepmerge": "^4.3.1"

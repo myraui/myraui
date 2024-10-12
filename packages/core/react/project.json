@@ -3,9 +3,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core/react/src",
   "projectType": "library",
-  "tags": [
-    "scope:client"
-  ],
+  "tags": ["scope:client", "scope:server"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
