@@ -1,6 +1,6 @@
 {
   "name": "@myraui/fonts",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "type": "commonjs",
   "description": "A set of default fonts for Myra UI themed applications",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/test-utils": "2.2.0",
+    "@myraui/test-utils": "2.2.1",
     "next": ">=14.0.4"
   },
   "peerDependencies": {

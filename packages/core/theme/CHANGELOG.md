@@ -1,3 +1,15 @@
+## 2.2.1 (2024-10-12)
+
+
+### 🩹 Fixes
+
+- **theme:** include plugin export ([7d325cf](https://github.com/myraui/myraui/commit/7d325cf))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.0 (2024-10-12)
 
 

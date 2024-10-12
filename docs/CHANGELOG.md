@@ -1,3 +1,7 @@
+## 2.2.1 (2024-10-12)
+
+This was a version bump only for docs to align it with other projects, there were no code changes.
+
 ## 2.2.0 (2024-10-12)
 
 This was a version bump only for docs to align it with other projects, there were no code changes.

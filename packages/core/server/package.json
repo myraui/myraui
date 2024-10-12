@@ -1,6 +1,6 @@
 {
   "name": "@myraui/server",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "type": "commonjs",
   "description": "A collection of all server related tools",
   "keywords": [
@@ -32,11 +32,11 @@
     "postpack": "clean-package restore"
   },
   "devDependencies": {
-    "@myraui/test-utils": "2.2.0",
+    "@myraui/test-utils": "2.2.1",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/fonts": "2.2.0",
+    "@myraui/fonts": "2.2.1",
     "zsa": "^0.6.0"
   },
   "clean-package": "../../../clean-package.config.json"
