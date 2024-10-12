@@ -12,7 +12,7 @@ const FormCheckbox: React.FC<FormCheckboxProps> = (props) => {
     formState: { errors },
   } = useFormContext();
 
-  return <Checkbox {...props} {...register(props.name)} isInvalid={!!errors[props.name]} />;
+  return <Checkbox {...props} {...register(props.name)} isInvalid={Boolean(errors[props.name])} />;
 };
 
 FormCheckbox.displayName = 'MyraUI.FormCheckbox';
