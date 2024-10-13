@@ -48,7 +48,6 @@
     "@myraui/components": "2.2.1",
     "@myraui/hooks": "2.2.1",
     "@myraui/react-utils": "2.2.1",
-    "@myraui/server": "2.2.1",
     "@myraui/shared-utils": "2.2.1",
     "@myraui/theme": "2.2.1"
   },

@@ -31,13 +31,13 @@
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
+  "peerDependencies": {
+    "next": ">=14.0.4"
+  },
   "devDependencies": {
     "clean-package": "2.2.0",
     "@myraui/test-utils": "2.2.1",
     "next": ">=14.0.4"
-  },
-  "peerDependencies": {
-    "next": "14.0.4"
   },
   "clean-package": "../../../clean-package.config.json"
 }
