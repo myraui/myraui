@@ -367,9 +367,6 @@ importers:
       '@myraui/react-utils':
         specifier: 2.2.1
         version: link:../../utilities/react-utils
-      '@myraui/server':
-        specifier: 2.2.1
-        version: link:../server
       '@myraui/shared-utils':
         specifier: 2.2.1
         version: link:../../utilities/shared-utils
@@ -18161,6 +18158,8 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
+        optional: true
+      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.7)(esbuild@0.21.5)
