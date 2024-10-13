@@ -5,6 +5,8 @@ import { Config, PluginAPI } from 'tailwindcss/types/config';
 import { animations } from './animations';
 import tailwindAnimate from 'tailwindcss-animate';
 
+const PREFIX = 'myraui';
+
 const themeConfig: Partial<Config> = {
   theme: {
     extend: {
@@ -15,7 +17,7 @@ const themeConfig: Partial<Config> = {
 };
 
 export function myraui(config?: NextUIPluginConfig): ReturnType<typeof plugin> {
-  const plugins: Array<ReturnType<typeof plugin>> = [nextui(config), tailwindAnimate];
+  const plugins: Array<ReturnType<typeof plugin>> = [nextui({ prefix: PREFIX, ...config }), tailwindAnimate];
 
   const baseHandler = (handlerProps: PluginAPI) => {
     plugins.forEach((plugin) => plugin.handler(handlerProps));
