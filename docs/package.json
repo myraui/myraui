@@ -1,13 +1,13 @@
 {
   "name": "docs",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "license": "MIT",
   "private": true,
   "scripts": {},
   "dependencies": {
-    "@myraui/react": "2.2.1"
+    "@myraui/react": "2.2.2"
   },
   "devDependencies": {
-    "@myraui/theme": "2.2.1"
+    "@myraui/theme": "2.2.2"
   }
 }

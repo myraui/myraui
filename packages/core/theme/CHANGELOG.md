@@ -1,3 +1,15 @@
+## 2.2.2 (2024-10-13)
+
+
+### 🩹 Fixes
+
+- **fonts:** use es6 import ([6c910cf](https://github.com/myraui/myraui/commit/6c910cf))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.1 (2024-10-12)
 
 
