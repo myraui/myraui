@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myraui/myraui.git",
-    "directory": "packages/core/storybook"
+    "directory": "packages/storybook"
   },
   "bugs": {
     "url": "https://github.com/myraui/myraui/issues"

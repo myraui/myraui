@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/fonts",
+  "name": "@myraui/theme",
   "version": "2.2.2",
   "type": "commonjs",
-  "description": "A set of default fonts for Myra UI themed applications",
+  "description": "The default theme for Myra UI components",
   "keywords": [
-    "fonts"
+    "theme"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myraui/myraui.git",
-    "directory": "packages/core/fonts"
+    "directory": "packages/theme"
   },
   "bugs": {
     "url": "https://github.com/myraui/myraui/issues"
@@ -32,12 +32,20 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "next": ">=14.0.4"
+    "react": ">=18",
+    "react-dom": ">=18",
+    "@nextui-org/react": ">=2.4.8"
   },
   "devDependencies": {
-    "clean-package": "2.2.0",
+    "@myraui/react-test-utils": "2.2.2",
     "@myraui/test-utils": "2.2.2",
-    "next": ">=14.0.4"
+    "clean-package": "2.2.0",
+    "@nextui-org/react": "^2.4.8"
   },
-  "clean-package": "../../../clean-package.config.json"
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7",
+    "@myraui/react-utils": "2.2.2",
+    "@myraui/shared-utils": "2.2.2",
+    "deepmerge": "^4.3.1"
+  }
 }

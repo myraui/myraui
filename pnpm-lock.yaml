@@ -277,11 +277,11 @@ importers:
     dependencies:
       '@myraui/react':
         specifier: 2.2.2
-        version: link:../packages/core/react
+        version: link:../packages/react
     devDependencies:
       '@myraui/theme':
         specifier: 2.2.2
-        version: link:../packages/core/theme
+        version: link:../packages/theme
 
   packages/components:
     dependencies:
@@ -333,59 +333,7 @@ importers:
         version: link:../utilities/test-utils
       '@myraui/theme':
         specifier: 2.2.2
-        version: link:../core/theme
-      '@nextui-org/react':
-        specifier: ^2.4.8
-        version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
-      '@tabler/icons-react':
-        specifier: ^3.17.0
-        version: 3.17.0(react@18.3.1)
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
-
-  packages/core/fonts:
-    devDependencies:
-      '@myraui/test-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/test-utils
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
-      next:
-        specifier: 14.2.3
-        version: 14.2.3(@babel/core@7.23.9)(react-dom@18.3.1)(react@18.3.1)(sass@1.62.1)
-
-  packages/core/react:
-    dependencies:
-      '@myraui/components':
-        specifier: 2.2.2
-        version: link:../../components
-      '@myraui/hooks':
-        specifier: 2.2.2
-        version: link:../../hooks
-      '@myraui/react-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/react-utils
-      '@myraui/shared-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/shared-utils
-      '@myraui/theme':
-        specifier: 2.2.2
         version: link:../theme
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@myraui/react-test-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/react-test-utils
-      '@myraui/test-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/test-utils
       '@nextui-org/react':
         specifier: ^2.4.8
         version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
@@ -396,58 +344,17 @@ importers:
         specifier: 2.2.0
         version: 2.2.0
 
-  packages/core/server:
-    dependencies:
-      '@myraui/fonts':
-        specifier: 2.2.2
-        version: link:../fonts
-      zsa:
-        specifier: ^0.6.0
-        version: 0.6.0(zod@3.23.8)
+  packages/fonts:
     devDependencies:
       '@myraui/test-utils':
         specifier: 2.2.2
-        version: link:../../utilities/test-utils
+        version: link:../utilities/test-utils
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
       next:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.23.9)(react-dom@18.3.1)(react@18.3.1)(sass@1.62.1)
-
-  packages/core/theme:
-    dependencies:
-      '@myraui/react-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/react-utils
-      '@myraui/shared-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/shared-utils
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.3)
-    devDependencies:
-      '@myraui/react-test-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/react-test-utils
-      '@myraui/test-utils':
-        specifier: 2.2.2
-        version: link:../../utilities/test-utils
-      '@nextui-org/react':
-        specifier: ^2.4.8
-        version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
 
   packages/hooks:
     dependencies:
@@ -474,6 +381,65 @@ importers:
         specifier: 2.2.0
         version: 2.2.0
 
+  packages/react:
+    dependencies:
+      '@myraui/components':
+        specifier: 2.2.2
+        version: link:../components
+      '@myraui/hooks':
+        specifier: 2.2.2
+        version: link:../hooks
+      '@myraui/react-utils':
+        specifier: 2.2.2
+        version: link:../utilities/react-utils
+      '@myraui/shared-utils':
+        specifier: 2.2.2
+        version: link:../utilities/shared-utils
+      '@myraui/theme':
+        specifier: 2.2.2
+        version: link:../theme
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@myraui/react-test-utils':
+        specifier: 2.2.2
+        version: link:../utilities/react-test-utils
+      '@myraui/test-utils':
+        specifier: 2.2.2
+        version: link:../utilities/test-utils
+      '@nextui-org/react':
+        specifier: ^2.4.8
+        version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
+      '@tabler/icons-react':
+        specifier: ^3.17.0
+        version: 3.17.0(react@18.3.1)
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+
+  packages/server:
+    dependencies:
+      '@myraui/fonts':
+        specifier: 2.2.2
+        version: link:../fonts
+      zsa:
+        specifier: ^0.6.0
+        version: 0.6.0(zod@3.23.8)
+    devDependencies:
+      '@myraui/test-utils':
+        specifier: 2.2.2
+        version: link:../utilities/test-utils
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      next:
+        specifier: 14.2.3
+        version: 14.2.3(@babel/core@7.23.9)(react-dom@18.3.1)(react@18.3.1)(sass@1.62.1)
+
   packages/storybook:
     dependencies:
       next-themes:
@@ -485,7 +451,41 @@ importers:
         version: link:../components
       '@myraui/theme':
         specifier: workspace:^
-        version: link:../core/theme
+        version: link:../theme
+
+  packages/theme:
+    dependencies:
+      '@myraui/react-utils':
+        specifier: 2.2.2
+        version: link:../utilities/react-utils
+      '@myraui/shared-utils':
+        specifier: 2.2.2
+        version: link:../utilities/shared-utils
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      react:
+        specifier: 18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: 18.3.1
+        version: 18.3.1(react@18.3.1)
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.3)
+    devDependencies:
+      '@myraui/react-test-utils':
+        specifier: 2.2.2
+        version: link:../utilities/react-test-utils
+      '@myraui/test-utils':
+        specifier: 2.2.2
+        version: link:../utilities/test-utils
+      '@nextui-org/react':
+        specifier: ^2.4.8
+        version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
 
   packages/utilities/react-test-utils:
     devDependencies:
@@ -18160,6 +18160,8 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
+        optional: true
+      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.7)(esbuild@0.21.5)

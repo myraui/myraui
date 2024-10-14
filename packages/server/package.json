@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/theme",
+  "name": "@myraui/server",
   "version": "2.2.2",
   "type": "commonjs",
-  "description": "The default theme for Myra UI components",
+  "description": "A collection of all server related tools",
   "keywords": [
-    "theme"
+    "server"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -12,17 +12,17 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
-  "sideEffects": false,
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myraui/myraui.git",
-    "directory": "packages/core/theme"
+    "directory": "packages/server"
   },
   "bugs": {
     "url": "https://github.com/myraui/myraui/issues"
@@ -32,20 +32,15 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18",
-    "@nextui-org/react": ">=2.4.8"
+    "next": ">=14.0.4"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.2.2",
     "@myraui/test-utils": "2.2.2",
     "clean-package": "2.2.0",
-    "@nextui-org/react": "^2.4.8"
+    "next": ">=14.0.4"
   },
   "dependencies": {
-    "tailwindcss-animate": "^1.0.7",
-    "@myraui/react-utils": "2.2.2",
-    "@myraui/shared-utils": "2.2.2",
-    "deepmerge": "^4.3.1"
+    "@myraui/fonts": "2.2.2",
+    "zsa": "^0.6.0"
   }
 }
