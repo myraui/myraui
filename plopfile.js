@@ -24,15 +24,14 @@ function generateRelativeRootDir(path) {
 const generators = ['package', 'hook', 'component'];
 
 const types = {
-  package: ['utilities', 'core'],
+  package: [],
   hook: [],
   component: ['atoms', 'molecules', 'organisms', 'templates', 'pages'],
-  'react-package': ['core'],
+  'react-package': [],
 };
 
 const defaultOutDirs = {
   component: 'atoms',
-  package: 'core',
 };
 
 const rootDirs = {

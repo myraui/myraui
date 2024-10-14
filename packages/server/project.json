@@ -1,7 +1,7 @@
 {
   "name": "@myraui/server",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/core/server/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/server/src",
   "projectType": "library",
   "tags": ["scope:server"],
   "targets": {
@@ -12,10 +12,10 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/core/server/dist",
-        "rootDir": "packages/core/server/src",
-        "main": "packages/core/server/src/index.ts",
-        "tsConfig": "packages/core/server/tsconfig.lib.json",
+        "outputPath": "packages/server/dist",
+        "rootDir": "packages/server/src",
+        "main": "packages/server/src/index.ts",
+        "tsConfig": "packages/server/tsconfig.lib.json",
         "assets": []
       }
     },
@@ -23,7 +23,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/core/server/jest.config.ts"
+        "jestConfig": "packages/server/jest.config.ts"
       }
     }
   }

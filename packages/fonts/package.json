@@ -1,10 +1,10 @@
 {
-  "name": "@myraui/server",
+  "name": "@myraui/fonts",
   "version": "2.2.2",
   "type": "commonjs",
-  "description": "A collection of all server related tools",
+  "description": "A set of default fonts for Myra UI themed applications",
   "keywords": [
-    "server"
+    "fonts"
   ],
   "author": {
     "name": "Moses Gitau",
@@ -12,17 +12,17 @@
   },
   "license": "MIT",
   "main": "./src/index.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
-  "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/myraui/myraui.git",
-    "directory": "packages/core/server"
+    "directory": "packages/fonts"
   },
   "bugs": {
     "url": "https://github.com/myraui/myraui/issues"
@@ -35,13 +35,8 @@
     "next": ">=14.0.4"
   },
   "devDependencies": {
-    "@myraui/test-utils": "2.2.2",
     "clean-package": "2.2.0",
+    "@myraui/test-utils": "2.2.2",
     "next": ">=14.0.4"
-  },
-  "dependencies": {
-    "@myraui/fonts": "2.2.2",
-    "zsa": "^0.6.0"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  }
 }

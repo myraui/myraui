@@ -40,6 +40,5 @@
     "clsx": "^2.1.0",
     "flat": "^6.0.1",
     "fp-ts": "^2.16.9"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  }
 }
