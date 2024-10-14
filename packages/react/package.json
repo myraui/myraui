@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "type": "commonjs",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
@@ -38,18 +38,18 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.2.2",
-    "@myraui/test-utils": "2.2.2",
+    "@myraui/react-test-utils": "2.2.3",
+    "@myraui/test-utils": "2.2.3",
     "@nextui-org/react": "^2.4.8",
     "@tabler/icons-react": "^3.17.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/components": "2.2.2",
-    "@myraui/hooks": "2.2.2",
-    "@myraui/react-utils": "2.2.2",
-    "@myraui/shared-utils": "2.2.2",
-    "@myraui/theme": "2.2.2"
+    "@myraui/components": "2.2.3",
+    "@myraui/hooks": "2.2.3",
+    "@myraui/react-utils": "2.2.3",
+    "@myraui/shared-utils": "2.2.3",
+    "@myraui/theme": "2.2.3"
   },
   "clean-package": "../../clean-package.config.json"
 }

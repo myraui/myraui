@@ -1,3 +1,15 @@
+## 2.2.3 (2024-10-14)
+
+
+### 🩹 Fixes
+
+- **packages:** update package json imports ([ac01de6](https://github.com/myraui/myraui/commit/ac01de6))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.2 (2024-10-13)
 
 

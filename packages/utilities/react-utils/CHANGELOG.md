@@ -1,3 +1,7 @@
+## 2.2.3 (2024-10-14)
+
+This was a version bump only for @myraui/react-utils to align it with other projects, there were no code changes.
+
 ## 2.2.2 (2024-10-13)
 
 This was a version bump only for @myraui/react-utils to align it with other projects, there were no code changes.

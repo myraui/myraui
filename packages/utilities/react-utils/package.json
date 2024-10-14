@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react-utils",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "type": "commonjs",
   "description": "Common react utilities for Myra UI packages",
   "keywords": [
@@ -38,14 +38,14 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.2.2",
-    "@myraui/test-utils": "2.2.2",
+    "@myraui/react-test-utils": "2.2.3",
+    "@myraui/test-utils": "2.2.3",
     "@nextui-org/react": "^2.4.8",
     "@tabler/icons-react": "^3.17.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/shared-utils": "2.2.2",
+    "@myraui/shared-utils": "2.2.3",
     "clsx": "^2.1.0",
     "tailwind-merge": "^2.2.2"
   },
