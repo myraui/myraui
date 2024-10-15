@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import packageJson from './package.json';
 
 export default defineConfig({
   root: __dirname,
@@ -29,7 +30,11 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@myraui/theme', '@nextui-org/react', '@tabler/icons-react', 'framer-motion', 'next', /@myraui\/.*/],
+      external: [
+        ...Object.keys(packageJson.dependencies || {}),
+        ...Object.keys(packageJson.peerDependencies || {}),
+        ...Object.keys(packageJson.devDependencies || {}),
+      ]
     },
   },
 });
