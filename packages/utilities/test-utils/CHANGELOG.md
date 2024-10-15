@@ -1,3 +1,15 @@
+## 2.2.4 (2024-10-15)
+
+
+### 🩹 Fixes
+
+- update external deps for building ([c3c688f](https://github.com/myraui/myraui/commit/c3c688f))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.3 (2024-10-14)
 
 

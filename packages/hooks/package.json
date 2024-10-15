@@ -1,6 +1,6 @@
 {
   "name": "@myraui/hooks",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "type": "commonjs",
   "description": "A collection of re-usable hooks for react components",
   "keywords": [
@@ -37,12 +37,12 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/react-test-utils": "2.2.3",
-    "@myraui/test-utils": "2.2.3"
+    "@myraui/react-test-utils": "2.2.4",
+    "@myraui/test-utils": "2.2.4"
   },
   "dependencies": {
-    "@myraui/shared-utils": "2.2.3",
-    "@myraui/react-utils": "2.2.3"
+    "@myraui/shared-utils": "2.2.4",
+    "@myraui/react-utils": "2.2.4"
   },
   "clean-package": "../../clean-package.config.json"
 }

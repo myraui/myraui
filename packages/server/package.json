@@ -1,6 +1,6 @@
 {
   "name": "@myraui/server",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "type": "commonjs",
   "description": "A collection of all server related tools",
   "keywords": [
@@ -35,12 +35,12 @@
     "next": ">=14.0.4"
   },
   "devDependencies": {
-    "@myraui/test-utils": "2.2.3",
+    "@myraui/test-utils": "2.2.4",
     "clean-package": "2.2.0",
     "next": ">=14.0.4"
   },
   "dependencies": {
-    "@myraui/fonts": "2.2.3",
+    "@myraui/fonts": "2.2.4",
     "zsa": "^0.6.0"
   }
 }
