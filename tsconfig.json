@@ -6,7 +6,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "declaration": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,

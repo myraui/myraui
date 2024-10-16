@@ -3,22 +3,25 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/utilities/react-test-utils/src",
   "projectType": "library",
-  "tags": [
-    "scope:client", "scope:test"
-  ],
+  "tags": ["scope:client", "scope:test"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "packages/utilities/react-test-utils/dist",
-        "rootDir": "packages/utilities/react-test-utils/src",
-        "main": "packages/utilities/react-test-utils/src/index.ts",
-        "tsConfig": "packages/utilities/react-test-utils/tsconfig.json",
-        "assets": []
+        "outputPath": "packages/utilities/react-test-utils/dist"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
       }
     }
   }
