@@ -1,3 +1,15 @@
+## 2.2.5 (2024-10-16)
+
+
+### 🩹 Fixes
+
+- **build:** use commonjs for packages ([ff3f472](https://github.com/myraui/myraui/commit/ff3f472))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.4 (2024-10-15)
 
 

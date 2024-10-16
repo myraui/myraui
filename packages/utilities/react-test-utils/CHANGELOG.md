@@ -1,3 +1,7 @@
+## 2.2.5 (2024-10-16)
+
+This was a version bump only for @myraui/react-test-utils to align it with other projects, there were no code changes.
+
 ## 2.2.4 (2024-10-15)
 
 This was a version bump only for @myraui/react-test-utils to align it with other projects, there were no code changes.
