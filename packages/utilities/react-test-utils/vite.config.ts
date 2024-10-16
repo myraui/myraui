@@ -7,7 +7,7 @@ import packageJson from './package.json';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/packages/utilities/react-utils',
+  cacheDir: '../../../node_modules/.vite/packages/utilities/react-test-utils',
 
   plugins: [
     react(),
@@ -25,16 +25,12 @@ export default defineConfig({
     },
     lib: {
       entry: 'src/index.ts',
-      name: '@myraui/react-utils',
+      name: '@myraui/react-test-utils',
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: [
-        ...Object.keys(packageJson.dependencies || {}),
-        ...Object.keys(packageJson.peerDependencies || {}),
-        ...Object.keys(packageJson.devDependencies || {}),
-      ],
+      external: [...Object.keys(packageJson.dependencies || {}), ...Object.keys(packageJson.devDependencies || {})],
     },
   },
 });

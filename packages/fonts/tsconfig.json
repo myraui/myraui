@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "module": "CommonJS",
+    "declaration": true
   },
   "files": [],
   "include": ["src", "stories"],
