@@ -1,3 +1,15 @@
+## 2.3.3 (2024-10-17)
+
+
+### 🩹 Fixes
+
+- **breakpoint:** move breakpoint classes to theme ([6afad30](https://github.com/myraui/myraui/commit/6afad30))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.3.2 (2024-10-17)
 
 This was a version bump only for @myraui/theme to align it with other projects, there were no code changes.
