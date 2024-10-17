@@ -1,7 +1,7 @@
 import theme from './theme';
 import { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import { Toaster } from '@myraui/components';
+import { Toaster } from '@myraui/react';
 
 import './style.scss';
 import React, { useEffect } from 'react';

@@ -35,6 +35,9 @@ export default defineConfig({
         ...Object.keys(packageJson.peerDependencies || {}),
         ...Object.keys(packageJson.devDependencies || {}),
       ],
+      output: {
+        banner: `'use client';`,
+      },
     },
   },
 });
