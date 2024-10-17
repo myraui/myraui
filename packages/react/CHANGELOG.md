@@ -1,3 +1,15 @@
+## 2.3.0 (2024-10-17)
+
+
+### 🚀 Features
+
+- **packages:** remove components package ([bb6d3c0](https://github.com/myraui/myraui/commit/bb6d3c0))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.6 (2024-10-17)
 
 

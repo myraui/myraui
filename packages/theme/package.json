@@ -1,6 +1,6 @@
 {
   "name": "@myraui/theme",
-  "version": "2.2.6",
+  "version": "2.3.0",
   "description": "The default theme for Myra UI components",
   "keywords": [
     "theme"
@@ -36,15 +36,15 @@
     "@nextui-org/react": ">=2.4.8"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.2.6",
-    "@myraui/test-utils": "2.2.6",
+    "@myraui/react-test-utils": "2.3.0",
+    "@myraui/test-utils": "2.3.0",
     "clean-package": "2.2.0",
     "@nextui-org/react": "^2.4.8"
   },
   "dependencies": {
     "tailwindcss-animate": "^1.0.7",
-    "@myraui/react-utils": "2.2.6",
-    "@myraui/shared-utils": "2.2.6",
+    "@myraui/react-utils": "2.3.0",
+    "@myraui/shared-utils": "2.3.0",
     "deepmerge": "^4.3.1"
   }
 }

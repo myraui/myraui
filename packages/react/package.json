@@ -1,6 +1,6 @@
 {
   "name": "@myraui/react",
-  "version": "2.2.6",
+  "version": "2.3.0",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
     "react"
@@ -38,18 +38,18 @@
     "@myraui/theme": ">1.0.0"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.2.6",
-    "@myraui/test-utils": "2.2.6",
+    "@myraui/react-test-utils": "2.3.0",
+    "@myraui/test-utils": "2.3.0",
     "@nextui-org/react": "^2.4.8",
     "@tabler/icons-react": "^3.17.0",
     "clean-package": "2.2.0",
     "@myraui/theme": "2.2.6"
   },
   "dependencies": {
-    "@myraui/hooks": "2.2.6",
-    "@myraui/react-utils": "2.2.6",
-    "@myraui/shared-utils": "2.2.6",
-    "@myraui/theme": "2.2.6",
+    "@myraui/hooks": "2.3.0",
+    "@myraui/react-utils": "2.3.0",
+    "@myraui/shared-utils": "2.3.0",
+    "@myraui/theme": "2.3.0",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-toast": "^1.2.1",
     "class-variance-authority": "^0.7.0",
