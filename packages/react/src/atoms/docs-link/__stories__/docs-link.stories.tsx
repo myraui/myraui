@@ -1,4 +1,4 @@
-import DocsLink from './docs-link';
+import DocsLink from '../docs-link';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof DocsLink> = {

@@ -1,19 +1,21 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import SubmitButton, { SubmitButtonProps } from './submit-button';
-import { Form, useForm } from '../../form';
+
+import { Button } from '@nextui-org/react';
+import { Form, useForm } from '../../../form';
+import FormInput, { FormInputProps } from '../form-input';
 
 export default {
-  title: 'Components/Molecules/Forms/Inputs/SubmitButton',
-  component: SubmitButton,
+  title: 'Components/Molecules/Forms/Inputs/FormInput',
+  component: FormInput,
   tags: ['autodocs'],
   argTypes: {},
-} as Meta<typeof SubmitButton>;
-type Story = StoryObj<typeof SubmitButton>;
+} as Meta<typeof FormInput>;
+type Story = StoryObj<typeof FormInput>;
 
 const defaultProps = {};
 
-const Template = (args: SubmitButtonProps) => {
+const Template = (args: FormInputProps) => {
   const form = useForm();
 
   return (
@@ -24,9 +26,8 @@ const Template = (args: SubmitButtonProps) => {
       }}
       className="flex items-center gap-2"
     >
-      <SubmitButton {...args} type="submit">
-        Submit
-      </SubmitButton>
+      <FormInput {...args} name="firstName" label="First name: " />
+      <Button type="submit">Submit</Button>
     </Form>
   );
 };

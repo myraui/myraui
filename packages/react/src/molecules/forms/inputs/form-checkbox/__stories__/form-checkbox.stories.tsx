@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Form, useForm } from '../../form';
-import FormCheckbox, { FormCheckboxProps } from './form-checkbox';
-import { SubmitButton } from '../submit-button';
+import { Form, useForm } from '../../../form';
+import FormCheckbox, { FormCheckboxProps } from '../form-checkbox';
+import { SubmitButton } from '../../submit-button';
 
 export default {
   title: 'Components/Molecules/Forms/Inputs/FormCheckbox',

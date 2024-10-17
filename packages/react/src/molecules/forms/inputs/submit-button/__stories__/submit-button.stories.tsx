@@ -1,21 +1,19 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-
-import { Button } from '@nextui-org/react';
-import FormTextArea, { FormTextAreaProps } from './form-text-area';
-import { Form, useForm } from '../../form';
+import SubmitButton, { SubmitButtonProps } from '../submit-button';
+import { Form, useForm } from '../../../form';
 
 export default {
-  title: 'Components/Molecules/Forms/Inputs/FormTextArea',
-  component: FormTextArea,
+  title: 'Components/Molecules/Forms/Inputs/SubmitButton',
+  component: SubmitButton,
   tags: ['autodocs'],
   argTypes: {},
-} as Meta<typeof FormTextArea>;
-type Story = StoryObj<typeof FormTextArea>;
+} as Meta<typeof SubmitButton>;
+type Story = StoryObj<typeof SubmitButton>;
 
 const defaultProps = {};
 
-const Template = (args: FormTextAreaProps) => {
+const Template = (args: SubmitButtonProps) => {
   const form = useForm();
 
   return (
@@ -26,8 +24,9 @@ const Template = (args: FormTextAreaProps) => {
       }}
       className="flex items-center gap-2"
     >
-      <FormTextArea {...args} name="message" label="Message: " />
-      <Button type="submit">Submit</Button>
+      <SubmitButton {...args} type="submit">
+        Submit
+      </SubmitButton>
     </Form>
   );
 };

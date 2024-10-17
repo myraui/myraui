@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import ThemeSwitcher, { ThemeSwitcherProps } from './theme-switcher';
+import ThemeSwitcher, { ThemeSwitcherProps } from '../theme-switcher';
 
 export default {
   title: 'Components/Molecules/ThemeSwitcher',

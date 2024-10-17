@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import Breakpoint, { BreakpointProps } from './breakpoint';
+import Breakpoint, { BreakpointProps } from '../breakpoint';
 
 const meta: Meta<typeof Breakpoint> = {
   title: 'Components/Atoms/Breakpoint',
