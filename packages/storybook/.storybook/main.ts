@@ -5,12 +5,10 @@ import { mergeConfig } from 'vite';
 
 const depth = 10;
 
-const stories = Array.from({ length: depth }, (_, i) => `../../components/src${'/**'.repeat(i)}/*.@(mdx|stories.@(js|jsx|ts|tsx))`);
-
-console.log(stories);
+const stories = Array.from({ length: depth }, (_, i) => `../../react/src${'/**'.repeat(i)}/*.@(mdx|stories.@(js|jsx|ts|tsx))`);
 
 const config: StorybookConfig = {
-  stories: [...stories, '../../components/stories/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
+  stories: [...stories, '../../react/stories/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
   addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', 'storybook-dark-mode', '@chromatic-com/storybook'],
 
   framework: {
