@@ -1,7 +1,6 @@
 {
   "name": "@myraui/react",
   "version": "2.2.5",
-  "type": "commonjs",
   "description": "A modern React UI library to elevate your UI experience",
   "keywords": [
     "react"

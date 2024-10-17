@@ -1,7 +1,7 @@
 {
   "name": "@myraui/server",
   "version": "2.2.5",
-  "type": "commonjs",
+  "type": "module",
   "description": "A collection of all server related tools",
   "keywords": [
     "server"

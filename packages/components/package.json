@@ -1,7 +1,6 @@
 {
   "name": "@myraui/components",
   "version": "2.2.5",
-  "type": "commonjs",
   "description": "A collection of beautiful and modern react components",
   "keywords": [
     "components"

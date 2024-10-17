@@ -1,7 +1,6 @@
 {
   "name": "@myraui/theme",
   "version": "2.2.5",
-  "type": "commonjs",
   "description": "The default theme for Myra UI components",
   "keywords": [
     "theme"
