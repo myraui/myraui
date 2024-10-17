@@ -1,6 +1,6 @@
 {
   "name": "@myraui/test-utils",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "type": "module",
   "description": "Common test utils for all packages",
   "keywords": [
