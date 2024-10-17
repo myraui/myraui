@@ -2,20 +2,20 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@nextui-org/react';
-import { Form, useForm } from '../../form';
-import FormInput, { FormInputProps } from './form-input';
+import FormTextArea, { FormTextAreaProps } from '../form-text-area';
+import { Form, useForm } from '../../../form';
 
 export default {
-  title: 'Components/Molecules/Forms/Inputs/FormInput',
-  component: FormInput,
+  title: 'Components/Molecules/Forms/Inputs/FormTextArea',
+  component: FormTextArea,
   tags: ['autodocs'],
   argTypes: {},
-} as Meta<typeof FormInput>;
-type Story = StoryObj<typeof FormInput>;
+} as Meta<typeof FormTextArea>;
+type Story = StoryObj<typeof FormTextArea>;
 
 const defaultProps = {};
 
-const Template = (args: FormInputProps) => {
+const Template = (args: FormTextAreaProps) => {
   const form = useForm();
 
   return (
@@ -26,7 +26,7 @@ const Template = (args: FormInputProps) => {
       }}
       className="flex items-center gap-2"
     >
-      <FormInput {...args} name="firstName" label="First name: " />
+      <FormTextArea {...args} name="message" label="Message: " />
       <Button type="submit">Submit</Button>
     </Form>
   );

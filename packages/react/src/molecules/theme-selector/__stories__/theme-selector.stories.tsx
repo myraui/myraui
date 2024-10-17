@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import ThemeSelector, { ThemeSelectorProps } from './theme-selector';
+import ThemeSelector, { ThemeSelectorProps } from '../theme-selector';
 
 export default {
   title: 'Components/Molecules/ThemeSelector',

@@ -2,9 +2,9 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@nextui-org/react';
-import { useToast } from './use-toast';
-import Toast, { ToastProps } from './toast';
-import ToastAction from './toast-action';
+import { useToast } from '../use-toast';
+import Toast, { ToastProps } from '../toast';
+import ToastAction from '../toast-action';
 
 export default {
   title: 'Components/Molecules/Toast',

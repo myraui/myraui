@@ -3,9 +3,9 @@ import { Meta, StoryObj } from '@storybook/react';
 import zod from 'zod';
 
 import { createServerAction } from 'zsa';
-import ServerForm, { ServerFormProps } from './server-form';
-import { useForm } from '../form';
-import { FormInput, SubmitButton } from '../inputs';
+import ServerForm, { ServerFormProps } from '../server-form';
+import { useForm } from '../../form';
+import { FormInput, SubmitButton } from '../../inputs';
 
 export default {
   title: 'Components/Molecules/Forms/ServerForm',

@@ -2,9 +2,9 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import zod from 'zod';
-import { useForm } from './use-form';
-import Form, { FormProps } from './form';
-import { FormInput, SubmitButton } from '../inputs';
+import { useForm } from '../use-form';
+import Form, { FormProps } from '../form';
+import { FormInput, SubmitButton } from '../../inputs';
 
 export default {
   title: 'Components/Molecules/Forms/Form',
