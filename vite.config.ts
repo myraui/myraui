@@ -55,7 +55,12 @@ export function createViteConfig(rootDir: string) {
           'react/jsx-runtime',
         ],
         output: {
-          banner: `'use client';`,
+          banner: (chunk) => {
+            if (!chunk.exports.find((module) => module.startsWith('*'))) {
+              return `'use client';`;
+            }
+            return '';
+          },
         },
       },
     },
