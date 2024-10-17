@@ -1,3 +1,15 @@
+## 2.2.6 (2024-10-17)
+
+
+### 🩹 Fixes
+
+- **packages:** update module type ([ca812e3](https://github.com/myraui/myraui/commit/ca812e3))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.2.5 (2024-10-16)
 
 This was a version bump only for @myraui/test-utils to align it with other projects, there were no code changes.
