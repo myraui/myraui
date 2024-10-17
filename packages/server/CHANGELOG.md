@@ -1,3 +1,7 @@
+## 2.3.2 (2024-10-17)
+
+This was a version bump only for @myraui/server to align it with other projects, there were no code changes.
+
 ## 2.3.1 (2024-10-17)
 
 This was a version bump only for @myraui/server to align it with other projects, there were no code changes.
