@@ -1,7 +1,7 @@
 {
   "name": "@myraui/test-utils",
   "version": "2.2.5",
-  "type": "commonjs",
+  "type": "module",
   "description": "Common test utils for all packages",
   "keywords": [
     "test-utils"

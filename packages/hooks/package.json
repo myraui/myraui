@@ -1,7 +1,6 @@
 {
   "name": "@myraui/hooks",
   "version": "2.2.5",
-  "type": "commonjs",
   "description": "A collection of re-usable hooks for react components",
   "keywords": [
     "hooks"

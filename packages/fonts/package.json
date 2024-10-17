@@ -1,7 +1,7 @@
 {
   "name": "@myraui/fonts",
   "version": "2.2.5",
-  "type": "commonjs",
+  "type": "module",
   "description": "A set of default fonts for Myra UI themed applications",
   "keywords": [
     "fonts"
