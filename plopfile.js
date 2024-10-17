@@ -37,7 +37,7 @@ const defaultOutDirs = {
 const rootDirs = {
   package: 'packages',
   hook: 'packages/hooks',
-  component: 'packages/components',
+  component: 'packages/react',
 };
 
 const templateDirs = {

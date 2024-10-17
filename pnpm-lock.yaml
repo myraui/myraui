@@ -283,67 +283,6 @@ importers:
         specifier: 2.2.6
         version: link:../packages/theme
 
-  packages/components:
-    dependencies:
-      '@hookform/resolvers':
-        specifier: ^3.9.0
-        version: 3.9.0(react-hook-form@7.53.0)
-      '@myraui/react-utils':
-        specifier: 2.2.6
-        version: link:../utilities/react-utils
-      '@myraui/shared-utils':
-        specifier: 2.2.6
-        version: link:../utilities/shared-utils
-      '@radix-ui/react-toast':
-        specifier: ^1.2.1
-        version: 1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      clsx:
-        specifier: ^2.1.0
-        version: 2.1.0
-      next-themes:
-        specifier: ^0.3.0
-        version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
-      react:
-        specifier: 18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: 18.3.1
-        version: 18.3.1(react@18.3.1)
-      react-hook-form:
-        specifier: ^7.53.0
-        version: 7.53.0(react@18.3.1)
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-      zsa:
-        specifier: ^0.6.0
-        version: 0.6.0(zod@3.23.8)
-      zsa-react:
-        specifier: ^0.2.3
-        version: 0.2.3(react@18.3.1)(zod@3.23.8)
-    devDependencies:
-      '@myraui/react-test-utils':
-        specifier: 2.2.6
-        version: link:../utilities/react-test-utils
-      '@myraui/test-utils':
-        specifier: 2.2.6
-        version: link:../utilities/test-utils
-      '@myraui/theme':
-        specifier: 2.2.6
-        version: link:../theme
-      '@nextui-org/react':
-        specifier: ^2.4.8
-        version: 2.4.8(@types/react@18.3.1)(framer-motion@11.11.1)(react-dom@18.3.1)(react@18.3.1)(tailwindcss@3.4.3)
-      '@tabler/icons-react':
-        specifier: ^3.17.0
-        version: 3.17.0(react@18.3.1)
-      clean-package:
-        specifier: 2.2.0
-        version: 2.2.0
-
   packages/fonts:
     devDependencies:
       '@myraui/test-utils':
@@ -383,9 +322,9 @@ importers:
 
   packages/react:
     dependencies:
-      '@myraui/components':
-        specifier: 2.2.6
-        version: link:../components
+      '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.9.0(react-hook-form@7.53.0)
       '@myraui/hooks':
         specifier: 2.2.6
         version: link:../hooks
@@ -398,12 +337,36 @@ importers:
       '@myraui/theme':
         specifier: 2.2.6
         version: link:../theme
+      '@radix-ui/react-toast':
+        specifier: ^1.2.1
+        version: 1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.0
+      next-themes:
+        specifier: ^0.3.0
+        version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
       react:
         specifier: 18.3.1
         version: 18.3.1
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: ^7.53.0
+        version: 7.53.0(react@18.3.1)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+      zsa:
+        specifier: ^0.6.0
+        version: 0.6.0(zod@3.23.8)
+      zsa-react:
+        specifier: ^0.2.3
+        version: 0.2.3(react@18.3.1)(zod@3.23.8)
     devDependencies:
       '@myraui/react-test-utils':
         specifier: 2.2.6
@@ -446,9 +409,9 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
-      '@myraui/components':
+      '@myraui/react':
         specifier: workspace:^
-        version: link:../components
+        version: link:../react
       '@myraui/theme':
         specifier: workspace:^
         version: link:../theme
@@ -7058,20 +7021,6 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@radix-ui/react-compose-refs@1.0.1(@types/react@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==}
-    peerDependencies:
-      '@types/react': '*'
-      react: 18.3.1
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.5
-      '@types/react': 18.3.1
-      react: 18.3.1
-    dev: true
-
   /@radix-ui/react-compose-refs@1.1.0(@types/react@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-b4inOtiaOnYf9KWyO3jAeeCG6FeyfY6ldiEPanbUjWd+xIk5wZeHa8yVwmrJ2vderhu/BQvzCrJI0lHd+wIiqw==}
     peerDependencies:
@@ -7083,7 +7032,6 @@ packages:
     dependencies:
       '@types/react': 18.3.1
       react: 18.3.1
-    dev: false
 
   /@radix-ui/react-context@1.1.0(@types/react@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-OKrckBy+sMEgYM/sMmqmErVn0kZqrHPJze+Ql3DzYsDDp0hl0L62nx/2122/Bvps1qz645jlcu2tD9lrRSdf8A==}
@@ -7184,21 +7132,6 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /@radix-ui/react-slot@1.0.2(@types/react@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==}
-    peerDependencies:
-      '@types/react': '*'
-      react: 18.3.1
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.24.5
-      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.3.1)(react@18.3.1)
-      '@types/react': 18.3.1
-      react: 18.3.1
-    dev: true
-
   /@radix-ui/react-slot@1.1.0(@types/react@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
     peerDependencies:
@@ -7211,7 +7144,6 @@ packages:
       '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.1)(react@18.3.1)
       '@types/react': 18.3.1
       react: 18.3.1
-    dev: false
 
   /@radix-ui/react-toast@1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-5trl7piMXcZiCq7MW6r8YYmu0bK5qDpTWz+FdEPdKyft2UixkspheYbjbrLXVN5NGKHFbOP7lm8eD0biiSqZqg==}
@@ -9329,7 +9261,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1
     dependencies:
-      '@radix-ui/react-slot': 1.0.2(@types/react@18.3.1)(react@18.3.1)
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.1)(react@18.3.1)
       '@storybook/client-logger': 8.0.9
       '@storybook/csf': 0.1.11
       '@storybook/global': 5.0.0
@@ -18160,6 +18092,8 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
+        optional: true
+      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.7)(esbuild@0.21.5)
