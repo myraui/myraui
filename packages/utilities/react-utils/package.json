@@ -44,7 +44,7 @@
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/shared-utils": "2.3.3",
+    "@myraui/shared-utils": "workspace:*",
     "clsx": "^2.1.0",
     "tailwind-merge": "^2.2.2"
   },

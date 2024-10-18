@@ -2,6 +2,14 @@ import {{capitalize componentName}} from "./{{componentName}}";
 
 // export types
 export type { {{capitalize componentName}}Props } from "./{{componentName}}";
+export type { {{capitalize componentName}}VariantProps, {{capitalize componentName}}Slots } from "./{{componentName}}.theme";
+
+// export hooks
+export { use{{capitalize componentName}} } from "./use-{{componentName}}";
+
+// export theme
+export { {{camelCase componentName}}Theme } from "./{{componentName}}.theme";
 
 // export component
 export { {{capitalize componentName}} };
+

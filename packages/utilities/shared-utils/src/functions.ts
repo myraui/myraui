@@ -4,6 +4,12 @@ import { pipe } from 'fp-ts/function';
 import * as RE from 'fp-ts/ReaderEither';
 import { Exception } from './errors';
 
+type Extractable =
+  | {
+      [key: string]: any;
+    }
+  | undefined;
+
 type ErrorTransformer<E> = (e: E) => Exception;
 
 const errorTransform = <E>(e: E) => e;
@@ -57,4 +63,16 @@ export function fromArray<K extends RecordKey, A>(f: (a: K) => A) {
       A.map((a) => [a, f(a)]),
       Object.fromEntries
     );
+}
+
+export function objectToDeps(obj: Extractable) {
+  if (!obj || typeof obj !== 'object') {
+    return '';
+  }
+
+  try {
+    return JSON.stringify(obj);
+  } catch (e) {
+    return '';
+  }
 }

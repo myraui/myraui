@@ -31,7 +31,6 @@
     "next-themes": "^0.3.0"
   },
   "devDependencies": {
-    "@myraui/react": "workspace:^",
-    "@myraui/theme": "workspace:^"
+    "@myraui/react": "workspace:^"
   }
 }

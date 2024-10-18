@@ -1,0 +1,60 @@
+import type { {{capitalize componentName}}VariantProps, {{capitalize componentName}}Slots } from "./{{componentName}}.theme";
+import { {{camelCase componentName}}Theme } from "./{{componentName}}.theme";
+import { useMemo, Ref } from "react";
+import { mapPropsVariants, HTMLNextUIProps, SlotsToClasses } from "@nextui-org/react";
+import clsx from "clsx";
+import { PropGetter } from "@myraui/react-utils";
+import { objectToDeps } from "@myraui/shared-utils";
+
+interface Props extends HTMLNextUIProps<"div"> {
+  /**
+  * Ref to the DOM node.
+  */
+  ref?: Ref<HTMLOrSVGElement | null>;
+
+  /**
+   * Classname or List of classes to change the classNames of the element.
+   * if `className` is passed, it will be added to the base slot.
+   *
+   * @example
+   * ```ts
+   * <{{capitalize componentName}} classNames=\{{
+   *    base: "base-classes", // {{componentName}} wrapper
+   *    content: "content-classes", // children wrapper
+   * }} />
+   * ```
+   */
+  classNames?: SlotsToClasses<{{capitalize componentName}}Slots>;
+}
+
+export type Use{{capitalize componentName}}Props = Props & {{capitalize componentName}}VariantProps;
+
+export function use{{capitalize componentName}}(originalProps: Use{{capitalize componentName}}Props) {
+  const [props, variantProps] = mapPropsVariants(originalProps, {{camelCase componentName}}Theme.variantKeys);
+
+  const { as, className, classNames, children, ...otherProps } = props;
+
+  const Component = as || "div";
+
+  const slots = useMemo(
+    () =>
+      {{camelCase componentName}}Theme({
+        ...variantProps,
+      }),
+    [objectToDeps(variantProps)],
+  );
+
+
+  const baseStyles = clsx(classNames?.base, className);
+
+  const get{{capitalize componentName}}Props: PropGetter = (props = {}) => {
+    return {
+      className: slots.base({ class: clsx(baseStyles, props?.className) }),
+      ...otherProps,
+    };
+  }
+
+  return { Component, slots, children, classNames, get{{capitalize componentName}}Props };
+}
+
+export type Use{{capitalize componentName}}Return = ReturnType<typeof use{{capitalize componentName}}>;
