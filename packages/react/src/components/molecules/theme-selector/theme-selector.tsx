@@ -25,9 +25,20 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = (props) => {
   if (!mounted) return null;
 
   return (
-    <Select {...props} items={Object.values(themes)} selectionMode="single" onSelectionChange={setValue} selectedKeys={value}>
+    <Select
+      {...props}
+      items={Object.values(themes)}
+      selectionMode="single"
+      onSelectionChange={(select) => {
+        if (select instanceof Set && select.size > 0) {
+          setValue(select);
+        }
+      }}
+      selectedKeys={value}
+      aria-label={props['aria-label'] || 'Select a theme'}
+    >
       {(item) => (
-        <SelectItem key={item.value} value={item.value}>
+        <SelectItem key={item.value} value={item.value} aria-label={item.label}>
           {item.label}
         </SelectItem>
       )}
