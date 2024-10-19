@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import Toaster from '../toaster';
-import { toast } from '../use-toast';
+import { toast } from '../use-toaster';
 
 describe('Toast', () => {
   it('should render correctly', () => {

@@ -8,17 +8,16 @@ import Toaster from './toaster';
 
 // export types
 export type { ToastProps } from './toast';
-export type { ToastActionElement } from './toast-action';
-export type { ToastFunction } from './use-toast';
+export type { ToastFunction, ToastActionProps, ToasterToast } from './use-toaster';
 
 // export providers
 export { ToastProvider } from './toast-provider';
 
 // export hooks
-export { useToast } from './use-toast';
+export { useToaster as useToast } from './use-toaster';
 
 // export component
 export { Toast, ToastClose, ToastDescription, ToastTitle, ToastViewport, ToastAction, Toaster };
 
 // export side effects
-export { toast } from './use-toast';
+export { toast } from './use-toaster';

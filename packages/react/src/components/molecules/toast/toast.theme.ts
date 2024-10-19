@@ -1,17 +1,5 @@
 import { tv, VariantProps } from '@nextui-org/react';
 
-const toastActionTheme = tv({
-  base: [
-    'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ',
-    'transition-colors hover:bg-default focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50',
-    'group-[.success]:border-default/40 group-[.success]:hover:border-success/30 group-[.success]:hover:bg-success group-[.success]:hover:text-success-foreground group-[.success]:focus:ring-success-600',
-    'group-[.danger]:border-default/40 group-[.danger]:hover:border-danger/30 group-[.danger]:hover:bg-danger group-[.danger]:hover:text-danger-foreground group-[.danger]:focus:ring-danger-600',
-    'group-[.warning]:border-default/40 group-[.warning]:hover:border-warning/30 group-[.warning]:hover:bg-warning group-[.warning]:hover:text-warning-foreground group-[.warning]:focus:ring-warning-600',
-    'group-[.primary]:border-default/40 group-[.primary]:hover:border-primary/30 group-[.primary]:hover:bg-primary group-[.primary]:hover:text-primary-foreground group-[.primary]:focus:ring-primary-600',
-    'group-[.secondary]:border-default/40 group-[.secondary]:hover:border-secondary/30 group-[.secondary]:hover:bg-secondary group-[.secondary]:hover:text-secondary-foreground group-[.secondary]:focus:ring-secondary-600',
-  ],
-});
-
 const toastViewportTheme = tv({
   base: 'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
 });
@@ -26,6 +14,15 @@ const toastTheme = tv({
       'data-[swipe=move]:transition-none ',
     ],
     body: 'grid gap-1',
+    action: [
+      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ',
+      'transition-colors hover:bg-default focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50',
+      'group-[.success]:border-default/40 group-[.success]:hover:border-success/30 group-[.success]:hover:bg-success group-[.success]:hover:text-success-foreground group-[.success]:focus:ring-success-600',
+      'group-[.danger]:border-default/40 group-[.danger]:hover:border-danger/30 group-[.danger]:hover:bg-danger group-[.danger]:hover:text-danger-foreground group-[.danger]:focus:ring-danger-600',
+      'group-[.warning]:border-default/40 group-[.warning]:hover:border-warning/30 group-[.warning]:hover:bg-warning group-[.warning]:hover:text-warning-foreground group-[.warning]:focus:ring-warning-600',
+      'group-[.primary]:border-default/40 group-[.primary]:hover:border-primary/30 group-[.primary]:hover:bg-primary group-[.primary]:hover:text-primary-foreground group-[.primary]:focus:ring-primary-600',
+      'group-[.secondary]:border-default/40 group-[.secondary]:hover:border-secondary/30 group-[.secondary]:hover:bg-secondary group-[.secondary]:hover:text-secondary-foreground group-[.secondary]:focus:ring-secondary-600',
+    ],
     close: [
       'absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 ',
       'group-[.danger]:text-danger-300 group-[.danger]:hover:text-danger-50 group-[.danger]:focus:ring-danger-400 group-[.danger]:focus:ring-offset-danger-600',
@@ -34,7 +31,6 @@ const toastTheme = tv({
       'group-[.primary]:text-primary-300 group-[.primary]:hover:text-primary-50 group-[.primary]:focus:ring-primary-400 group-[.primary]:focus:ring-offset-primary-600',
       'group-[.secondary]:text-secondary-300 group-[.secondary]:hover:text-secondary-50 group-[.secondary]:focus:ring-secondary-400 group-[.secondary]:focus:ring-offset-secondary-600',
     ],
-    closeIcon: 'h-4 w-4',
     description: 'text-sm opacity-90',
     title: 'text-sm font-semibold [&+div]:text-xs',
   },
@@ -68,12 +64,8 @@ const toastTheme = tv({
   },
 });
 
-export type ToastActionVariantProps = VariantProps<typeof toastActionTheme>;
-
 export type ToastViewportVariantProps = VariantProps<typeof toastViewportTheme>;
-
 export type ToastVariantProps = VariantProps<typeof toastTheme>;
+export type ToastSlots = keyof ReturnType<typeof toastTheme>;
 
-export type ToastReturnType = ReturnType<typeof toastTheme>;
-
-export { toastActionTheme, toastTheme, toastViewportTheme };
+export { toastTheme, toastViewportTheme };

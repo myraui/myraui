@@ -2,9 +2,8 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '@nextui-org/react';
-import { useToast } from '../use-toast';
+import { useToaster } from '../use-toaster';
 import Toast, { ToastProps } from '../toast';
-import ToastAction from '../toast-action';
 
 export default {
   title: 'Components/Molecules/Toast',
@@ -44,7 +43,7 @@ const defaultProps = {
 };
 
 const Template = (props: ToastProps) => {
-  const { toast } = useToast();
+  const { toast } = useToaster();
   return <Button onClick={() => toast(props)}>{props.children}</Button>;
 };
 
@@ -70,13 +69,13 @@ export const WithAction: Story = {
     title: 'Uh oh! Something went wrong',
     // @ts-expect-error
     description: 'We couldn’t process your payment. Please try again.',
-    action: <ToastAction altText="Try again">Try again</ToastAction>,
+    action: 'Try again',
   },
 };
 
 export const Colors: Story = {
   render: (props) => {
-    const { toast } = useToast();
+    const { toast } = useToaster();
 
     const colors = ['default', 'primary', 'secondary', 'success', 'warning', 'danger'] as const;
 

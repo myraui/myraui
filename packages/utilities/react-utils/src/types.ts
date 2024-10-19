@@ -7,8 +7,7 @@ type DataAttributes = {
   [dataAttr: string]: any;
 };
 
-export type DOMAttributes<T = DOMElement> = React.AriaAttributes &
-  React.DOMAttributes<T> &
+export type DOMAttributes<T = DOMElement> = Merge<React.DOMAttributes<T>, React.AriaAttributes> &
   DataAttributes & {
     id?: string;
     role?: React.AriaRole;

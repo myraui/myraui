@@ -1,15 +1,12 @@
 import * as React from 'react';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import { IconX } from '@tabler/icons-react';
-import { useToastContext } from './context';
 
 const ToastClose = React.forwardRef<React.ElementRef<typeof ToastPrimitives.Close>, React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>>(
-  ({ className, ...props }, ref) => {
-    const { slots } = useToastContext();
-
+  (props, ref) => {
     return (
-      <ToastPrimitives.Close ref={ref} toast-close="" {...props} className={slots.close({ className })}>
-        <IconX className={slots.closeIcon()} />
+      <ToastPrimitives.Close ref={ref} toast-close="" {...props}>
+        <IconX className="h-4 w-4" />
       </ToastPrimitives.Close>
     );
   }
