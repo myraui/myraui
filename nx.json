@@ -81,20 +81,16 @@
     "releaseTagPattern": "{version}",
     "version": {
       "preVersionCommand": "pnpm run clean:pkg",
-      "conventionalCommits": true,
-      "git": {
-        "stageChanges": false,
-        "commit": false
-      }
+      "conventionalCommits": true
+    },
+    "git": {
+      "commitMessage": "chore(release): publish {version} [skip ci]"
     },
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github"
       },
-      "projectChangelogs": true,
-      "git": {
-        "commitMessage": "chore(release): publish {version} [skip ci]"
-      }
+      "projectChangelogs": true
     }
   }
 }
