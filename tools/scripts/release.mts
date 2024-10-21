@@ -67,7 +67,7 @@ const projects = readCachedProjectGraph().nodes;
 
   // The returned number value from releasePublish will be zero if all projects are published successfully, non-zero if not
   const publishProjectsResult = await releasePublish({
-    dryRun: true,
+    dryRun: options.dryRun,
     verbose: options.verbose,
   });
 
