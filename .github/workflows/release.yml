@@ -86,7 +86,7 @@ jobs:
         run: pnpm run build
 
       - name: Release
-        run: pnpm run release
+        run: pnpm run release --dryRun=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -13,3 +13,5 @@ export type Optional<T, U extends keyof T> = Omit<T, U> & Partial<Pick<T, U>>;
 export type StringOrNumber = string | number;
 
 export type RecordKey = string | number | symbol;
+
+export type Merge<M, N> = N extends Record<string, unknown> ? M : Omit<M, keyof N> & N;

@@ -33,7 +33,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@myraui/test-utils": "2.3.3",
+    "@myraui/test-utils": "workspace:*",
     "clean-package": "2.2.0"
   },
   "dependencies": {

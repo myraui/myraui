@@ -37,7 +37,7 @@ const defaultOutDirs = {
 const rootDirs = {
   package: 'packages',
   hook: 'packages/hooks',
-  component: 'packages/react',
+  component: 'packages/react/src/components',
 };
 
 const templateDirs = {
@@ -164,7 +164,7 @@ module.exports = function main(plop) {
         const templateDirName = isReact ? templateDirs['react-package'] : templateDirs[generator];
 
         if (generator === 'component') {
-          const destination = `src/${type}${packageDestination ? `/${packageDestination}` : ''}`;
+          const destination = `${type}${packageDestination ? `/${packageDestination}` : ''}`;
           const relativeRootDir = generateRelativeRootDir(destination);
 
           const storiesFolder = `${type}${packageDestination ? `/${packageDestination}` : ''}`
@@ -189,7 +189,7 @@ module.exports = function main(plop) {
               return;
             }
 
-            const indexFile = `${rootDir}/src/${type}/${dir === '' ? '' : `${indexDirectories.slice(0, index + 1).join('/')}/`}index.ts`;
+            const indexFile = `${rootDir}/${type}/${dir === '' ? '' : `${indexDirectories.slice(0, index + 1).join('/')}/`}index.ts`;
 
             if (!fs.existsSync(indexFile) || fs.readFileSync(indexFile, 'utf-8') === '') {
               fs.mkdirSync(indexFile.replace('/index.ts', ''), { recursive: true });

@@ -5,9 +5,6 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "@myraui/react": "2.3.3"
-  },
-  "devDependencies": {
-    "@myraui/theme": "2.3.3"
+    "@myraui/react": "workspace:*"
   }
 }

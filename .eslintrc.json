@@ -28,7 +28,8 @@
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off",
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {

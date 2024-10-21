@@ -1,0 +1,14 @@
+import { tv, VariantProps } from '@nextui-org/react';
+
+const {{camelCase componentName}}Theme = tv({
+  slots: {
+    base: ''
+  },
+  variants: {
+  }
+});
+
+export type {{capitalize componentName}}VariantProps = VariantProps<typeof {{camelCase componentName}}Theme>;
+export type {{capitalize componentName}}Slots = keyof ReturnType<typeof {{camelCase componentName}}Theme>;
+
+export { {{camelCase componentName}}Theme };
