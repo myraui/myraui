@@ -37,14 +37,14 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@myraui/react-test-utils": "2.3.3",
-    "@myraui/test-utils": "2.3.3",
+    "@myraui/react-test-utils": "workspace:*",
+    "@myraui/test-utils": "workspace:*",
     "@nextui-org/react": "^2.4.8",
     "@tabler/icons-react": "^3.17.0",
     "clean-package": "2.2.0"
   },
   "dependencies": {
-    "@myraui/hooks": "2.3.3",
+    "@myraui/hooks": "workspace:*",
     "@myraui/react-utils": "workspace:*",
     "@myraui/shared-utils": "workspace:*",
     "@hookform/resolvers": "^3.9.0",

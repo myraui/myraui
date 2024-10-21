@@ -36,12 +36,12 @@
   },
   "devDependencies": {
     "clean-package": "2.2.0",
-    "@myraui/react-test-utils": "2.3.3",
-    "@myraui/test-utils": "2.3.3"
+    "@myraui/react-test-utils": "workspace:*",
+    "@myraui/test-utils": "workspace:*"
   },
   "dependencies": {
-    "@myraui/shared-utils": "2.3.3",
-    "@myraui/react-utils": "2.3.3"
+    "@myraui/shared-utils": "workspace:*",
+    "@myraui/react-utils": "workspace:*"
   },
   "clean-package": "../../clean-package.config.json"
 }
