@@ -1,3 +1,19 @@
+## 2.4.0 (2024-10-21)
+
+
+### 🚀 Features
+
+- **components:** restructure component themes ([8a07df7](https://github.com/myraui/myraui/commit/8a07df7))
+
+- **components:** update toast theming style ([210c7e9](https://github.com/myraui/myraui/commit/210c7e9))
+
+- **components:** update theme selector selection ([ee7eaf9](https://github.com/myraui/myraui/commit/ee7eaf9))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.3.3 (2024-10-17)
 
 

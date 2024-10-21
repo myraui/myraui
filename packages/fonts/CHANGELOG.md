@@ -1,3 +1,7 @@
+## 2.4.0 (2024-10-21)
+
+This was a version bump only for @myraui/fonts to align it with other projects, there were no code changes.
+
 ## 2.3.3 (2024-10-17)
 
 This was a version bump only for @myraui/fonts to align it with other projects, there were no code changes.

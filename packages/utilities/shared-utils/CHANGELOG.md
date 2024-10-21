@@ -1,3 +1,15 @@
+## 2.4.0 (2024-10-21)
+
+
+### 🚀 Features
+
+- **components:** restructure component themes ([8a07df7](https://github.com/myraui/myraui/commit/8a07df7))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.3.3 (2024-10-17)
 
 This was a version bump only for @myraui/shared-utils to align it with other projects, there were no code changes.
