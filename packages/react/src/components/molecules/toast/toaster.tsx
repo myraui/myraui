@@ -10,7 +10,7 @@ import { useToast } from './use-toast';
 import Toast from './toast';
 import ToastAction from './toast-action';
 
-function ToastRender({ title, description, action, onActionClick, ...props }: ToasterToast) {
+function ToastRender({ title, description, action, onActionClick, ...props }: Omit<ToasterToast, 'id'>) {
   const { slots, classNames, getToastProps } = useToast(props);
 
   return (
@@ -48,8 +48,8 @@ function Toaster({ className, toastLimit, duration, label, swipeDirection, swipe
 
   return (
     <ToastProvider duration={duration} swipeDirection={swipeDirection} label={label} swipeThreshold={swipeThreshold}>
-      {toasts.map(({ ...props }) => (
-        <ToastRender key={props.id} {...props} />
+      {toasts.map(({ id, ...props }) => (
+        <ToastRender key={id} {...props} />
       ))}
       <ToastViewport {...props} className={baseClass} />
     </ToastProvider>

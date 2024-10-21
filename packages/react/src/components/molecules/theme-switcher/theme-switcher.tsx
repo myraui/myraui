@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Button, ButtonProps, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { IconCheck, IconProps } from '@tabler/icons-react';
-import { themes } from 'packages/utilities/react-utils';
+import { themes } from '@myraui/react-utils';
 import { useTheme } from 'next-themes';
 
 export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
