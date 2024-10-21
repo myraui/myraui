@@ -1,13 +1,13 @@
-import { releaseChangelog, releasePublish, releaseVersion } from 'nx/release';
-import yargs from 'yargs';
+import { releaseChangelog, releaseVersion } from 'nx/release';
 import { execaSync } from 'execa';
 import { readFileSync, writeFileSync } from 'fs';
 import { readCachedProjectGraph } from '@nx/devkit';
+import yargs from 'yargs';
 
 const projects = readCachedProjectGraph().nodes;
 
 (async () => {
-  const options = await yargs
+  const options = await yargs(process.argv.slice(2))
     .version(false) // don't use the default meaning of version in yargs
     .option('version', {
       description: 'Explicit version specifier to use, if overriding conventional commits',
@@ -32,6 +32,13 @@ const projects = readCachedProjectGraph().nodes;
     verbose: options.verbose,
     stageChanges: false,
   });
+
+  console.log(workspaceVersion);
+
+  if (workspaceVersion == null) {
+    console.log('⏭️ No changes detected across any package, skipping publish step altogether');
+    process.exit(0);
+  }
 
   if (!options.dryRun) {
     execaSync('git', ['stash']);
@@ -59,9 +66,13 @@ const projects = readCachedProjectGraph().nodes;
   }
 
   // The returned number value from releasePublish will be zero if all projects are published successfully, non-zero if not
-  // const publishStatus = await releasePublish({
+  // const publishProjectsResult = await releasePublish({
   //   dryRun: options.dryRun,
   //   verbose: options.verbose,
   // });
-  process.exit(publishStatus);
+  // process.exit(
+  //   // If any of the individual project publish tasks returned a non-zero exit code, exit with code 1
+  //   Object.values(publishProjectsResult).some(({ code }) => code !== 0) ? 1 : 0,
+  // );
+  process.exit();
 })();
