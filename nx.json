@@ -83,14 +83,14 @@
       "preVersionCommand": "pnpm run clean:pkg",
       "conventionalCommits": true
     },
-    "git": {
-      "commitMessage": "chore(release): publish {version} [skip ci]"
-    },
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github"
       },
-      "projectChangelogs": true
+      "projectChangelogs": true,
+      "git": {
+        "commitMessage": "chore(release): publish {version} [skip ci]"
+      }
     }
   }
 }
