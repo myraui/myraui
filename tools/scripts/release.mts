@@ -1,4 +1,4 @@
-import { releaseChangelog, releaseVersion } from 'nx/release';
+import { releaseChangelog, releasePublish, releaseVersion } from 'nx/release';
 import { execaSync } from 'execa';
 import { readFileSync, writeFileSync } from 'fs';
 import { readCachedProjectGraph } from '@nx/devkit';
@@ -26,14 +26,12 @@ const projects = readCachedProjectGraph().nodes;
     })
     .parseAsync();
 
+  // execute in dry-run mode to determine the version and changelog content
   const { workspaceVersion, projectsVersionData } = await releaseVersion({
     specifier: options.version,
-    dryRun: options.dryRun,
-    verbose: options.verbose,
-    stageChanges: false,
+    dryRun: true,
+    verbose: false,
   });
-
-  console.log(workspaceVersion);
 
   if (workspaceVersion == null) {
     console.log('⏭️ No changes detected across any package, skipping publish step altogether');
@@ -41,17 +39,15 @@ const projects = readCachedProjectGraph().nodes;
   }
 
   if (!options.dryRun) {
-    execaSync('git', ['stash']);
-
-    for (const { type, data } of Object.values(projects)) {
-      if (type === 'lib') {
-        const packageJson = JSON.parse(readFileSync(`${data.root}/package.json`, 'utf-8'));
-        packageJson.version = workspaceVersion;
-        writeFileSync(`${data.root}/package.json`, JSON.stringify(packageJson, null, 2));
-      }
+    /* Update package version */
+    console.log('📦 Updating package versions');
+    for (const [key, value] of Object.entries(projectsVersionData)) {
+      const packageJson = JSON.parse(readFileSync(`${projects[key].data.root}/package.json`, 'utf-8'));
+      packageJson.version = value.newVersion;
+      writeFileSync(`${projects[key].data.root}/package.json`, JSON.stringify(packageJson, null, 2));
+      /* Stage changes */
+      execaSync('git', ['add', `${projects[key].data.root}/package.json`]);
     }
-
-    execaSync('git', ['add', '.']);
   }
 
   await releaseChangelog({
@@ -61,18 +57,22 @@ const projects = readCachedProjectGraph().nodes;
     verbose: options.verbose,
   });
 
-  if (!options.dryRun) {
-    execaSync('git', ['stash', 'pop']);
-  }
+  await releaseVersion({
+    specifier: options.version,
+    dryRun: options.dryRun,
+    verbose: false,
+    gitCommit: false,
+    stageChanges: false,
+  });
 
   // The returned number value from releasePublish will be zero if all projects are published successfully, non-zero if not
-  // const publishProjectsResult = await releasePublish({
-  //   dryRun: options.dryRun,
-  //   verbose: options.verbose,
-  // });
-  // process.exit(
-  //   // If any of the individual project publish tasks returned a non-zero exit code, exit with code 1
-  //   Object.values(publishProjectsResult).some(({ code }) => code !== 0) ? 1 : 0,
-  // );
-  process.exit();
+  const publishProjectsResult = await releasePublish({
+    dryRun: true,
+    verbose: options.verbose,
+  });
+
+  process.exit(
+    // If any of the individual project publish tasks returned a non-zero exit code, exit with code 1
+    Object.values(publishProjectsResult).some(({ code }) => code !== 0) ? 1 : 0
+  );
 })();
