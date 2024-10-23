@@ -1,13 +1,11 @@
 import { Merge } from '@myraui/shared-utils';
 import React from 'react';
 
-export interface DOMElement extends Element, HTMLOrSVGElement {}
-
 type DataAttributes = {
   [dataAttr: string]: any;
 };
 
-export type DOMAttributes<T = DOMElement> = Merge<React.DOMAttributes<T>, React.AriaAttributes> &
+export type DOMAttributes<T = Element> = Merge<React.DOMAttributes<T>, React.AriaAttributes> &
   DataAttributes & {
     id?: string;
     role?: React.AriaRole;
@@ -15,7 +13,11 @@ export type DOMAttributes<T = DOMElement> = Merge<React.DOMAttributes<T>, React.
     style?: React.CSSProperties;
   };
 
+export interface RefAttributes<T> extends React.Attributes {
+  ref?: React.Ref<T>;
+}
+
 export type PropGetter<P = Record<string, unknown>, R = DOMAttributes> = (
   props?: Merge<DOMAttributes, P>,
   ref?: React.Ref<any>
-) => R & React.RefAttributes<any>;
+) => R & RefAttributes<any>;

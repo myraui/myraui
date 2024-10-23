@@ -1,10 +1,10 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
-import ThemeSwitcher from "../theme-switcher";
+import ThemeToggler from "../theme-toggler";
 
-describe("ThemeSwitcher", () => {
+describe("ThemeToggler", () => {
   it("should render correctly", () => {
-    const wrapper = render(<ThemeSwitcher />);
+    const wrapper = render(<ThemeToggler />);
 
     expect(() => wrapper.unmount()).not.toThrow();
   });
@@ -12,7 +12,7 @@ describe("ThemeSwitcher", () => {
   it("ref should be forwarded", () => {
     const ref = React.createRef<HTMLDivElement>();
 
-    render(<ThemeSwitcher ref={ref} />);
+    render(<ThemeToggler ref={ref} />);
     expect(ref.current).not.toBeNull();
   });
 });
