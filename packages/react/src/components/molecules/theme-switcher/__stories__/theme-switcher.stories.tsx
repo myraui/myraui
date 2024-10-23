@@ -7,7 +7,14 @@ export default {
   title: 'Components/Molecules/ThemeSwitcher',
   component: ThemeSwitcher,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    switcherType: {
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'dropdown'],
+    },
+  },
 } as Meta<typeof ThemeSwitcher>;
 type Story = StoryObj<typeof ThemeSwitcher>;
 
@@ -19,6 +26,9 @@ const Template = (args: ThemeSwitcherProps) => (
   </div>
 );
 
+/**
+ * The default theme switcher will look like a button.
+ */
 export const Default: Story = {
   render: Template,
   args: {
@@ -26,7 +36,10 @@ export const Default: Story = {
   },
 };
 
-export const ThemeLabel: Story = {
+/**
+ * This will look like a form select dropdown.
+ */
+export const ThemeDropdown: Story = {
   render: Template,
   args: {
     ...defaultProps,

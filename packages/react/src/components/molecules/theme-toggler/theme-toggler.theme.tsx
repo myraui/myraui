@@ -11,11 +11,11 @@ const themeTogglerTheme = tv({
   variants: {
     size: {
       sm: {
-        base: 'p-1 rounded-md',
-        button: 'p-1 rounded-md',
+        base: 'p-0.5 rounded-md',
+        button: 'p-0 rounded-md',
       },
       md: {
-        base: 'rounded-lg',
+        base: 'p-1 rounded-lg',
         button: 'p-1 rounded-md',
       },
       lg: {
@@ -25,7 +25,7 @@ const themeTogglerTheme = tv({
     },
   },
   defaultVariants: {
-    size: 'lg',
+    size: 'md',
   },
 });
 

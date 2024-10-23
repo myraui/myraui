@@ -41,7 +41,7 @@ export function useThemeSwitcher({ switcherType = 'default', ...originalProps }:
   const Component = as || 'div';
 
   const ButtonIcon = useMemo(() => {
-    return theme === 'light' ? themes.light.icon : themes.dark.icon;
+    return theme ? (themes as any)[theme].icon : null;
   }, [theme]);
 
   const slots = useMemo(
