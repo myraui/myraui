@@ -1,6 +1,6 @@
 {
   "name": "@myraui/hooks",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "A collection of re-usable hooks for react components",
   "keywords": [
     "hooks"

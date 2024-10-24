@@ -1,6 +1,6 @@
 {
   "name": "@myraui/shared-utils",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "type": "module",
   "description": "A set of utilities for Myra UI packages",
   "keywords": [

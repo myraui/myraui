@@ -1,3 +1,17 @@
+## 2.5.0 (2024-10-24)
+
+
+### 🚀 Features
+
+- **components:** create theme toggler and remove theme selector ([17f3d29](https://github.com/myraui/myraui/commit/17f3d29))
+
+- **components:** update theme icon to be non-filled ([6db1907](https://github.com/myraui/myraui/commit/6db1907))
+
+
+### ❤️  Thank You
+
+- Moses Gitau @gitaumoses4
+
 ## 2.4.0 (2024-10-21)
 
 
