@@ -1,9 +1,8 @@
 import type { DocsLinkSlots, DocsLinkVariantProps } from './docs-link.theme';
 import { docsLinkTheme } from './docs-link.theme';
 import { useMemo } from 'react';
-import { Link, LinkProps, mapPropsVariants, SlotsToClasses } from '@nextui-org/react';
+import { Link, LinkProps, mapPropsVariants, SlotsToClasses, PropGetter } from '@nextui-org/react';
 import clsx from 'clsx';
-import { PropGetter } from '@myraui/react-utils';
 import { objectToDeps } from '@myraui/shared-utils';
 
 interface Props extends LinkProps {

@@ -1,9 +1,8 @@
 import type { BreakpointSlots, BreakpointVariantProps } from './breakpoint.theme';
 import { breakpointTheme } from './breakpoint.theme';
 import React, { useMemo } from 'react';
-import { mapPropsVariants, SlotsToClasses } from '@nextui-org/react';
+import { mapPropsVariants, SlotsToClasses, PropGetter } from '@nextui-org/react';
 import clsx from 'clsx';
-import { PropGetter } from '@myraui/react-utils';
 import { objectToDeps } from '@myraui/shared-utils';
 
 interface Props {

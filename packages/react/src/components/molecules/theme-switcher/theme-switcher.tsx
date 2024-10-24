@@ -1,31 +1,32 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Button, ButtonProps, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import { IconCheck, IconProps } from '@tabler/icons-react';
+import { useThemeSwitcher, UseThemeSwitcherProps } from './use-theme-switcher';
+import React from 'react';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { themes } from '@myraui/react-utils';
-import { useTheme } from 'next-themes';
+import { IconCheck, IconChevronDown } from '@tabler/icons-react';
+import { capitalize } from '@myraui/shared-utils';
 
-export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+export type ThemeSwitcherProps = UseThemeSwitcherProps;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
+  const { Component, mounted, getButtonProps, switcherType, theme, setTheme, ButtonIcon } = useThemeSwitcher({ ...props });
 
-  const ButtonIcon = useMemo(() => {
-    return theme === 'light' ? themes.light.icon : themes.dark.icon;
-  }, [theme]);
-
-  if (!mounted) return null;
+  if (!mounted || !theme) return null;
 
   return (
-    <Dropdown>
+    <Dropdown as={Component}>
       <DropdownTrigger>
-        <Button isIconOnly {...props}>
-          <ButtonIcon {...props.iconProps} />
+        <Button
+          isIconOnly={switcherType === 'default'}
+          fullWidth={switcherType === 'dropdown'}
+          {...getButtonProps()}
+          endContent={switcherType === 'dropdown' && <IconChevronDown />}
+          className={switcherType === 'dropdown' ? 'justify-between' : ''}
+        >
+          {switcherType === 'default' && <ButtonIcon />}
+          {switcherType === 'dropdown' ? <span>{capitalize(theme)}</span> : ''}
         </Button>
       </DropdownTrigger>
-      <DropdownMenu items={Object.values(themes)}>
+      <DropdownMenu items={Object.values(themes)} selectionMode="single">
         {(item) => (
           <DropdownItem
             key={item.value}
@@ -40,13 +41,6 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = (props) => {
     </Dropdown>
   );
 };
-
-export interface ThemeSwitcherProps extends ButtonProps {
-  /**
-   * The icon props of the theme switcher.
-   */
-  iconProps?: IconProps;
-}
 
 ThemeSwitcher.displayName = 'MyraUI.ThemeSwitcher';
 
